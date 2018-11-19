@@ -5,6 +5,7 @@
   "dependencies": {
     "@kleros/archon": "^0.3.0",
     "@kleros/kathari": "^0.14.0",
+    "@reach/router": "^1.2.1",
     "enzyme": "^3.7.0",
     "formik": "^1.3.2",
     "kleros-interaction": "^0.1.1",
