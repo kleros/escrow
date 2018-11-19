@@ -39,7 +39,7 @@ class Balance extends PureComponent {
             done={
               balance.data && (
                 <span>
-                  You have {balance.data.toString()} ETH.
+                  You have {balance.data.toString()} ETH. :)
                 </span>
               )
             }
