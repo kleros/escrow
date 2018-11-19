@@ -1,0 +1,22 @@
+@import '../../styles/_colors.scss';
+
+/* @define RequiresMetaMask */
+.RequiresMetaMask {
+  background: $mint;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: -56px;
+  padding: 42px 60px 52px 73px;
+
+  &-logo {
+    height: 105px;
+    margin-left: 56px;
+    width: 100px;
+  }
+
+  &-content {
+    flex: 1 1;
+    margin-left: 56px;
+  }
+}

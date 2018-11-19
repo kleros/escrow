@@ -1,0 +1,30 @@
+// Bases
+$absoluteBlack: #000;
+$grey: #3d464d;
+$lightGrey: #a3a2a5;
+$darkGrey: #47525d;
+$darkestGrey: #1a1b23;
+$mint: #f5f8fa;
+$green: #47cf73;
+$red: #ff364f;
+$orange: #ffbe61;
+$blue: #0059ab;
+$white: #fff;
+
+// States
+$disabled: $darkGrey;
+$info: $blue;
+$warning: $orange;
+$success: $green;
+$error: $red;
+
+// Typography
+$heading: $darkestGrey;
+$text: $grey;
+$lightText: $lightGrey;
+$mediumText: $darkGrey;
+$darkText: $darkestGrey;
+$invertedText: $white;
+
+// Backgrounds
+$background: $white;

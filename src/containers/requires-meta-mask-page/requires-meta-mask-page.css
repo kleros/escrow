@@ -1,0 +1,11 @@
+/* @define RequiresMetaMaskPage */
+.RequiresMetaMaskPage {
+  height: 100%;
+  overflow-y: scroll; }
+  .RequiresMetaMaskPage-FAQ {
+    padding: 40px 20%; }
+  .RequiresMetaMaskPage-card {
+    margin: 100px -15%;
+    text-align: center; }
+    .RequiresMetaMaskPage-card-button {
+      margin: 8px; }
