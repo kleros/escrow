@@ -1,18 +1,9 @@
 /* @define Balance */
-.Balance {
+.Balance {  
     &-message {
-      color: white;
+      color: black;
       font-size: 40px;
       padding-top: 10%;
       text-align: center;
-  
-      &-identicon {
-        display: inline-block;
-      }
-  
-      &-link {
-        color: #999;
-        text-decoration: none;
-      }
     }
   }

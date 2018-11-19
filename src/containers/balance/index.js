@@ -39,7 +39,6 @@ class Balance extends PureComponent {
             done={
               balance.data && (
                 <span>
-                  Welcome{' '}
                   You have {balance.data.toString()} ETH.
                 </span>
               )

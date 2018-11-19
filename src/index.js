@@ -5,6 +5,8 @@ import configureStore from './bootstrap/configure-store'
 import App from './bootstrap/app'
 import * as serviceWorker from './bootstrap/service-worker'
 
+import './index.css'
+
 const { store } = configureStore()
 export default store
 
