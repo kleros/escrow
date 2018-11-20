@@ -8,6 +8,8 @@ import Initializer from './initializer'
 import Balance from '../containers/balance'
 import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
+// import New from '../components/new-arbitrable-tx'
+import New from '../containers/arbitrable-tx/new'
 
 import './app.css'
 
@@ -82,10 +84,10 @@ const App = ({ store, testElement }) => (
         <div className="">
           <Router>
             <Main path="/">
-              <ArbitrableTx path="test" />
+              <TestElement path="test" />
               <Home path="/" />
-              <Balance path=":arbitrableTxId" />
-              <Home path="/new" />
+              <New path="/new" />
+              <ArbitrableTx path=":arbitrableTxId" />
               <NotFound default />
             </Main>
           </Router>

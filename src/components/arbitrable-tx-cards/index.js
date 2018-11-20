@@ -1,18 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from "@reach/router"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Contract Display List Component
- * @param contract
- * @param props - e.g. must receive this.props with a history field
- * @param accounts
+ * @param arbitrabletxs - list of arbitrable transactions
  * @returns {*}
- * @constructor
  */
-export const ArbitrableTxCards = ({ arbitrabletxs }) => (
-  <div className="flex-container">
+const ArbitrableTxCards = ({ arbitrabletxs }) => (
+  <div className="">
     {
       arbitrabletxs.length > 0 ? (
         <div>
@@ -29,8 +27,14 @@ export const ArbitrableTxCards = ({ arbitrabletxs }) => (
   </div>
 )
 
-const isActive = ({ isCurrent }) => {
-  return isCurrent ? { className: "active" } : null
+ArbitrableTxCards.propTypes = {
+  // State
+  arbitrabletxs: PropTypes.array
 }
 
-isActive(true)
+ArbitrableTxCards.defaultProps = {
+  // State
+  arbitrabletxs: []
+}
+
+export default ArbitrableTxCards

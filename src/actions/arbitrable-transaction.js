@@ -68,9 +68,9 @@ export const fetchArbitrator = () => ({
 export const fetchArbitrabletxs = () => ({ type: arbitrabletxs.FETCH })
 
 // Arbitrable Transaction
-export const createArbitrabletx = ArbitrableTxReceived => ({
+export const createArbitrabletx = arbitrabletxReceived => ({
   type: arbitrabletx.CREATE,
-  payload: { ArbitrableTxReceived }
+  payload: { arbitrabletxReceived }
 })
 
 export const fetchArbitrabletx = id => ({

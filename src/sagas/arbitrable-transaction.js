@@ -20,10 +20,12 @@ import { getBase64 } from '../utils/get-base-64'
  * Creates a new arbitrableTx.
  * @param {object} { payload: arbitrableTxReceived } - The arbitrable transaction to create.
  */
-function* createArbitrabletx({ type, payload: { arbitrableTxReceived } }) {
+function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
+
+  console.log('arbitrabletxReceived',arbitrabletxReceived)
 
   let arbitrableTransactionCount
   let fileAgreement = {

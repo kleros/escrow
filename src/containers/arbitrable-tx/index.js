@@ -40,8 +40,8 @@ class ArbitrableTx extends PureComponent {
   }
 
   componentDidMount() {
-    const { fetchArbitrabletx } = this.props
-    fetchArbitrabletx("134")
+    const { fetchArbitrabletx, arbitrableTxId } = this.props
+    fetchArbitrabletx(arbitrableTxId)
   }
 
 //   componentWillReceiveProps(nextProps) {
@@ -129,11 +129,12 @@ class ArbitrableTx extends PureComponent {
   render() {
     const {
       arbitrabletx,
+      arbitrableTxId
+
     //   accounts,
     //   arbitrator,
     //   appeal,
     //   evidence,
-    //   history
     } = this.props
     const { partyOther, party } = this.state
     const ruling = ['no ruling', 'buyer', 'seller']
@@ -172,7 +173,7 @@ export default connect(
     // accounts: state.wallet.accounts
   }),
   {
-    fetchArbitrabletx: arbitrabletxActions.fetchArbitrabletx,
+    fetchArbitrabletx: arbitrabletxActions.fetchArbitrabletx
     // createDispute: contractActions.createDispute,
     // createAppeal: contractActions.createAppeal,
     // createPay: contractActions.createPay,
