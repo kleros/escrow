@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { Provider } from 'react-redux'
-import { Router } from "@reach/router"
+import { Router, Link } from "@reach/router"
 
 import Initializer from './initializer'
 import Balance from '../containers/balance'
 import Home from '../containers/home'
+import ArbitrableTx from '../containers/arbitrable-tx'
 
 import './app.css'
 
@@ -58,6 +59,19 @@ const TestElement = () => (
   </div>
   )
 
+const Main = ({ children }) => (
+  <React.Fragment>
+    <nav>
+      Menu
+      <ul>
+        <li><Link to="./">My Transactions</Link></li>
+        <li><Link to="new">New Transaction</Link></li>
+      </ul>
+    </nav>
+    {children}
+  </React.Fragment>
+)
+
 const App = ({ store, testElement }) => (
   <Provider store={store}>
     <Initializer>
@@ -67,10 +81,13 @@ const App = ({ store, testElement }) => (
         </Helmet>
         <div className="">
           <Router>
-            <Balance path="/" />
-            <TestElement path="/test" />
-            <Home path="/home" />
-            <NotFound default />
+            <Main path="/">
+              <ArbitrableTx path="test" />
+              <Home path="/" />
+              <Balance path=":arbitrableTxId" />
+              <Home path="/new" />
+              <NotFound default />
+            </Main>
           </Router>
         </div>
       </React.Fragment>

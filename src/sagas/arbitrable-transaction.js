@@ -129,7 +129,7 @@ function* fetchArbitrabletxs() {
         multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
     )
 
-    arbitrableTransaction.arbitrableTransactionId = arbitrableTransactionId
+    arbitrableTransaction.id = arbitrableTransactionId
 
     arbitrableTransactions.push(arbitrableTransaction)
   }
@@ -139,9 +139,11 @@ function* fetchArbitrabletxs() {
 
 /**
  * Fetches arbitrable transaction details.
- * @param {object} { payload: arbitrableTransactionId } - The id of the arbitrable transaction to fetch details for.
+ * @param {object} { payload: id } - The id of the arbitrable transaction to fetch details for.
  */
-function* fetchArbitrabletx({ payload: { arbitrableTransactionId } }) {
+function* fetchArbitrabletx({ payload: { id } }) {
+  // force convert to string
+  const transactionId = id.toString()
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
@@ -152,13 +154,14 @@ function* fetchArbitrabletx({ payload: { arbitrableTransactionId } }) {
   let disputeData = null
   let canAppeal = null
 
-  try {
-    // arbitrableTransaction = yield call(
-    //   kleros.arbitrable.getData,
-    //   arbitrableTransactionId
-    // )
 
-    // arbitrableTransaction.arbitrableTransactionId = arbitrableTransactionId
+
+  try {
+    arbitrableTransaction = yield call(
+        multipleArbitrableTransactionEth.methods.transactions(transactionId).call
+    )
+
+    arbitrableTransaction.id = id
 
     // disputeData = yield call(
     //   kleros.arbitrator.getDispute,
@@ -176,17 +179,14 @@ function* fetchArbitrabletx({ payload: { arbitrableTransactionId } }) {
     console.log(err)
   }
 
-  if (disputeData) {
-    canAppeal =
-      disputeData.firstSession + disputeData.numberOfAppeals === currentSession
-  } else {
-    canAppeal = false
-  }
+//   if (disputeData) {
+//     canAppeal =
+//       disputeData.firstSession + disputeData.numberOfAppeals === currentSession
+//   } else {
+//     canAppeal = false
+//   }
 
   return {
-    ruling,
-    canAppeal,
-    ...disputeData,
     ...arbitrableTransaction
   }
 }
@@ -284,9 +284,9 @@ function* createReimburse({ type, payload: { arbitrableTransactionId, amount } }
 
 /**
  * Raises dispute.
- * @param {object} { payload: arbitrableTransactionId } - The id of the arbitrable transaction.
+ * @param {object} { payload: id } - The id of the arbitrable transaction.
  */
-function* createDispute({ payload: { arbitrableTransactionId } }) {
+function* createDispute({ payload: { id } }) {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)

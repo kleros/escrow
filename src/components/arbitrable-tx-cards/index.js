@@ -1,7 +1,7 @@
 import React from 'react'
-import FA from 'react-fontawesome'
-
-// import statusContract from '../../utils/status-contract'
+import { Link } from "@reach/router"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Contract Display List Component
@@ -11,34 +11,26 @@ import FA from 'react-fontawesome'
  * @returns {*}
  * @constructor
  */
-export const ArbitrableTxCards = ({
-  accounts,
-  arbitrabletxs,
-  arbitrabletx
-}) => (
+export const ArbitrableTxCards = ({ arbitrabletxs }) => (
   <div className="flex-container">
-
-    {arbitrabletxs.map((arbitrabletx, i) => (
-      <div
-        className={`flex-item2`}
-        key={i}
-        // onClick={redirect(
-        //   `/contracts/${contractArr.arbitrableTransactionId}`,
-        //   history
-        // )
-        // }
-      >
-        {arbitrabletx[0]}
-      </div>
-    ))}
-
-    {arbitrabletxs.length === 0 && (
-        <div
-          className="flex-item2 newContract"
-        //   onClick={redirect('/contracts/new', history)}
-        >
-          <FA name="plus" size="2x" />
+    {
+      arbitrabletxs.length > 0 ? (
+        <div>
+          {
+            arbitrabletxs.map(arbitrabletx => (
+              <Link to={`${arbitrabletx.id}`} key={arbitrabletx.id} getProps={() => ({className: "test class"})}>{arbitrabletx.id}</Link>
+            ))
+          }
         </div>
-      )}
+      ) : (
+        <Link to="new">New Transaction <FontAwesomeIcon icon={faPlus} /></Link>
+      )
+    }
   </div>
 )
+
+const isActive = ({ isCurrent }) => {
+  return isCurrent ? { className: "active" } : null
+}
+
+isActive(true)

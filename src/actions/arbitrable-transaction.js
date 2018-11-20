@@ -73,9 +73,9 @@ export const createArbitrabletx = ArbitrableTxReceived => ({
   payload: { ArbitrableTxReceived }
 })
 
-export const fetchArbitrabletx = arbitrableTransactionId => ({
+export const fetchArbitrabletx = id => ({
   type: arbitrabletx.FETCH,
-  payload: { arbitrableTransactionId }
+  payload: { id }
 })
 
 // Dispute
@@ -84,27 +84,27 @@ export const fetchDispute = disputeId => ({
   payload: { disputeId }
 })
 
-export const createDispute = arbitrableTransactionId => ({
+export const createDispute = id => ({
   type: dispute.CREATE,
-  payload: { arbitrableTransactionId }
+  payload: { id }
 })
 
 // Pay
-export const createPay = (arbitrableTransactionId, amount) => ({
+export const createPay = (id, amount) => ({
   type: pay.CREATE,
-  payload: { arbitrableTransactionId, amount }
+  payload: { id, amount }
 })
 
 // Reimburse
-export const createReimburse = (arbitrableTransactionId, amount) => ({
+export const createReimburse = (id, amount) => ({
   type: reimburse.CREATE,
-  payload: { arbitrableTransactionId, amount }
+  payload: { id, amount }
 })
 
 // Tiemout
-export const createTimeout = (arbitrableTransactionId, buyer, seller) => ({
+export const createTimeout = (id, buyer, seller) => ({
   type: timeout.CREATE,
-  payload: { arbitrableTransactionId, buyer, seller }
+  payload: { id, buyer, seller }
 })
 
 // Evidence
@@ -114,7 +114,7 @@ export const createEvidence = evidenceReceived => ({
 })
 
 // Appeal
-export const createAppeal = (arbitrableTransactionId, disputeId) => ({
+export const createAppeal = (id, disputeId) => ({
   type: appeal.CREATE,
-  payload: { arbitrableTransactionId, disputeId }
+  payload: { id, disputeId }
 })

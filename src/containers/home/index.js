@@ -42,30 +42,23 @@ class Home extends PureComponent {
     return (
       <div className="container">
         <RenderIf
-            resource={arbitrabletxs}
-            loading={
-                <div className="loader">
-              Ethereum<BarLoader color={'gray'} loading={1} />Computer
-                </div>
-            }
-            done={
-                arbitrabletxs.data ? (
-                    <div className="flex-container-main">
-                      <ArbitrableTxCards
-                        arbitrabletxs={arbitrabletxs.data}
-                        arbitrabletx={arbitrabletx}
-                        accounts={accounts}
-                      />
-                      <div className="flex-container-main-flex-grow" />
-                    </div>
-                  ) : (
-                    <div className="loader">
-                      <BarLoader color={'gray'} loading={1} />
-                    </div>
-                  )
-            }
-            failedLoading="There was an error fetching the doges. Make sure you are connected to the right Ethereum network."
-          />
+          resource={arbitrabletxs}
+          loading={
+            <div className="loader">
+              Ethereum<BarLoader color={'gray'} />Computer
+            </div>
+          }
+          done={
+            arbitrabletxs.data && (
+              <ArbitrableTxCards
+                arbitrabletxs={arbitrabletxs.data}
+                arbitrabletx={arbitrabletx}
+                accounts={accounts}
+              />
+            )
+          }
+          failedLoading="There was an error fetching the arbitrable transactions. Make sure you are connected to the right Ethereum network."
+        />
       </div>
     )
   }
