@@ -1,11 +1,165 @@
-* {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  font-size: 1em;
-  font-weight: normal;
-  font-style: normal;
-  border: 0;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Layout styles -----------------------------------*/
+@media (min-width: 620px) {
+  main {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  
+  section {
+    break-inside: avoid;
+  }
+}
+
+@media (min-width: 960px) {
+  main {
+     column-count: 3;
+  }
+}
+
+/* styles */
+
+:root {
+  --blue: #34495e;
+  --green: #e74c3c;
+  --yellow: #C9C243;
+  --orange: #FFA644;
+  --red: #3498db;
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  color: #34495e;
+}
+
+main {    
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.figure-img {
+  display: block;
+  width: 100%;
+  object: fit;
+}
+
+h2 {
+  color: #4a4a4a;
+  font-size: 1.4em;
+  padding: 10px;
+}
+
+p {
+  margin-bottom: 1em;
+  padding: 0 10px;
+}
+
+.info-link {
   text-decoration: none;
-  list-style-type: none
+  color: var(--green);
+  padding: 10px;
+  display: block;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.options-link {
+  text-decoration: none;
+  font-size: 0.9em;
+  color: var(--red);
+}
+
+section {
+  border-radius: 3px;
+  border: #ccc solid 1px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  
+}
+
+section:hover {
+  cursor: pointer;
+}
+
+.section-img {
+  display: block;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.profile {
+  width: 80%;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 620px) {
+  .options-link {
+    font-size: 1.4em;
+  }
 }

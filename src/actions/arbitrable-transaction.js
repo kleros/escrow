@@ -6,11 +6,11 @@ import { createActions } from 'lessdux'
 export const arbitrator = createActions('ARBITRATOR')
 
 // Arbitrable Transactions
-export const arbitrableTxs = createActions('ARBITRABLE-TXS')
+export const arbitrabletxs = createActions('ARBITRABLETXS')
 
 // Arbitrable Transaction
-export const arbitrableTx = {
-  ...createActions('ARBITRABLE-TX', {
+export const arbitrabletx = {
+  ...createActions('ARBITRABLETX', {
     withCreate: true
   })
 }
@@ -65,16 +65,16 @@ export const fetchArbitrator = () => ({
 })
 
 // Arbitrable Transactions
-export const fetchArbitrableTxs = () => ({ type: arbitrableTxs.FETCH })
+export const fetchArbitrabletxs = () => ({ type: arbitrabletxs.FETCH })
 
 // Arbitrable Transaction
-export const createArbitrableTx = ArbitrableTxReceived => ({
-  type: arbitrableTx.CREATE,
+export const createArbitrabletx = ArbitrableTxReceived => ({
+  type: arbitrabletx.CREATE,
   payload: { ArbitrableTxReceived }
 })
 
-export const fetchContract = arbitrableTransactionId => ({
-  type: arbitrableTx.FETCH,
+export const fetchArbitrabletx = arbitrableTransactionId => ({
+  type: arbitrabletx.FETCH,
   payload: { arbitrableTransactionId }
 })
 

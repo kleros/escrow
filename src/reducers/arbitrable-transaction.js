@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import createReducer, { createResource } from 'lessdux'
 
 // Common Shapes
-export const _arbitrableTxShape = PropTypes.shape({
+export const _arbitrabletxShape = PropTypes.shape({
   address: PropTypes.string,
   arbitrator: PropTypes.string,
   title: PropTypes.string,
@@ -18,7 +18,7 @@ export const _arbitrableTxShape = PropTypes.shape({
   timeout: PropTypes.number,
   _id: PropTypes.string
 })
-export const _arbitrableTxsShape = PropTypes.arrayOf(_arbitrableTxShape.isRequired)
+export const _arbitrabletxsShape = PropTypes.arrayOf(_arbitrabletxShape.isRequired)
 
 export const _disputeShape = PropTypes.string
 export const _appealShape = PropTypes.string
@@ -31,11 +31,11 @@ export const _arbitratorShape = PropTypes.string
 
 // Shapes
 const {
-  shape: arbitrableTxsShape,
-  initialState: arbitrableTxsInitialState
-} = createResource(_arbitrableTxShape)
-const { shape: arbitrableTxShape, initialState: arbitrableTxInitialState } = createResource(
-    _arbitrableTxShape,
+  shape: arbitrabletxsShape,
+  initialState: arbitrabletxsInitialState
+} = createResource(_arbitrabletxShape)
+const { shape: arbitrabletxShape, initialState: arbitrabletxInitialState } = createResource(
+    _arbitrabletxShape,
   { withCreate: true }
 )
 const { shape: disputeShape, initialState: disputeInitialState } = createResource(
@@ -68,12 +68,12 @@ const { shape: rulingShape, initialState: rulingInitialState } = createResource(
 const { shape: arbitratorShape, initialState: arbitratorInitialState } = createResource(
   _arbitratorShape
 )
-export { arbitrableTxsShape, arbitrableTxShape }
+export { arbitrabletxsShape, arbitrabletxShape }
 
 // Reducer
 export default createReducer({
-  contracts: arbitrableTxsInitialState,
-  arbitrableTx: arbitrableTxInitialState,
+  arbitrabletxs: arbitrabletxsInitialState,
+  arbitrabletx: arbitrabletxInitialState,
   dispute: disputeInitialState,
   appeal: appealInitialState,
   pay: payInitialState,
@@ -84,4 +84,4 @@ export default createReducer({
 })
 
 // Selectors
-export const getArbitrableTxs = state => state.arbitrableTx.arbitrableTxs.data
+export const getArbitrabletxs = state => state.arbitrabletx.arbitrabletxs.data

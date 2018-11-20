@@ -10348,7 +10348,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
@@ -10641,6 +10641,13 @@ react-fast-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-1.0.0.tgz#813a039155e49b43ceffe99528fe5e9d97a6c938"
   integrity sha512-dcQpdWr62flXQJuM8/bVEY5/10ad2SYBUafp8H4q4WHR3fTA/MMlp8mpzX12I0CCoEJc1P6QdiMg7U+7lFS6Rw==
+
+react-fontawesome@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.6.1.tgz#eddce17e7dc731aa09fd4a186688a61793a16c5c"
+  integrity sha1-7dzhfn3HMaoJ/UoYZoimF5OhbFw=
+  dependencies:
+    prop-types "^15.5.6"
 
 react-helmet@^5.2.0:
   version "5.2.0"
