@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import createReducer, { createResource } from 'lessdux'
 
+import * as arbitrabletxActions from '../actions/arbitrable-transaction'
+
 // Common Shapes
 export const _arbitrabletxShape = PropTypes.shape({
   address: PropTypes.string,
@@ -71,17 +73,26 @@ const { shape: arbitratorShape, initialState: arbitratorInitialState } = createR
 export { arbitrabletxsShape, arbitrabletxShape }
 
 // Reducer
-export default createReducer({
-  arbitrabletxs: arbitrabletxsInitialState,
-  arbitrabletx: arbitrabletxInitialState,
-  dispute: disputeInitialState,
-  appeal: appealInitialState,
-  pay: payInitialState,
-  reimburse: reimburseInitialState,
-  evidence: evidenceInitialState,
-  timeout: timeoutInitialState,
-  arbitrator: arbitratorInitialState
-})
+export default createReducer(
+  {
+    arbitrabletxs: arbitrabletxsInitialState,
+    arbitrabletx: arbitrabletxInitialState,
+    dispute: disputeInitialState,
+    appeal: appealInitialState,
+    pay: payInitialState,
+    reimburse: reimburseInitialState,
+    evidence: evidenceInitialState,
+    timeout: timeoutInitialState,
+    arbitrator: arbitratorInitialState,
+    arbitrabletxForm: null
+  },
+  {
+    [arbitrabletxActions.arbitrabletx.FORM]: (state, { payload: { arbitrabletxForm } }) => ({
+      ...state,
+      arbitrabletxForm
+    })
+  }
+)
 
 // Selectors
 export const getArbitrabletxs = state => state.arbitrabletx.arbitrabletxs.data

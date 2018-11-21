@@ -12,7 +12,8 @@ export const arbitrabletxs = createActions('ARBITRABLETXS')
 export const arbitrabletx = {
   ...createActions('ARBITRABLETX', {
     withCreate: true
-  })
+  }),
+  FORM: 'FORM_ARBITRABLETX'
 }
 
 // Dispute
@@ -73,9 +74,19 @@ export const createArbitrabletx = arbitrabletxReceived => ({
   payload: { arbitrabletxReceived }
 })
 
+export const createArbitrabletxForm = arbitrabletxReceived => ({
+  type: arbitrabletx.CREATE,
+  payload: { arbitrabletxReceived }
+})
+
 export const fetchArbitrabletx = id => ({
   type: arbitrabletx.FETCH,
   payload: { id }
+})
+
+export const formArbitrabletx = arbitrabletxForm => ({
+  type: arbitrabletx.FORM,
+  payload: { arbitrabletxForm }
 })
 
 // Dispute

@@ -32,6 +32,6 @@ class New extends PureComponent {
 export default connect(
   state => ({}),
   {
-    createArbitrabletx: arbitrabletxActions.createArbitrabletx
+    createArbitrabletx: arbitrabletxActions.formArbitrabletx
   }
 )(New)
