@@ -1,11 +1,19 @@
 export const getBase64 = file => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsArrayBuffer(file)
-      reader.onload = () => resolve(_arrayBufferToBase64(reader.result))
-      reader.onerror = error => reject(error)
-    })
-  }
+  return new Promise(resolve => {
+    let request = new XMLHttpRequest()
+    request.open('GET', file, true)
+    request.responseType = 'blob'
+    request.onload = () => {
+      let reader = new FileReader()
+      reader.readAsDataURL(request.response)
+      reader.onload = e => {
+        console.log('DataURL:', e.target.result)
+        resolve(_arrayBufferToBase64(e.target.result))
+      }
+    }
+    request.send();
+  })
+}
   
 const _arrayBufferToBase64 = buffer => {
   let binary = ''

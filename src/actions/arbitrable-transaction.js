@@ -69,12 +69,12 @@ export const fetchArbitrator = () => ({
 export const fetchArbitrabletxs = () => ({ type: arbitrabletxs.FETCH })
 
 // Arbitrable Transaction
-export const createArbitrabletx = arbitrabletxReceived => ({
-  type: arbitrabletx.CREATE,
-  payload: { arbitrabletxReceived }
+export const formArbitrabletx = arbitrabletxForm => ({
+  type: arbitrabletx.FORM,
+  payload: { arbitrabletxForm }
 })
 
-export const createArbitrabletxForm = arbitrabletxReceived => ({
+export const createArbitrabletx = arbitrabletxReceived => ({
   type: arbitrabletx.CREATE,
   payload: { arbitrabletxReceived }
 })
@@ -82,11 +82,6 @@ export const createArbitrabletxForm = arbitrabletxReceived => ({
 export const fetchArbitrabletx = id => ({
   type: arbitrabletx.FETCH,
   payload: { id }
-})
-
-export const formArbitrabletx = arbitrabletxForm => ({
-  type: arbitrabletx.FORM,
-  payload: { arbitrabletxForm }
 })
 
 // Dispute

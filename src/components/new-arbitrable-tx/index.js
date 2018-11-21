@@ -1,13 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 
-const NewArbitrableTx = ({ createArbitrabletx }) => (
+const NewArbitrableTx = ({ formArbitrabletx }) => (
   <div>
     <h1>Create arbitrable transaction</h1>
     <Formik
       initialValues={{title: '', description: '', file: '', arbitrator: '', seller: '', payment: '', email: ''}}
       validate = {values => {
+        {/* TODO use Yup */}
         let errors = {}
         if (!values.email) {
           errors.email = 'Required';
@@ -18,7 +19,7 @@ const NewArbitrableTx = ({ createArbitrabletx }) => (
         }
         return errors
       }}
-      onSubmit={arbitrabletx => createArbitrabletx(arbitrabletx)} 
+      onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)} 
     >
       {({ setFieldValue }) => (
         <Form>
@@ -54,5 +55,15 @@ const NewArbitrableTx = ({ createArbitrabletx }) => (
     </Formik>
   </div>
 )
+
+NewArbitrableTx.propTypes = {
+  // State
+  formArbitrabletx: PropTypes.func
+}
+
+NewArbitrableTx.defaultProps = {
+  // State
+  formArbitrabletx: v => v
+}
 
 export default NewArbitrableTx

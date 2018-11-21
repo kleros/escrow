@@ -4,6 +4,15 @@ import createReducer, { createResource } from 'lessdux'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 
 // Common Shapes
+const arbitrabletxFormShape = PropTypes.shape({
+  title: PropTypes.string,
+  description: PropTypes.string,
+  file: PropTypes.string,
+  arbitrator: PropTypes.string,
+  seller: PropTypes.string,
+  email: PropTypes.string,
+})
+
 export const _arbitrabletxShape = PropTypes.shape({
   address: PropTypes.string,
   arbitrator: PropTypes.string,
@@ -70,7 +79,7 @@ const { shape: rulingShape, initialState: rulingInitialState } = createResource(
 const { shape: arbitratorShape, initialState: arbitratorInitialState } = createResource(
   _arbitratorShape
 )
-export { arbitrabletxsShape, arbitrabletxShape }
+export { arbitrabletxFormShape, arbitrabletxsShape, arbitrabletxShape }
 
 // Reducer
 export default createReducer(
@@ -84,7 +93,7 @@ export default createReducer(
     evidence: evidenceInitialState,
     timeout: timeoutInitialState,
     arbitrator: arbitratorInitialState,
-    arbitrabletxForm: null
+    arbitrabletxForm: {}
   },
   {
     [arbitrabletxActions.arbitrabletx.FORM]: (state, { payload: { arbitrabletxForm } }) => ({

@@ -10,6 +10,7 @@ import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
 // import New from '../components/new-arbitrable-tx'
 import New from '../containers/arbitrable-tx/new'
+import Resume from '../containers/arbitrable-tx/resume'
 
 import './app.css'
 
@@ -68,6 +69,7 @@ const Main = ({ children }) => (
       <ul>
         <li><Link to="./">My Transactions</Link></li>
         <li><Link to="new">New Transaction</Link></li>
+        <li><Link to="resume">Resume</Link></li>
       </ul>
     </nav>
     {children}
@@ -84,9 +86,9 @@ const App = ({ store, testElement }) => (
         <div className="">
           <Router>
             <Main path="/">
-              <TestElement path="test" />
               <Home path="/" />
-              <New path="/new" />
+              <Resume path="resume" />
+              <New path="new" />
               <ArbitrableTx path=":arbitrableTxId" />
               <NotFound default />
             </Main>

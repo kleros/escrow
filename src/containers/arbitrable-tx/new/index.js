@@ -9,29 +9,23 @@ import './new.css'
 
 class New extends PureComponent {
   static propTypes = {
-    createArbitrabletx: PropTypes.func.isRequired
-  }
-
-  state = {
+    formArbitrabletx: PropTypes.func.isRequired
   }
 
   render() {
-    const { createArbitrabletx } = this.props
-
-    const { } = this.state
+    const { formArbitrabletx } = this.props
 
     return (
-      <div className="container">
-        dvfb
-        <NewArbitrableTx createArbitrabletx={createArbitrabletx} />
+      <div className=''>
+        <NewArbitrableTx formArbitrabletx={formArbitrabletx} />
       </div>
     )
   }
 }
 
 export default connect(
-  state => ({}),
+  v => v,
   {
-    createArbitrabletx: arbitrabletxActions.formArbitrabletx
+    formArbitrabletx: arbitrabletxActions.formArbitrabletx
   }
 )(New)

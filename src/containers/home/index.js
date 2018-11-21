@@ -7,7 +7,6 @@ import { RenderIf } from 'lessdux'
 import * as walletActions from '../../actions/wallet'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as walletSelectors from '../../reducers/wallet'
-import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import ArbitrableTxCards from '../../components/arbitrable-tx-cards'
 
 import './home.css'
@@ -19,7 +18,6 @@ class Home extends PureComponent {
 
   static propTypes = {
     loadingArbitrabletxs: PropTypes.bool,
-    // arbitrabletx: arbitrabletxSelectors.arbitrabletxShape.isRequired,
     fetchArbitrabletxs: PropTypes.func.isRequired,
 
     balance: walletSelectors.balanceShape.isRequired,

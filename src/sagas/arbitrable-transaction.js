@@ -14,7 +14,7 @@ import { lessduxSaga } from '../utils/saga'
 import { getBase64 } from '../utils/get-base-64'
 // import awaitTx from '../utils/await-tx'
 
-// import storeApi from './api/store'
+import ipfsPublish from './api/ipfs-publish'
 
 /**
  * Creates a new arbitrableTx.
@@ -25,8 +25,6 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  console.log('arbitrabletxReceived',arbitrabletxReceived)
-
   let arbitrableTransactionCount
   let fileAgreement = {
     payload: {
@@ -36,23 +34,18 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   let fileHash = ''
 
   try {
-    // if (arbitrableTxReceived.fileAgreement) {
-    //   const data = yield call(
-    //     getBase64,
-    //     arbitrableTxReceived.fileAgreement[0]
-    //   )
-    //   // Upload the meta-evidence then return an url
-    //   fileAgreement = yield call(
-    //     storeApi.postFile,
-    //     data,
-    //     arbitrableTxReceived.fileAgreement[0].name.split('.').pop()
-    //   )
-    //   const ArchonInstance = new Archon(web3.currentProvider)
-    //   fileHash = ArchonInstance.utils.multihashFile(
-    //     data,
-    //     0x1B // keccak-256
-    //   )
-    // }
+    if (arbitrabletxReceived.file) {
+      const data = yield call(
+        getBase64,
+        arbitrabletxReceived.file
+      )
+      console.log(data)
+      // Upload the meta-evidence then return an url
+      fileAgreement = yield call(
+        ipfsPublish,
+        data
+      )
+    }
 
     // const metaEvidence = createMetaEvidence(
     //   accounts[0],
@@ -70,9 +63,9 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
     // Set arbitrableTx instance
     // yield call(kleros.arbitrable.setarbitrableTxInstance, ARBITRABLE_ADDRESS)
 
-    arbitrableTransactionCount = yield call(
-      multipleArbitrableTransactionEth.methods.getCountTransactions().call
-    )
+    // arbitrableTransactionCount = yield call(
+    //   multipleArbitrableTransactionEth.methods.getCountTransactions().call
+    // )
 
     // const txHash = yield call(
     //   kleros.arbitrable.createArbitrableTransaction,
@@ -106,6 +99,8 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   } catch (err) {
     console.log(err)
   }
+
+  return {}
 }
 
 /**
