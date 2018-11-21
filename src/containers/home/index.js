@@ -43,7 +43,7 @@ class Home extends PureComponent {
           resource={arbitrabletxs}
           loading={
             <div className="loader">
-              Ethereum<BarLoader color={'gray'} />Computer
+              <BarLoader color={'gray'} />
             </div>
           }
           done={

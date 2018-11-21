@@ -1,5 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import Archon from '@kleros/archon'
+import { navigate } from "@reach/router"
+  
 
 import {
   web3,
@@ -10,15 +12,14 @@ import {
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
 import { lessduxSaga } from '../utils/saga'
-// import { createMetaEvidence } from '../utils/arbitrable-tx'
 import { getBase64 } from '../utils/get-base-64'
-// import awaitTx from '../utils/await-tx'
+import { createMetaEvidence } from '../utils/generate-evidence'
 
 import ipfsPublish from './api/ipfs-publish'
 
 /**
  * Creates a new arbitrableTx.
- * @param {object} { payload: arbitrableTxReceived } - The arbitrable transaction to create.
+ * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
  */
 function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   if (window.ethereum) yield call(window.ethereum.enable)
@@ -26,12 +27,8 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let arbitrableTransactionCount
-  let fileAgreement = {
-    payload: {
-      fileURL: ''
-    }
-  }
-  let fileHash = ''
+  let metaEvidence = null
+  let ipfsHashMetaEvidence = null
 
   try {
     if (arbitrabletxReceived.file) {
@@ -39,63 +36,57 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
         getBase64,
         arbitrabletxReceived.file
       )
-      console.log(data)
-      // Upload the meta-evidence then return an url
-      fileAgreement = yield call(
+
+      // Upload the meta-evidence then return an ipfs hash
+      const fileIpfsHash = yield call(
         ipfsPublish,
         data
       )
+
+      metaEvidence = createMetaEvidence(
+        accounts[0],
+        arbitrabletxReceived.seller,
+        arbitrabletxReceived.title,
+        arbitrabletxReceived.description,
+        arbitrabletxReceived.fileName,
+        fileIpfsHash[0].hash
+      )
+
+      // Upload the meta-evidence then return an ipfs hash
+      const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
+
+      ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].path
+    } else {
+      metaEvidence = createMetaEvidence(
+        accounts[0],
+        arbitrabletxReceived.seller,
+        arbitrabletxReceived.title,
+        arbitrabletxReceived.description,
+        arbitrabletxReceived.fileName,
+        ''
+      )
     }
 
-    // const metaEvidence = createMetaEvidence(
-    //   accounts[0],
-    //   arbitrableTxReceived.partyB,
-    //   arbitrableTxReceived.title,
-    //   arbitrableTxReceived.description,
-    //   fileAgreement.payload.fileURL.replace(/\.[^/.]+$/, ''),
-    //   arbitrableTxReceived.fileAgreement[0].name.split('.').pop(),
-    //   fileHash
-    // )
+    arbitrableTransactionCount = yield call(
+      multipleArbitrableTransactionEth.methods.getCountTransactions().call
+    )
 
-    // Upload the meta-evidence then return an url
-    // const file = yield call(storeApi.postFile, JSON.stringify(metaEvidence))
+    const txHash = yield call(
+      multipleArbitrableTransactionEth.methods.createTransaction(
+        arbitrabletxReceived.arbitrator,
+        3600,
+        arbitrabletxReceived.seller,
+        "0x0",
+        ipfsHashMetaEvidence
+      ).send,
+      {
+        from: accounts[0],
+        value: web3.utils.toWei(arbitrabletxReceived.payment, 'ether')
+      }
+    )
 
-    // Set arbitrableTx instance
-    // yield call(kleros.arbitrable.setarbitrableTxInstance, ARBITRABLE_ADDRESS)
-
-    // arbitrableTransactionCount = yield call(
-    //   multipleArbitrableTransactionEth.methods.getCountTransactions().call
-    // )
-
-    // const txHash = yield call(
-    //   kleros.arbitrable.createArbitrableTransaction,
-    //   accounts[0],
-    //   arbitrableTxReceived.arbitrator || ARBITRATOR_ADDRESS,
-    //   arbitrableTxReceived.partyB,
-    //   // TODO use web3.utils
-    //   unit.toWei(arbitrableTxReceived.payment, 'ether'),
-    //   undefined,
-    //   process.env.REACT_APP_ARBITRATOR_EXTRADATA,
-    //   file.payload.fileURL
-    // )
-
-    // const txReceipt = yield call(awaitTx, web3, txHash.tx)
-
-    // if (txReceipt) {
-    //   localStorage.setItem(
-    //     'arbitrableTransaction',
-    //     JSON.stringify({
-    //       buyer: accounts[0],
-    //       seller: arbitrableTxReceived.partyB,
-    //       amount: arbitrableTxReceived.payment,
-    //       arbitrator: arbitrableTxReceived.arbitrator || ARBITRATOR_ADDRESS,
-    //       metaEvidence
-    //     })
-    //   )
-
-      // use navigate
-      //   yield put(push(`/arbitrableTxs/${arbitrableTransactionCount}`))
-    // }
+    if (txHash)
+      navigate(`/${arbitrableTransactionCount}`)
   } catch (err) {
     console.log(err)
   }
@@ -151,8 +142,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
   let disputeData = null
   let canAppeal = null
 
-
-
   try {
     arbitrableTransaction = yield call(
         multipleArbitrableTransactionEth.methods.transactions(transactionId).call
@@ -190,49 +179,56 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
 /**
  * Pay the party B. To be called when the good is delivered or the service rendered.
- * @param {object} { payload: arbitrableTransactionId, amount } - The id of the arbitrableTx and the amount of the transaction.
+ * @param {object} { payload: id, amount } - The id of the arbitrableTx and the amount of the transaction.
  */
-function* createPay({ type, payload: { arbitrableTransactionId, amount } }) {
+function* createPay({ type, payload: { id, amount } }) {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  // Set arbitrable transaction instance
-//   yield call(kleros.arbitrable.setContractInstance, ARBITRABLE_ADDRESS)
-
-  let payTx = null
+  console.log('id', id)
+  console.log('amount', amount)
 
   try {
-    // const arbitrableTransaction = yield call(
-    //   kleros.arbitrable.getData,
-    //   arbitrableTransactionId
-    // )
+    const arbitrableTransaction = yield call(
+      multipleArbitrableTransactionEth.methods.transactions(id).call
+    )
 
-    // if (arbitrableTransaction.amount === 0)
-    //   throw new Error('The dispute is already finished')
+    let txHash
 
-    // if (amount == 0) 
-    //   amount = arbitrableTransaction.amount
+    if (accounts[0] === arbitrableTransaction.buyer)
+      txHash = yield call(
+        multipleArbitrableTransactionEth.methods.pay(
+          id, 
+          web3.utils.toWei(amount, 'ether')
+        ).send,
+        {
+          from: accounts[0],
+          value: 0 
+        }
+      )
+    else
+      txHash = yield call(
+        multipleArbitrableTransactionEth.methods.reimburse(
+          id, 
+          web3.utils.toWei(amount, 'ether')
+        ).send,
+        {
+          from: accounts[0],
+          value: 0 
+        }
+      )
 
-    // payTx = yield call(
-    //   kleros.arbitrable.pay,
-    //   accounts[0],
-    //   arbitrableTransactionId,
-    //   amount
-    // )
-
-    // const txReceipt = yield call(awaitTx, web3, payTx.tx)
-
-    // if (txReceipt) {
-    //     // use navigate()
-    //     //   yield put(push(`/`))
-    // }
+    if (txHash) {
+        // use navigate()
+        //   yield put(push(`/`))
+      console.log(txHash)
+    }
   } catch (err) {
     console.log(err)
-    throw new Error('Error pay transaction')
   }
 
-  return payTx
+  return {}
 }
 
 /**

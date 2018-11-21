@@ -7,27 +7,20 @@ import { RenderIf } from 'lessdux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
+
+import { web3 } from '../../bootstrap/dapp-api'
 import * as walletActions from '../../actions/wallet'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
 import * as arbitratorConstants from '../../constants/arbitrator'
+import PayOrReimburseArbitrableTx from '../../components/pay-or-reimburse-arbitrable-tx'
 
 import './arbitrable-tx.css'
 
 class ArbitrableTx extends PureComponent {
   state = {
-    open: false,
-    party: {
-      name: 'buyer',
-      method: 'Pay'
-    },
-    partyOther: {
-      name: 'seller',
-      method: 'Reimburse'
-    },
-    arbitrableTransaction: {},
-    amount: 0
+    payOrReimburse: 'payOrReimburse'
   }
   static propTypes = {
     arbitrabletx: arbitrabletxSelectors.arbitrabletxShape.isRequired,
@@ -44,45 +37,17 @@ class ArbitrableTx extends PureComponent {
     fetchArbitrabletx(arbitrableTxId)
   }
 
-//   componentWillReceiveProps(nextProps) {
-//     const { contract: prevContract } = this.props
-//     const { contract, accounts = [] } = nextProps
-//     if (prevContract !== contract) {
-//       if (
-//         contract.data &&
-//         contract.data.buyer === accounts.data[0].toLowerCase()
-//       ) {
-//         this.setState({
-//           party: {
-//             name: 'buyer',
-//             method: 'Pay'
-//           }
-//         })
-//         this.setState({
-//           partyOther: {
-//             name: 'seller',
-//             method: 'Reimburse'
-//           }
-//         })
-//       } else if (
-//         contract.data &&
-//         contract.data.seller === accounts.data[0].toLowerCase()
-//       ) {
-//         this.setState({
-//           partyOther: {
-//             name: 'buyer',
-//             method: 'Pay'
-//           }
-//         })
-//         this.setState({
-//           party: {
-//             name: 'seller',
-//             method: 'Reimburse'
-//           }
-//         })
-//       }
-//     }
-//   }
+  componentWillReceiveProps(nextProps) {
+    const { arbitrabletx: prevArbitrabletx } = this.props
+    const { arbitrabletx, accounts = [] } = nextProps
+    
+    if (prevArbitrabletx !== arbitrabletx && arbitrabletx.data) {
+      if (arbitrabletx.data.buyer === accounts.data[0])
+        this.setState({ payOrReimburse: 'Pay'})
+      else
+        this.setState({ payOrReimburse: 'Reimburse'})
+    }
+  }
 
 //   createDispute = () => {
 //     const { createDispute, match } = this.props
@@ -129,17 +94,20 @@ class ArbitrableTx extends PureComponent {
   render() {
     const {
       arbitrabletx,
-      arbitrableTxId
+      arbitrableTxId,
+      createPay
 
     //   accounts,
     //   arbitrator,
     //   appeal,
     //   evidence,
     } = this.props
-    const { partyOther, party } = this.state
+    const { payOrReimburse } = this.state
     const ruling = ['no ruling', 'buyer', 'seller']
+    let amount = 0
+    if (arbitrabletx.data)
+      amount = web3.utils.fromWei(arbitrabletx.data.amount, 'ether')
     return (
-      
     <RenderIf
       resource={arbitrabletx}
       loading={
@@ -151,6 +119,14 @@ class ArbitrableTx extends PureComponent {
         arbitrabletx.data && (
           <div>
             {arbitrabletx.data.seller}
+            <br />
+            {arbitrabletx.data.arbitrator}
+            <br />
+            {arbitrabletx.data.payment}
+            <br />
+            {arbitrabletx.data.email}
+            <br />{console.log(arbitrabletx)}
+            <PayOrReimburseArbitrableTx payOrReimburse={payOrReimburse} payOrReimburseFn={createPay} amount={amount} id={arbitrabletx.data.id} />
           </div>
         )
       }
@@ -170,13 +146,13 @@ export default connect(
     // appeal: state.contract.appeal,
     // evidence: state.contract.evidence,
     // timeout: state.contract.timeout,
-    // accounts: state.wallet.accounts
+    accounts: state.wallet.accounts
   }),
   {
-    fetchArbitrabletx: arbitrabletxActions.fetchArbitrabletx
+    fetchArbitrabletx: arbitrabletxActions.fetchArbitrabletx,
     // createDispute: contractActions.createDispute,
     // createAppeal: contractActions.createAppeal,
-    // createPay: contractActions.createPay,
+    createPay: arbitrabletxActions.createPay,
     // createReimburse: contractActions.createReimburse,
     // fetchAccounts: walletActions.fetchAccounts,
     // fetchArbitrator: contractActions.fetchArbitrator,

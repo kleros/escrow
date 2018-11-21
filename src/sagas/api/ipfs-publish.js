@@ -1,12 +1,12 @@
-import Archon from '@kleros/archon'
-
-import { web3, ipfs } from '../../bootstrap/dapp-api'
+import { ipfs } from '../../bootstrap/dapp-api'
 
 const ipfsPublish = async file => {
-  const buffer = await Buffer.from(file);
-  await ipfs.add(buffer, (err, ipfsHash) => {
-    console.log(err, ipfsHash)
-    return ipfsHash
+  const buffer = await Buffer.from(file)
+  return new Promise(resolve => {
+    ipfs.add(buffer, (err, ipfsHash) => {
+      console.log(err, ipfsHash)
+      resolve(ipfsHash)
+    })
   })
 }
 
