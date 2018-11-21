@@ -49,7 +49,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
         arbitrabletxReceived.seller,
         arbitrabletxReceived.title,
         arbitrabletxReceived.description,
-        fileIpfsHash[0].path
+        `/ipfs/${fileIpfsHash[0].hash}`
       )
 
     } else {
@@ -63,7 +63,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
 
     // Upload the meta-evidence to IPFS
     const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
-    ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].path
+    ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].hash
 
     arbitrableTransactionCount = yield call(
       multipleArbitrableTransactionEth.methods.getCountTransactions().call
@@ -75,7 +75,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
         3600,
         arbitrabletxReceived.seller,
         "0x0",
-        ipfsHashMetaEvidence
+        `/ipfs/${ipfsHashMetaEvidence}`
       ).send,
       {
         from: accounts[0],
