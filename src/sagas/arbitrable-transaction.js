@@ -197,11 +197,7 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
       }
     )
 
-    yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
-
-  return yield call(fetchArbitrabletx, {
-    payload: { id }
-  })
+    return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 }
 
 /**
@@ -209,7 +205,6 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
  * @param {object} { payload: id } - The id of the arbitrable transaction.
  */
 function* createDispute({ payload: { id } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
 
   const arbitrableTransaction = yield call(
@@ -246,9 +241,7 @@ function* createDispute({ payload: { id } }) {
       }
     )
 
-  return yield call(fetchArbitrabletx, {
-    payload: { id }
-  })
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 }
 
 /**
@@ -265,7 +258,6 @@ function* createAppeal({ type, payload: { arbitrableTransactionId, disputeId } }
 
   let raiseAppealByPartyATxObj
 
-  try {
     // Set contract instance
     // const arbitrableTransaction = yield call(
     //   kleros.arbitrable.getData,
@@ -286,10 +278,6 @@ function* createAppeal({ type, payload: { arbitrableTransactionId, disputeId } }
     //   arbitrableTransaction.arbitratorExtraData,
     //   appealCost
     // )
-  } catch (err) {
-    console.log(err)
-    throw new Error('Error create appeal failed')
-  }
 
 //   yield put(push('/'))
 //   yield call(toastr.success, 'Appeal creation successful', toastrOptions)
