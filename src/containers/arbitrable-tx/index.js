@@ -21,7 +21,8 @@ import './arbitrable-tx.css'
 
 class ArbitrableTx extends PureComponent {
   state = {
-    payOrReimburse: 'payOrReimburse'
+    payOrReimburse: 'payOrReimburse',
+    arbitrabletx: {}
   }
   static propTypes = {
     arbitrabletx: arbitrabletxSelectors.arbitrabletxShape.isRequired,
@@ -38,16 +39,19 @@ class ArbitrableTx extends PureComponent {
     fetchArbitrabletx(arbitrableTxId)
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { arbitrabletx: prevArbitrabletx } = this.props
-    const { arbitrabletx, accounts = [] } = nextProps
+  static getDerivedStateFromProps(props, state) {
+    const { arbitrabletx, accounts } = props
+    if (arbitrabletx !== state.arbitrabletx)
+      if (arbitrabletx.data) {
+        return {
+          ...state,
+          arbitrabletx,
+          payOrReimburse: arbitrabletx.data.buyer === accounts.data[0] ? 'Pay' : 'Reimburse'
+        }
+
+      }
     
-    if (prevArbitrabletx !== arbitrabletx && arbitrabletx.data) {
-      if (arbitrabletx.data.buyer === accounts.data[0])
-        this.setState({ payOrReimburse: 'Pay'})
-      else
-        this.setState({ payOrReimburse: 'Reimburse'})
-    }
+    return null
   }
 
 //   createDispute = () => {
@@ -94,7 +98,6 @@ class ArbitrableTx extends PureComponent {
 
   render() {
     const {
-      arbitrabletx,
       createPayOrReimburse,
       createDispute
 
@@ -103,7 +106,7 @@ class ArbitrableTx extends PureComponent {
     //   appeal,
     //   evidence,
     } = this.props
-    const { payOrReimburse } = this.state
+    const { arbitrabletx, payOrReimburse } = this.state
     const ruling = ['no ruling', 'buyer', 'seller']
     let amount = 0
     if (arbitrabletx.data && arbitrabletx.data.amount)
@@ -119,13 +122,19 @@ class ArbitrableTx extends PureComponent {
       done={
         arbitrabletx.data && (
           <div>
-            {arbitrabletx.data.seller}
+            seller: {arbitrabletx.data.seller}
             <br />
-            {arbitrabletx.data.arbitrator}
+            arbitrator: {arbitrabletx.data.arbitrator}
             <br />
             {arbitrabletx.data.payment}
             <br />
             {arbitrabletx.data.email}
+            <br />
+            sellerFee: {arbitrabletx.data.sellerFee}
+            <br />
+            buyerFee: {arbitrabletx.data.buyerFee}
+            <br />
+            status: {arbitrabletx.data.status}
             <br />
             <PayOrReimburseArbitrableTx
               payOrReimburse={payOrReimburse}

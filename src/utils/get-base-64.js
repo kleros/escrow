@@ -6,12 +6,9 @@ export const getBase64 = file => {
     request.onload = () => {
       let reader = new FileReader()
       reader.readAsDataURL(request.response)
-      reader.onload = e => {
-        console.log('DataURL:', e.target.result)
-        resolve(_arrayBufferToBase64(e.target.result))
-      }
+      reader.onload = e => resolve(_arrayBufferToBase64(e.target.result))
     }
-    request.send();
+    request.send()
   })
 }
   

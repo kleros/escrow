@@ -1,10 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import Archon from '@kleros/archon'
 import { navigate } from '@reach/router'
 
 import { web3, multipleArbitrableTransactionEth, arbitrator } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
+import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
 import { getBase64 } from '../utils/get-base-64'
 import { createMetaEvidence } from '../utils/generate-evidence'
@@ -128,8 +128,9 @@ function* fetchArbitrabletx({ payload: { id } }) {
   // force convert to string
   const transactionId = id.toString()
 
+
   arbitrableTransaction = yield call(
-      multipleArbitrableTransactionEth.methods.transactions(transactionId).call
+    multipleArbitrableTransactionEth.methods.transactions(transactionId).call
   )
 
   arbitrableTransaction.id = id
@@ -209,9 +210,10 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
  * @param {object} { payload: id } - The id of the arbitrable transaction.
  */
 function* createDispute({ payload: { id } }) {
+  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
 
-  let disputeTx = ''
+  let disputeTx = null
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -219,36 +221,35 @@ function* createDispute({ payload: { id } }) {
 
   const arbitratorEth = new web3.eth.Contract(
     arbitrator.abi,
-    arbitrableTransaction.arbitrator
+    arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
   )
 
   const arbitrationCost = yield call(
     arbitratorEth.methods.arbitrationCost('0x00').call
   )
 
-  if (accounts[0].toLowerCase() === arbitrableTransaction.buyer)
+  if (accounts[0] === arbitrableTransaction.buyer)
     disputeTx = yield call(
       multipleArbitrableTransactionEth.methods.payArbitrationFeeByBuyer(
         id
       ).send,
       {
         from: accounts[0],
-        value: arbitrationCost
+        value: arbitrationCost - arbitrableTransaction.buyerFee
       }
     )
   else
     disputeTx = yield call(
-      multipleArbitrableTransactionEth.methods.payArbitrationFeeByBuyer(
+      multipleArbitrableTransactionEth.methods.payArbitrationFeeBySeller(
         id
       ).send,
       {
         from: accounts[0],
-        value: arbitrationCost
+        value: arbitrationCost - arbitrableTransaction.sellerFee
       }
     )
 
-  if (disputeTx)
-    navigate(arbitrableTransaction.id)
+  yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 
   return disputeTx
 }
