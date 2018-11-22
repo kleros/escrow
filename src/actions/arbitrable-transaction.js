@@ -96,7 +96,7 @@ export const createDispute = id => ({
 })
 
 // Pay
-export const createPay = (id, amount) => ({
+export const createPayOrReimburse = (id, amount) => ({
   type: pay.CREATE,
   payload: { id, amount }
 })

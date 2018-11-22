@@ -1,6 +1,7 @@
 import Web3 from 'web3'
 import IPFS from 'ipfs-api'
 import multipleArbitrableTransaction from 'kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
+import arbitrator from 'kleros-interaction/build/contracts/Arbitrator.json'
 
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 const ETHEREUM_PROVIDER = process.env[`REACT_APP_${env}_ETHEREUM_PROVIDER`]
@@ -61,6 +62,7 @@ export {
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp,
+  arbitrator,
   multipleArbitrableTransactionEth,
   ipfs
 }
@@ -74,6 +76,8 @@ setTimeout(
       ARBITRABLE_ADDRESS,
       'Web3: ',
       window.web3,
+      'ARBITRATOR INTERFACE',
+      arbitrator,
       'ARBITRBLE CONTRACT',
       multipleArbitrableTransactionEth,
       'NETWORK',

@@ -20,7 +20,10 @@ class Resume extends PureComponent {
 
     return (
       <div className="container">
-        <ResumeArbitrableTx createArbitrabletx={createArbitrabletx} arbitrabletxForm={arbitrabletxForm} />
+        <ResumeArbitrableTx 
+          createArbitrabletx={createArbitrabletx} 
+          arbitrabletxForm={arbitrabletxForm}
+        />
       </div>
     )
   }

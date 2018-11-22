@@ -6,7 +6,7 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletxForm }) => (
   <div>
     <h1>Resume arbitrable transaction</h1>
     {arbitrabletxForm.title}
-    <button onClick={e => {createArbitrabletx(arbitrabletxForm)}}>
+    <button onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
       Submit
     </button>
   </div>

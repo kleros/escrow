@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { navigate } from '@reach/router'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 const NewArbitrableTx = ({ formArbitrabletx }) => (
@@ -19,7 +20,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         }
         return errors
       }}
-      onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)} 
+      onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx) && navigate('resume')}
     >
       {({ setFieldValue }) => (
         <Form>

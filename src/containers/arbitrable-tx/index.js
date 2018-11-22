@@ -15,6 +15,7 @@ import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
 import * as arbitratorConstants from '../../constants/arbitrator'
 import PayOrReimburseArbitrableTx from '../../components/pay-or-reimburse-arbitrable-tx'
+import PayFeeArbitrableTx from '../../components/pay-fee-arbitrable-tx'
 
 import './arbitrable-tx.css'
 
@@ -94,8 +95,8 @@ class ArbitrableTx extends PureComponent {
   render() {
     const {
       arbitrabletx,
-      arbitrableTxId,
-      createPay
+      createPayOrReimburse,
+      createDispute
 
     //   accounts,
     //   arbitrator,
@@ -105,14 +106,14 @@ class ArbitrableTx extends PureComponent {
     const { payOrReimburse } = this.state
     const ruling = ['no ruling', 'buyer', 'seller']
     let amount = 0
-    if (arbitrabletx.data)
-      amount = web3.utils.fromWei(arbitrabletx.data.amount, 'ether')
+    if (arbitrabletx.data && arbitrabletx.data.amount)
+      amount = web3.utils.fromWei(arbitrabletx.data.amount.toString(), 'ether')
     return (
     <RenderIf
       resource={arbitrabletx}
       loading={
         <div className="loader">
-          Ethereum<BarLoader color={'gray'} />Computer
+          <BarLoader color={'gray'} />
         </div>
       }
       done={
@@ -125,8 +126,17 @@ class ArbitrableTx extends PureComponent {
             {arbitrabletx.data.payment}
             <br />
             {arbitrabletx.data.email}
-            <br />{console.log(arbitrabletx)}
-            <PayOrReimburseArbitrableTx payOrReimburse={payOrReimburse} payOrReimburseFn={createPay} amount={amount} id={arbitrabletx.data.id} />
+            <br />
+            <PayOrReimburseArbitrableTx
+              payOrReimburse={payOrReimburse}
+              payOrReimburseFn={createPayOrReimburse}
+              amount={amount}
+              id={arbitrabletx.data.id}
+            />
+            <PayFeeArbitrableTx
+              id={arbitrabletx.data.id}
+              payFee={createDispute}
+            />
           </div>
         )
       }
@@ -150,9 +160,9 @@ export default connect(
   }),
   {
     fetchArbitrabletx: arbitrabletxActions.fetchArbitrabletx,
-    // createDispute: contractActions.createDispute,
     // createAppeal: contractActions.createAppeal,
-    createPay: arbitrabletxActions.createPay,
+    createDispute: arbitrabletxActions.createDispute,
+    createPayOrReimburse: arbitrabletxActions.createPayOrReimburse,
     // createReimburse: contractActions.createReimburse,
     // fetchAccounts: walletActions.fetchAccounts,
     // fetchArbitrator: contractActions.fetchArbitrator,

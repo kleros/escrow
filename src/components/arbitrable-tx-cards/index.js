@@ -16,8 +16,8 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
         <div>
           {
             arbitrabletxs.map(arbitrabletx => (
-              <span>
-                <Link to={`${arbitrabletx.id}`} key={arbitrabletx.id} getProps={() => ({className: "test class"})}>{arbitrabletx.id}</Link>
+              <span key={arbitrabletx.id}>
+                <Link to={`${arbitrabletx.id}`} getProps={() => ({className: "test class"})}>{arbitrabletx.id}</Link>
                 {` `}
               </span>
             ))
