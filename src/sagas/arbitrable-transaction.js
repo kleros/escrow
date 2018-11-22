@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import Archon from '@kleros/archon'
 import { navigate } from "@reach/router"
-  
+
 
 import {
   web3,
@@ -43,29 +43,27 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
         data
       )
 
+      // Pass IPFS path for URI. No need for fileHash
       metaEvidence = createMetaEvidence(
         accounts[0],
         arbitrabletxReceived.seller,
         arbitrabletxReceived.title,
         arbitrabletxReceived.description,
-        arbitrabletxReceived.fileName,
-        fileIpfsHash[0].hash
+        `/ipfs/${fileIpfsHash[0].hash}`
       )
 
-      // Upload the meta-evidence then return an ipfs hash
-      const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
-
-      ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].path
     } else {
       metaEvidence = createMetaEvidence(
         accounts[0],
         arbitrabletxReceived.seller,
         arbitrabletxReceived.title,
         arbitrabletxReceived.description,
-        arbitrabletxReceived.fileName,
-        ''
       )
     }
+
+    // Upload the meta-evidence to IPFS
+    const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
+    ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].hash
 
     arbitrableTransactionCount = yield call(
       multipleArbitrableTransactionEth.methods.getCountTransactions().call
@@ -77,7 +75,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
         3600,
         arbitrabletxReceived.seller,
         "0x0",
-        ipfsHashMetaEvidence
+        `/ipfs/${ipfsHashMetaEvidence}`
       ).send,
       {
         from: accounts[0],
@@ -199,23 +197,23 @@ function* createPay({ type, payload: { id, amount } }) {
     if (accounts[0] === arbitrableTransaction.buyer)
       txHash = yield call(
         multipleArbitrableTransactionEth.methods.pay(
-          id, 
+          id,
           web3.utils.toWei(amount, 'ether')
         ).send,
         {
           from: accounts[0],
-          value: 0 
+          value: 0
         }
       )
     else
       txHash = yield call(
         multipleArbitrableTransactionEth.methods.reimburse(
-          id, 
+          id,
           web3.utils.toWei(amount, 'ether')
         ).send,
         {
           from: accounts[0],
-          value: 0 
+          value: 0
         }
       )
 
