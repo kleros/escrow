@@ -4,6 +4,7 @@ import { navigate } from '@reach/router'
 import { web3, multipleArbitrableTransactionEth, arbitrator } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
+import * as disputeConstants from '../constants/dispute'
 import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
 import { getBase64 } from '../utils/get-base-64'
@@ -125,41 +126,34 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   let arbitrableTransaction
   let ruling = null
-  let currentSession = null
-  let disputeData = null
-  let canAppeal = null
+
   // force convert to string
   const transactionId = id.toString()
-
 
   arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(transactionId).call
   )
 
   arbitrableTransaction.id = id
+  
+  const arbitratorEth = new web3.eth.Contract(
+    arbitrator.abi,
+    arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
+  )
 
-    // disputeData = yield call(
-    //   kleros.arbitrator.getDispute,
-    //   arbitrableTransaction.disputeId
-    // )
+  const disputeStatus = yield call(
+    arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
+  )
 
-    // if (arbitrableTransaction.status === 4)
-    //   ruling = yield call(
-    //     kleros.arbitrator.currentRulingForDispute,
-    //     arbitrableTransaction.disputeId
-    //   )
-
-    // currentSession = yield call(kleros.arbitrator.getSession)
-
-//   if (disputeData) {
-//     canAppeal =
-//       disputeData.firstSession + disputeData.numberOfAppeals === currentSession
-//   } else {
-//     canAppeal = false
-//   }
+  if (disputeStatus === disputeConstants.SOLVED)
+    ruling = yield call(
+      arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
+    )
 
   return {
-    ...arbitrableTransaction
+    ...arbitrableTransaction,
+    ruling,
+    appealable: disputeStatus === disputeConstants.APPEALABLE
   }
 }
 
@@ -246,43 +240,36 @@ function* createDispute({ payload: { id } }) {
 
 /**
  * Raises an appeal.
- * @param {object} { payload: arbitrableTransactionId } - The id of the arbitrable transaction.
+ * @param {object} { payload: id } - The id of the arbitrable transaction.
  */
-function* createAppeal({ type, payload: { arbitrableTransactionId, disputeId } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
+function* createAppeal({ type, payload: { id } }) {
   const accounts = yield call(web3.eth.getAccounts)
-  if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  // Set contract instance
-//   yield call(kleros.arbitrable.setContractInstance, ARBITRABLE_ADDRESS)
+  const arbitrableTransaction = yield call(
+    multipleArbitrableTransactionEth.methods.transactions(id).call
+  )
 
-  let raiseAppealByPartyATxObj
+  const arbitratorEth = new web3.eth.Contract(
+    arbitrator.abi,
+    arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
+  )
 
-    // Set contract instance
-    // const arbitrableTransaction = yield call(
-    //   kleros.arbitrable.getData,
-    //   arbitrableTransactionId
-    // )
+  const appealCost = yield call(
+    arbitratorEth.methods.appealCost(arbitrableTransaction.disputeId, '0x00').call
+  )
 
-    // const appealCost = yield call(
-    //   kleros.arbitrator.getAppealCost,
-    //   disputeId,
-    //   arbitrableTransactionId.arbitratorExtraData
-    // )
-
-    // // raise appeal party A
-    // raiseAppealByPartyATxObj = yield call(
-    //   kleros.arbitrable.appeal,
-    //   accounts[0],
-    //   arbitrableTransactionId,
-    //   arbitrableTransaction.arbitratorExtraData,
-    //   appealCost
-    // )
-
-//   yield put(push('/'))
-//   yield call(toastr.success, 'Appeal creation successful', toastrOptions)
-
-  return raiseAppealByPartyATxObj
+  yield call(
+    arbitratorEth.methods.appeal(
+      arbitrableTransaction.disputeId,
+      '0x00'
+    ).send,
+    {
+      from: accounts[0],
+      value: appealCost
+    }
+  )
+  
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id })) 
 }
 
 /**
@@ -292,8 +279,6 @@ function* createAppeal({ type, payload: { arbitrableTransactionId, disputeId } }
 function* createTimeout({ type, payload: { id } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
-
-  console.log('edf')
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -328,7 +313,6 @@ function* createTimeout({ type, payload: { id } }) {
  * @param {object} { type, payload: evidenceReceived } - Evidence.
  */
 function* createEvidence({ type, payload: { evidenceReceived } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -371,46 +355,10 @@ function* createEvidence({ type, payload: { evidenceReceived } }) {
 }
 
 /**
- * Fetches dispute details.
- * @param {object} { payload: disouteId } - The dispute id to fetch details for.
- */
-function* fetchDispute({ payload: { disputeId } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
-  const accounts = yield call(web3.eth.getAccounts)
-  if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
-
-  let dispute = null
-
-  try {
-    // dispute = yield call(kleros.arbitrator.getDispute, disputeId)
-  } catch (err) {
-    console.log(err)
-  }
-
-  return dispute
-}
-
-/**
- * Fetches the arbitrator's data.
- */
-export function* fetchArbitratorData() {
-//   const arbitratorData = yield call(kleros.arbitrator.getData)
-
-//   return arbitratorData
-}
-
-/**
  * The root of the wallet saga.
  * @export default walletSaga
  */
 export default function* walletSaga() {
-  yield takeLatest(
-    arbitrabletxActions.arbitrator.FETCH,
-    lessduxSaga,
-    'fetch',
-    arbitrabletxActions.arbitrator,
-    fetchArbitratorData
-  )
   yield takeLatest(
     arbitrabletxActions.arbitrabletx.CREATE,
     lessduxSaga,
@@ -438,13 +386,6 @@ export default function* walletSaga() {
     'create',
     arbitrabletxActions.dispute,
     createDispute
-  )
-  yield takeLatest(
-    arbitrabletxActions.dispute.FETCH,
-    lessduxSaga,
-    'fetch',
-    arbitrabletxActions.dispute,
-    fetchDispute
   )
   yield takeLatest(
     arbitrabletxActions.appeal.CREATE,

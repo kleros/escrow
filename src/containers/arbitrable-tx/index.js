@@ -17,6 +17,7 @@ import * as arbitratorConstants from '../../constants/arbitrator'
 import PayOrReimburseArbitrableTx from '../../components/pay-or-reimburse-arbitrable-tx'
 import PayFeeArbitrableTx from '../../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../../components/timeout-arbitrable-tx'
+import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
 
 import './arbitrable-tx.css'
 
@@ -101,11 +102,9 @@ class ArbitrableTx extends PureComponent {
     const {
       createPayOrReimburse,
       createDispute,
-      createTimeout
-
+      createTimeout,
+      createAppeal
     //   accounts,
-    //   arbitrator,
-    //   appeal,
     //   evidence,
     } = this.props
     const { arbitrabletx, payOrReimburse } = this.state
@@ -154,6 +153,10 @@ class ArbitrableTx extends PureComponent {
               id={arbitrabletx.data.id}
               timeout={createTimeout}
             />
+            <AppealArbitrableTx
+              id={arbitrabletx.data.id}
+              appeal={createAppeal}
+            />
           </div>
         )
       }
@@ -181,12 +184,9 @@ export default connect(
   }),
   {
     fetchArbitrabletx: arbitrabletxActions.fetchArbitrabletx,
-    // createAppeal: contractActions.createAppeal,
+    createAppeal: arbitrabletxActions.createAppeal,
     createDispute: arbitrabletxActions.createDispute,
     createPayOrReimburse: arbitrabletxActions.createPayOrReimburse,
-    // createReimburse: contractActions.createReimburse,
-    // fetchAccounts: walletActions.fetchAccounts,
-    // fetchArbitrator: contractActions.fetchArbitrator,
     createTimeout: arbitrabletxActions.createTimeout
   }
 )(ArbitrableTx)

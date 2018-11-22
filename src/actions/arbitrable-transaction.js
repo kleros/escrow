@@ -2,9 +2,6 @@ import { createActions } from 'lessdux'
 
 /* Actions */
 
-// Arbitrator
-export const arbitrator = createActions('ARBITRATOR')
-
 // Arbitrable Transactions
 export const arbitrabletxs = createActions('ARBITRABLETXS')
 
@@ -60,11 +57,6 @@ export const appeal = {
 
 /* Action Creators */
 
-// Arbitrator
-export const fetchArbitrator = () => ({
-  type: arbitrator.FETCH
-})
-
 // Arbitrable Transactions
 export const fetchArbitrabletxs = () => ({ type: arbitrabletxs.FETCH })
 
@@ -85,11 +77,6 @@ export const fetchArbitrabletx = id => ({
 })
 
 // Dispute
-export const fetchDispute = disputeId => ({
-  type: dispute.FETCH,
-  payload: { disputeId }
-})
-
 export const createDispute = id => ({
   type: dispute.CREATE,
   payload: { id }
@@ -98,12 +85,6 @@ export const createDispute = id => ({
 // Pay
 export const createPayOrReimburse = (id, amount) => ({
   type: pay.CREATE,
-  payload: { id, amount }
-})
-
-// Reimburse
-export const createReimburse = (id, amount) => ({
-  type: reimburse.CREATE,
   payload: { id, amount }
 })
 
@@ -120,7 +101,7 @@ export const createEvidence = evidenceReceived => ({
 })
 
 // Appeal
-export const createAppeal = (id, disputeId) => ({
+export const createAppeal = id => ({
   type: appeal.CREATE,
-  payload: { id, disputeId }
+  payload: { id }
 })
