@@ -108,9 +108,9 @@ export const createReimburse = (id, amount) => ({
 })
 
 // Tiemout
-export const createTimeout = (id, buyer, seller) => ({
+export const createTimeout = id => ({
   type: timeout.CREATE,
-  payload: { id, buyer, seller }
+  payload: { id }
 })
 
 // Evidence

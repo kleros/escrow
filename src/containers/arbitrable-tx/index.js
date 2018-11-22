@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { BarLoader } from 'react-spinners'
+import { BarLoader, BeatLoader } from 'react-spinners'
 import { connect } from 'react-redux'
 import { Link } from "@reach/router"
 import { RenderIf } from 'lessdux'
@@ -16,6 +16,7 @@ import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx
 import * as arbitratorConstants from '../../constants/arbitrator'
 import PayOrReimburseArbitrableTx from '../../components/pay-or-reimburse-arbitrable-tx'
 import PayFeeArbitrableTx from '../../components/pay-fee-arbitrable-tx'
+import TimeoutArbitrableTx from '../../components/timeout-arbitrable-tx'
 
 import './arbitrable-tx.css'
 
@@ -99,7 +100,8 @@ class ArbitrableTx extends PureComponent {
   render() {
     const {
       createPayOrReimburse,
-      createDispute
+      createDispute,
+      createTimeout
 
     //   accounts,
     //   arbitrator,
@@ -148,10 +150,18 @@ class ArbitrableTx extends PureComponent {
               id={arbitrabletx.data.id}
               payFee={createDispute}
             />
+            <TimeoutArbitrableTx
+              id={arbitrabletx.data.id}
+              timeout={createTimeout}
+            />
           </div>
         )
       }
-      failedLoading="There was an error fetching the arbitrable transaction. Make sure you are connected to the right Ethereum network."
+      failedLoading={
+        <div className="loader">
+          <BeatLoader color={'gray'} />
+        </div>
+      }
     />
     )
   }
@@ -177,6 +187,6 @@ export default connect(
     // createReimburse: contractActions.createReimburse,
     // fetchAccounts: walletActions.fetchAccounts,
     // fetchArbitrator: contractActions.fetchArbitrator,
-    // createTimeout: contractActions.createTimeout
+    createTimeout: arbitrabletxActions.createTimeout
   }
 )(ArbitrableTx)

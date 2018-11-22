@@ -64,7 +64,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
       arbitrabletxReceived.arbitrator,
-      3600,
+      60,
       arbitrabletxReceived.seller,
       '0x0',
       `/ipfs/${ipfsHashMetaEvidence}`
@@ -286,55 +286,41 @@ function* createAppeal({ type, payload: { arbitrableTransactionId, disputeId } }
 }
 
 /**
- * Call by PartyA to be to reimburse if partyB fails to pay the fee.
- * @param {object} { payload: contractAddress, partyA, partyB } - The address of the contract.
+ * Call if a party fails to pay the fee.
+ * @param {object} { payload: id } - The arbitrabl transaction id of the contract.
  */
-function* createTimeout({
-  type,
-  payload: { arbitrableTransactionId, buyer, seller }
-}) {
-  if (window.ethereum) yield call(window.ethereum.enable)
+function* createTimeout({ type, payload: { id } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  // Set contract instance
-//   yield call(kleros.arbitrable.setContractInstance, ARBITRABLE_ADDRESS)
+  console.log('edf')
 
-//   yield put(push('/'))
+  const arbitrableTransaction = yield call(
+    multipleArbitrableTransactionEth.methods.transactions(id).call
+  )
 
-  let timeoutTx = null
+  if (accounts[0] === arbitrableTransaction.buyer)
+    yield call(
+      multipleArbitrableTransactionEth.methods.timeOutByBuyer(
+        id
+      ).send,
+      {
+        from: accounts[0],
+        value: 0
+      }
+    )
+  else
+    yield call(
+      multipleArbitrableTransactionEth.methods.timeOutBySeller(
+        id
+      ).send,
+      {
+        from: accounts[0],
+        value: 0
+      }
+    )
 
-  try {
-    // Set contract instance
-    // const arbitrableTransaction = yield call(
-    //   kleros.arbitrable.getData,
-    //   arbitrableTransactionId
-    // )
-
-    // if (arbitrableTransaction.amount === 0)
-    //   throw new Error('The dispute is already finished')
-
-    // if (buyer === accounts[0].toLowerCase()) {
-    //   timeoutTx = yield call(
-    //     kleros.arbitrable.callTimeOutBuyer,
-    //     accounts[0],
-    //     arbitrableTransactionId
-    //   )
-    // } else if (seller === accounts[0].toLowerCase()) {
-    //   timeoutTx = yield call(
-    //     kleros.arbitrable.callTimeOutSeller,
-    //     accounts[0],
-    //     arbitrableTransactionId
-    //   )
-    // }
-  } catch (err) {
-    console.log(err)
-    throw new Error('Error timeout failed')
-  }
-
-  //   yield call(toastr.success, 'Timeout successful', toastrOptions)
-
-  return timeoutTx
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 }
 
 /**
