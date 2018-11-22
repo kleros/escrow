@@ -136,6 +136,8 @@ class ArbitrableTx extends PureComponent {
             <br />
             status: {arbitrabletx.data.status}
             <br />
+            amount: {arbitrabletx.data.amount}
+            <br />
             <PayOrReimburseArbitrableTx
               payOrReimburse={payOrReimburse}
               payOrReimburseFn={createPayOrReimburse}

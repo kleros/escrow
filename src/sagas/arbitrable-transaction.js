@@ -7,6 +7,7 @@ import * as errorConstants from '../constants/error'
 import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
 import { getBase64 } from '../utils/get-base-64'
+import awaitTx from '../utils/await-tx'
 import { createMetaEvidence } from '../utils/generate-evidence'
 
 import ipfsPublish from './api/ipfs-publish'
@@ -65,7 +66,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       arbitrabletxReceived.arbitrator,
       3600,
       arbitrabletxReceived.seller,
-      "0x0",
+      '0x0',
       `/ipfs/${ipfsHashMetaEvidence}`
     ).send,
     {
@@ -74,8 +75,10 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
     }
   )
 
+  // const txMined = yield call(awaitTx, web3, txHash.transactionHash)
+
   if (txHash)
-    navigate(`/${arbitrableTransactionCount}`)
+    navigate(arbitrableTransactionCount)
 
   return {}
 }
@@ -171,10 +174,8 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
-  let txHash
-
   if (accounts[0] === arbitrableTransaction.buyer)
-    txHash = yield call(
+    yield call(
       multipleArbitrableTransactionEth.methods.pay(
         id,
         web3.utils.toWei(amount, 'ether')
@@ -185,7 +186,7 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
       }
     )
   else
-    txHash = yield call(
+    yield call(
       multipleArbitrableTransactionEth.methods.reimburse(
         id,
         web3.utils.toWei(amount, 'ether')
@@ -196,13 +197,11 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
       }
     )
 
-  if (txHash) {
-      // use navigate()
-      //   yield put(push(`/`))
-    console.log(txHash)
-  }
+    yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 
-  return {}
+  return yield call(fetchArbitrabletx, {
+    payload: { id }
+  })
 }
 
 /**
@@ -212,8 +211,6 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
 function* createDispute({ payload: { id } }) {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
-
-  let disputeTx = null
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -229,7 +226,7 @@ function* createDispute({ payload: { id } }) {
   )
 
   if (accounts[0] === arbitrableTransaction.buyer)
-    disputeTx = yield call(
+    yield call(
       multipleArbitrableTransactionEth.methods.payArbitrationFeeByBuyer(
         id
       ).send,
@@ -239,7 +236,7 @@ function* createDispute({ payload: { id } }) {
       }
     )
   else
-    disputeTx = yield call(
+    yield call(
       multipleArbitrableTransactionEth.methods.payArbitrationFeeBySeller(
         id
       ).send,
@@ -249,9 +246,9 @@ function* createDispute({ payload: { id } }) {
       }
     )
 
-  yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
-
-  return disputeTx
+  return yield call(fetchArbitrabletx, {
+    payload: { id }
+  })
 }
 
 /**
