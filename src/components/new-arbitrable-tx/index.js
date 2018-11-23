@@ -8,6 +8,8 @@ import { ARBITRATOR_DEFAULT_ADDRESS } from '../../bootstrap/dapp-api'
 const NewArbitrableTx = ({ formArbitrabletx }) => (
   <div>
     <h1>Create arbitrable transaction</h1>
+    <br />
+    <br />
     <Formik
       initialValues={{
         title: '',
@@ -33,31 +35,39 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
     >
       {({ setFieldValue }) => (
         <Form>
-          <Field name="title" placeholder="title" />
-          <ErrorMessage name="title" component="div" />
-
-          <Field type="textarea" name="description" />
-          <ErrorMessage name="description" component="div" className="def" />
-
+          <label for='title'>Title</label>
+          <Field name='title' placeholder='' />
+          <ErrorMessage name='title' component='div' />
+          <br />
+          <label for='description'>Description</label>
+          <Field name='description' component='textarea' />
+          <ErrorMessage name='description' component='div' className='def' />
+          <br />
           {/* hack Formik for file type */}
           {/* and store only the path on the file in the redux state */}
-          <input id="file" name="file" type="file" onChange={e =>
-            setFieldValue("file", window.URL.createObjectURL(e.currentTarget.files[0]))
+          <label for='file'>Primary document</label>
+          <input id='file' name='file' type='file' onChange={e =>
+            setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
           } />
-
-          <Field name="arbitrator" />
-          <ErrorMessage name="arbitrator" component="div" />
-
-          <Field name="seller" />
-          <ErrorMessage name="seller" component="div" />
-
-          <Field name="payment" />
-          <ErrorMessage name="payment" component="div" />
-
-          <Field type="email" name="email" />
-          <ErrorMessage name="email" component="div" className="error class" />
-
-          <button type="submit">
+          <br />
+          <label for='arbitrator'>Arbitrator (Kleros by default)</label>
+          <Field name='arbitrator' />
+          <ErrorMessage name='arbitrator' component='div' />
+          <br />
+          <label for='seller'>Seller</label>
+          <Field name='seller' />
+          <ErrorMessage name='seller' component='div' />
+          <br />
+          <label for='payment'>Payment</label>
+          <Field name='payment' />
+          <ErrorMessage name='payment' component='div' />
+          <br />
+          <label for='email'>Email</label>
+          <Field type='email' name='email' />
+          <ErrorMessage name='email' component='div' className='error class' />
+          <br />
+          <br />
+          <button type='submit'>
             Save Transaction
           </button>
         </Form>

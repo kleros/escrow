@@ -199,20 +199,9 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   return {
     ...arbitrableTransaction,
-    ruling,
-    // evidences,
-    appealable: disputeStatus === disputeConstants.APPEALABLE,
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
-    evidences: [{
-      fileURI: "https://s3.us-east-2.amazonaws.com/kleros-examples/exampleEvidence.txt",
-      name: "Example Evidence",
-      description: "This evidence shows how to properly utilize hashing and Archon to submit valid evidence!"
-    },
-    {
-      fileURI: "https://s3.us-east-2.amazonaws.com/kleros-examples/exampleEvidence.txt",
-      name: "Example Evidence",
-      description: "This evidence shows how to properly utilize hashing and Archon to submit valid evidence!"
-    }]
+    ruling,
+    appealable: disputeStatus === disputeConstants.APPEALABLE
   }
 }
 

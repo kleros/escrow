@@ -5,10 +5,8 @@ import { Provider } from 'react-redux'
 import { Router, Link } from "@reach/router"
 
 import Initializer from './initializer'
-import Balance from '../containers/balance'
 import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
-// import New from '../components/new-arbitrable-tx'
 import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
 
@@ -18,62 +16,21 @@ const NotFound = () => (
   <div>Sorry, nothing here.</div>
 )
 
-const TestElement = () => (
-  <div>
-     <header>
-      <div class="options">
-        <a href="#" class="options-link link-active">My transactions</a>
-        <a href="#" class="options-link">New Transaction</a>
-      </div>
-    </header>
-  <main>
-   <section>
-      <h2>The Title</h2>
-      <p>Some Text goes here, some text goes here, some text goes here, some text goes here.</p>
-      <a href="#" class="info-link">Learn more...</a>
-    </section>
-    <section>
-      <h2>The Title</h2>
-      <p>Some Text goes here, some text goes here, some text goes here, some text goes here.</p>
-      <a href="#" class="info-link" >Learn more...</a>
-    </section>
-    <section>
-      <h2>The Title</h2>
-      <img class="section-img profile" src="http://placekitten.com/260/260" />
-      <p>Some Text goes here, some text goes here, some text goes here, some text goes here.</p>
-      <a href="#" class="info-link">Learn more...</a>
-    </section>
-    <section class="bigbottom">
-      <h2>The Title</h2>
-      <p>Some Text goes here, some text goes here, some text goes here, some text goes here.</p>
-      <a class="bigbottom-link info-link" href="#" class="info-link">Learn more...</a>
-    </section>
-    <section class="bigtitle">
-      <h2 class="bigtitle-title">The Title</h2>
-      <p>Some Text goes here, some text goes here, some text goes here, some text goes here.</p>
-      <a href="#" class="info-link">Learn more...</a>
-    </section>
-    <section>
-      <h2>The Title</h2>
-      <p>Some Text goes here, some text goes here, some text goes here, some text goes here.</p>
-      <a href="#" class="info-link">Learn more...</a>
-    </section>
-  </main>
-  </div>
-  )
-
 const Main = ({ children }) => (
-  <React.Fragment>
-    <nav>
-      Menu
-      <ul>
-        <li><Link to="./">My Transactions</Link></li>
-        <li><Link to="new">New Transaction</Link></li>
-        <li><Link to="resume">Resume</Link></li>
-      </ul>
-    </nav>
-    {children}
-  </React.Fragment>
+  <div className='App'>
+    <header>
+      <nav>
+        <ul>
+          <li><Link to='./' >Ethcrow.io</Link></li>
+          <li><Link to='./'>My Transactions</Link></li>
+          <li style={{float: 'right'}}><Link to='new' style={{float: 'right'}}>New Transaction</Link></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      {children}
+    </main>
+  </div>
 )
 
 const App = ({ store, testElement }) => (
@@ -81,19 +38,17 @@ const App = ({ store, testElement }) => (
     <Initializer>
       <React.Fragment>
         <Helmet>
-          <title>Kleros Dapp</title>
+          <title>Ethcrow Dapp</title>
         </Helmet>
-        <div className="">
-          <Router>
-            <Main path="/">
-              <Home path="/" />
-              <Resume path="resume" />
-              <New path="new" />
-              <ArbitrableTx path=":arbitrableTxId" />
-              <NotFound default />
-            </Main>
-          </Router>
-        </div>
+        <Router>
+          <Main path="/">
+            <Home path="/" />
+            <Resume path="resume" />
+            <New path="new" />
+            <ArbitrableTx path=":arbitrableTxId" />
+            <NotFound default />
+          </Main>
+        </Router>
       </React.Fragment>
     </Initializer>
   </Provider>

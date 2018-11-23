@@ -17,37 +17,8 @@ export default (
   createEvidence
 ) => {
   switch(arbitrabletx.data.status) {
-    case arbitrableTxConstants.WAITING_BUYER:
-      return <MessageSellerArbitrationFee 
-        arbitrabletx={arbitrabletx}
-        createDispute={createDispute}
-      />
-    case arbitrableTxConstants.WAITING_SELLER:
-      return <MessageSellerArbitrationFee 
-        arbitrabletx={arbitrabletx}
-        createDispute={createDispute}
-      />
-    case arbitrableTxConstants.DISPUTE_CREATED:
-      return (
-        <div>
-          {
-            isTimeout(arbitrabletx) && 
-            <TimeoutArbitrableTx
-                id={arbitrabletx.data.id}
-                timeout={createTimeout}
-            />
-          }
-          <NewEvidenceArbitrableTx
-          id={arbitrabletx.data.id}
-          submitEvidence={createEvidence}
-          />
-        </div>
-      )
-    case arbitrableTxConstants.DISPUTE_RESOLVED:
-      return <div>{arbitrabletx.data.ruling}</div>
-    default:
-    return (
-      <div>
+    case arbitrableTxConstants.NO_DISPUTE:
+      return <div>
         { 
           amount > 0 ? (
             <div>
@@ -67,7 +38,50 @@ export default (
           )
         }
       </div>
-    )
+    case arbitrableTxConstants.WAITING_BUYER:
+      return !isFeePaid ? (
+        <MessageSellerArbitrationFee 
+          arbitrabletx={arbitrabletx}
+          createDispute={createDispute}
+        />
+      ) : (
+        <div>Waiting the arbitration fee from the buyer.</div>
+      )
+    case arbitrableTxConstants.WAITING_SELLER:
+      return !isFeePaid ? (
+        <MessageSellerArbitrationFee 
+          arbitrabletx={arbitrabletx}
+          createDispute={createDispute}
+        />
+      ) : (
+        <div>Waiting the arbitration fee from the seller.</div>
+      )
+    case arbitrableTxConstants.DISPUTE_CREATED:
+      return (
+        <div>
+          {
+            isTimeout(arbitrabletx) && 
+            <TimeoutArbitrableTx
+                id={arbitrabletx.data.id}
+                timeout={createTimeout}
+            />
+          }
+          <NewEvidenceArbitrableTx
+          id={arbitrabletx.data.id}
+          submitEvidence={createEvidence}
+          />
+        </div>
+      )
+    case arbitrableTxConstants.DISPUTE_RESOLVED:
+      return (
+        <div>
+          {arbitrabletx.data.ruling === '0' && 'No ruling.'}
+          {arbitrabletx.data.ruling === '1' && 'Buyer wins the current dispute.'}
+          {arbitrabletx.data.ruling === '2' && 'Seller wins the current dispute.'}
+        </div>
+      )
+    default:
+    return <div>Wainting Transaction...</div>
   }
 }
 
@@ -76,6 +90,8 @@ const isTimeout = arbitrabletx => {
   const dateTime = (Date.now() / 1000) | 0
   return dateTime > timeout
 }
+
+const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 
 const MessageSellerArbitrationFee = ({arbitrabletx, createDispute}) => (
   <React.Fragment>

@@ -51,22 +51,7 @@ html {
 }
 
 /* Layout styles -----------------------------------*/
-@media (min-width: 620px) {
-  main {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  
-  section {
-    break-inside: avoid;
-  }
-}
 
-@media (min-width: 960px) {
-  main {
-     column-count: 3;
-  }
-}
 
 /* styles */
 
@@ -95,12 +80,6 @@ header {
   padding: 0 20px;
 }
 
-.figure-img {
-  display: block;
-  width: 100%;
-  object: fit;
-}
-
 h2 {
   color: #4a4a4a;
   font-size: 1.4em;
@@ -110,28 +89,6 @@ h2 {
 p {
   margin-bottom: 1em;
   padding: 0 10px;
-}
-
-.info-link {
-  text-decoration: none;
-  color: var(--green);
-  padding: 10px;
-  display: block;
-}
-
-.options {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-  border-radius: 3px;
-  background-color: white;
-}
-
-.options-link {
-  text-decoration: none;
-  font-size: 0.9em;
-  color: var(--red);
 }
 
 section {
@@ -146,20 +103,29 @@ section:hover {
   cursor: pointer;
 }
 
-.section-img {
+/* Menu */
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #fff;
+}
+  
+li {
+  float: left;
+}
+  
+li a {
   display: block;
-  padding: 10px;
-  margin: 0 auto;
+  color: #333;
+  text-align: center;
+  padding: 14px 10px 4px 0;
+  text-decoration: none;
 }
-
-.profile {
-  width: 80%;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-@media (min-width: 620px) {
-  .options-link {
-    font-size: 1.4em;
-  }
+  
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  color: 3px gray solid;
 }

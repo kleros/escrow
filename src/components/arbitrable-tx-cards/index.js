@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -16,10 +16,10 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
         <div>
           {
             arbitrabletxs.map(arbitrabletx => (
-              <span key={arbitrabletx.id}>
-                <Link to={arbitrabletx.id} getProps={() => ({className: 'test class'})}>{arbitrabletx.id}</Link>
-                {` `}
-              </span>
+              <section onClick={() => navigate(arbitrabletx.id)}>
+                <h2>{arbitrabletx.buyer.substring(0, 7)} (TODO title)</h2> {/* FIXME replace by arbitrabletx.title */}
+                <p>{arbitrabletx.seller.substring(0, 7)} (TODO description)</p>  {/* FIXME replace by arbitrabletx.description */}
+              </section>
             ))
           }
         </div>
