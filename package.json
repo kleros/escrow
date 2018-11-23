@@ -1,6 +1,6 @@
 {
-  "name": "libescrow",
-  "version": "0.1.0",
+  "name": "@kleros/ethcrow",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.8",

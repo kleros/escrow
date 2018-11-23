@@ -1,0 +1,26 @@
+[build]
+  publish = "build/"
+  command = "yarn build"
+
+  # Develop Branch Deploy context: All deploys that are not in
+  # an active Deploy Preview will inherit these settings.
+[context.develop]
+  [context.develop.environment]
+  NODE_VERSION = "9.10.0"
+  REACT_APP_DEV_ARBITRATOR_DEFAULT_ADDRESS = "0x0390a40087Ce12d5603659cd1e9d78Cb715b7913"
+  REACT_APP_DEV_ARBITRABLE_ADDRESS = "0x2c95d39f7E9c2948015fA64FD51f0A518D33cEC6"
+  REACT_APP_ARBITRATOR_EXTRADATA = "0x00"
+  REACT_APP_ARBITRATOR_TIMEOUT = "172800"
+  REACT_APP_DEV_IPFS_PROVIDER = ""
+  YARN_FLAGS = "--no-ignore-optional"
+# Production context: All deploys to the main
+# repository branch will inherit these settings.
+[context.production]
+  [context.production.environment]
+  NODE_VERSION = "9.10.0"
+  REACT_APP_PROD_ARBITRATOR_DEFAULT_ADDRESS = "0x0390a40087Ce12d5603659cd1e9d78Cb715b7913"
+  REACT_APP_PROD_ARBITRABLE_ADDRESS = "0x2c95d39f7E9c2948015fA64FD51f0A518D33cEC6"
+  REACT_APP_ARBITRATOR_EXTRADATA = "0x00"
+  REACT_APP_ARBITRATOR_TIMEOUT = "172800"
+  REACT_APP_PROD_IPFS_PROVIDER = ""
+  YARN_FLAGS = "--no-ignore-optional"
