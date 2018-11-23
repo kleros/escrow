@@ -18,14 +18,14 @@ export default (
 ) => {
   switch(arbitrabletx.data.status) {
     case arbitrableTxConstants.WAITING_BUYER:
-      return <PayFeeArbitrableTx
-        id={arbitrabletx.data.id}
-        payFee={createDispute}
+      return <MessageSellerArbitrationFee 
+        arbitrabletx={arbitrabletx}
+        createDispute={createDispute}
       />
     case arbitrableTxConstants.WAITING_SELLER:
-      return <PayFeeArbitrableTx
-        id={arbitrabletx.data.id}
-        payFee={createDispute}
+      return <MessageSellerArbitrationFee 
+        arbitrabletx={arbitrabletx}
+        createDispute={createDispute}
       />
     case arbitrableTxConstants.DISPUTE_CREATED:
       return (
@@ -46,12 +46,28 @@ export default (
     case arbitrableTxConstants.DISPUTE_RESOLVED:
       return <div>{arbitrabletx.data.ruling}</div>
     default:
-      return <PayOrReimburseArbitrableTx
-        payOrReimburse={payOrReimburse}
-        payOrReimburseFn={createPayOrReimburse}
-        amount={amount}
-        id={arbitrabletx.data.id}
-      />
+    return (
+      <div>
+        { 
+          amount > 0 ? (
+            <div>
+              <PayOrReimburseArbitrableTx
+                payOrReimburse={payOrReimburse}
+                payOrReimburseFn={createPayOrReimburse}
+                amount={amount}
+                id={arbitrabletx.data.id}
+              />
+              <PayFeeArbitrableTx
+                id={arbitrabletx.data.id}
+                payFee={createDispute}
+              />
+            </div>
+          ) : (
+            <div>Transaction completed</div>
+          )
+        }
+      </div>
+    )
   }
 }
 
@@ -60,3 +76,16 @@ const isTimeout = arbitrabletx => {
   const dateTime = (Date.now() / 1000) | 0
   return dateTime > timeout
 }
+
+const MessageSellerArbitrationFee = ({arbitrabletx, createDispute}) => (
+  <React.Fragment>
+    The other party has raised a dispute.<br />
+    In order to not forfeit the dispute pay the arbitration
+    fee. You will be refunded the fee if you win the
+    dispute.
+    <PayFeeArbitrableTx
+      id={arbitrabletx.data.id}
+      payFee={createDispute}
+    />
+  </React.Fragment>
+)

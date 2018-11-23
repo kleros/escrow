@@ -202,6 +202,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     ruling,
     // evidences,
     appealable: disputeStatus === disputeConstants.APPEALABLE,
+    party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
     evidences: [{
       fileURI: "https://s3.us-east-2.amazonaws.com/kleros-examples/exampleEvidence.txt",
       name: "Example Evidence",
@@ -327,7 +328,7 @@ function* createAppeal({ type, payload: { id } }) {
     }
   )
   
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id })) 
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 }
 
 /**
