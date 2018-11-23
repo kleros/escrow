@@ -10,21 +10,21 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
  * @returns {*}
  */
 const ArbitrableTxCards = ({ arbitrabletxs }) => (
-  <div className="">
+  <div className=''>
     {
       arbitrabletxs.length > 0 ? (
         <div>
           {
             arbitrabletxs.map(arbitrabletx => (
               <span key={arbitrabletx.id}>
-                <Link to={`${arbitrabletx.id}`} getProps={() => ({className: "test class"})}>{arbitrabletx.id}</Link>
+                <Link to={arbitrabletx.id} getProps={() => ({className: 'test class'})}>{arbitrabletx.id}</Link>
                 {` `}
               </span>
             ))
           }
         </div>
       ) : (
-        <Link to="new">New Transaction <FontAwesomeIcon icon={faPlus} /></Link>
+        <Link to='new'>New Transaction <FontAwesomeIcon icon={faPlus} /></Link>
       )
     }
   </div>

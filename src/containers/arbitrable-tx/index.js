@@ -16,6 +16,7 @@ import PayFeeArbitrableTx from '../../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../../components/timeout-arbitrable-tx'
 import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../../components/new-evidence-arbitrable-tx'
+import EvidenceArbitrableTxList from '../../components/evidence-arbitrable-tx-list'
 
 import './arbitrable-tx.css'
 
@@ -112,6 +113,12 @@ class ArbitrableTx extends PureComponent {
               id={arbitrabletx.data.id}
               submitEvidence={createEvidence}
             />
+            {
+              arbitrabletx.data.evidences.length && 
+              <EvidenceArbitrableTxList
+                evidenceArbitrabletxs={arbitrabletx.data.evidences}
+              />
+            }
           </div>
         )
       }

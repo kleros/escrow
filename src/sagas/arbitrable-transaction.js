@@ -49,6 +49,8 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       arbitrabletxReceived.description,
       `/ipfs/${fileIpfsHash[0].hash}`
     )
+  console.log(`/ipfs/${fileIpfsHash[0].hash}`)
+
   } else {
     metaEvidence = createMetaEvidence(
       accounts[0],
@@ -57,6 +59,8 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       arbitrabletxReceived.description,
     )
   }
+
+
 
   // Upload the meta-evidence to IPFS
   const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
@@ -129,6 +133,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   let arbitrableTransaction
   let evidences = []
   let ruling = null
+  let disputeStatus = null
 
   // force convert to string
   const transactionId = id.toString()
@@ -142,36 +147,75 @@ function* fetchArbitrabletx({ payload: { id } }) {
   try {
     if (arbitrableTransaction.disputeId) {
       const archon = new Archon('https://mainnet.infura.io')
-      evidences = yield call(
+      const evidencesIpfs = yield call( // FIXME
         archon.arbitrable.getEvidence,
         ARBITRABLE_ADDRESS,
         arbitrableTransaction.arbitrator,
         arbitrableTransaction.disputeId
       )
-    } 
+
+      /******* FIXME FETCH EVIDENCES FROM IPFS ******/
+
+      // evidencesIpfs = [{ // example
+      //   evidenceJSONValid: true,
+      //   fileValid: true,
+      //   evidenceJSON: {"fileURI": "/ipfs/0x9c0C27Ebf8E3D42975D15bBdd538F2b6616c4Ab5"},
+      //   submittedBy: "0x8254175f6a6E0FE1f63e0eeb0ae487cCf3950BFb",
+      //   submittedAt: 1539022733,
+      //   blockNumber: 6503576,
+      //   transactionHash: "0xe91603b9d4bf506972820f499bf221cdfb48cbfd426125af5ab647dca39a3f4e"
+      // },
+      // {
+      //   evidenceJSONValid: true,
+      //   fileValid: true,
+      //   evidenceJSON: {"fileURI": "/ipfs/0x9c0C27Ebf8E3D42975D15bBdd538F2b6616c4Ab5"},
+      //   submittedBy: "0xc55a13e36d93371a5b036a21d913a31CD2804ba4",
+      //   submittedAt: 1539025000,
+      //   blockNumber: 6503570,
+      //   transactionHash: "0x340fdc6e32ef24eb14f9ccbd2ec614a8d0c7121e8d53f574529008f468481990"
+      // }]
+
+      // evidencesIpfs.map(evidenceIpfs => {
+      //   evidence = yield call(
+      //     fetch,
+      //     evidenceIpfs.evidenceJSON // FIXME
+      //   )
+      //   evidences.push(evidence)
+      // }
+    }
+
+    const arbitratorEth = new web3.eth.Contract(
+      arbitrator.abi,
+      arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
+    )
+  
+    disputeStatus = yield call(
+      arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
+    )
+  
+    if (disputeStatus === disputeConstants.SOLVED)
+      ruling = yield call(
+        arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
+      )
   } catch (err) {
     console.log(err)
   }
 
-  const arbitratorEth = new web3.eth.Contract(
-    arbitrator.abi,
-    arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
-  )
-
-  const disputeStatus = yield call(
-    arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
-  )
-
-  if (disputeStatus === disputeConstants.SOLVED)
-    ruling = yield call(
-      arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
-    )
-
   return {
     ...arbitrableTransaction,
     ruling,
-    evidences,
-    appealable: disputeStatus === disputeConstants.APPEALABLE
+    // evidences,
+    appealable: disputeStatus === disputeConstants.APPEALABLE,
+    evidences: [{
+      fileURI: "https://s3.us-east-2.amazonaws.com/kleros-examples/exampleEvidence.txt",
+      name: "Example Evidence",
+      description: "This evidence shows how to properly utilize hashing and Archon to submit valid evidence!"
+    },
+    {
+      fileURI: "https://s3.us-east-2.amazonaws.com/kleros-examples/exampleEvidence.txt",
+      name: "Example Evidence",
+      description: "This evidence shows how to properly utilize hashing and Archon to submit valid evidence!"
+    }]
   }
 }
 
