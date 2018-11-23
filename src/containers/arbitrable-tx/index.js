@@ -2,22 +2,20 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { BarLoader, BeatLoader } from 'react-spinners'
 import { connect } from 'react-redux'
-import { Link } from "@reach/router"
 import { RenderIf } from 'lessdux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 import { web3 } from '../../bootstrap/dapp-api'
-import * as walletActions from '../../actions/wallet'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
-import * as arbitratorConstants from '../../constants/arbitrator'
 import PayOrReimburseArbitrableTx from '../../components/pay-or-reimburse-arbitrable-tx'
 import PayFeeArbitrableTx from '../../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../../components/timeout-arbitrable-tx'
 import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
+import NewEvidenceArbitrableTx from '../../components/new-evidence-arbitrable-tx'
 
 import './arbitrable-tx.css'
 
@@ -29,11 +27,10 @@ class ArbitrableTx extends PureComponent {
   static propTypes = {
     arbitrabletx: arbitrabletxSelectors.arbitrabletxShape.isRequired,
     fetchArbitrabletx: PropTypes.func.isRequired,
-    // createDispute: PropTypes.func.isRequired,
-    // createAppeal: PropTypes.func.isRequired,
-    // createTimeout: PropTypes.func.isRequired,
-    // createPay: PropTypes.func.isRequired,
-    // createReimburse: PropTypes.func.isRequired,
+    createDispute: PropTypes.func.isRequired,
+    createAppeal: PropTypes.func.isRequired,
+    createTimeout: PropTypes.func.isRequired,
+    createPayOrReimburse: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -50,51 +47,9 @@ class ArbitrableTx extends PureComponent {
           arbitrabletx,
           payOrReimburse: arbitrabletx.data.buyer === accounts.data[0] ? 'Pay' : 'Reimburse'
         }
-
       }
-    
     return null
   }
-
-//   createDispute = () => {
-//     const { createDispute, match } = this.props
-//     createDispute(match.params.contractAddress)
-//   }
-
-//   createAppeal = () => {
-//     const { contract, createAppeal, match } = this.props
-//     createAppeal(match.params.contractAddress, contract.data.disputeId)
-//   }
-
-//   createPay = () => {
-//     const { accounts, contract, createPay, createReimburse, match } = this.props
-//     const { amount } = this.state
-//     if (contract.data.seller === accounts.data[0].toLowerCase())
-//       createReimburse(match.params.contractAddress, amount)
-//     else createPay(match.params.contractAddress, amount)
-//   }
-
-//   timeout = () => {
-//     const { contract, createTimeout, match } = this.props
-//     createTimeout(
-//       match.params.contractAddress,
-//       contract.data.buyer,
-//       contract.data.seller
-//     )
-//   }
-
-//   showEmptyContractEl = contract =>
-//     contract.data.amount && contract.data.amount.e === 0
-
-//   hideEmptyContractEl = contract => ({
-//     display: contract.data.amount === 0 ? 'none' : 'block'
-//   })
-
-//   isTimeout = contract => {
-//     const timeout = contract.data.lastInteraction + contract.data.timeout
-//     const dateTime = (Date.now() / 1000) | 0
-//     return dateTime > timeout
-//   }
 
   onChangeAmount = e => this.setState({ amount: e.target.value })
 
@@ -103,12 +58,11 @@ class ArbitrableTx extends PureComponent {
       createPayOrReimburse,
       createDispute,
       createTimeout,
-      createAppeal
-    //   accounts,
-    //   evidence,
+      createAppeal,
+      createEvidence
     } = this.props
     const { arbitrabletx, payOrReimburse } = this.state
-    const ruling = ['no ruling', 'buyer', 'seller']
+
     let amount = 0
     if (arbitrabletx.data && arbitrabletx.data.amount)
       amount = web3.utils.fromWei(arbitrabletx.data.amount.toString(), 'ether')
@@ -116,7 +70,7 @@ class ArbitrableTx extends PureComponent {
     <RenderIf
       resource={arbitrabletx}
       loading={
-        <div className="loader">
+        <div className='loader'>
           <BarLoader color={'gray'} />
         </div>
       }
@@ -127,10 +81,6 @@ class ArbitrableTx extends PureComponent {
             <br />
             arbitrator: {arbitrabletx.data.arbitrator}
             <br />
-            {arbitrabletx.data.payment}
-            <br />
-            {arbitrabletx.data.email}
-            <br />
             sellerFee: {arbitrabletx.data.sellerFee}
             <br />
             buyerFee: {arbitrabletx.data.buyerFee}
@@ -139,6 +89,7 @@ class ArbitrableTx extends PureComponent {
             <br />
             amount: {arbitrabletx.data.amount}
             <br />
+            {/* switch */}
             <PayOrReimburseArbitrableTx
               payOrReimburse={payOrReimburse}
               payOrReimburseFn={createPayOrReimburse}
@@ -157,11 +108,15 @@ class ArbitrableTx extends PureComponent {
               id={arbitrabletx.data.id}
               appeal={createAppeal}
             />
+            <NewEvidenceArbitrableTx
+              id={arbitrabletx.data.id}
+              submitEvidence={createEvidence}
+            />
           </div>
         )
       }
       failedLoading={
-        <div className="loader">
+        <div className='loader'>
           <BeatLoader color={'gray'} />
         </div>
       }
@@ -173,13 +128,6 @@ class ArbitrableTx extends PureComponent {
 export default connect(
   state => ({
     arbitrabletx: state.arbitrabletx.arbitrabletx,
-    // dispute: state.contract.dispute,
-    // arbitrator: state.contract.arbitrator,
-    // pay: state.contract.pay,
-    // reimburse: state.contract.reimburse,
-    // appeal: state.contract.appeal,
-    // evidence: state.contract.evidence,
-    // timeout: state.contract.timeout,
     accounts: state.wallet.accounts
   }),
   {
@@ -187,6 +135,7 @@ export default connect(
     createAppeal: arbitrabletxActions.createAppeal,
     createDispute: arbitrabletxActions.createDispute,
     createPayOrReimburse: arbitrabletxActions.createPayOrReimburse,
-    createTimeout: arbitrabletxActions.createTimeout
+    createTimeout: arbitrabletxActions.createTimeout,
+    createEvidence: arbitrabletxActions.createEvidence
   }
 )(ArbitrableTx)

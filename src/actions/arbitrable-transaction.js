@@ -95,9 +95,9 @@ export const createTimeout = id => ({
 })
 
 // Evidence
-export const createEvidence = evidenceReceived => ({
+export const createEvidence = (evidenceReceived, arbitrableTransactionId) => ({
   type: evidence.CREATE,
-  payload: { evidenceReceived }
+  payload: { evidenceReceived, arbitrableTransactionId }
 })
 
 // Appeal

@@ -7,9 +7,8 @@ import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
 import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
-import { getBase64 } from '../utils/get-base-64'
-import awaitTx from '../utils/await-tx'
-import { createMetaEvidence } from '../utils/generate-evidence'
+import getBase64 from '../utils/get-base-64'
+import createMetaEvidence from '../utils/generate-meta-evidence'
 
 import ipfsPublish from './api/ipfs-publish'
 
@@ -44,7 +43,6 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       arbitrabletxReceived.description,
       `/ipfs/${fileIpfsHash[0].hash}`
     )
-
   } else {
     metaEvidence = createMetaEvidence(
       accounts[0],
@@ -75,8 +73,6 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       value: web3.utils.toWei(arbitrabletxReceived.payment, 'ether')
     }
   )
-
-  // const txMined = yield call(awaitTx, web3, txHash.transactionHash)
 
   if (txHash)
     navigate(arbitrableTransactionCount)
@@ -310,48 +306,63 @@ function* createTimeout({ type, payload: { id } }) {
 
 /**
  * Send evidence
- * @param {object} { type, payload: evidenceReceived } - Evidence.
+ * @param {object} { type, payload: evidenceReceived,  } - Evidence.
  */
-function* createEvidence({ type, payload: { evidenceReceived } }) {
+function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransactionId } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  let evidenceTx = null
+  console.log('evidenceReceived', evidenceReceived)
+  console.log('arbitrableTransactionId', arbitrableTransactionId)
 
-  // field to upload directly evidence
+
+  let ipfsHashMetaEvidence = null
+
+    const data = yield call(
+      getBase64,
+      evidenceReceived.file
+    )
+
+    // Upload the meta-evidence then return an ipfs hash
+    const fileIpfsHash = yield call(
+      ipfsPublish,
+      data
+    )
+
+    // Pass IPFS path for URI. No need for fileHash
+    const evidence = {
+      fileURI: `/ipfs/${fileIpfsHash[0].hash}`,
+      name: evidenceReceived.name,
+      description: evidenceReceived.description
+    }
+
+  // Upload the meta-evidence to IPFS
+  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(evidence))
+  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].hash
+
+  console.log('ipfsHashMetaEvidence',ipfsHashMetaEvidence)
+
+  let txHash
 
   try {
-    // Upload the evidence then return an url
-    // const file = yield call(
-    //   storeApi.postFile,
-    //   JSON.stringify({
-    //     name: evidenceReceived.name,
-    //     description: evidenceReceived.description,
-    //     fileURI: evidenceReceived.url
-    //   })
-    // )
-
-    // // Set contract instance
-    // yield call(kleros.arbitrable.setContractInstance, ARBITRABLE_ADDRESS)
-
-    // evidenceTx = yield call(
-    //   multipleArbitrableTransactionEth.methods.submitEvidence(
-    //     evidenceReceived.arbitrableTransactionId,
-    //     file.payload.fileURL
-    //   ).send,
-    //   {
-    //     from: accounts[0],
-    //     value: 0
-    //   }
-    // )
+  txHash = yield call(
+    multipleArbitrableTransactionEth.methods.submitEvidence(
+      arbitrableTransactionId, // force id to be a string
+      `/ipfs/${ipfsHashMetaEvidence}`
+    ).send,
+    {
+      from: accounts[0],
+      value: 0
+    }
+  )
   } catch (err) {
     console.log(err)
-    throw new Error('Error evidence creation failed')
   }
 
-  //   yield call(toastr.success, 'Evidence creation successful', toastrOptions)
+  if (txHash)
+    navigate(evidenceReceived.arbitrableTransactionId)
 
-  return evidenceTx
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id: arbitrableTransactionId }))
 }
 
 /**

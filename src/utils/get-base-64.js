@@ -1,4 +1,4 @@
-export const getBase64 = file => {
+export default file => {
   return new Promise(resolve => {
     let request = new XMLHttpRequest()
     request.open('GET', file, true)
