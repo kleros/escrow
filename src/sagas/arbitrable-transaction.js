@@ -1,7 +1,13 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
+import Archon from '@kleros/archon'
 
-import { web3, multipleArbitrableTransactionEth, arbitrator } from '../bootstrap/dapp-api'
+import { 
+  web3, 
+  multipleArbitrableTransactionEth, 
+  arbitrator, 
+  ARBITRABLE_ADDRESS 
+} from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
@@ -121,6 +127,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let arbitrableTransaction
+  let evidences = []
   let ruling = null
 
   // force convert to string
@@ -131,7 +138,21 @@ function* fetchArbitrabletx({ payload: { id } }) {
   )
 
   arbitrableTransaction.id = id
-  
+
+  try {
+    if (arbitrableTransaction.disputeId) {
+      const archon = new Archon('https://mainnet.infura.io')
+      evidences = yield call(
+        archon.arbitrable.getEvidence,
+        ARBITRABLE_ADDRESS,
+        arbitrableTransaction.arbitrator,
+        arbitrableTransaction.disputeId
+      )
+    } 
+  } catch (err) {
+    console.log(err)
+  }
+
   const arbitratorEth = new web3.eth.Contract(
     arbitrator.abi,
     arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
@@ -149,6 +170,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   return {
     ...arbitrableTransaction,
     ruling,
+    evidences,
     appealable: disputeStatus === disputeConstants.APPEALABLE
   }
 }
@@ -312,10 +334,6 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  console.log('evidenceReceived', evidenceReceived)
-  console.log('arbitrableTransactionId', arbitrableTransactionId)
-
-
   let ipfsHashMetaEvidence = null
 
     const data = yield call(
@@ -340,12 +358,7 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
   const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(evidence))
   ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].hash
 
-  console.log('ipfsHashMetaEvidence',ipfsHashMetaEvidence)
-
-  let txHash
-
-  try {
-  txHash = yield call(
+  const txHash = yield call(
     multipleArbitrableTransactionEth.methods.submitEvidence(
       arbitrableTransactionId, // force id to be a string
       `/ipfs/${ipfsHashMetaEvidence}`
@@ -355,9 +368,6 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
       value: 0
     }
   )
-  } catch (err) {
-    console.log(err)
-  }
 
   if (txHash)
     navigate(evidenceReceived.arbitrableTransactionId)
