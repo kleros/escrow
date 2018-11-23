@@ -3,11 +3,20 @@ import PropTypes from 'prop-types'
 import { navigate } from '@reach/router'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
+import { ARBITRATOR_DEFAULT_ADDRESS } from '../../bootstrap/dapp-api'
+
 const NewArbitrableTx = ({ formArbitrabletx }) => (
   <div>
     <h1>Create arbitrable transaction</h1>
     <Formik
-      initialValues={{title: '', description: '', file: '', arbitrator: '', seller: '', payment: '', email: ''}}
+      initialValues={{
+        title: '',
+        description: '', file: '',
+        arbitrator: ARBITRATOR_DEFAULT_ADDRESS,
+        seller: '',
+        payment: '',
+        email: ''
+      }}
       validate = {values => {
         {/* TODO use Yup */}
         let errors = {}

@@ -20,8 +20,6 @@ export const _arbitrabletxShape = PropTypes.shape({
   description: PropTypes.string,
   disputeId: PropTypes.string,
   email: PropTypes.string,
-  evidencePartyA: PropTypes.string,
-  evidencePartyB: PropTypes.string,
   evidences: PropTypes.arrayOf(
     PropTypes.shape({ _id: PropTypes.string, url: PropTypes.string })
   ),

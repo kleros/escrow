@@ -14,9 +14,6 @@ else if (window.web3 && window.web3.currentProvider)
   web3 = new Web3(window.web3.currentProvider)
 else web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER))
 
-let ARBITRABLE_ADDRESS
-let multipleArbitrableTransactionEth
-
 const network =
   web3.eth &&
   web3.eth.net
@@ -37,10 +34,12 @@ const network =
     })
     .catch(() => null)
 
-ARBITRABLE_ADDRESS =
+const ARBITRABLE_ADDRESS =
   process.env[`REACT_APP_${env}_ARBITRABLE_ADDRESS`]
+const ARBITRATOR_DEFAULT_ADDRESS =
+  process.env[`REACT_APP_${env}_ARBITRATOR_DEFAULT_ADDRESS`]
 
-multipleArbitrableTransactionEth = new web3.eth.Contract(
+const multipleArbitrableTransactionEth = new web3.eth.Contract(
   multipleArbitrableTransaction.abi,
   ARBITRABLE_ADDRESS
 )
@@ -54,6 +53,7 @@ const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
 export {
   web3,
   ARBITRABLE_ADDRESS,
+  ARBITRATOR_DEFAULT_ADDRESS,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp,

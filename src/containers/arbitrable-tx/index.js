@@ -11,19 +11,22 @@ import { web3 } from '../../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
-import PayOrReimburseArbitrableTx from '../../components/pay-or-reimburse-arbitrable-tx'
-import PayFeeArbitrableTx from '../../components/pay-fee-arbitrable-tx'
-import TimeoutArbitrableTx from '../../components/timeout-arbitrable-tx'
 import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
-import NewEvidenceArbitrableTx from '../../components/new-evidence-arbitrable-tx'
 import EvidenceArbitrableTxList from '../../components/evidence-arbitrable-tx-list'
+import renderStatusArbitrableTxSwitch from '../../utils/render-status-arbitrable-tx-switch'
+
 
 import './arbitrable-tx.css'
 
 class ArbitrableTx extends PureComponent {
   state = {
     payOrReimburse: 'payOrReimburse',
-    arbitrabletx: {}
+    arbitrabletx: {
+      data: {
+        appealable: false,
+        evidences: []
+      }
+    }
   }
   static propTypes = {
     arbitrabletx: arbitrabletxSelectors.arbitrabletxShape.isRequired,
@@ -60,7 +63,8 @@ class ArbitrableTx extends PureComponent {
       createDispute,
       createTimeout,
       createAppeal,
-      createEvidence
+      createEvidence,
+      accounts
     } = this.props
     const { arbitrabletx, payOrReimburse } = this.state
 
@@ -90,31 +94,28 @@ class ArbitrableTx extends PureComponent {
             <br />
             amount: {arbitrabletx.data.amount}
             <br />
-            {/* switch */}
-            <PayOrReimburseArbitrableTx
-              payOrReimburse={payOrReimburse}
-              payOrReimburseFn={createPayOrReimburse}
-              amount={amount}
-              id={arbitrabletx.data.id}
-            />
-            <PayFeeArbitrableTx
-              id={arbitrabletx.data.id}
-              payFee={createDispute}
-            />
-            <TimeoutArbitrableTx
-              id={arbitrabletx.data.id}
-              timeout={createTimeout}
-            />
-            <AppealArbitrableTx
-              id={arbitrabletx.data.id}
-              appeal={createAppeal}
-            />
-            <NewEvidenceArbitrableTx
-              id={arbitrabletx.data.id}
-              submitEvidence={createEvidence}
-            />
+
             {
-              arbitrabletx.data.evidences.length && 
+              renderStatusArbitrableTxSwitch(
+                accounts, 
+                arbitrabletx,
+                payOrReimburse,
+                createPayOrReimburse,
+                amount,
+                createDispute,
+                createTimeout,
+                createEvidence
+              )
+            }
+            {
+              arbitrabletx.data.appealable && 
+              <AppealArbitrableTx
+                id={arbitrabletx.data.id}
+                appeal={createAppeal}
+              />
+            }
+            {
+              arbitrabletx.data.evidences && arbitrabletx.data.evidences.length > 0 && 
               <EvidenceArbitrableTxList
                 evidenceArbitrabletxs={arbitrabletx.data.evidences}
               />

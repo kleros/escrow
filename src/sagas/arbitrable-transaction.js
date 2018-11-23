@@ -49,18 +49,14 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       arbitrabletxReceived.description,
       `/ipfs/${fileIpfsHash[0].hash}`
     )
-  console.log(`/ipfs/${fileIpfsHash[0].hash}`)
-
   } else {
     metaEvidence = createMetaEvidence(
       accounts[0],
       arbitrabletxReceived.seller,
       arbitrabletxReceived.title,
-      arbitrabletxReceived.description,
+      arbitrabletxReceived.description
     )
   }
-
-
 
   // Upload the meta-evidence to IPFS
   const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
