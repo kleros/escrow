@@ -88,7 +88,6 @@ class ArbitrableTx extends PureComponent {
             <p>buyerFee: {arbitrabletx.data.buyerFee}</p>
             <p>status: {arbitrabletx.data.status}</p>
             <p>amount: {amount} ETH</p>
-            <p>
             {
               renderStatusArbitrableTxSwitch(
                 accounts, 
@@ -101,8 +100,8 @@ class ArbitrableTx extends PureComponent {
                 createEvidence
               )
             }
-            </p>
-            <p>
+            <br />
+            <br />
             {
               arbitrabletx.data.appealable && 
               <AppealArbitrableTx
@@ -116,8 +115,6 @@ class ArbitrableTx extends PureComponent {
                 evidenceArbitrabletxs={arbitrabletx.data.evidences}
               />
             }
-            </p>
-
           </div>
         )
       }
