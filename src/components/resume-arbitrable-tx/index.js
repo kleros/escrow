@@ -2,11 +2,10 @@ import React from 'react'
 
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 
+import './resume-arbitrable-tx.css'
+
 const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletxForm }) => (
-  <div>
-    <h1>Resume arbitrable transaction</h1>
-    <br />
-    <br />
+  <div className='ResumeArbitrableTx'>
     <p>Title: {arbitrabletxForm.title}</p>
     <p>Description: {arbitrabletxForm.title}</p>
     <p>Seller: {arbitrabletxForm.seller}</p>
@@ -14,7 +13,7 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletxForm }) => (
     <p>My email: {arbitrabletxForm.email}</p>
     <br />
     <br />
-    <button onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
+    <button style={{float: 'right'}} onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
       Submit Transaction
     </button>
   </div>

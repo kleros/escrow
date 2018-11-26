@@ -29,6 +29,7 @@
       justify-items: stretch;
       align-items: stretch; }
   .NewArbitrableTx .section-submit {
-    grid-area: submit; }
+    grid-area: submit;
+    margin-top: 1em; }
     .NewArbitrableTx .section-submit button {
       float: right; }

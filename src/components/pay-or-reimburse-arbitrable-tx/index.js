@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburseFn }) => (
-  <div>
+  <div style={{float: 'right'}}>
     <Formik
       initialValues={{amount, id}}
       validate = {values => {

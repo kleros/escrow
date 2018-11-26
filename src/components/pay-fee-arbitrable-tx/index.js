@@ -6,7 +6,7 @@ import './pay-fee-arbitrable-tx.css'
 const PayFeeArbitrableTx = ({ id, payFee }) => (
   <div>
     <button type="submit" onClick={() => payFee(id)}>
-      Pay Arbitration Fee
+      Raise a dispute
     </button>
   </div>
 )
