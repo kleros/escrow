@@ -1,0 +1,34 @@
+.NewArbitrableTx {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "title description" "submit submit"; }
+  .NewArbitrableTx .section-title {
+    grid-area: title;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 200px 1fr; }
+    .NewArbitrableTx .section-title label {
+      text-align: right;
+      grid-column: 1 / 2;
+      padding-right: 20px;
+      padding-top: 2px; }
+    .NewArbitrableTx .section-title input {
+      grid-column: 2 / 3;
+      max-width: 300px; }
+  .NewArbitrableTx .section-description {
+    grid-area: description;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "label" "textarea"; }
+    .NewArbitrableTx .section-description label {
+      grid-area: label; }
+    .NewArbitrableTx .section-description textarea {
+      grid-area: textarea;
+      justify-items: stretch;
+      align-items: stretch; }
+  .NewArbitrableTx .section-submit {
+    grid-area: submit; }
+    .NewArbitrableTx .section-submit button {
+      float: right; }

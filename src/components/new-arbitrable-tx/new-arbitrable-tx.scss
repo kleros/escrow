@@ -1,0 +1,54 @@
+.NewArbitrableTx {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+
+  grid-template-areas:
+  "title description"
+  "submit submit";
+
+  .section-title {
+    grid-area: title;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 200px 1fr;
+    label {
+      text-align: right;
+      grid-column: 1 / 2;
+      padding-right: 20px;
+      padding-top: 2px;
+    }
+
+    input {
+      grid-column: 2 / 3;
+      max-width: 300px;
+    }
+  }
+
+  .section-description {
+    grid-area: description;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "label"
+      "textarea";
+
+    label {
+      grid-area: label;
+    }
+
+    textarea {
+      grid-area: textarea;
+      justify-items: stretch;
+      align-items: stretch;
+    }
+  }
+
+  .section-submit {
+    grid-area: submit;
+    button {
+      float: right;
+    }
+  }
+}

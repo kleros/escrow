@@ -5,11 +5,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import { ARBITRATOR_DEFAULT_ADDRESS } from '../../bootstrap/dapp-api'
 
+import './new-arbitrable-tx.css'
+
 const NewArbitrableTx = ({ formArbitrabletx }) => (
-  <div>
-    <h1>Create arbitrable transaction</h1>
-    <br />
-    <br />
+  <div >
     <Formik
       initialValues={{
         title: '',
@@ -23,7 +22,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         {/* TODO use Yup */}
         let errors = {}
         if (!values.email) {
-          errors.email = 'Required';
+          errors.email = 'Email Required';
         } else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
@@ -34,42 +33,46 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
       onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx) && navigate('resume')}
     >
       {({ setFieldValue }) => (
-        <Form>
-          <label for='title'>Title</label>
-          <Field name='title' placeholder='' />
-          <ErrorMessage name='title' component='div' />
-          <br />
-          <label for='description'>Description</label>
-          <Field name='description' component='textarea' />
-          <ErrorMessage name='description' component='div' className='def' />
-          <br />
-          {/* hack Formik for file type */}
-          {/* and store only the path on the file in the redux state */}
-          <label for='file'>Primary document</label>
-          <input id='file' name='file' type='file' onChange={e =>
-            setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
-          } />
-          <br />
-          <label for='arbitrator'>Arbitrator (Kleros by default)</label>
-          <Field name='arbitrator' />
-          <ErrorMessage name='arbitrator' component='div' />
-          <br />
-          <label for='seller'>Seller</label>
-          <Field name='seller' />
-          <ErrorMessage name='seller' component='div' />
-          <br />
-          <label for='payment'>Payment</label>
-          <Field name='payment' />
-          <ErrorMessage name='payment' component='div' />
-          <br />
-          <label for='email'>Email</label>
-          <Field type='email' name='email' />
-          <ErrorMessage name='email' component='div' className='error class' />
-          <br />
-          <br />
-          <button type='submit'>
-            Save Transaction
-          </button>
+        <Form className='NewArbitrableTx'>
+          <div className='section-title'>
+            <label for='title'>Title</label>
+            <Field name='title' placeholder='' />
+            <ErrorMessage name='title' component='div' />
+            <br />
+            <br />
+            {/* hack Formik for file type */}
+            {/* and store only the path on the file in the redux state */}
+            <label for='file'>Primary document</label>
+            <input id='file' name='file' type='file' onChange={e =>
+              setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
+            } />
+            <br />
+            <label for='arbitrator'>Arbitrator (Kleros)</label>
+            <Field name='arbitrator' />
+            <ErrorMessage name='arbitrator' component='div' />
+            <br />
+            <label for='seller'>Seller</label>
+            <Field name='seller' />
+            <ErrorMessage name='seller' component='div' />
+            <br />
+            <label for='payment'>Payment</label>
+            <Field name='payment' />
+            <ErrorMessage name='payment' component='div' />
+            <br />
+            <label for='email'>Email</label>
+            <Field type='email' name='email' />
+            <ErrorMessage name='email' component='div' className='error class' />
+          </div>
+          <div className='section-description'>
+            <label for='description'>Description</label>
+            <Field name='description' component='textarea' />
+            <ErrorMessage name='description' component='div' className='def' />
+          </div>
+          <div className='section-submit'>
+            <button type='submit'>
+              Save Transaction
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
