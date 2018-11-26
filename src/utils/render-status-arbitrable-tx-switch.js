@@ -39,7 +39,7 @@ export default (
         }
       </div>
     case arbitrableTxConstants.WAITING_BUYER:
-      return !isFeePaid ? (
+      return !isFeePaid(arbitrabletx) ? (
         <MessageSellerArbitrationFee 
           arbitrabletx={arbitrabletx}
           createDispute={createDispute}
@@ -48,7 +48,7 @@ export default (
         <div>Waiting the arbitration fee from the buyer.</div>
       )
     case arbitrableTxConstants.WAITING_SELLER:
-      return !isFeePaid ? (
+      return !isFeePaid(arbitrabletx) ? (
         <MessageSellerArbitrationFee 
           arbitrabletx={arbitrabletx}
           createDispute={createDispute}
