@@ -21,8 +21,13 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
 
           {/* hack Formik for file type */}
           {/* and store only the path on the file in the redux state */}
-          <input id='file' name='file' type='file' onChange={e =>
-            setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
+          <input id='file' name='file' type='file' onChange={e => {
+              const file = e.currentTarget.files[0]
+              return setFieldValue('file', {
+                dataURL: window.URL.createObjectURL(e.currentTarget.files[0]),
+                name: file.name
+              })
+            }
           } />
           <button type='submit'>
             Save Evidence
