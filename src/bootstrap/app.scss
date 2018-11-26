@@ -1,0 +1,42 @@
+
+.App {
+  display: grid;
+  grid-template-areas: 
+    "header"
+    "main";
+
+  header {
+    grid-area: header;
+
+    nav {
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+        
+      li {
+        float: left;
+        padding: 14px 0;
+      }
+
+      li:first-child {
+        padding-left: 0;
+        padding-right: 20px;
+      }
+
+      li a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        // background: red;
+      }
+        
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        color: 3px gray solid;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.ArbitrableTxCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px; }
+  .ArbitrableTxCards section {
+    border-radius: 3px;
+    border: #ccc solid 1px;
+    overflow: hidden; }
+    .ArbitrableTxCards section h2 {
+      color: #4a4a4a;
+      font-size: 1.4em;
+      padding: 10px; }
+    .ArbitrableTxCards section p {
+      margin-bottom: 1em;
+      padding: 0 10px; }
+  .ArbitrableTxCards section:hover {
+    cursor: pointer; }

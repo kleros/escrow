@@ -1,3 +1,4 @@
+/* Reset styles -----------------------------------*/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -52,80 +53,11 @@ html {
 
 /* Layout styles -----------------------------------*/
 
-
 /* styles */
-
-:root {
-  --blue: #34495e;
-  --green: #e74c3c;
-  --yellow: #C9C243;
-  --orange: #FFA644;
-  --red: #3498db;
-}
-
 body {
-  font-family: 'Ubuntu', sans-serif;
-  color: #34495e;
-}
-
-main {    
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-header {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
-}
-
-h2 {
-  color: #4a4a4a;
-  font-size: 1.4em;
-  padding: 10px;
-}
-
-p {
-  margin-bottom: 1em;
-  padding: 0 10px;
-}
-
-section {
-  border-radius: 3px;
-  border: #ccc solid 1px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  
-}
-
-section:hover {
-  cursor: pointer;
-}
-
-/* Menu */
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #fff;
-}
-  
-li {
-  float: left;
-}
-  
-li a {
-  display: block;
-  color: #333;
-  text-align: center;
-  padding: 14px 10px 4px 0;
-  text-decoration: none;
-}
-  
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-  color: 3px gray solid;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #34495e;
 }

@@ -21,9 +21,10 @@ const Main = ({ children }) => (
     <header>
       <nav>
         <ul>
-          <li><Link to='./' >Ethcrow.io</Link></li>
+          {/* FIXME use navigate with onClick */}
+          <li><Link to='./' >Escrow</Link></li>
           <li><Link to='./'>My Transactions</Link></li>
-          <li style={{float: 'right'}}><Link to='new' style={{float: 'right'}}>New Transaction</Link></li>
+          <li style={{float: 'right'}}><Link to='new'>New Transaction</Link></li>
         </ul>
       </nav>
     </header>

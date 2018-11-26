@@ -4,16 +4,18 @@ import { Link, navigate } from '@reach/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
+import './arbitrable-tx-cards.css'
+
 /**
  * Contract Display List Component
  * @param arbitrabletxs - list of arbitrable transactions
  * @returns {*}
  */
 const ArbitrableTxCards = ({ arbitrabletxs }) => (
-  <div className=''>
+  <div className='ArbitrableTxCards'>
     {
       arbitrabletxs.length > 0 ? (
-        <div>
+        <React.Fragment>
           {
             arbitrabletxs.map(arbitrabletx => (
               <section onClick={() => navigate(arbitrabletx.id)}>
@@ -22,7 +24,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
               </section>
             ))
           }
-        </div>
+        </React.Fragment>
       ) : (
         <Link to='new'>New Transaction <FontAwesomeIcon icon={faPlus} /></Link>
       )

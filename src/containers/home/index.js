@@ -38,7 +38,7 @@ class Home extends PureComponent {
     const { arbitrabletx, accounts, arbitrabletxs } = this.props
 
     return (
-      <div className="container">
+      <div className="Home">
         <RenderIf
           resource={arbitrabletxs}
           loading={
