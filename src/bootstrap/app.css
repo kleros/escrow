@@ -2,23 +2,37 @@
   display: grid;
   grid-template-areas: "header" "main"; }
   .App header {
-    grid-area: header; }
+    grid-area: header;
+    background: #1e075f; }
     .App header nav {
-      /* Change the link color to #111 (black) on hover */ }
+      padding: 0 20px; }
       .App header nav ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden; }
       .App header nav li {
+        font-size: 0.9em;
+        color: #fff;
         float: left;
-        padding: 14px 0; }
-      .App header nav li:first-child {
-        padding-left: 0;
-        padding-right: 20px; }
-      .App header nav li a {
+        line-height: 60px;
         display: block;
-        color: #333;
         text-decoration: none; }
-      .App header nav li a:hover {
-        color: 3px gray solid; }
+        .App header nav li .btn-new {
+          background: #009aff;
+          padding: 13px 24px 13px 14px;
+          border-radius: 3px; }
+      .App header nav li:first-child {
+        padding-right: 50px; }
+      .App header nav li:last-child {
+        padding-right: 50px; }
+      .App header nav li:hover {
+        cursor: pointer; }
+  .App main {
+    width: 1200px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1em 20px; }
+    .App main h1 {
+      font-size: 1.1em;
+      padding: 1.6em 0; }

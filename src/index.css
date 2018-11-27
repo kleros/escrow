@@ -55,9 +55,5 @@ html {
 
 /* styles */
 body {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #34495e;
 }

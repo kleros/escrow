@@ -1,8 +1,8 @@
 .ArbitrableTxCards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1em;
-  grid-auto-rows: 100px; }
+  grid-gap: 1.4em;
+  grid-auto-rows: 250px; }
   .ArbitrableTxCards section {
     border-radius: 3px;
     border: #ccc solid 1px;
