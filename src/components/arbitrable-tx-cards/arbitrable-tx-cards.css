@@ -1,18 +1,22 @@
-.ArbitrableTxCards {
+.ArbitrableTxCards-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.4em;
   grid-auto-rows: 250px; }
-  .ArbitrableTxCards section {
+  .ArbitrableTxCards-cards section {
     border-radius: 3px;
     border: #ccc solid 1px;
     overflow: hidden; }
-    .ArbitrableTxCards section h2 {
+    .ArbitrableTxCards-cards section h2 {
       color: #4a4a4a;
       font-size: 1.4em;
       padding: 10px; }
-    .ArbitrableTxCards section p {
+    .ArbitrableTxCards-cards section p {
       margin-bottom: 1em;
       padding: 0 10px; }
-  .ArbitrableTxCards section:hover {
+  .ArbitrableTxCards-cards section:hover {
     cursor: pointer; }
+
+.ArbitrableTxCards-h1 {
+  font-size: 1.1em;
+  padding: 1.6em 0; }

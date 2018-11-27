@@ -4,11 +4,13 @@ import { navigate } from '@reach/router'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import { ARBITRATOR_DEFAULT_ADDRESS } from '../../bootstrap/dapp-api'
+import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 
 import './new-arbitrable-tx.css'
 
 const NewArbitrableTx = ({ formArbitrabletx }) => (
-  <div >
+  <div className='NewArbitrableTx'>
+    <h1 className='NewArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />New Transaction</h1>
     <Formik
       initialValues={{
         title: '',
@@ -33,35 +35,29 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
       onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx) && navigate('resume')}
     >
       {({ setFieldValue }) => (
-        <Form className='NewArbitrableTx'>
+        <Form className='FormNewArbitrableTx'>
           <div className='section-title'>
             <label for='title'>Title</label>
-            <Field name='title' placeholder='' />
+            <Field name='title' placeholder='Title' />
             <ErrorMessage name='title' component='div' />
-            <br />
-            <br />
-            {/* hack Formik for file type */}
-            {/* and store only the path on the file in the redux state */}
-            <label for='file'>Primary document</label>
-            <input id='file' name='file' type='file' onChange={e =>
-              setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
-            } />
-            <br />
             <label for='arbitrator'>Arbitrator (Kleros)</label>
             <Field name='arbitrator' />
             <ErrorMessage name='arbitrator' component='div' />
-            <br />
             <label for='seller'>Seller</label>
-            <Field name='seller' />
+            <Field name='seller' placeholder='Seller Address' />
             <ErrorMessage name='seller' component='div' />
-            <br />
-            <label for='payment'>Payment</label>
-            <Field name='payment' />
+            <label for='payment'>Amount (ETH)</label>
+            <Field name='payment' placeholder='Amount' />
             <ErrorMessage name='payment' component='div' />
-            <br />
             <label for='email'>Email</label>
-            <Field type='email' name='email' />
+            <Field type='email' name='email' placeholder='Email' />
             <ErrorMessage name='email' component='div' className='error class' />
+            {/* hack Formik for file type */}
+            {/* and store only the path on the file in the redux state */}
+            <label for='file' className='file'>Primary document</label>
+            <input id='file' style={{border: '#009AFF', padding: '0.6em 0'}} name='file' type='file' onChange={e =>
+              setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
+            } />
           </div>
           <div className='section-description'>
             <label for='description'>Description</label>
@@ -69,7 +65,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <ErrorMessage name='description' component='div' className='def' />
           </div>
           <div className='section-submit'>
-            <button type='submit'>
+            <button type='submit' className='section-submit-btn'>
               Save Transaction
             </button>
           </div>

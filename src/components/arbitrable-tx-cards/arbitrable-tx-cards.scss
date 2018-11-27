@@ -1,26 +1,33 @@
 .ArbitrableTxCards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1.4em;
-  grid-auto-rows: 250px;
+  &-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1.4em;
+    grid-auto-rows: 250px;
 
-  section {
-    border-radius: 3px;
-    border: #ccc solid 1px;
-    overflow: hidden;
-    h2 {
-      color: #4a4a4a;
-      font-size: 1.4em;
-      padding: 10px;
+    section {
+      border-radius: 3px;
+      border: #ccc solid 1px;
+      overflow: hidden;
+      h2 {
+        color: #4a4a4a;
+        font-size: 1.4em;
+        padding: 10px;
+      }
+
+      p {
+        margin-bottom: 1em;
+        padding: 0 10px;
+      }
     }
 
-    p {
-      margin-bottom: 1em;
-      padding: 0 10px;
+    section:hover {
+      cursor: pointer;
     }
   }
 
-  section:hover {
-    cursor: pointer;
+  &-h1 {
+    font-size: 1.1em;
+    padding: 1.6em 0;
   }
 }

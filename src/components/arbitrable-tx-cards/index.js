@@ -12,11 +12,11 @@ import './arbitrable-tx-cards.css'
  * @returns {*}
  */
 const ArbitrableTxCards = ({ arbitrabletxs }) => (
-  <React.Fragment>
-    <h1>My Transactions</h1>
+  <div className='ArbitrableTxCards'>
+    <h1 className='ArbitrableTxCards-h1'>My Transactions</h1>
     {
       arbitrabletxs.length > 0 ? (
-        <div className='ArbitrableTxCards'>
+        <div className='ArbitrableTxCards-cards'>
           {
             arbitrabletxs.map(arbitrabletx => (
               <section onClick={() => navigate(arbitrabletx.id)}>
@@ -30,7 +30,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
         <Link to='new'>New Transaction <FontAwesomeIcon icon={faPlus} /></Link>
       )
     }
-    </React.Fragment>
+    </div>
 )
 
 ArbitrableTxCards.propTypes = {

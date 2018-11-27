@@ -1,55 +1,101 @@
 .NewArbitrableTx {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
+  border: 1px solid #ccc;
+  box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
+  border-radius: 3px;
+  padding: 1em 2em;
 
-  grid-template-areas:
-  "title description"
-  "submit submit";
-
-  .section-title {
-    grid-area: title;
-    display: grid;
-    grid-gap: 16px;
-    grid-template-columns: 200px 1fr;
-    label {
-      text-align: right;
-      grid-column: 1 / 2;
-      padding-right: 20px;
-      padding-top: 2px;
-    }
-
-    input {
-      grid-column: 2 / 3;
-      max-width: 300px;
-    }
+  &-h1 {
+    padding-bottom: 1em;
+    color: #4004A3;
+    font-size: 18px;
+    border-bottom: 1px solid #EFEFEF;
   }
 
-  .section-description {
-    grid-area: description;
+  .FormNewArbitrableTx {
     display: grid;
-    grid-gap: 16px;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  
     grid-template-areas:
-      "label"
-      "textarea";
+    "title description"
+    "submit submit";
 
-    label {
-      grid-area: label;
-    }
-
-    textarea {
-      grid-area: textarea;
-      justify-items: stretch;
+    padding: 3em 0;
+  
+    .section-title {
+      grid-area: title;
+      display: grid;
+      grid-gap: 16px;
+      grid-template-columns: 200px 1fr;
+      grid-template-areas:
+        "label input";
       align-items: stretch;
+      justify-items: stretch;
+      label {
+        font-size: 0.85em;
+        color: #4a4a4a;
+        text-align: right;
+        grid-column: 1 / 2;
+        padding-right: 2em;
+        line-height: 40px;
+      }
+  
+      input {
+        grid-column: 2 / 3;
+        max-width: 300px;
+        border: 1px solid #D9D9D9;
+        border-radius: 3px;
+        padding: 0 1em;
+        font-size: 1em;
+      }
     }
-  }
-
-  .section-submit {
-    grid-area: submit;
-    margin-top: 1em;
-    button {
-      float: right;
+  
+    .section-description {
+      grid-area: description;
+      display: grid;
+      grid-gap: 16px;
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        "label textarea";
+  
+      label {
+        grid-area: label;
+        font-size: 0.85em;
+        color: #4a4a4a;
+        text-align: right;
+        grid-column: 1 / 2;
+        padding-right: 2em;
+        line-height: 40px;
+      }
+  
+      textarea {
+        grid-area: textarea;
+        justify-items: stretch;
+        align-items: stretch;
+        border: 1px solid #D9D9D9;
+        border-radius: 3px;
+        padding: 0 1em;
+        font-size: 1em;
+        font-family: Roboto;
+        padding: 0.7em 1em;
+      }
+    }
+  
+    .section-submit {
+      grid-area: submit;
+      margin-top: 1em;
+      &-btn {
+        font-size: 0.9em;
+        color: #fff;
+        border: 0;
+        float: right;
+        background: #009aff;
+        padding: 13px 24px 13px 14px;
+        border-radius: 3px;
+      }
+      &-btn:hover {
+        cursor: pointer;
+      }
     }
   }
 }
