@@ -1,10 +1,12 @@
 import React from 'react'
+import { ClimbingBoxLoader } from 'react-spinners'
 
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
 import PayOrReimburseArbitrableTx from '../components/pay-or-reimburse-arbitrable-tx'
 import PayFeeArbitrableTx from '../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
+import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
 import Button from '../components/button'
 
 export default (
@@ -21,7 +23,10 @@ export default (
       return <React.Fragment>
         {
           arbitrabletx.data.amount > 0 ? (
-            <React.Fragment>
+            <ResumeArbitrableTx
+              arbitrabletx={arbitrabletx.data}
+              title={<React.Fragment>Resume</React.Fragment>}
+            >
               <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
               <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
               <PayOrReimburseArbitrableTx
@@ -30,33 +35,57 @@ export default (
                 amount={arbitrabletx.data.amount}
                 id={arbitrabletx.data.id}
               />
-            </React.Fragment>
+            </ResumeArbitrableTx>
           ) : (
-            <div>Transaction completed</div>
+            <ResumeArbitrableTx
+              arbitrabletx={arbitrabletx.data}
+              title={<React.Fragment>Resume</React.Fragment>}
+            >
+              <div>Transaction completed</div>
+            </ResumeArbitrableTx>
           )
         }
       </React.Fragment>
     case arbitrableTxConstants.WAITING_BUYER:
       return !isFeePaid(arbitrabletx) ? (
-        <MessageSellerArbitrationFee 
-          arbitrabletx={arbitrabletx}
-          createDispute={createDispute}
-        />
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Resume</React.Fragment>}
+        >
+          <MessageSellerArbitrationFee 
+            arbitrabletx={arbitrabletx}
+            createDispute={createDispute}
+          />
+        </ResumeArbitrableTx>
       ) : (
-        <div>Waiting the arbitration fee from the buyer.</div>
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Waiting the arbitration fee from the buyer</React.Fragment>}
+        />
       )
     case arbitrableTxConstants.WAITING_SELLER:
       return !isFeePaid(arbitrabletx) ? (
-        <MessageSellerArbitrationFee 
-          arbitrabletx={arbitrabletx}
-          createDispute={createDispute}
-        />
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Resume</React.Fragment>}
+        >
+          <MessageSellerArbitrationFee 
+            arbitrabletx={arbitrabletx}
+            createDispute={createDispute}
+          />
+        </ResumeArbitrableTx>
       ) : (
-        <div>Waiting the arbitration fee from the seller.</div>
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Waiting the arbitration fee from the seller</React.Fragment>}
+        />
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
       return (
-        <div>
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Resume</React.Fragment>}
+        >
           {
             isTimeout(arbitrabletx) && 
             <TimeoutArbitrableTx
@@ -68,18 +97,23 @@ export default (
           id={arbitrabletx.data.id}
           submitEvidence={createEvidence}
           />
-        </div>
+        </ResumeArbitrableTx>
       )
     case arbitrableTxConstants.DISPUTE_RESOLVED:
       return (
-        <div>
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Resume</React.Fragment>}
+        >
           {arbitrabletx.data.ruling === '0' && 'No ruling.'}
           {arbitrabletx.data.ruling === '1' && 'Buyer wins the current dispute.'}
           {arbitrabletx.data.ruling === '2' && 'Seller wins the current dispute.'}
-        </div>
+        </ResumeArbitrableTx>
       )
     default:
-      return <div>Wainting Transaction...</div>
+      return (
+        <ClimbingBoxLoader />
+      )
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { BarLoader, BeatLoader } from 'react-spinners'
+import { ClimbingBoxLoader } from 'react-spinners'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -74,47 +74,42 @@ class ArbitrableTx extends PureComponent {
       resource={arbitrabletx}
       loading={
         <div className='loader'>
-          <BarLoader color={'gray'} />
+          <ClimbingBoxLoader color={'gray'} />
         </div>
       }
       done={
         arbitrabletx.data && (
-          <ResumeArbitrableTx
-            arbitrabletx={arbitrabletx.data}
-            title={<React.Fragment>Resume</React.Fragment>}
-          >
-            <React.Fragment>
-              {
-                renderStatusArbitrableTxSwitch(
-                  accounts, 
-                  arbitrabletx,
-                  payOrReimburse,
-                  createPayOrReimburse,
-                  createDispute,
-                  createTimeout,
-                  createEvidence
-                )
-              }
-              {
-                arbitrabletx.data.appealable && 
-                <AppealArbitrableTx
-                  id={arbitrabletx.data.id}
-                  appeal={createAppeal}
-                />
-              }
-              {
-                arbitrabletx.data.evidences && arbitrabletx.data.evidences.length > 0 && 
-                <EvidenceArbitrableTxList
-                  evidenceArbitrabletxs={arbitrabletx.data.evidences}
-                />
-              }
-            </React.Fragment>
-          </ResumeArbitrableTx>
+          <React.Fragment>
+            {
+              renderStatusArbitrableTxSwitch(
+                accounts, 
+                arbitrabletx,
+                payOrReimburse,
+                createPayOrReimburse,
+                createDispute,
+                createTimeout,
+                createEvidence
+              )
+            }
+            {
+              arbitrabletx.data.appealable && 
+              <AppealArbitrableTx
+                id={arbitrabletx.data.id}
+                appeal={createAppeal}
+              />
+            }
+            {
+              arbitrabletx.data.evidences && arbitrabletx.data.evidences.length > 0 && 
+              <EvidenceArbitrableTxList
+                evidenceArbitrabletxs={arbitrabletx.data.evidences}
+              />
+            }
+          </React.Fragment>
         )
       }
       failedLoading={
         <div className='loader'>
-          <BeatLoader color={'gray'} />
+          <ClimbingBoxLoader color={'gray'} />
         </div>
       }
     />

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { BarLoader } from 'react-spinners'
+import { ClimbingBoxLoader } from 'react-spinners'
 import { RenderIf } from 'lessdux'
 
 import * as walletActions from '../../actions/wallet'
@@ -38,12 +38,12 @@ class Home extends PureComponent {
     const { arbitrabletx, accounts, arbitrabletxs } = this.props
 
     return (
-      <div className="Home">
+      <div className='Home'>
         <RenderIf
           resource={arbitrabletxs}
           loading={
-            <div className="loader">
-              <BarLoader color={'gray'} />
+            <div className='loader'>
+              <ClimbingBoxLoader color={'gray'} />
             </div>
           }
           done={
@@ -55,7 +55,7 @@ class Home extends PureComponent {
               />
             )
           }
-          failedLoading="There was an error fetching the arbitrable transactions. Make sure you are connected to the right Ethereum network."
+          failedLoading='There was an error fetching the arbitrable transactions. Make sure you are connected to the right Ethereum network.'
         />
       </div>
     )
