@@ -13,6 +13,7 @@ import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
 import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
 import EvidenceArbitrableTxList from '../../components/evidence-arbitrable-tx-list'
+import ResumeArbitrableTx from '../../components/resume-arbitrable-tx'
 import renderStatusArbitrableTxSwitch from '../../utils/render-status-arbitrable-tx-switch'
 
 
@@ -68,9 +69,6 @@ class ArbitrableTx extends PureComponent {
     } = this.props
     const { arbitrabletx, payOrReimburse } = this.state
 
-    let amount = 0
-    if (arbitrabletx.data && arbitrabletx.data.amount)
-      amount = web3.utils.fromWei(arbitrabletx.data.amount.toString(), 'ether')
     return (
     <RenderIf
       resource={arbitrabletx}
@@ -81,41 +79,37 @@ class ArbitrableTx extends PureComponent {
       }
       done={
         arbitrabletx.data && (
-          <div className='arbitrableTx'>
-            <p>seller: {arbitrabletx.data.seller}</p>
-            <p>arbitrator: {arbitrabletx.data.arbitrator}</p>
-            <p>sellerFee: {arbitrabletx.data.sellerFee}</p>
-            <p>buyerFee: {arbitrabletx.data.buyerFee}</p>
-            <p>status: {arbitrabletx.data.status}</p>
-            <p>amount: {amount} ETH</p>
-            {
-              renderStatusArbitrableTxSwitch(
-                accounts, 
-                arbitrabletx,
-                payOrReimburse,
-                createPayOrReimburse,
-                amount,
-                createDispute,
-                createTimeout,
-                createEvidence
-              )
-            }
-            <br />
-            <br />
-            {
-              arbitrabletx.data.appealable && 
-              <AppealArbitrableTx
-                id={arbitrabletx.data.id}
-                appeal={createAppeal}
-              />
-            }
-            {
-              arbitrabletx.data.evidences && arbitrabletx.data.evidences.length > 0 && 
-              <EvidenceArbitrableTxList
-                evidenceArbitrabletxs={arbitrabletx.data.evidences}
-              />
-            }
-          </div>
+          <ResumeArbitrableTx
+            arbitrabletx={arbitrabletx.data}
+            title={<React.Fragment>Resume</React.Fragment>}
+          >
+            <React.Fragment>
+              {
+                renderStatusArbitrableTxSwitch(
+                  accounts, 
+                  arbitrabletx,
+                  payOrReimburse,
+                  createPayOrReimburse,
+                  createDispute,
+                  createTimeout,
+                  createEvidence
+                )
+              }
+              {
+                arbitrabletx.data.appealable && 
+                <AppealArbitrableTx
+                  id={arbitrabletx.data.id}
+                  appeal={createAppeal}
+                />
+              }
+              {
+                arbitrabletx.data.evidences && arbitrabletx.data.evidences.length > 0 && 
+                <EvidenceArbitrableTxList
+                  evidenceArbitrabletxs={arbitrabletx.data.evidences}
+                />
+              }
+            </React.Fragment>
+          </ResumeArbitrableTx>
         )
       }
       failedLoading={

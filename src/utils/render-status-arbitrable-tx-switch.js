@@ -5,39 +5,37 @@ import PayOrReimburseArbitrableTx from '../components/pay-or-reimburse-arbitrabl
 import PayFeeArbitrableTx from '../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
+import Button from '../components/button'
 
 export default (
   accounts, 
   arbitrabletx,
   payOrReimburse,
   createPayOrReimburse,
-  amount,
   createDispute,
   createTimeout,
   createEvidence
 ) => {
   switch(arbitrabletx.data.status) {
     case arbitrableTxConstants.NO_DISPUTE:
-      return <div>
-        { 
-          amount > 0 ? (
-            <div>
+      return <React.Fragment>
+        {
+          arbitrabletx.data.amount > 0 ? (
+            <React.Fragment>
+              <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+              <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
               <PayOrReimburseArbitrableTx
                 payOrReimburse={payOrReimburse}
                 payOrReimburseFn={createPayOrReimburse}
-                amount={amount}
+                amount={arbitrabletx.data.amount}
                 id={arbitrabletx.data.id}
               />
-              <PayFeeArbitrableTx
-                id={arbitrabletx.data.id}
-                payFee={createDispute}
-              />
-            </div>
+            </React.Fragment>
           ) : (
             <div>Transaction completed</div>
           )
         }
-      </div>
+      </React.Fragment>
     case arbitrableTxConstants.WAITING_BUYER:
       return !isFeePaid(arbitrabletx) ? (
         <MessageSellerArbitrationFee 
@@ -81,7 +79,7 @@ export default (
         </div>
       )
     default:
-    return <div>Wainting Transaction...</div>
+      return <div>Wainting Transaction...</div>
   }
 }
 

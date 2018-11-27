@@ -21,7 +21,7 @@
     "submit submit";
 
     padding: 3em 0;
-  
+
     .section-title {
       grid-area: title;
       display: grid;
@@ -37,7 +37,7 @@
         padding-right: 2em;
         line-height: 40px;
       }
-  
+
       input {
         grid-column: 2 / 3;
         max-width: 300px;
@@ -47,7 +47,7 @@
         font-size: 1em;
       }
     }
-  
+
     .section-description {
       grid-area: description;
       display: grid;
@@ -55,7 +55,7 @@
       grid-template-columns: auto 1fr;
       grid-template-areas:
         "label textarea";
-  
+
       label {
         grid-area: label;
         font-size: 0.85em;
@@ -65,7 +65,7 @@
         padding-right: 2em;
         line-height: 40px;
       }
-  
+
       textarea {
         grid-area: textarea;
         justify-items: stretch;
@@ -78,22 +78,11 @@
         padding: 0.7em 1em;
       }
     }
-  
+
     .section-submit {
       grid-area: submit;
-      margin-top: 1em;
-      &-btn {
-        font-size: 0.9em;
-        color: #fff;
-        border: 0;
-        float: right;
-        background: #009aff;
-        padding: 13px 24px 13px 14px;
-        border-radius: 3px;
-      }
-      &-btn:hover {
-        cursor: pointer;
-      }
+      padding-top: 2em;
+      text-align: right;
     }
   }
 }

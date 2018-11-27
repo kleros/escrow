@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import { ARBITRATOR_DEFAULT_ADDRESS } from '../../bootstrap/dapp-api'
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
+import Button from '../button'
 
 import './new-arbitrable-tx.css'
 
@@ -46,8 +47,8 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <label for='seller'>Seller</label>
             <Field name='seller' placeholder='Seller Address' />
             <ErrorMessage name='seller' component='div' />
-            <label for='payment'>Amount (ETH)</label>
-            <Field name='payment' placeholder='Amount' />
+            <label for='amount'>Amount (ETH)</label>
+            <Field name='amount' placeholder='Amount' />
             <ErrorMessage name='payment' component='div' />
             <label for='email'>Email</label>
             <Field type='email' name='email' placeholder='Email' />
@@ -65,9 +66,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <ErrorMessage name='description' component='div' className='def' />
           </div>
           <div className='section-submit'>
-            <button type='submit' className='section-submit-btn'>
-              Save Transaction
-            </button>
+            <Button type='submit'>Save Transaction</Button>
           </div>
         </Form>
       )}

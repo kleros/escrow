@@ -2,29 +2,31 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburseFn }) => (
-  <div style={{float: 'right'}}>
-    <Formik
-      initialValues={{amount, id}}
-      validate = {values => {
-        {/* TODO use Yup */}
-        let errors = {}
-        return errors
-      }}
-      onSubmit={values => payOrReimburseFn(id, values.amount)}
-    >
-      {({ setFieldValue }) => (
-        <Form>
-          <Field name="amount" placeholder="amount" />
-          <ErrorMessage name="title" component="div" />
+import Button from '../button'
 
-          <button type="submit">
-            {payOrReimburse}
-          </button>
-        </Form>
-      )}
-    </Formik>
-  </div>
+import './pay-or-reimburse-arbitrable-tx.css'
+
+const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburseFn }) => (
+  <Formik
+    initialValues={{amount, id}}
+    validate = {values => {
+      {/* TODO use Yup */}
+      let errors = {}
+      return errors
+    }}
+    onSubmit={values => payOrReimburseFn(id, values.amount)}
+  >
+    {({ setFieldValue }) => (
+      <Form className={'PayOrReimburseArbitrableTx'}>
+        <Field name='amount' placeholder='amount' style={{padding: '11px 22px 11px 12px', fontSize: '14px', marginRight: '-3px'}} />
+        <ErrorMessage name='title' component='div' />
+
+        <Button type='submit'>
+          {payOrReimburse}
+        </Button>
+      </Form>
+    )}
+  </Formik>
 )
 
 PayOrReimburseArbitrableTx.propTypes = {

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../../reducers/arbitrable-transaction'
 import ResumeArbitrableTx from '../../../components/resume-arbitrable-tx'
+import Button from '../../../components/button'
 
 import './resume.css'
 
@@ -19,11 +20,15 @@ class Resume extends PureComponent {
     const { createArbitrabletx, arbitrabletxForm } = this.props
 
     return (
-      <div className="container">
+      <div className=''>
         <ResumeArbitrableTx 
-          createArbitrabletx={createArbitrabletx} 
-          arbitrabletxForm={arbitrabletxForm}
-        />
+          arbitrabletx={arbitrabletxForm}
+          title={<React.Fragment>Resume</React.Fragment>}
+        >
+          <Button onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
+            Submit Transaction
+          </Button>
+        </ResumeArbitrableTx>
       </div>
     )
   }

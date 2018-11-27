@@ -61,14 +61,5 @@
         padding: 0.7em 1em; }
     .NewArbitrableTx .FormNewArbitrableTx .section-submit {
       grid-area: submit;
-      margin-top: 1em; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-submit-btn {
-        font-size: 0.9em;
-        color: #fff;
-        border: 0;
-        float: right;
-        background: #009aff;
-        padding: 13px 24px 13px 14px;
-        border-radius: 3px; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-submit-btn:hover {
-        cursor: pointer; }
+      padding-top: 2em;
+      text-align: right; }

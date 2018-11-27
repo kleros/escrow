@@ -76,7 +76,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
     ).send,
     {
       from: accounts[0],
-      value: web3.utils.toWei(arbitrabletxReceived.payment, 'ether')
+      value: web3.utils.toWei(arbitrabletxReceived.amount, 'ether')
     }
   )
 
@@ -139,6 +139,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
   )
 
   arbitrableTransaction.id = id
+
+  arbitrableTransaction.amount = web3.utils.fromWei(arbitrableTransaction.amount.toString(), 'ether')
 
   try {
     if (arbitrableTransaction.disputeId) {
