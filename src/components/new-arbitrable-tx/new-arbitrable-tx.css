@@ -19,7 +19,6 @@
       display: grid;
       grid-gap: 16px;
       grid-template-columns: 200px 1fr;
-      grid-template-areas: "label input";
       align-items: stretch;
       justify-items: stretch; }
       .NewArbitrableTx .FormNewArbitrableTx .section-title label {

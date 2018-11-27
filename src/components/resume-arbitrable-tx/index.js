@@ -6,27 +6,43 @@ import './resume-arbitrable-tx.css'
 
 const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletxForm }) => (
   <div className='ResumeArbitrableTx'>
-    <p>Title: {arbitrabletxForm.title}</p>
-    <p>Description: {arbitrabletxForm.title}</p>
-    <p>Seller: {arbitrabletxForm.seller}</p>
-    <p>Payment: {arbitrabletxForm.payment}</p>
-    <p>My email: {arbitrabletxForm.email}</p>
-    <br />
-    <br />
-    <button style={{float: 'right'}} onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
-      Submit Transaction
-    </button>
+    <h1 className='ResumeArbitrableTx-h1'>Resume</h1>
+    <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Title</div>
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletxForm.title}</div>
+
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Description</div>
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletxForm.description}</div>
+
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Seller</div>
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletxForm.seller}</div>
+
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Amount (ETH)</div>
+      <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletxForm.payment}</div>
+
+      {arbitrabletxForm.email && (
+        <React.Fragment>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>My Email</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletxForm.email}</div>
+        </React.Fragment>
+      )}
+    </div>
+    <div className= 'ResumeArbitrableTx-section-submit'>
+      <span className= 'ResumeArbitrableTx-section-submit-btn' onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
+        Submit Transaction
+      </span>
+    </div>
   </div>
 )
 
 ResumeArbitrableTx.propTypes = {
-    // State
-    arbitrabletxForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired
-  }
+  // State
+  arbitrabletxForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired
+}
   
-  ResumeArbitrableTx.defaultProps = {
-    // State
-    arbitrableTxForm: {}
-  }
+ResumeArbitrableTx.defaultProps = {
+  // State
+  arbitrableTxForm: {}
+}
   
-  export default ResumeArbitrableTx
+export default ResumeArbitrableTx

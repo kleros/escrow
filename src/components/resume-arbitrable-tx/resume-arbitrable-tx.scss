@@ -1,5 +1,68 @@
 .ResumeArbitrableTx {
-  p {
-    padding: 1em 0;
+  border: 1px solid #ccc;
+  box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
+  border-radius: 3px;
+  padding: 1em 2em;
+
+  &-h1 {
+    grid-area: h1;
+    padding-bottom: 1em;
+    color: #4004A3;
+    font-size: 18px;
+    border-bottom: 1px solid #EFEFEF;
+  }
+
+  display: grid;
+  grid-gap: 16px;
+  grid-template-rows: 1fr auto;
+
+  grid-template-areas:
+    "h1"
+    "content"
+    "submit";
+
+  &-ContentNewArbitrableTx {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto;
+    align-items: stretch;
+    justify-items: stretch;
+
+    &-name {
+      grid-column: 1 / 2;
+      text-align: right;
+      font-size: 0.85em;
+      color: #4a4a4a;
+      text-align: right;
+      grid-column: 1 / 2;
+      padding-right: 2em;
+      line-height: 40px;
+    }
+
+    &-content {
+      font-size: 1em;
+      grid-column: 2 / 3;
+      line-height: 40px;
+    }
+  }
+
+  &-section-submit {
+    grid-area: submit;
+    margin-top: 1em;
+    text-align: right;
+    &-btn {
+      float: right;
+      font-size: 0.9em;
+      color: #fff;
+      border: 0;
+      float: right;
+      background: #009aff;
+      padding: 13px 24px 13px 14px;
+      border-radius: 3px;
+    }
+    &-btn:hover {
+      cursor: pointer;
+    }
   }
 }
