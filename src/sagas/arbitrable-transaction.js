@@ -171,8 +171,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitrableTransaction.arbitrator,
         arbitrableTransaction.disputeId
       )
-
-      console.log(evidence)
     }
 
     const arbitratorEth = new web3.eth.Contract(
@@ -363,8 +361,6 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
 
   let ipfsHashMetaEvidence = null
 
-  console.log(evidenceReceived.file)
-
   const data = yield call(
     readFile,
     evidenceReceived.file.dataURL
@@ -376,8 +372,6 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
     evidenceReceived.file.name,
     data
   )
-
-  console.log(fileIpfsHash)
 
   // Pass IPFS path for URI. No need for fileHash
   const evidence = {
