@@ -8,6 +8,8 @@ import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
 import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
 import Button from '../components/button'
+import { ReactComponent as Dispute } from '../assets/dispute.svg'
+import { ReactComponent as Time } from '../assets/time.svg'
 
 export default (
   accounts, 
@@ -50,9 +52,9 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Resume</React.Fragment>}
+          title={<React.Fragment><Dispute style={{width: '20px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The seller has raised a dispute</React.Fragment>}
         >
-          <MessageSellerArbitrationFee 
+          <MessageArbitrationFee 
             arbitrabletx={arbitrabletx}
             createDispute={createDispute}
           />
@@ -60,16 +62,16 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Waiting the arbitration fee from the buyer</React.Fragment>}
+          title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the buyer</React.Fragment>}
         />
       )
     case arbitrableTxConstants.WAITING_SELLER:
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Resume</React.Fragment>}
+          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
         >
-          <MessageSellerArbitrationFee 
+          <MessageArbitrationFee 
             arbitrabletx={arbitrabletx}
             createDispute={createDispute}
           />
@@ -77,7 +79,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Waiting the arbitration fee from the seller</React.Fragment>}
+          title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
         />
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
@@ -94,8 +96,8 @@ export default (
             />
           }
           <NewEvidenceArbitrableTx
-          id={arbitrabletx.data.id}
-          submitEvidence={createEvidence}
+            id={arbitrabletx.data.id}
+            submitEvidence={createEvidence}
           />
         </ResumeArbitrableTx>
       )
@@ -125,9 +127,8 @@ const isTimeout = arbitrabletx => {
 
 const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 
-const MessageSellerArbitrationFee = ({arbitrabletx, createDispute}) => (
+const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
   <React.Fragment>
-    The other party has raised a dispute.<br />
     In order to not forfeit the dispute pay the arbitration
     fee. You will be refunded the fee if you win the
     dispute.
