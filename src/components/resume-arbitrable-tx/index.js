@@ -34,7 +34,9 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children,
           <React.Fragment>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Primary Document</div>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
-              <a href={arbitrabletx.file} alt='Primary Document'><PrimaryDocument /></a>
+              <a href={arbitrabletx.file} alt='Primary Document' target='_blank' rel='noopener noreferrer'>
+                <PrimaryDocument />
+              </a>
             </div>
           </React.Fragment>
         )}
