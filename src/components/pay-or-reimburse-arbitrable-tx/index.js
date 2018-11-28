@@ -16,7 +16,7 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburse
     }}
     onSubmit={values => payOrReimburseFn(id, values.amount)}
   >
-    {({ setFieldValue }) => (
+    {() => (
       <Form className={'PayOrReimburseArbitrableTx'}>
         <Field name='amount' placeholder='amount' style={{padding: '11px 22px 11px 12px', fontSize: '14px', marginRight: '-3px'}} />
         <ErrorMessage name='title' component='div' />

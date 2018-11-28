@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
   <div>
-    <h1>Create Evidence</h1>
     <Formik
       initialValues={{name: '', description: '', file: ''}}
       validate = {values => {

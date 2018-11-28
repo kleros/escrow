@@ -11,7 +11,7 @@ import './new-arbitrable-tx.css'
 
 const NewArbitrableTx = ({ formArbitrabletx }) => (
   <div className='NewArbitrableTx'>
-    <h1 className='NewArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />New Transaction</h1>
+    <h1 className='NewArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />New Transaction</h1>
     <Formik
       initialValues={{
         title: '',

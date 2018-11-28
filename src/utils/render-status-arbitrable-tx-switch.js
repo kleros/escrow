@@ -89,19 +89,22 @@ export default (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment>Resume</React.Fragment>}
-        >
-          {
-            isTimeout(arbitrabletx) && 
-            <TimeoutArbitrableTx
+          footer={
+            <React.Fragment>
+              {
+                isTimeout(arbitrabletx) &&
+                <TimeoutArbitrableTx
+                    id={arbitrabletx.data.id}
+                    timeout={createTimeout}
+                />
+              }
+              <NewEvidenceArbitrableTx
                 id={arbitrabletx.data.id}
-                timeout={createTimeout}
-            />
+                submitEvidence={createEvidence}
+              />
+            </React.Fragment>
           }
-          <NewEvidenceArbitrableTx
-            id={arbitrabletx.data.id}
-            submitEvidence={createEvidence}
-          />
-        </ResumeArbitrableTx>
+        />
       )
     case arbitrableTxConstants.DISPUTE_RESOLVED:
       return (

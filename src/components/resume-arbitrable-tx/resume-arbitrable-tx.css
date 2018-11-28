@@ -9,10 +9,10 @@
   grid-template-areas: "h1" "content" "submit"; }
   .ResumeArbitrableTx-h1 {
     grid-area: h1;
-    padding-bottom: 1em;
     color: #4004A3;
     font-size: 18px;
-    border-bottom: 1px solid #EFEFEF; }
+    border-bottom: 1px solid #EFEFEF;
+    line-height: 3em; }
   .ResumeArbitrableTx-ContentNewArbitrableTx {
     display: grid;
     grid-gap: 16px;
