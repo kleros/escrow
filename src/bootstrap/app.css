@@ -3,7 +3,8 @@
   grid-template-areas: "header" "main"; }
   .App header {
     grid-area: header;
-    background: #1e075f; }
+    background: #1e075f;
+    margin-bottom: 3em; }
     .App header nav {
       padding: 0 20px; }
       .App header nav ul {

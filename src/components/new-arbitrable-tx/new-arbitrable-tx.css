@@ -13,7 +13,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     grid-template-areas: "title description" "submit submit";
-    padding: 3em 0; }
+    padding: 3em 0 1em 0; }
     .NewArbitrableTx .FormNewArbitrableTx .section-title {
       grid-area: title;
       display: grid;

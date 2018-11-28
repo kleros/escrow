@@ -1,6 +1,7 @@
 import React from 'react'
 
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
+import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 
 import './resume-arbitrable-tx.css'
 
@@ -26,6 +27,15 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children 
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.email}</div>
         </React.Fragment>
       )}
+
+      {arbitrabletx.file && (
+        <React.Fragment>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Primary Document</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
+            <a href={arbitrabletx.file} alt='Primary Document'><PrimaryDocument /></a>
+          </div>
+        </React.Fragment>
+      )}
     </div>
     <div className= 'ResumeArbitrableTx-section-submit'>
       {children}
@@ -35,12 +45,12 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children 
 
 ResumeArbitrableTx.propTypes = {
   // State
-  arbitrabletxForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired
+  arbitrabletx: arbitrabletxSelectors.arbitrabletxFormShape.isRequired
 }
   
 ResumeArbitrableTx.defaultProps = {
   // State
-  arbitrableTxForm: {}
+  arbitrableTx: {}
 }
   
 export default ResumeArbitrableTx
