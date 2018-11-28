@@ -153,8 +153,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitrableTransaction.disputeId
       )
 
-      console.log(evidencesIpfs)
-
       /******* FIXME FETCH EVIDENCES FROM IPFS ******/
 
       // evidencesIpfs = [{ // example
