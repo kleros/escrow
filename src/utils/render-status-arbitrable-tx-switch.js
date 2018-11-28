@@ -7,6 +7,7 @@ import PayFeeArbitrableTx from '../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
 import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
+import DisputeArbitrableTx from '../components/dispute-arbitrable-tx'
 import Button from '../components/button'
 import { ReactComponent as Dispute } from '../assets/dispute.svg'
 import { ReactComponent as Time } from '../assets/time.svg'
@@ -70,12 +71,13 @@ export default (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
-        >
-          <MessageArbitrationFee 
-            arbitrabletx={arbitrabletx}
-            createDispute={createDispute}
-          />
-        </ResumeArbitrableTx>
+          footer={
+            <MessageArbitrationFee 
+              arbitrabletx={arbitrabletx}
+              createDispute={createDispute}
+            />
+          }
+        />
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
@@ -128,13 +130,15 @@ const isTimeout = arbitrabletx => {
 const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 
 const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
-  <React.Fragment>
-    In order to not forfeit the dispute pay the arbitration
-    fee. You will be refunded the fee if you win the
-    dispute.
-    <PayFeeArbitrableTx
-      id={arbitrabletx.data.id}
-      payFee={createDispute}
-    />
-  </React.Fragment>
+  <DisputeArbitrableTx
+    message={
+      <React.Fragment>
+        <p>
+          In order to not forfeit the dispute <b style={{fontWeight: 'bold'}}>pay the arbitration fee</b>. 
+          <br />You will be refunded the fee if you win the dispute.
+        </p>
+        <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+      </React.Fragment>
+    }
+  />
 )
