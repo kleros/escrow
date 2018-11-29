@@ -12,10 +12,10 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children,
       <h1 className='ResumeArbitrableTx-h1'>{title}</h1>
       <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Title</div>
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.title}</div>
+        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.metaEvidence.metaEvidenceJSON.title}</div>
 
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Description</div>
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.description}</div>
+        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.metaEvidence.metaEvidenceJSON.description}</div>
 
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Seller</div>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.seller}</div>
@@ -53,10 +53,10 @@ ResumeArbitrableTx.propTypes = {
   // State
   arbitrabletx: arbitrabletxSelectors.arbitrabletxFormShape.isRequired
 }
-  
+
 ResumeArbitrableTx.defaultProps = {
   // State
   arbitrableTx: {}
 }
-  
+
 export default ResumeArbitrableTx

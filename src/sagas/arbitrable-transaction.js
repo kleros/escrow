@@ -2,18 +2,19 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import Archon from '@kleros/archon'
 
-import { 
-  web3, 
-  multipleArbitrableTransactionEth, 
-  arbitrator, 
-  ARBITRABLE_ADDRESS 
+import {
+  web3,
+  multipleArbitrableTransactionEth,
+  arbitrator,
+  getNetwork,
+  ARBITRABLE_ADDRESS
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
 import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
-import getBase64 from '../utils/get-base-64'
+import readFile from '../utils/read-file'
 import createMetaEvidence from '../utils/generate-meta-evidence'
 
 import ipfsPublish from './api/ipfs-publish'
@@ -31,13 +32,14 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
 
   if (arbitrabletxReceived.file) {
     const data = yield call(
-      getBase64,
-      arbitrabletxReceived.file
+      readFile,
+      arbitrabletxReceived.file.dataURL
     )
 
     // Upload the meta-evidence then return an ipfs hash
     const fileIpfsHash = yield call(
       ipfsPublish,
+      arbitrabletxReceived.file.name,
       data
     )
 
@@ -47,7 +49,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       arbitrabletxReceived.seller,
       arbitrabletxReceived.title,
       arbitrabletxReceived.description,
-      `/ipfs/${fileIpfsHash[0].hash}`
+      `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`
     )
   } else {
     metaEvidence = createMetaEvidence(
@@ -59,8 +61,8 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   }
 
   // Upload the meta-evidence to IPFS
-  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(metaEvidence))
-  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].hash
+  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, 'metaEvidence.json', JSON.stringify(metaEvidence))
+  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
 
   arbitrableTransactionCount = yield call(
     multipleArbitrableTransactionEth.methods.getCountTransactions().call
@@ -127,9 +129,10 @@ function* fetchArbitrabletx({ payload: { id } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let arbitrableTransaction
-  let evidences = []
   let ruling = null
   let disputeStatus = null
+  let evidence = []
+  let metaEvidence = {}
 
   // force convert to string
   const transactionId = id.toString()
@@ -144,53 +147,41 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   try {
     if (arbitrableTransaction.disputeId) {
-      const archon = new Archon('https://mainnet.infura.io')
-      const evidencesIpfs = yield call( // FIXME
-        archon.arbitrable.getEvidence,
+      const network = yield call(getNetwork)
+      const archon = new Archon(
+        `https://${network.toLowerCase()}.infura.io`
+      )
+
+      const disputeCreation = yield call(
+        archon.arbitrable.getDispute,
         ARBITRABLE_ADDRESS,
         arbitrableTransaction.arbitrator,
         arbitrableTransaction.disputeId
       )
 
-      /******* FIXME FETCH EVIDENCES FROM IPFS ******/
+      metaEvidence = yield call(
+        archon.arbitrable.getMetaEvidence,
+        ARBITRABLE_ADDRESS,
+        disputeCreation.metaEvidenceID
+      )
 
-      // evidencesIpfs = [{ // example
-      //   evidenceJSONValid: true,
-      //   fileValid: true,
-      //   evidenceJSON: {"fileURI": "/ipfs/0x9c0C27Ebf8E3D42975D15bBdd538F2b6616c4Ab5"},
-      //   submittedBy: "0x8254175f6a6E0FE1f63e0eeb0ae487cCf3950BFb",
-      //   submittedAt: 1539022733,
-      //   blockNumber: 6503576,
-      //   transactionHash: "0xe91603b9d4bf506972820f499bf221cdfb48cbfd426125af5ab647dca39a3f4e"
-      // },
-      // {
-      //   evidenceJSONValid: true,
-      //   fileValid: true,
-      //   evidenceJSON: {"fileURI": "/ipfs/0x9c0C27Ebf8E3D42975D15bBdd538F2b6616c4Ab5"},
-      //   submittedBy: "0xc55a13e36d93371a5b036a21d913a31CD2804ba4",
-      //   submittedAt: 1539025000,
-      //   blockNumber: 6503570,
-      //   transactionHash: "0x340fdc6e32ef24eb14f9ccbd2ec614a8d0c7121e8d53f574529008f468481990"
-      // }]
-
-      // evidencesIpfs.map(evidenceIpfs => {
-      //   evidence = yield call(
-      //     fetch,
-      //     evidenceIpfs.evidenceJSON // FIXME
-      //   )
-      //   evidences.push(evidence)
-      // }
+      evidence = yield call(
+        archon.arbitrable.getEvidence,
+        ARBITRABLE_ADDRESS,
+        arbitrableTransaction.arbitrator,
+        arbitrableTransaction.disputeId
+      )
     }
 
     const arbitratorEth = new web3.eth.Contract(
       arbitrator.abi,
       arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
     )
-  
+
     disputeStatus = yield call(
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
     )
-  
+
     if (disputeStatus === disputeConstants.SOLVED)
       ruling = yield call(
         arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
@@ -201,6 +192,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   return {
     ...arbitrableTransaction,
+    evidence,
+    metaEvidence,
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE
@@ -318,7 +311,7 @@ function* createAppeal({ type, payload: { id } }) {
       value: appealCost
     }
   )
-  
+
   return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 }
 
@@ -368,27 +361,28 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
 
   let ipfsHashMetaEvidence = null
 
-    const data = yield call(
-      getBase64,
-      evidenceReceived.file
-    )
+  const data = yield call(
+    readFile,
+    evidenceReceived.file.dataURL
+  )
 
-    // Upload the meta-evidence then return an ipfs hash
-    const fileIpfsHash = yield call(
-      ipfsPublish,
-      data
-    )
+  // Upload the meta-evidence then return an ipfs hash
+  const fileIpfsHash = yield call(
+    ipfsPublish,
+    evidenceReceived.file.name,
+    data
+  )
 
-    // Pass IPFS path for URI. No need for fileHash
-    const evidence = {
-      fileURI: `/ipfs/${fileIpfsHash[0].hash}`,
-      name: evidenceReceived.name,
-      description: evidenceReceived.description
-    }
+  // Pass IPFS path for URI. No need for fileHash
+  const evidence = {
+    fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
+    name: evidenceReceived.name,
+    description: evidenceReceived.description
+  }
 
   // Upload the meta-evidence to IPFS
-  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, JSON.stringify(evidence))
-  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[0].hash
+  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, 'evidence.json', JSON.stringify(evidence))
+  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
 
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.submitEvidence(

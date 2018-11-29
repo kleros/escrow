@@ -14,25 +14,26 @@ else if (window.web3 && window.web3.currentProvider)
   web3 = new Web3(window.web3.currentProvider)
 else web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER))
 
-const network =
+const getNetwork = async () => new Promise((resolve, reject) => {
   web3.eth &&
   web3.eth.net
-    .getId()
-    .then(networkID => {
-    switch (networkID) {
-        case 1:
-        return 'MAINNET'
-        case 3:
-        return 'ROPSTEN'
-        case 4:
-        return 'RINKEBY'
-        case 42:
-        return 'KOVAN'
-        default:
-        return null
-    }
-    })
-    .catch(() => null)
+  .getId()
+  .then(networkID => {
+  switch (networkID) {
+      case 1:
+      resolve('MAINNET')
+      case 3:
+       resolve('ROPSTEN')
+      case 4:
+       resolve('RINKEBY')
+      case 42:
+       resolve('KOVAN')
+      default:
+       resolve(null)
+  }
+  })
+  .catch((err) => reject(err))
+})
 
 const ARBITRABLE_ADDRESS =
   process.env[`REACT_APP_${env}_ARBITRABLE_ADDRESS`]
@@ -59,7 +60,8 @@ export {
   strictETHAddressRegExp,
   arbitrator,
   multipleArbitrableTransactionEth,
-  ipfs
+  ipfs,
+  getNetwork
 }
 
 setTimeout(
@@ -73,8 +75,6 @@ setTimeout(
       arbitrator,
       'ARBITRBLE CONTRACT',
       multipleArbitrableTransactionEth,
-      'NETWORK',
-      network,
       'IPFS',
       ipfs
     ),
