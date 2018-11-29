@@ -19,7 +19,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
         <div className='ArbitrableTxCards-cards'>
           {
             arbitrabletxs.map(arbitrabletx => (
-              <section onClick={() => navigate(arbitrabletx.id)}>
+              <section key={arbitrabletx.id} onClick={() => navigate(arbitrabletx.id)}>
                 <h2>{arbitrabletx.buyer.substring(0, 7)} (TODO title)</h2> {/* FIXME replace by arbitrabletx.title */}
                 <p>{arbitrabletx.seller.substring(0, 7)} (TODO description)</p>  {/* FIXME replace by arbitrabletx.description */}
               </section>

@@ -131,8 +131,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
   let arbitrableTransaction
   let ruling = null
   let disputeStatus = null
-  let evidence = []
-  let metaEvidence = {}
 
   // force convert to string
   const transactionId = id.toString()
@@ -142,6 +140,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
   )
 
   arbitrableTransaction.id = id
+  arbitrableTransaction.metaEvidence = null
+  arbitrableTransaction.evidences = null
 
   arbitrableTransaction.amount = web3.utils.fromWei(arbitrableTransaction.amount.toString(), 'ether')
 
@@ -159,18 +159,23 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitrableTransaction.disputeId
       )
 
-      metaEvidence = yield call(
+      const metaEvidenceArchon = yield call(
         archon.arbitrable.getMetaEvidence,
         ARBITRABLE_ADDRESS,
         disputeCreation.metaEvidenceID
       )
 
-      evidence = yield call(
+      arbitrableTransaction.metaEvidence = metaEvidenceArchon.metaEvidenceJSON
+
+      const metaEvidenceArchonEvidences = yield call(
         archon.arbitrable.getEvidence,
         ARBITRABLE_ADDRESS,
         arbitrableTransaction.arbitrator,
         arbitrableTransaction.disputeId
       )
+
+      if (metaEvidenceArchonEvidences.lenght > 0)
+        arbitrableTransaction.evidences = metaEvidenceArchonEvidences
     }
 
     const arbitratorEth = new web3.eth.Contract(
@@ -192,8 +197,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   return {
     ...arbitrableTransaction,
-    evidence,
-    metaEvidence,
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE
