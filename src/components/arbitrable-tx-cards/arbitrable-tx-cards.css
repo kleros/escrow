@@ -1,19 +1,42 @@
 .ArbitrableTxCards-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1.4em;
+  grid-gap: 2em;
   grid-auto-rows: 250px; }
-  .ArbitrableTxCards-cards section {
+  .ArbitrableTxCards-cards-section {
     border-radius: 3px;
     border: #ccc solid 1px;
-    overflow: hidden; }
-    .ArbitrableTxCards-cards section h2 {
-      color: #4a4a4a;
-      font-size: 1.4em;
-      padding: 10px; }
-    .ArbitrableTxCards-cards section p {
-      margin-bottom: 1em;
-      padding: 0 10px; }
+    overflow: hidden;
+    color: #4a4a4a; }
+    .ArbitrableTxCards-cards-section-h2 {
+      font-size: 1.2em;
+      margin: 1em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #ebebeb;
+      font-weight: 500; }
+    .ArbitrableTxCards-cards-section-p {
+      margin: 0 1.15em 1em 1.15em; }
+    .ArbitrableTxCards-cards-section-header {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      padding: 0.5em 1em 0.5em 0.7em;
+      border-bottom: 1px solid #ebebeb;
+      font-size: 1.2em;
+      line-height: 25px;
+      font-weight: 400; }
+      .ArbitrableTxCards-cards-section-header-address {
+        color: #4a4a4a;
+        padding-left: 0.7em; }
+      .ArbitrableTxCards-cards-section-header-party {
+        flex: 1;
+        text-align: right;
+        display: inline-block;
+        color: #4004a3; }
+        .ArbitrableTxCards-cards-section-header-party:first-letter {
+          text-transform: capitalize; }
+    .ArbitrableTxCards-cards-section header {
+      background: #fff; }
   .ArbitrableTxCards-cards section:hover {
     cursor: pointer; }
 

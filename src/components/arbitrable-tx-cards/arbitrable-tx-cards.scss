@@ -1,23 +1,80 @@
+
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount; 
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}
+
+
 .ArbitrableTxCards {
   &-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1.4em;
+    grid-gap: 2em;
     grid-auto-rows: 250px;
 
-    section {
+    &-section {
       border-radius: 3px;
       border: #ccc solid 1px;
       overflow: hidden;
-      h2 {
-        color: #4a4a4a;
-        font-size: 1.4em;
-        padding: 10px;
+      color: #4a4a4a;
+      &-h2 {
+        font-size: 1.2em;
+        margin: 1em;
+        padding-bottom: 1em;
+        border-bottom: 1px solid #ebebeb;
+        font-weight: 500;
       }
 
-      p {
-        margin-bottom: 1em;
-        padding: 0 10px;
+      &-p {
+        margin: 0 1.15em 1em 1.15em;
+      }
+
+      &-header {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        padding: 0.5em 1em 0.5em 0.7em;
+        border-bottom: 1px solid #ebebeb;
+        font-size: 1.2em;
+        line-height: 25px;
+        font-weight: 400;
+        &-address {
+          color: #4a4a4a;
+          padding-left: 0.7em;
+        }
+        &-party {
+          flex: 1;
+          text-align: right;
+          display: inline-block;
+          color: #4004a3;
+          &:first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+
+      header {
+        background: #fff;
       }
     }
 

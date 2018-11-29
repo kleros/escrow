@@ -112,6 +112,7 @@ function* fetchArbitrabletxs() {
     )
 
     arbitrableTransaction.id = arbitrableTransactionId
+    arbitrableTransaction.party = accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller'
 
     arbitrableTransactions.push(arbitrableTransaction)
   }

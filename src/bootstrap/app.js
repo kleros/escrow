@@ -20,7 +20,7 @@ const NotFound = () => (
 
 const Main = ({ children }) => (
   <div className='App'>
-    <header>
+    <header className='App-header'>
       <nav>
         <ul>
           <li><a href='https://kleros.io'><Kleros style={{height: '35px', position: 'relative', top: '13px'}} /></a></li>

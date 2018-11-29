@@ -1,33 +1,33 @@
 .App {
   display: grid;
   grid-template-areas: "header" "main"; }
-  .App header {
+  .App-header {
     grid-area: header;
     background: #1e075f;
     margin-bottom: 3em; }
-    .App header nav {
+    .App-header nav {
       padding: 0 20px; }
-      .App header nav ul {
+      .App-header nav ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden; }
-      .App header nav li {
+      .App-header nav li {
         font-size: 0.9em;
         color: #fff;
         float: left;
         line-height: 60px;
         display: block;
         text-decoration: none; }
-        .App header nav li .btn-new {
+        .App-header nav li .btn-new {
           background: #009aff;
           padding: 13px 24px 13px 14px;
           border-radius: 3px; }
-      .App header nav li:first-child {
+      .App-header nav li:first-child {
         padding-right: 50px; }
-      .App header nav li:last-child {
+      .App-header nav li:last-child {
         padding-right: 50px; }
-      .App header nav li:hover {
+      .App-header nav li:hover {
         cursor: pointer; }
   .App main {
     width: 1200px;
