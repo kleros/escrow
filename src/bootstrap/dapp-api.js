@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import IPFS from 'ipfs-api'
+import IPFS from 'ipfs-http-client'
 import multipleArbitrableTransaction from 'kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import arbitrator from 'kleros-interaction/build/contracts/Arbitrator.json'
 
