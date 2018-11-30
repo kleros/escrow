@@ -115,18 +115,25 @@ function* fetchArbitrabletxs() {
     arbitrableTransaction = yield call(
         multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
     )
-    // Use arbitrableTransactionId as metaEvidenceID
-    const metaEvidence = yield call(
-      archon.arbitrable.getMetaEvidence,
-      ARBITRABLE_ADDRESS,
-      arbitrableTransactionId
-    )
 
-    arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON
-    arbitrableTransaction.id = arbitrableTransactionId
-    arbitrableTransaction.party = accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller'
+    let metaEvidence
+    try {
+      // Use arbitrableTransactionId as metaEvidenceID
+      metaEvidence = yield call(
+        archon.arbitrable.getMetaEvidence,
+        ARBITRABLE_ADDRESS,
+        arbitrableTransactionId
+      )
 
-    arbitrableTransactions.push(arbitrableTransaction)
+      arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
+      arbitrableTransaction.id = arbitrableTransactionId
+      arbitrableTransaction.party = accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller'
+
+      arbitrableTransactions.push(arbitrableTransaction)
+    } catch (err) {
+      console.error(err)
+      continue
+    }
   }
 
   return arbitrableTransactions.reverse()
