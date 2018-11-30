@@ -95,6 +95,11 @@ function* fetchArbitrabletxs() {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
+  // initialize Archon
+  const network = yield call(getNetwork)
+  const archon = new Archon(
+    `https://${network.toLowerCase()}.infura.io`
+  )
 
   const arbitrableTransactionIds = yield call(
     multipleArbitrableTransactionEth.methods.getTransactionIDsByAddress(
@@ -110,7 +115,14 @@ function* fetchArbitrabletxs() {
     arbitrableTransaction = yield call(
         multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
     )
+    // Use arbitrableTransactionId as metaEvidenceID
+    const metaEvidence = yield call(
+      archon.arbitrable.getMetaEvidence,
+      ARBITRABLE_ADDRESS,
+      arbitrableTransactionId
+    )
 
+    arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON
     arbitrableTransaction.id = arbitrableTransactionId
     arbitrableTransaction.party = accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller'
 
@@ -153,17 +165,10 @@ function* fetchArbitrabletx({ payload: { id } }) {
         `https://${network.toLowerCase()}.infura.io`
       )
 
-      const disputeCreation = yield call(
-        archon.arbitrable.getDispute,
-        ARBITRABLE_ADDRESS,
-        arbitrableTransaction.arbitrator,
-        arbitrableTransaction.disputeId
-      )
-
       const metaEvidenceArchon = yield call(
         archon.arbitrable.getMetaEvidence,
         ARBITRABLE_ADDRESS,
-        disputeCreation.metaEvidenceID
+        transactionId
       )
 
       arbitrableTransaction.metaEvidence = metaEvidenceArchon.metaEvidenceJSON
