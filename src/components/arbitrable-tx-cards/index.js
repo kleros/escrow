@@ -28,8 +28,8 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
                   <div className='ArbitrableTxCards-cards-section-header-address'>{shortAddress(arbitrabletx[arbitrabletx.party])}</div>
                   <div className='ArbitrableTxCards-cards-section-header-party'>{arbitrabletx.party}</div>
                 </div>
-                <h2 className='ArbitrableTxCards-cards-section-h2'>{arbitrabletx.metaEvidence.title}</h2>
-                <p className='ArbitrableTxCards-cards-section-p'>{arbitrabletx.metaEvidence.description}</p>
+                <h2 className='ArbitrableTxCards-cards-section-h2'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.title}</h2>
+                <p className='ArbitrableTxCards-cards-section-p'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.description}</p>
               </section>
             ))
           }

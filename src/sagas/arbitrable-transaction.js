@@ -159,19 +159,20 @@ function* fetchArbitrabletx({ payload: { id } }) {
   arbitrableTransaction.amount = web3.utils.fromWei(arbitrableTransaction.amount.toString(), 'ether')
 
   try {
+    const network = yield call(getNetwork)
+    const archon = new Archon(
+      `https://${network.toLowerCase()}.infura.io`
+    )
+
+    const metaEvidenceArchon = yield call(
+      archon.arbitrable.getMetaEvidence,
+      ARBITRABLE_ADDRESS,
+      transactionId
+    )
+
+    arbitrableTransaction.metaEvidence = metaEvidenceArchon.metaEvidenceJSON
+
     if (arbitrableTransaction.disputeId) {
-      const network = yield call(getNetwork)
-      const archon = new Archon(
-        `https://${network.toLowerCase()}.infura.io`
-      )
-
-      const metaEvidenceArchon = yield call(
-        archon.arbitrable.getMetaEvidence,
-        ARBITRABLE_ADDRESS,
-        transactionId
-      )
-
-      arbitrableTransaction.metaEvidence = metaEvidenceArchon.metaEvidenceJSON
 
       const metaEvidenceArchonEvidences = yield call(
         archon.arbitrable.getEvidence,
@@ -200,6 +201,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
   } catch (err) {
     console.log(err)
   }
+
+  console.log(arbitrableTransaction)
 
   return {
     ...arbitrableTransaction,

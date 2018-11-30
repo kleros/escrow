@@ -38,24 +38,24 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
       {({ setFieldValue }) => (
         <Form className='FormNewArbitrableTx'>
           <div className='section-title'>
-            <label for='title'>Title</label>
+            <label htmlFor='title'>Title</label>
             <Field name='title' placeholder='Title' />
             <ErrorMessage name='title' component='div' />
-            <label for='arbitrator'>Arbitrator (Kleros)</label>
+            <label htmlFor='arbitrator'>Arbitrator (Kleros)</label>
             <Field name='arbitrator' />
             <ErrorMessage name='arbitrator' component='div' />
-            <label for='seller'>Seller</label>
+            <label htmlFor='seller'>Seller</label>
             <Field name='seller' placeholder='Seller Address' />
             <ErrorMessage name='seller' component='div' />
-            <label for='amount'>Amount (ETH)</label>
+            <label htmlFor='amount'>Amount (ETH)</label>
             <Field name='amount' placeholder='Amount' />
             <ErrorMessage name='payment' component='div' />
-            <label for='email'>Email</label>
+            <label htmlFor='email'>Email</label>
             <Field type='email' name='email' placeholder='Email' />
             <ErrorMessage name='email' component='div' className='error class' />
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}
-            <label for='file' className='file'>Primary document</label>
+            <label htmlFor='file' className='file'>Primary document</label>
             <input id='file' style={{border: '#009AFF', padding: '0.6em 0'}} name='file' type='file' onChange={e =>
               setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
             } />
