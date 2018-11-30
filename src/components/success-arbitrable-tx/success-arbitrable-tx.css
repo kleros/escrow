@@ -1,0 +1,17 @@
+.SuccessArbitrableTx {
+  background: linear-gradient(52.79deg, #1e075f 29.65%, #4004a3 76.51%);
+  color: #fff; }
+  .SuccessArbitrableTx-message {
+    text-align: center;
+    background-image: url(../../assets/success.svg);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: center;
+    min-height: 190px; }
+    .SuccessArbitrableTx-message p {
+      font-size: 1.4em;
+      line-height: 1.4em;
+      padding: 2em 0 1em 0; }
+  .SuccessArbitrableTx-footer {
+    background: #1e075f;
+    min-height: 70px; }

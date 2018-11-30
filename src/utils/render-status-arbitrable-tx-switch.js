@@ -8,6 +8,7 @@ import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
 import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
 import DisputeArbitrableTx from '../components/dispute-arbitrable-tx'
+import SuccessArbitrableTx from '../components/success-arbitrable-tx'
 import Button from '../components/button'
 import { ReactComponent as Dispute } from '../assets/dispute.svg'
 import { ReactComponent as Time } from '../assets/time.svg'
@@ -23,39 +24,44 @@ export default (
 ) => {
   switch(arbitrabletx.data.status) {
     case arbitrableTxConstants.NO_DISPUTE:
-      return <React.Fragment>
-        {
-          arbitrabletx.data.amount > 0 ? (
-            <ResumeArbitrableTx
-              arbitrabletx={arbitrabletx.data}
-              title={<React.Fragment>Resume</React.Fragment>}
-            >
-              <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
-              <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
-              <PayOrReimburseArbitrableTx
-                payOrReimburse={payOrReimburse}
-                payOrReimburseFn={createPayOrReimburse}
-                amount={arbitrabletx.data.amount}
-                id={arbitrabletx.data.id}
+      return (
+        <React.Fragment>
+          {
+            arbitrabletx.data.amount === '0' ? (
+              <ResumeArbitrableTx
+                arbitrabletx={arbitrabletx.data}
+                title={<React.Fragment>Transaction completed</React.Fragment>}
+                footer={
+                  <SuccessArbitrableTx
+                    message={<p>Transaction completed <b>with success</b>.</p>}
+                  />
+                }
               />
-            </ResumeArbitrableTx>
-          ) : (
-            <ResumeArbitrableTx
-              arbitrabletx={arbitrabletx.data}
-              title={<React.Fragment>Resume</React.Fragment>}
-            >
-              <div>Transaction completed</div>
-            </ResumeArbitrableTx>
-          )
-        }
-      </React.Fragment>
+            ) : (
+              <ResumeArbitrableTx
+                arbitrabletx={arbitrabletx.data}
+                title={<React.Fragment>Resume</React.Fragment>}
+              >
+                <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+                <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
+                <PayOrReimburseArbitrableTx
+                  payOrReimburse={payOrReimburse}
+                  payOrReimburseFn={createPayOrReimburse}
+                  amount={arbitrabletx.data.amount}
+                  id={arbitrabletx.data.id}
+                />
+              </ResumeArbitrableTx>
+            )
+          }
+        </React.Fragment>
+      )
     case arbitrableTxConstants.WAITING_BUYER:
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
         arbitrabletx={arbitrabletx.data}
         title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
         footer={
-          <MessageArbitrationFee 
+          <MessageArbitrationFee
             arbitrabletx={arbitrabletx}
             createDispute={createDispute}
           />

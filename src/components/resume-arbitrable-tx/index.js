@@ -19,9 +19,13 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children,
 
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Seller</div>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.seller}</div>
-
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Amount</div>
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.amount} ETH</div>
+        
+        {arbitrabletx.amount > 0 && (
+          <React.Fragment>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Amount</div>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.amount} ETH</div>
+          </React.Fragment>
+        )}
 
         {arbitrabletx.email && (
           <React.Fragment>
