@@ -65,7 +65,15 @@ export default (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the buyer</React.Fragment>}
-        />
+        >
+          {
+            isTimeout(arbitrabletx) &&
+            <TimeoutArbitrableTx
+                id={arbitrabletx.data.id}
+                timeout={createTimeout}
+            />
+          }
+        </ResumeArbitrableTx>
       )
     case arbitrableTxConstants.WAITING_SELLER:
       return !isFeePaid(arbitrabletx) ? (
@@ -83,7 +91,15 @@ export default (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
-        />
+        >
+          {
+            isTimeout(arbitrabletx) &&
+            <TimeoutArbitrableTx
+                id={arbitrabletx.data.id}
+                timeout={createTimeout}
+            />
+          }
+        </ResumeArbitrableTx>
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
       return (
@@ -92,13 +108,6 @@ export default (
           title={<React.Fragment>Resume</React.Fragment>}
           footer={
             <React.Fragment>
-              {
-                isTimeout(arbitrabletx) &&
-                <TimeoutArbitrableTx
-                    id={arbitrabletx.data.id}
-                    timeout={createTimeout}
-                />
-              }
               <NewEvidenceArbitrableTx
                 id={arbitrabletx.data.id}
                 submitEvidence={createEvidence}

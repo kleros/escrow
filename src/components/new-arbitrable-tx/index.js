@@ -57,8 +57,12 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             {/* and store only the path on the file in the redux state */}
             <label htmlFor='file' className='file'>Primary document</label>
             <input id='file' style={{border: '#009AFF', padding: '0.6em 0'}} name='file' type='file' onChange={e =>
-              setFieldValue('file', window.URL.createObjectURL(e.currentTarget.files[0]))
-            } />
+                setFieldValue('file', {
+                  dataURL: window.URL.createObjectURL(e.currentTarget.files[0]),
+                  name: e.currentTarget.files[0].name
+                })
+              } 
+            />
           </div>
           <div className='section-description'>
             <label for='description'>Description</label>
