@@ -2,8 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
+import Button from '../button'
+
+import './new-evidence-arbitrable-tx.css'
+
 const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
-  <div>
+  <div className='NewEvidenceArbitrableTx'>
+    <div className='NewEvidenceArbitrableTx-message'><p>Create Evidence</p></div>
     <Formik
       initialValues={{name: '', description: '', file: ''}}
       validate = {values => {
@@ -13,25 +18,29 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
     >
       {({ setFieldValue }) => (
         <Form>
-          <Field name='name' placeholder='name' />
-          <ErrorMessage name='name' component='div' />
+          <div className='NewEvidenceArbitrableTx-form'>
+            <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
+            <ErrorMessage name='name' component='div' />
 
-          <Field type='textarea' name='description' />
-          <ErrorMessage name='description' component='div' className='def' />
+            <Field className='NewEvidenceArbitrableTx-form-textarea' component='textarea' name='Description'>Description</Field>
+            <ErrorMessage name='description' component='div' className='def' />
 
-          {/* hack Formik for file type */}
-          {/* and store only the path on the file in the redux state */}
-          <input id='file' name='file' type='file' onChange={e => {
-              const file = e.currentTarget.files[0]
-              return setFieldValue('file', {
-                dataURL: window.URL.createObjectURL(e.currentTarget.files[0]),
-                name: file.name
-              })
-            }
-          } />
-          <button type='submit'>
-            Save Evidence
-          </button>
+            {/* hack Formik for file type */}
+            {/* and store only the path on the file in the redux state */}
+            <input id='file' name='file' type='file' onChange={e => {
+                const file = e.currentTarget.files[0]
+                return setFieldValue('file', {
+                  dataURL: window.URL.createObjectURL(e.currentTarget.files[0]),
+                  name: file.name
+                })
+              }
+            } />
+          </div>
+          <div className='NewEvidenceArbitrableTx-footer'>
+            <Button type='submit'>
+              Submit Evidence
+            </Button>
+          </div>
         </Form>
       )}
     </Formik>

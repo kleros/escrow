@@ -52,14 +52,15 @@ export default (
     case arbitrableTxConstants.WAITING_BUYER:
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
-          arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Dispute style={{width: '20px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The seller has raised a dispute</React.Fragment>}
-        >
+        arbitrabletx={arbitrabletx.data}
+        title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
+        footer={
           <MessageArbitrationFee 
             arbitrabletx={arbitrabletx}
             createDispute={createDispute}
           />
-        </ResumeArbitrableTx>
+        }
+      />
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}

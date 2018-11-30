@@ -1,0 +1,47 @@
+.NewEvidenceArbitrableTx {
+  background: linear-gradient(52.79deg, #1e075f 29.65%, #4004a3 76.51%);
+  color: #fff; }
+  .NewEvidenceArbitrableTx-message {
+    text-align: center;
+    font-size: 1.4em;
+    line-height: 1.4em;
+    padding: 2em 0 1em 0; }
+  .NewEvidenceArbitrableTx-form {
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-areas: "name" "textarea" "file"; }
+    .NewEvidenceArbitrableTx-form p {
+      text-align: center;
+      min-height: 190px;
+      font-size: 1.4em;
+      line-height: 1.4em;
+      padding-bottom: 1em; }
+    .NewEvidenceArbitrableTx-form-input {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      font-size: 18px;
+      color: #fff;
+      border: 0;
+      padding: 0 1em;
+      height: 2em; }
+      .NewEvidenceArbitrableTx-form-input::placeholder {
+        color: #fff; }
+    .NewEvidenceArbitrableTx-form-textarea {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      font-size: 18px;
+      color: #fff;
+      border: 0;
+      padding: 1em;
+      height: 8em; }
+      .NewEvidenceArbitrableTx-form-textarea::placeholder {
+        color: #fff; }
+  .NewEvidenceArbitrableTx-footer {
+    background: #1e075f;
+    min-height: 7em;
+    text-align: right;
+    padding-top: 2em;
+    padding-right: 15%; }
