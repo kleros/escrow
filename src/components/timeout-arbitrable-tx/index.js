@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const TimeoutArbitrableTx = ({ id, timeout }) => (
-  <div>
-    <button type="submit" onClick={() => timeout(id)}>
-      Timeout
-    </button>
-  </div>
+import Button from '../button'
+
+const TimeoutArbitrableTx = ({ id, timeout, name }) => (
+  <Button type="submit" onClick={() => timeout(id)}>
+    {name}
+  </Button>
 )
 
 TimeoutArbitrableTx.propTypes = {

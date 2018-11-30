@@ -88,18 +88,27 @@ export default (
           }
         />
       ) : (
-        <ResumeArbitrableTx
-          arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
-        >
+        <React.Fragment>
           {
-            isTimeout(arbitrabletx) &&
-            <TimeoutArbitrableTx
-                id={arbitrabletx.data.id}
-                timeout={createTimeout}
-            />
+            isTimeout(arbitrabletx) ? (
+              <ResumeArbitrableTx
+                arbitrabletx={arbitrabletx.data}
+                title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Claim the Payment</React.Fragment>}
+              >
+                <TimeoutArbitrableTx
+                    id={arbitrabletx.data.id}
+                    timeout={createTimeout}
+                    name={accounts[0] === arbitrabletx.data.buyer ? 'Withdraw' : 'Execute Payment' }
+                />
+              </ResumeArbitrableTx>
+            ) : (
+              <ResumeArbitrableTx
+                arbitrabletx={arbitrabletx.data}
+                title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
+              />
+            )
           }
-        </ResumeArbitrableTx>
+        </React.Fragment>
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
       return (
@@ -135,8 +144,8 @@ export default (
 }
 
 const isTimeout = arbitrabletx => {
-  const timeout = arbitrabletx.data.lastInteraction + arbitrabletx.data.timeout
-  const dateTime = (Date.now() / 1000) | 0
+  const timeout = Number(arbitrabletx.data.lastInteraction) + Number(arbitrabletx.data.timeout)
+  const dateTime = Date.now() / 1000 | 0
   return dateTime > timeout
 }
 
