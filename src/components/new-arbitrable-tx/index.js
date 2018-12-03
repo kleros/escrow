@@ -56,13 +56,14 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}
             <label htmlFor='file' className='file'>Primary document</label>
-            <input id='file' style={{border: '#009AFF', padding: '0.6em 0'}} name='file' type='file' onChange={e =>
-                setFieldValue('file', {
-                  dataURL: window.URL.createObjectURL(e.currentTarget.files[0]),
-                  name: e.currentTarget.files[0].name
+            <input id='file' style={{border: '#009AFF', padding: '0.6em 0'}} name='file' type='file' onChange={e => {
+                const file = e.currentTarget.files[0]
+                return setFieldValue('file', {
+                  dataURL: window.URL.createObjectURL(file),
+                  name: file.name
                 })
-              } 
-            />
+              }
+            } /> />
           </div>
           <div className='section-description'>
             <label htmlFor='description'>Description</label>
