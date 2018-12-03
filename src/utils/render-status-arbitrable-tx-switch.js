@@ -120,14 +120,12 @@ export default (
       return (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Resume</React.Fragment>}
+          title={<React.Fragment>Dispute Ongoing</React.Fragment>}
           footer={
-            <React.Fragment>
-              <NewEvidenceArbitrableTx
-                id={arbitrabletx.data.id}
-                submitEvidence={createEvidence}
-              />
-            </React.Fragment>
+            <NewEvidenceArbitrableTx
+              id={arbitrabletx.data.id}
+              submitEvidence={createEvidence}
+            />
           }
         />
       )

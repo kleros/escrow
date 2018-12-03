@@ -201,7 +201,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   } catch (err) {
     console.log(err)
   }
-  console.log(arbitrableTransaction)
+
   return {
     ...arbitrableTransaction,
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
