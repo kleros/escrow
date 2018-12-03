@@ -36,7 +36,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       readFile,
       arbitrabletxForm.file.dataURL
     )
-
     // Upload the meta-evidence then return an ipfs hash
     const fileIpfsHash = yield call(
       ipfsPublish,
@@ -65,11 +64,13 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
     })
   }
 
+  const enc = new TextEncoder()
+
   // Upload the meta-evidence to IPFS
   const ipfsHashMetaEvidenceObj = yield call(
-    ipfsPublish, 
-    'metaEvidence.json', 
-    JSON.stringify(metaEvidence)
+    ipfsPublish,
+    'metaEvidence.json',
+    enc.encode(JSON.stringify(metaEvidence))
   )
 
   navigate(`resume/${ipfsHashMetaEvidenceObj[1].hash}`)
@@ -452,8 +453,14 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
     description: evidenceReceived.description
   }
 
+  const enc = new TextEncoder()
+
   // Upload the meta-evidence to IPFS
-  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, 'evidence.json', JSON.stringify(evidence))
+  const ipfsHashMetaEvidenceObj = yield call(
+    ipfsPublish,
+    'evidence.json',
+    enc.encode(JSON.stringify(evidence)) // encode to bytes
+  )
   ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
 
   const txHash = yield call(
