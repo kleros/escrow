@@ -179,6 +179,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
     arbitrableTransaction.metaEvidence = metaEvidenceArchon.metaEvidenceJSON
 
+    arbitrableTransaction.file = `https://ipfs.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
+
     if (arbitrableTransaction.disputeId) {
 
       const metaEvidenceArchonEvidences = yield call(

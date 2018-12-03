@@ -63,7 +63,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
                   name: file.name
                 })
               }
-            } /> />
+            } />
           </div>
           <div className='section-description'>
             <label htmlFor='description'>Description</label>
