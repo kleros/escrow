@@ -12,7 +12,6 @@ import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
 import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
-import EvidenceArbitrableTxList from '../../components/evidence-arbitrable-tx-list'
 import ResumeArbitrableTx from '../../components/resume-arbitrable-tx'
 import renderStatusArbitrableTxSwitch from '../../utils/render-status-arbitrable-tx-switch'
 
@@ -96,12 +95,6 @@ class ArbitrableTx extends PureComponent {
               <AppealArbitrableTx
                 id={arbitrabletx.data.id}
                 appeal={createAppeal}
-              />
-            }
-            {
-              arbitrabletx.data.evidences && arbitrabletx.data.evidences.length > 0 && 
-              <EvidenceArbitrableTxList
-                evidenceArbitrabletxs={arbitrabletx.data.evidences}
               />
             }
           </React.Fragment>

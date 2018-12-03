@@ -44,6 +44,21 @@ const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children,
             </div>
           </React.Fragment>
         )}
+
+        {arbitrabletx.evidences && (
+          <React.Fragment>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Evidences</div>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
+            {
+              arbitrabletx.evidences.map(evidence => (
+                <a style={{paddingRight: '1em'}} href={`https://ipfs.io${evidence.evidenceJSON.fileURI}`} alt={evidence.evidenceJSON.name} title={evidence.evidenceJSON.name} target='_blank' rel='noopener noreferrer'>
+                  <PrimaryDocument />
+                </a>
+              ))
+            }
+            </div>
+          </React.Fragment>
+        )}
       </div>
       <div className= 'ResumeArbitrableTx-section-submit'>
         {children}

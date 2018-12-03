@@ -190,7 +190,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitrableTransaction.disputeId
       )
 
-      if (metaEvidenceArchonEvidences.lenght > 0)
+      if (metaEvidenceArchonEvidences.length > 0)
         arbitrableTransaction.evidences = metaEvidenceArchonEvidences
     }
 
