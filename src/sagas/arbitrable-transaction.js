@@ -152,7 +152,8 @@ function* fetchArbitrabletxs() {
   // initialize Archon
   const network = yield call(getNetwork)
   const archon = new Archon(
-    `https://${network.toLowerCase()}.infura.io`
+    `https://${network.toLowerCase()}.infura.io`,
+    'https://ipfs.kleros.io'
   )
 
   const arbitrableTransactionIds = yield call(
@@ -222,7 +223,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
   try {
     const network = yield call(getNetwork)
     const archon = new Archon(
-      `https://${network.toLowerCase()}.infura.io`
+      `https://${network.toLowerCase()}.infura.io`,
+      'https://ipfs.kleros.io'
     )
 
     const metaEvidenceArchon = yield call(
