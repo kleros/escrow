@@ -22,7 +22,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
             <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
             <ErrorMessage name='name' component='div' />
 
-            <Field className='NewEvidenceArbitrableTx-form-textarea' component='textarea' name='Description'>Description</Field>
+            <Field className='NewEvidenceArbitrableTx-form-textarea' component='textarea' name='description'>Description</Field>
             <ErrorMessage name='description' component='div' className='def' />
 
             {/* hack Formik for file type */}
