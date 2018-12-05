@@ -10,8 +10,12 @@ export const arbitrabletx = {
   ...createActions('ARBITRABLETX', {
     withCreate: true
   }),
-  FORM: 'FORM_ARBITRABLETX'
+  FORM: 'FORM_ARBITRABLETX',
+  RESUMEFORM: 'RESUMEFORM_ARBITRABLETX'
 }
+
+// MetaEvidence
+export const metaevidence = createActions('METAEVIDENCE')
 
 // Dispute
 export const dispute = {
@@ -66,14 +70,20 @@ export const formArbitrabletx = arbitrabletxForm => ({
   payload: { arbitrabletxForm }
 })
 
-export const createArbitrabletx = arbitrabletxReceived => ({
+export const createArbitrabletx = (arbitrabletxReceived, metaEvidenceIPFSHash) => ({
   type: arbitrabletx.CREATE,
-  payload: { arbitrabletxReceived }
+  payload: { arbitrabletxReceived, metaEvidenceIPFSHash }
 })
 
 export const fetchArbitrabletx = id => ({
   type: arbitrabletx.FETCH,
   payload: { id }
+})
+
+// MetaEvidence
+export const fetchMetaEvidence = metaEvidenceIPFSHash => ({
+  type: metaevidence.FETCH,
+  payload: { metaEvidenceIPFSHash }
 })
 
 // Dispute

@@ -6,7 +6,7 @@ import { ReactComponent as PrimaryDocument } from '../../assets/primary-document
 
 import './resume-arbitrable-tx.css'
 
-const ResumeArbitrableTx = ({ createArbitrabletx, arbitrabletx, title, children, footer }) => (
+const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
   <React.Fragment>
     <div className='ResumeArbitrableTx'>
       <h1 className='ResumeArbitrableTx-h1'>{title}</h1>

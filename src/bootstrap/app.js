@@ -25,7 +25,7 @@ const Main = ({ children }) => (
         <ul>
           <li><a href='https://kleros.io'><Kleros style={{height: '35px', position: 'relative', top: '13px'}} /></a></li>
           <li onClick={() => navigate('/')}>Escrow</li>
-          <li onClick={() => navigate('new')} style={{float: 'right'}}><span className='btn-new'><Plus style={{width: '19px', height: '35px', paddingRight: '8px', position: 'relative', top: '12px'}} />New Transaction</span></li>
+          <li onClick={() => navigate('/new')} style={{float: 'right'}}><span className='btn-new'><Plus style={{width: '19px', height: '35px', paddingRight: '8px', position: 'relative', top: '12px'}} />New Transaction</span></li>
           <li onClick={() => navigate('/')} style={{float: 'right', color: '#a892c5'}}>My Transactions</li>
         </ul>
       </nav>
@@ -46,9 +46,9 @@ const App = ({ store, testElement }) => (
         <Router>
           <Main path="/">
             <Home path="/" />
-            <Resume path="resume" />
             <New path="new" />
-            <ArbitrableTx path=":arbitrableTxId" />
+            <Resume path="resume/:metaEvidenceIPFSHash" />
+            <ArbitrableTx path="/:arbitrableTxId" />
             <NotFound default />
           </Main>
         </Router>

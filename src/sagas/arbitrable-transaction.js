@@ -17,54 +17,107 @@ import { lessduxSaga } from '../utils/saga'
 import readFile from '../utils/read-file'
 import createMetaEvidence from '../utils/generate-meta-evidence'
 
+import getMetaEvidence from './api/get-meta-evidence'
 import ipfsPublish from './api/ipfs-publish'
 
 /**
- * Creates a new arbitrableTx.
+ * ArbitrableTx form.
  * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
  */
-function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
+function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
+  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
+  if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  let arbitrableTransactionCount
   let metaEvidence = null
-  let ipfsHashMetaEvidence = null
 
-  if (arbitrabletxReceived.file) {
+  if (arbitrabletxForm.file) {
     const data = yield call(
       readFile,
-      arbitrabletxReceived.file.dataURL
+      arbitrabletxForm.file.dataURL
     )
 
     // Upload the meta-evidence then return an ipfs hash
     const fileIpfsHash = yield call(
       ipfsPublish,
-      arbitrabletxReceived.file.name,
+      arbitrabletxForm.file.name,
       data
     )
 
     // Pass IPFS path for URI. No need for fileHash
-    metaEvidence = createMetaEvidence(
-      accounts[0],
-      arbitrabletxReceived.seller,
-      arbitrabletxReceived.title,
-      arbitrabletxReceived.description,
-      `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`
-    )
+    metaEvidence = createMetaEvidence({
+      accounts: accounts[0],
+      seller: arbitrabletxForm.seller,
+      title: arbitrabletxForm.title,
+      description: arbitrabletxForm.description,
+      fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
+      amount: arbitrabletxForm.amount,
+      arbitrator: arbitrabletxForm.arbitrator
+    })
   } else {
-    metaEvidence = createMetaEvidence(
-      accounts[0],
-      arbitrabletxReceived.seller,
-      arbitrabletxReceived.title,
-      arbitrabletxReceived.description
-    )
+    metaEvidence = createMetaEvidence({
+      accounts: accounts[0],
+      seller: arbitrabletxForm.seller,
+      title: arbitrabletxForm.title,
+      description: arbitrabletxForm.description,
+      amount: arbitrabletxForm.amount,
+      arbitrator: arbitrabletxForm.arbitrator
+    })
   }
 
   // Upload the meta-evidence to IPFS
-  const ipfsHashMetaEvidenceObj = yield call(ipfsPublish, 'metaEvidence.json', JSON.stringify(metaEvidence))
-  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
+  const ipfsHashMetaEvidenceObj = yield call(
+    ipfsPublish, 
+    'metaEvidence.json', 
+    JSON.stringify(metaEvidence)
+  )
 
-  arbitrableTransactionCount = yield call(
+  navigate(`resume/${ipfsHashMetaEvidenceObj[1].hash}`)
+
+  return arbitrabletxForm
+}
+
+/**
+ * MetaEvidence.
+ * @param {object} { payload: metaEvidence } - The MetaEvidence.
+ */
+function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
+  if (window.ethereum) yield call(window.ethereum.enable)
+  const accounts = yield call(web3.eth.getAccounts)
+  if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
+
+  // Fetch the meta-evidence
+  const metaEvidence = yield call(
+    getMetaEvidence.getFile,
+    metaEvidenceIPFSHash
+  )
+
+  const metaEvidenceDecoded = JSON.parse(JSON.stringify(metaEvidence))
+
+  const parties = Object.assign({}, ...Object.entries(metaEvidenceDecoded.aliases).map(([a,b]) => ({ [b]: a })))
+
+  return yield put(action(arbitrabletxActions.arbitrabletx.RESUMEFORM,
+    {
+      arbitrabletxResumeForm: {
+        title: metaEvidenceDecoded.title,
+        description: metaEvidenceDecoded.description,
+        seller: parties['Party B'],
+        amount: metaEvidenceDecoded.amount,
+        file: `https://ipfs.io${metaEvidenceDecoded.fileURI}`,
+        arbitrator: metaEvidenceDecoded.arbitrator
+      }
+    }
+  ))
+}
+
+/**
+ * Creates a new arbitrableTx.
+ * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
+ */
+function* createArbitrabletx({ type, payload: { arbitrabletxReceived, metaEvidenceIPFSHash } }) {
+  const accounts = yield call(web3.eth.getAccounts)
+
+  const arbitrableTransactionCount = yield call(
     multipleArbitrableTransactionEth.methods.getCountTransactions().call
   )
 
@@ -74,7 +127,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
       60,
       arbitrabletxReceived.seller,
       '0x0',
-      `/ipfs/${ipfsHashMetaEvidence}`
+      `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
     ).send,
     {
       from: accounts[0],
@@ -83,7 +136,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived } }) {
   )
 
   if (txHash)
-    navigate(arbitrableTransactionCount)
+    navigate(`/${arbitrableTransactionCount}`)
 
   return {}
 }
@@ -425,6 +478,20 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
  * @export default walletSaga
  */
 export default function* walletSaga() {
+  yield takeLatest(
+    arbitrabletxActions.metaevidence.FETCH,
+    lessduxSaga,
+    'fetch',
+    arbitrabletxActions.metaevidence,
+    fetchMetaEvidence
+  )
+  yield takeLatest(
+    arbitrabletxActions.arbitrabletx.FORM,
+    lessduxSaga,
+    'create',
+    arbitrabletxActions.arbitrabletx,
+    formArbitrabletx
+  )
   yield takeLatest(
     arbitrabletxActions.arbitrabletx.CREATE,
     lessduxSaga,

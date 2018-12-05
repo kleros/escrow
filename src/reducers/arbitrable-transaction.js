@@ -53,12 +53,17 @@ export default createReducer(
     arbitrabletxs: arbitrabletxsInitialState,
     arbitrabletx: arbitrabletxInitialState,
     evidence: evidenceInitialState,
-    arbitrabletxForm: {}
+    arbitrabletxForm: {},
+    arbitrabletxResumeForm: {}
   },
   {
     [arbitrabletxActions.arbitrabletx.FORM]: (state, { payload: { arbitrabletxForm } }) => ({
       ...state,
       arbitrabletxForm
+    }),
+    [arbitrabletxActions.arbitrabletx.RESUMEFORM]: (state, { payload: { arbitrabletxResumeForm } }) => ({
+      ...state,
+      arbitrabletxResumeForm
     })
   }
 )

@@ -15,7 +15,8 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
     <Formik
       initialValues={{
         title: '',
-        description: '', file: '',
+        description: '', 
+        file: '',
         arbitrator: ARBITRATOR_DEFAULT_ADDRESS,
         seller: '',
         payment: '',
@@ -33,7 +34,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         }
         return errors
       }}
-      onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx) && navigate('resume')}
+      onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)}
     >
       {({ setFieldValue }) => (
         <Form className='FormNewArbitrableTx'>

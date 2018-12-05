@@ -11,24 +11,35 @@ import './resume.css'
 
 class Resume extends PureComponent {
   static propTypes = {
-    arbitrabletxForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired,
-    
+    arbitrabletxResumeForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired,
+
     createArbitrabletx: PropTypes.func.isRequired
   }
 
+  componentDidMount() {
+    const { fetchMetaEvidenceArbitrabletx, metaEvidenceIPFSHash } = this.props
+    fetchMetaEvidenceArbitrabletx(metaEvidenceIPFSHash)
+  }
+
   render() {
-    const { createArbitrabletx, arbitrabletxForm } = this.props
+    const { createArbitrabletx, arbitrabletxForm, metaEvidenceIPFSHash } = this.props
 
     return (
       <div className=''>
+
+      {
+      arbitrabletxForm.amount !== undefined && (
         <ResumeArbitrableTx 
           arbitrabletx={arbitrabletxForm}
           title={<React.Fragment>Resume</React.Fragment>}
         >
-          <Button onClick={() => {createArbitrabletx(arbitrabletxForm)}}>
+          <Button onClick={() => {createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}}>
             Submit Transaction
           </Button>
         </ResumeArbitrableTx>
+      
+      )
+    }
       </div>
     )
   }
@@ -36,9 +47,10 @@ class Resume extends PureComponent {
 
 export default connect(
   state => ({
-    arbitrabletxForm: state.arbitrabletx.arbitrabletxForm
+    arbitrabletxForm: state.arbitrabletx.arbitrabletxResumeForm
   }),
   {
-    createArbitrabletx: arbitrabletxActions.createArbitrabletx
+    createArbitrabletx: arbitrabletxActions.createArbitrabletx,
+    fetchMetaEvidenceArbitrabletx: arbitrabletxActions.fetchMetaEvidence
   }
 )(Resume)

@@ -1,11 +1,13 @@
-export default (
+export default ({
   buyer,
   seller,
   title,
   description,
   fileURI,
-  fileHash
-) => (
+  fileHash,
+  amount,
+  arbitrator
+}) => (
   {
     category: 'Escrow',
     title,
@@ -20,6 +22,9 @@ export default (
     aliases: {
       [buyer]: 'Party A',
       [seller]: 'Party B'
-    }
+    },
+    seller,
+    amount,
+    arbitrator
   }
 )
