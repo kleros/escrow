@@ -1,5 +1,4 @@
 import Web3 from 'web3'
-import IPFS from 'ipfs-http-client'
 import multipleArbitrableTransaction from 'kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import arbitrator from 'kleros-interaction/build/contracts/Arbitrator.json'
 
@@ -45,8 +44,6 @@ const multipleArbitrableTransactionEth = new web3.eth.Contract(
   ARBITRABLE_ADDRESS
 )
 
-const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
-
 const ETHAddressRegExpCaptureGroup = '(0x[a-fA-F0-9]{40})'
 const ETHAddressRegExp = /0x[a-fA-F0-9]{40}/
 const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
@@ -60,7 +57,6 @@ export {
   strictETHAddressRegExp,
   arbitrator,
   multipleArbitrableTransactionEth,
-  ipfs,
   getNetwork
 }
 
@@ -74,9 +70,7 @@ setTimeout(
       'ARBITRATOR INTERFACE',
       arbitrator,
       'ARBITRBLE CONTRACT',
-      multipleArbitrableTransactionEth,
-      'IPFS',
-      ipfs
+      multipleArbitrableTransactionEth
     ),
   1000
 )
