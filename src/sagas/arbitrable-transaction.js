@@ -45,7 +45,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
-      accounts: accounts[0],
+      buyer: accounts[0],
       seller: arbitrabletxForm.seller,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
