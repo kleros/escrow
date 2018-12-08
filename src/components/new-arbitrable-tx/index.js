@@ -64,7 +64,7 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
           </div>
           <div className='section-description'>
             <label htmlFor='description'>Description</label>
-            <Field name='description' component='textarea' />
+            <Field name='description' component='textarea' className='section-description-textarea' />
             <ErrorMessage name='description' component='div' className='def' />
           </div>
           <div className='section-submit'>

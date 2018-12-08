@@ -74,7 +74,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
     enc.encode(JSON.stringify(metaEvidence))
   )
 
-  navigate(`resume/${ipfsHashMetaEvidenceObj[1].hash}`)
+  navigate(`/resume/${ipfsHashMetaEvidenceObj[1].hash}`)
 
   return arbitrabletxForm
 }
@@ -105,7 +105,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         description: metaEvidenceDecoded.description,
         seller: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
-        file: `https://ipfs.io${metaEvidenceDecoded.fileURI}`,
+        file: metaEvidenceDecoded.fileURI ? `https://ipfs.io${metaEvidenceDecoded.fileURI}` : null,
         arbitrator: metaEvidenceDecoded.arbitrator
       }
     }
@@ -252,9 +252,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
     disputeStatus = yield call(
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
     )
-
-    console.log('disputeStatus',disputeStatus)
-    console.log('disputeConstants.SOLVED',disputeConstants.SOLVED)
 
     if (disputeStatus.toString() === disputeConstants.SOLVED.toString())
       ruling = yield call(

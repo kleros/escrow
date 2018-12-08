@@ -49,7 +49,7 @@
         grid-column: 1 / 2;
         padding-right: 2em;
         line-height: 40px; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-description textarea {
+      .NewArbitrableTx .FormNewArbitrableTx .section-description-textarea {
         grid-area: textarea;
         justify-items: stretch;
         align-items: stretch;

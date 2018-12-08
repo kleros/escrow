@@ -13,13 +13,13 @@ const DisputeArbitrableTx = ({ message, children, footer }) => (
 
 DisputeArbitrableTx.propTypes = {
   // State
-  message: PropTypes.string,
+  message: PropTypes.object,
   // TODO
 }
 
 DisputeArbitrableTx.defaultProps = {
   // State
-  message: '',
+  message: {},
   // TODO
 }
 

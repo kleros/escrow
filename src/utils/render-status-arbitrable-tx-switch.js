@@ -155,7 +155,9 @@ export default (
       )
     default:
       return (
-        <ClimbingBoxLoader />
+        <div className='loader'>
+          <ClimbingBoxLoader color={'gray'} />
+        </div>
       )
   }
 }
