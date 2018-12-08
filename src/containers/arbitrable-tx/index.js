@@ -91,13 +91,6 @@ class ArbitrableTx extends PureComponent {
                 createAppeal
               )
             }
-            {
-              arbitrabletx.data.appealable && 
-              <AppealArbitrableTx
-                id={arbitrabletx.data.id}
-                appeal={createAppeal}
-              />
-            }
           </React.Fragment>
         )
       }
