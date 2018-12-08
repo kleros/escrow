@@ -28,8 +28,8 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
                   <div className='ArbitrableTxCards-cards-section-header-address'>{shortAddress(arbitrabletx[arbitrabletx.party])}</div>
                   <div className='ArbitrableTxCards-cards-section-header-party'>{arbitrabletx.party}</div>
                 </div>
-                <h2 className='ArbitrableTxCards-cards-section-h2'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.title} sea vapours; you can sleep under it beneath the stars which shine so re</h2>
-                <p className='ArbitrableTxCards-cards-section-p'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.description}he subject of towels. A towel, it says, is about the most massivelyuseful thing an interstellar hitch hiker can have. Partly it has great practical value - you can wrap it around you for warmth as you bound across the cold moons of Jaglan Beta; you can lie on it on the brilliant marble-sanded beaches of Santraginus V, inhaling the heady sea vapours; you can sleep under it beneath the stars which shine so redly on the desert world of Kakrafoon; use it to sail</p>
+                <h2 className='ArbitrableTxCards-cards-section-h2'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.title}</h2>
+                <p className='ArbitrableTxCards-cards-section-p'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.description}</p>
               </section>
             ))
           }
