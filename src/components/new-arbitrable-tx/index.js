@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { navigate } from '@reach/router'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
@@ -17,18 +16,20 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         description: '', 
         file: '',
         seller: '',
-        payment: '',
+        amount: '',
         email: ''
       }}
       validate = {values => {
         {/* TODO use Yup */}
         let errors = {}
-        if (!values.email) {
-          errors.email = 'Email Required';
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+        if (!values.seller)
+          errors.seller = 'Seller Address Required'
+        if (!values.amount)
+          errors.amount = 'Amount Required'
+        if (
+          values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
-          errors.email = 'Invalid email address';
+          errors.email = 'Invalid email address'
         }
         return errors
       }}
@@ -43,13 +44,13 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <ErrorMessage name='arbitrator' component='div' />
             <label htmlFor='seller'>Seller</label>
             <Field name='seller' placeholder='Seller Address' />
-            <ErrorMessage name='seller' component='div' />
+            <ErrorMessage name='seller' component='div' className='error' />
             <label htmlFor='amount'>Amount (ETH)</label>
             <Field name='amount' placeholder='Amount' />
-            <ErrorMessage name='payment' component='div' />
+            <ErrorMessage name='amount' component='div' className='error'/>
             <label htmlFor='email'>Email</label>
             <Field type='email' name='email' placeholder='Email' />
-            <ErrorMessage name='email' component='div' className='error class' />
+            <ErrorMessage name='email' component='div' className='error' />
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}
             <label htmlFor='file' className='file'>Primary document</label>

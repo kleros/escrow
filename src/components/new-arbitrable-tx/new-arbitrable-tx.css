@@ -35,6 +35,10 @@
         border-radius: 3px;
         padding: 0 1em;
         font-size: 1em; }
+      .NewArbitrableTx .FormNewArbitrableTx .section-title .error {
+        grid-column: 2 / 3;
+        color: red;
+        font-size: 0.9em; }
     .NewArbitrableTx .FormNewArbitrableTx .section-description {
       grid-area: description;
       display: grid;
