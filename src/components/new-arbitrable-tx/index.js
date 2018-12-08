@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { navigate } from '@reach/router'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import { ARBITRATOR_DEFAULT_ADDRESS } from '../../bootstrap/dapp-api'
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
 
@@ -17,7 +16,6 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         title: '',
         description: '', 
         file: '',
-        arbitrator: ARBITRATOR_DEFAULT_ADDRESS,
         seller: '',
         payment: '',
         email: ''
@@ -42,8 +40,6 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <label htmlFor='title'>Title</label>
             <Field name='title' placeholder='Title' />
             <ErrorMessage name='title' component='div' />
-            <label htmlFor='arbitrator'>Arbitrator (Kleros)</label>
-            <Field name='arbitrator' />
             <ErrorMessage name='arbitrator' component='div' />
             <label htmlFor='seller'>Seller</label>
             <Field name='seller' placeholder='Seller Address' />

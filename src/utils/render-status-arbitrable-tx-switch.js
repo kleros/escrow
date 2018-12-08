@@ -20,7 +20,8 @@ export default (
   createPayOrReimburse,
   createDispute,
   createTimeout,
-  createEvidence
+  createEvidence,
+  createAppeal
 ) => {
   switch(arbitrabletx.data.status) {
     case arbitrableTxConstants.NO_DISPUTE:
@@ -135,9 +136,21 @@ export default (
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment>Resume</React.Fragment>}
         >
-          {arbitrabletx.data.ruling === '0' && 'No ruling.'}
-          {arbitrabletx.data.ruling === '1' && 'Buyer wins the current dispute.'}
-          {arbitrabletx.data.ruling === '2' && 'Seller wins the current dispute.'}
+          <DisputeArbitrableTx
+            message={
+              <React.Fragment>
+                {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
+                {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.buyer ? (
+                  <p>Congratulations! The jurors have decided <b>in your favour</b>.</p>
+                ) : (
+                  <p>The jurors decided <b>against you</b>.</p>
+                )}
+                {arbitrabletx.data.appealable === true && (
+                  <Button onClick={() => createAppeal(arbitrabletx.data.id)}>Appeal the decision</Button>
+                )}
+              </React.Fragment>
+            }
+          />
         </ResumeArbitrableTx>
       )
     default:

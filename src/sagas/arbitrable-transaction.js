@@ -5,9 +5,10 @@ import Archon from '@kleros/archon'
 import {
   web3,
   multipleArbitrableTransactionEth,
-  arbitrator,
+  arbitratorEth,
   getNetwork,
-  ARBITRABLE_ADDRESS
+  ARBITRABLE_ADDRESS,
+  ARBITRATOR_ADDRESS
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
@@ -51,7 +52,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
       amount: arbitrabletxForm.amount,
-      arbitrator: arbitrabletxForm.arbitrator
+      arbitrator: ARBITRATOR_ADDRESS
     })
   } else {
     metaEvidence = createMetaEvidence({
@@ -60,7 +61,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
-      arbitrator: arbitrabletxForm.arbitrator
+      arbitrator: ARBITRATOR_ADDRESS
     })
   }
 
@@ -124,10 +125,8 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived, metaEviden
 
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
-      arbitrabletxReceived.arbitrator,
-      60,
+      240,
       arbitrabletxReceived.seller,
-      '0x0',
       `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
     ).send,
     {
@@ -242,7 +241,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
       const metaEvidenceArchonEvidences = yield call(
         archon.arbitrable.getEvidence,
         ARBITRABLE_ADDRESS,
-        arbitrableTransaction.arbitrator,
+        ARBITRATOR_ADDRESS,
         arbitrableTransaction.disputeId
       )
 
@@ -250,19 +249,18 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitrableTransaction.evidences = metaEvidenceArchonEvidences
     }
 
-    const arbitratorEth = new web3.eth.Contract(
-      arbitrator.abi,
-      arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
-    )
-
     disputeStatus = yield call(
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
     )
 
-    if (disputeStatus === disputeConstants.SOLVED)
+    console.log('disputeStatus',disputeStatus)
+    console.log('disputeConstants.SOLVED',disputeConstants.SOLVED)
+
+    if (disputeStatus.toString() === disputeConstants.SOLVED.toString())
       ruling = yield call(
         arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
       )
+
   } catch (err) {
     console.log(err)
   }
@@ -323,11 +321,6 @@ function* createDispute({ payload: { id } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
-  const arbitratorEth = new web3.eth.Contract(
-    arbitrator.abi,
-    arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
-  )
-
   const arbitrationCost = yield call(
     arbitratorEth.methods.arbitrationCost('0x00').call
   )
@@ -365,11 +358,6 @@ function* createAppeal({ type, payload: { id } }) {
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
-  )
-
-  const arbitratorEth = new web3.eth.Contract(
-    arbitrator.abi,
-    arbitrableTransaction.arbitrator // need to follow the arbitrator standard ERC 792
   )
 
   const appealCost = yield call(

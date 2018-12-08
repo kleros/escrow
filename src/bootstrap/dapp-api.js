@@ -1,6 +1,6 @@
 import Web3 from 'web3'
-import multipleArbitrableTransaction from 'kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
-import arbitrator from 'kleros-interaction/build/contracts/Arbitrator.json'
+import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
+import arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 const ETHEREUM_PROVIDER = process.env[`REACT_APP_${env}_ETHEREUM_PROVIDER`]
@@ -36,12 +36,18 @@ const getNetwork = async () => new Promise((resolve, reject) => {
 
 const ARBITRABLE_ADDRESS =
   process.env[`REACT_APP_${env}_ARBITRABLE_ADDRESS`]
-const ARBITRATOR_DEFAULT_ADDRESS =
-  process.env[`REACT_APP_${env}_ARBITRATOR_DEFAULT_ADDRESS`]
+const ARBITRATOR_ADDRESS =
+  process.env[`REACT_APP_${env}_ARBITRATOR_ADDRESS`]
 
 const multipleArbitrableTransactionEth = new web3.eth.Contract(
   multipleArbitrableTransaction.abi,
   ARBITRABLE_ADDRESS
+)
+
+
+const arbitratorEth = new web3.eth.Contract(
+  arbitrator.abi,
+  ARBITRATOR_ADDRESS // need to follow the arbitrator standard ERC 792
 )
 
 const ETHAddressRegExpCaptureGroup = '(0x[a-fA-F0-9]{40})'
@@ -51,12 +57,12 @@ const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
 export {
   web3,
   ARBITRABLE_ADDRESS,
-  ARBITRATOR_DEFAULT_ADDRESS,
+  ARBITRATOR_ADDRESS,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp,
-  arbitrator,
   multipleArbitrableTransactionEth,
+  arbitratorEth,
   getNetwork
 }
 
@@ -65,6 +71,8 @@ setTimeout(
     console.log(
       'Arbitrable Address: ',
       ARBITRABLE_ADDRESS,
+      'Arbitrator Address: ',
+      ARBITRATOR_ADDRESS,
       'Web3: ',
       window.web3,
       'ARBITRATOR INTERFACE',

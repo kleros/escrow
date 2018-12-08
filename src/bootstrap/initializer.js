@@ -35,7 +35,7 @@ class Initializer extends PureComponent {
     return (
       <RenderIf
         resource={accounts}
-        loading={<ClimbingBoxLoader color="#3d464d" />}
+        loading={<div className='loader'><ClimbingBoxLoader className='loader' color='gray' /></div>}
         done={children}
         failedLoading={<RequiresMetaMaskPage needsUnlock={Boolean(web3.eth)} />}
         extraValues={[

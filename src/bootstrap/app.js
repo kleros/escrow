@@ -41,7 +41,7 @@ const App = ({ store, testElement }) => (
     <Initializer>
       <React.Fragment>
         <Helmet>
-          <title>Escrow Dapp</title>
+          <title>Escrow - Blockchain service - Kleros</title>
         </Helmet>
         <Router>
           <Main path="/">
