@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 import { Provider } from 'react-redux'
-import { Router, navigate } from "@reach/router"
+import { Router, navigate } from '@reach/router'
 
 import Initializer from './initializer'
 import Home from '../containers/home'
@@ -36,7 +36,7 @@ const Main = ({ children }) => (
   </div>
 )
 
-const App = ({ store, testElement }) => (
+const App = ({store}) => (
   <Provider store={store}>
     <Initializer>
       <React.Fragment>

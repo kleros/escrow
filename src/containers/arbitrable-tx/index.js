@@ -81,7 +81,7 @@ class ArbitrableTx extends PureComponent {
           <React.Fragment>
             {
               renderStatusArbitrableTxSwitch(
-                accounts,
+                accounts.data,
                 arbitrabletx,
                 payOrReimburse,
                 createPayOrReimburse,

@@ -73,13 +73,12 @@ export default (
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the buyer</React.Fragment>}
         >
-          {
-            isTimeout(arbitrabletx) &&
-            <TimeoutArbitrableTx
-                id={arbitrabletx.data.id}
-                timeout={createTimeout}
-            />
-          }
+          <TimeoutArbitrableTx
+            id={arbitrabletx.data.id}
+            timeout={createTimeout}
+            time={time(arbitrabletx)}
+            name={accounts[0] === arbitrabletx.data.buyer ? 'Withdraw' : 'Execute Payment' }
+          />
         </ResumeArbitrableTx>
       )
     case arbitrableTxConstants.WAITING_SELLER:
@@ -96,25 +95,17 @@ export default (
         />
       ) : (
         <React.Fragment>
-          {
-            isTimeout(arbitrabletx) ? (
-              <ResumeArbitrableTx
-                arbitrabletx={arbitrabletx.data}
-                title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Claim the Payment</React.Fragment>}
-              >
-                <TimeoutArbitrableTx
-                    id={arbitrabletx.data.id}
-                    timeout={createTimeout}
-                    name={accounts[0] === arbitrabletx.data.buyer ? 'Withdraw' : 'Execute Payment' }
-                />
-              </ResumeArbitrableTx>
-            ) : (
-              <ResumeArbitrableTx
-                arbitrabletx={arbitrabletx.data}
-                title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
-              />
-            )
-          }
+          <ResumeArbitrableTx
+            arbitrabletx={arbitrabletx.data}
+            title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
+          >
+            <TimeoutArbitrableTx
+                id={arbitrabletx.data.id}
+                timeout={createTimeout}
+                time={time(arbitrabletx)}
+                name={accounts[0] === arbitrabletx.data.buyer ? 'Withdraw' : 'Execute Payment' }
+            />
+          </ResumeArbitrableTx>
         </React.Fragment>
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
@@ -141,9 +132,9 @@ export default (
               <React.Fragment>
                 {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
                 {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.buyer ? (
-                  <p>Congratulations! The jurors have decided <b>in your favour</b>.</p>
+                  <p>Congratulations! You <b>won</b> the dispute.</p>
                 ) : (
-                  <p>The jurors decided <b>against you</b>.</p>
+                  <p>You <b>lost</b> the dispute.</p>
                 )}
                 {arbitrabletx.data.appealable === true && (
                   <Button onClick={() => createAppeal(arbitrabletx.data.id)}>Appeal the decision</Button>
@@ -162,11 +153,7 @@ export default (
   }
 }
 
-const isTimeout = arbitrabletx => {
-  const timeout = Number(arbitrabletx.data.lastInteraction) + Number(arbitrabletx.data.timeout)
-  const dateTime = Date.now() / 1000 | 0
-  return dateTime > timeout
-}
+const time = arbitrabletx => ((Number(arbitrabletx.data.lastInteraction) + Number(300)) * 1000) // FIXME use arbitrabletx.data.timeoutFee
 
 const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 
