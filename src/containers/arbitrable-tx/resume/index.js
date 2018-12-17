@@ -11,7 +11,7 @@ import './resume.css'
 
 class Resume extends PureComponent {
   static propTypes = {
-    arbitrabletxResumeForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired,
+    arbitrabletxForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired,
 
     createArbitrabletx: PropTypes.func.isRequired
   }
@@ -26,20 +26,19 @@ class Resume extends PureComponent {
 
     return (
       <div className=''>
-
-      {
-      arbitrabletxForm.amount !== undefined && (
-        <ResumeArbitrableTx 
-          arbitrabletx={arbitrabletxForm}
-          title={<React.Fragment>Resume</React.Fragment>}
-        >
-          <Button onClick={() => {createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}}>
-            Submit Transaction
-          </Button>
-        </ResumeArbitrableTx>
-      
-      )
-    }
+        {
+          arbitrabletxForm.amount !== undefined && (
+            <ResumeArbitrableTx 
+              arbitrabletx={arbitrabletxForm}
+              title={<React.Fragment>Resume</React.Fragment>}
+            >
+              <Button onClick={() => {createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}}>
+                Submit Transaction
+              </Button>
+            </ResumeArbitrableTx>
+          
+          )
+        }
       </div>
     )
   }

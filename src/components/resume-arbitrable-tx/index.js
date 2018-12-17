@@ -34,6 +34,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
           </React.Fragment>
         )}
 
+
         {arbitrabletx.file && (
           <React.Fragment>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Primary Document</div>
@@ -42,6 +43,13 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
                 <PrimaryDocument />
               </a>
             </div>
+          </React.Fragment>
+        )}
+
+        {arbitrabletx.shareLink && (
+          <React.Fragment>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Share Transaction</div>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.shareLink}</div>
           </React.Fragment>
         )}
 

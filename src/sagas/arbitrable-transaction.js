@@ -107,7 +107,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         seller: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.io${metaEvidenceDecoded.fileURI}` : null,
-        arbitrator: metaEvidenceDecoded.arbitrator
+        arbitrator: metaEvidenceDecoded.arbitrator,
+        shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
       }
     }
   ))
