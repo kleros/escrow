@@ -57,13 +57,13 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
           <React.Fragment>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Evidences</div>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
-            {
-              arbitrabletx.evidences.map(evidence => (
-                <a style={{paddingRight: '1em'}} href={`https://ipfs.io${evidence.evidenceJSON.fileURI}`} alt={evidence.evidenceJSON.name} title={evidence.evidenceJSON.name} target='_blank' rel='noopener noreferrer'>
-                  <PrimaryDocument />
-                </a>
-              ))
-            }
+              {
+                arbitrabletx.evidences.map(evidence => (
+                  <a style={{paddingRight: '1em'}} href={`https://ipfs.io${evidence.evidenceJSON.fileURI}`} alt={evidence.evidenceJSON.name} title={evidence.evidenceJSON.name} target='_blank' rel='noopener noreferrer'>
+                    <PrimaryDocument />
+                  </a>
+                ))
+              }
             </div>
           </React.Fragment>
         )}
