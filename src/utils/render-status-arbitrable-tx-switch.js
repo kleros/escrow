@@ -126,23 +126,24 @@ export default (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment>Resume</React.Fragment>}
-        >
-          <DisputeArbitrableTx
-            message={
-              <React.Fragment>
-                {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
-                {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.buyer ? (
-                  <p>Congratulations! You <b>won</b> the dispute.</p>
-                ) : (
-                  <p>You <b>lost</b> the dispute.</p>
-                )}
-                {arbitrabletx.data.appealable === true && (
-                  <Button onClick={() => createAppeal(arbitrabletx.data.id)}>Appeal the decision</Button>
-                )}
-              </React.Fragment>
-            }
-          />
-        </ResumeArbitrableTx>
+          footer={
+            <DisputeArbitrableTx
+              message={
+                <React.Fragment>
+                  {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
+                  {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.buyer ? (
+                    <p>Congratulations! You <b>won</b> the dispute.</p>
+                  ) : (
+                    <p>You <b>lost</b> the dispute.</p>
+                  )}
+                  {arbitrabletx.data.appealable === true && (
+                    <Button onClick={() => createAppeal(arbitrabletx.data.id)}>Appeal the decision</Button>
+                  )}
+                </React.Fragment>
+              }
+            />
+          }
+        />
       )
     default:
       return (
