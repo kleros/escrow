@@ -1,9 +1,9 @@
 import React from 'react'
 import { ClimbingBoxLoader } from 'react-spinners'
 
+import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
 import PayOrReimburseArbitrableTx from '../components/pay-or-reimburse-arbitrable-tx'
-import PayFeeArbitrableTx from '../components/pay-fee-arbitrable-tx'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
 import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
@@ -43,14 +43,16 @@ export default (
                 arbitrabletx={arbitrabletx.data}
                 title={<React.Fragment>Resume</React.Fragment>}
               >
-                <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
-                <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
-                <PayOrReimburseArbitrableTx
-                  payOrReimburse={payOrReimburse}
-                  payOrReimburseFn={createPayOrReimburse}
-                  amount={arbitrabletx.data.amount}
-                  id={arbitrabletx.data.id}
-                />
+                <div>
+                  <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+                  <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
+                  <PayOrReimburseArbitrableTx
+                    payOrReimburse={payOrReimburse}
+                    payOrReimburseFn={createPayOrReimburse}
+                    amount={arbitrabletx.data.amount}
+                    id={arbitrabletx.data.id}
+                  />
+                </div>
               </ResumeArbitrableTx>
             )
           }
@@ -154,7 +156,7 @@ export default (
   }
 }
 
-const time = arbitrabletx => ((Number(arbitrabletx.data.lastInteraction) + Number(300)) * 1000) // FIXME use arbitrabletx.data.timeoutFee
+const time = arbitrabletx => ((Number(arbitrabletx.data.lastInteraction) + Number(FEE_TIMEOUT)) * 1000)
 
 const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 

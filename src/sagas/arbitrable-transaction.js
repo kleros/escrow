@@ -9,7 +9,7 @@ import {
   getNetwork,
   ARBITRABLE_ADDRESS,
   ARBITRATOR_ADDRESS,
-  TIMEOUT_PAYMENT
+  FEE_TIMEOUT
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
@@ -127,7 +127,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived, metaEviden
 
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
-      TIMEOUT_PAYMENT,
+      FEE_TIMEOUT,
       arbitrabletxReceived.seller,
       `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
     ).send,

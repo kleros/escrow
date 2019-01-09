@@ -1136,10 +1136,10 @@
     stylelint-scss "^3.4.0"
     stylelint-selector-bem-pattern "^2.0.0"
 
-"@kleros/kleros-interaction@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.3.0.tgz#0602a20c6b103ce2a809809bd347f369aff16a8e"
-  integrity sha512-OxdWtVX5uqwWl16obtzbxLexS0lTLDfKHz4pduKwtpU4tKEij+XauklBnbA31DZvXBSBBFM0XZ6jtUUt77JCIQ==
+"@kleros/kleros-interaction@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.5.0.tgz#b27fd8eea2c037853673977a1249accca670de0f"
+  integrity sha512-i4RusXPK1NY2wzsGnW4fwJ5cHmToCKa7m5c6I03odTNBX/gTy8WqAhhdOtSJqNNDZUt8EzEJ0azI9rOrmmt4mg==
   dependencies:
     minimetoken "^0.2.0"
     openzeppelin-solidity "^1.12.0"
