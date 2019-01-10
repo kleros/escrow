@@ -12,10 +12,14 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
       <h1 className='ResumeArbitrableTx-h1'>{title}</h1>
       <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Title</div>
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.title || arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.title}</div>
+        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.title}</div>
 
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Description</div>
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.description || arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.description}</div>
+        {arbitrabletx.description && (
+          <React.Fragment>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Description</div>
+            <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.description}</div>
+          </React.Fragment>
+        )}
 
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Seller</div>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.seller}</div>

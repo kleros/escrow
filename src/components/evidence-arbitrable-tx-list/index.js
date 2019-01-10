@@ -15,7 +15,6 @@ const EvidenceArbitrableTxList = ({ evidenceArbitrabletxs }) => (
         {
           evidenceArbitrabletxs.map((evidence, i) => (
             <span key={i}>
-              {/* FIXME ipfs link <evidence.fileURI> */}
               <a 
                 href={evidence.fileURI} 
                 target='_blank' 

@@ -43,16 +43,14 @@ export default (
                 arbitrabletx={arbitrabletx.data}
                 title={<React.Fragment>Resume</React.Fragment>}
               >
-                <div>
-                  <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
-                  <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
-                  <PayOrReimburseArbitrableTx
-                    payOrReimburse={payOrReimburse}
-                    payOrReimburseFn={createPayOrReimburse}
-                    amount={arbitrabletx.data.amount}
-                    id={arbitrabletx.data.id}
-                  />
-                </div>
+                <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+                <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
+                <PayOrReimburseArbitrableTx
+                  payOrReimburse={payOrReimburse}
+                  payOrReimburseFn={createPayOrReimburse}
+                  amount={arbitrabletx.data.amount}
+                  id={arbitrabletx.data.id}
+                />
               </ResumeArbitrableTx>
             )
           }
