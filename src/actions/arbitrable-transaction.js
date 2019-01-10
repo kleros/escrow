@@ -31,6 +31,13 @@ export const pay = {
   })
 }
 
+// Execute transaction
+export const executetx = {
+  ...createActions('EXECUTETX', {
+    withCreate: true
+  })
+}
+
 // Reimburse
 export const reimburse = {
   ...createActions('REIMBURSE', {
@@ -96,6 +103,12 @@ export const createDispute = id => ({
 export const createPayOrReimburse = (id, amount) => ({
   type: pay.CREATE,
   payload: { id, amount }
+})
+
+// Execute transaction
+export const createExecuteTx = id => ({
+  type: executetx.CREATE,
+  payload: { id }
 })
 
 // Tiemout

@@ -18,6 +18,7 @@ export default (
   arbitrabletx,
   payOrReimburse,
   createPayOrReimburse,
+  createExecuteTx,
   createDispute,
   createTimeout,
   createEvidence,
@@ -39,19 +40,29 @@ export default (
                 }
               />
             ) : (
-              <ResumeArbitrableTx
-                arbitrabletx={arbitrabletx.data}
-                title={<React.Fragment>Resume</React.Fragment>}
-              >
-                <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
-                <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
-                <PayOrReimburseArbitrableTx
-                  payOrReimburse={payOrReimburse}
-                  payOrReimburseFn={createPayOrReimburse}
-                  amount={arbitrabletx.data.amount}
-                  id={arbitrabletx.data.id}
-                />
-              </ResumeArbitrableTx>
+              <React.Fragment>
+                <ResumeArbitrableTx
+                  arbitrabletx={arbitrabletx.data}
+                  title={<React.Fragment>Resume</React.Fragment>}
+                >
+                  {
+                    accounts[0] === arbitrabletx.data.seller && Date.now() - arbitrabletx.data.lastInteraction * 1000 >= arbitrabletx.data.timeoutPayment * 1000 ? (
+                      <Button onClick={() => createExecuteTx(arbitrabletx.data.id)}>Execute Payment</Button>
+                    ) : (
+                      <React.Fragment>
+                        <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+                        <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
+                        <PayOrReimburseArbitrableTx
+                          payOrReimburse={payOrReimburse}
+                          payOrReimburseFn={createPayOrReimburse}
+                          amount={arbitrabletx.data.amount}
+                          id={arbitrabletx.data.id}
+                        />
+                      </React.Fragment>
+                    )
+                  }
+                </ResumeArbitrableTx>
+              </React.Fragment>
             )
           }
         </React.Fragment>
@@ -122,7 +133,17 @@ export default (
         />
       )
     case arbitrableTxConstants.DISPUTE_RESOLVED:
-      return (
+      return arbitrabletx.data.ruling === null ? (
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Transaction completed</React.Fragment>}
+          footer={
+            <SuccessArbitrableTx
+              message={<p>Transaction completed <b>with success</b>.</p>}
+            />
+          }
+        />
+      ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment>Resume</React.Fragment>}

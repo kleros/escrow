@@ -280,7 +280,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
  * Pay the party B. To be called when the good is delivered or the service rendered.
  * @param {object} { payload: id, amount } - The id of the arbitrableTx and the amount of the transaction.
  */
-function* createPayOrReimburse({ type, payload: { id, amount } }) {
+function* createPayOrReimburse({ payload: { id, amount } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const arbitrableTransaction = yield call(
@@ -310,7 +310,27 @@ function* createPayOrReimburse({ type, payload: { id, amount } }) {
       }
     )
 
-    return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
+}
+
+/**
+ * Transfer the transaction's amount to the seller if the timeout has passed.
+ * @param {object} { payload: id } - The id of the arbitrableTx.
+ */
+function* executeTransaction({ payload: { id } }) {
+  const accounts = yield call(web3.eth.getAccounts)
+
+  yield call(
+    multipleArbitrableTransactionEth.methods.executeTransaction(
+      id
+    ).send,
+    {
+      from: accounts[0],
+      value: 0
+    }
+  )
+
+  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { id }))
 }
 
 /**
@@ -534,6 +554,13 @@ export default function* walletSaga() {
     'create',
     arbitrabletxActions.pay,
     createPayOrReimburse
+  )
+  yield takeLatest(
+    arbitrabletxActions.executetx.CREATE,
+    lessduxSaga,
+    'create',
+    arbitrabletxActions.executetx,
+    executeTransaction
   )
   yield takeLatest(
     arbitrabletxActions.evidence.CREATE,

@@ -35,6 +35,7 @@ class ArbitrableTx extends PureComponent {
     createAppeal: PropTypes.func.isRequired,
     createTimeout: PropTypes.func.isRequired,
     createPayOrReimburse: PropTypes.func.isRequired,
+    createExecuteTx: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -60,6 +61,7 @@ class ArbitrableTx extends PureComponent {
   render() {
     const {
       createPayOrReimburse,
+      createExecuteTx,
       createDispute,
       createTimeout,
       createAppeal,
@@ -85,6 +87,7 @@ class ArbitrableTx extends PureComponent {
                 arbitrabletx,
                 payOrReimburse,
                 createPayOrReimburse,
+                createExecuteTx,
                 createDispute,
                 createTimeout,
                 createEvidence,
@@ -114,6 +117,7 @@ export default connect(
     createAppeal: arbitrabletxActions.createAppeal,
     createDispute: arbitrabletxActions.createDispute,
     createPayOrReimburse: arbitrabletxActions.createPayOrReimburse,
+    createExecuteTx: arbitrabletxActions.createExecuteTx,
     createTimeout: arbitrabletxActions.createTimeout,
     createEvidence: arbitrabletxActions.createEvidence
   }
