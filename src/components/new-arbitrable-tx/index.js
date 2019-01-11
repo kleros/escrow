@@ -17,7 +17,8 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         file: '',
         seller: '',
         amount: '',
-        email: ''
+        emailBuyer: '',
+        emailSeller: ''
       }}
       validate = {values => {
         {/* TODO use Yup */}
@@ -27,9 +28,14 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         if (!values.amount)
           errors.amount = 'Amount Required'
         if (
-          values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          values.emailBuyer && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.emailBuyer)
         ) {
-          errors.email = 'Invalid email address'
+          errors.emailBuyer = 'Invalid email address'
+        }
+        if (
+          values.emailSeller && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.emailSeller)
+        ) {
+          errors.emailSeller = 'Invalid email address'
         }
         return errors
       }}
@@ -48,9 +54,12 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <label htmlFor='amount'>Amount (ETH)</label>
             <Field name='amount' placeholder='Amount' />
             <ErrorMessage name='amount' component='div' className='error'/>
-            <label htmlFor='email'>Email</label>
-            <Field type='email' name='email' placeholder='Email' />
-            <ErrorMessage name='email' component='div' className='error' />
+            <label htmlFor='email'>Buyer Email</label>
+            <Field type='email' name='emailBuyer' placeholder='Buyer Email' />
+            <ErrorMessage name='emailBuyer' component='div' className='error' />
+            <label htmlFor='email'>Seller Email</label>
+            <Field type='email' name='emailSeller' placeholder='Seller Email' />
+            <ErrorMessage name='emailSeller' component='div' className='error' />
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}
             <label htmlFor='file' className='file'>Primary document</label>

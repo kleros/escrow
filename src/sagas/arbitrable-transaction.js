@@ -53,6 +53,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
       amount: arbitrabletxForm.amount,
+      emailBuyer: arbitrabletxForm.emailBuyer,
+      emailSeller: arbitrabletxForm.emailSeller,
       arbitrator: ARBITRATOR_ADDRESS
     })
   } else {
@@ -62,6 +64,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
+      emailBuyer: arbitrabletxForm.emailBuyer,
+      emailSeller: arbitrabletxForm.emailSeller,
       arbitrator: ARBITRATOR_ADDRESS
     })
   }
@@ -107,6 +111,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         seller: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.io${metaEvidenceDecoded.fileURI}` : null,
+        emailBuyer: metaEvidenceDecoded.emailBuyer,
+        emailSeller: metaEvidenceDecoded.emailSeller,
         arbitrator: metaEvidenceDecoded.arbitrator,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
       }
@@ -207,6 +213,9 @@ function* fetchArbitrabletx({ payload: { id } }) {
   let arbitrableTransaction
   let ruling = null
   let disputeStatus = null
+  let metaEvidenceArchon = {
+    metaEvidenceJSON: {}
+  }
 
   // force convert to string
   const transactionId = id.toString()
@@ -228,7 +237,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
       'https://ipfs.kleros.io'
     )
 
-    const metaEvidenceArchon = yield call(
+    metaEvidenceArchon = yield call(
       archon.arbitrable.getMetaEvidence,
       ARBITRABLE_ADDRESS,
       transactionId
@@ -236,12 +245,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
     if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
       arbitrableTransaction.file = `https://ipfs.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
-
-    if (metaEvidenceArchon.metaEvidenceJSON.description)
-      arbitrableTransaction.description = metaEvidenceArchon.metaEvidenceJSON.description
-
-    if (metaEvidenceArchon.metaEvidenceJSON.title)
-      arbitrableTransaction.title = metaEvidenceArchon.metaEvidenceJSON.title
 
     if (arbitrableTransaction.disputeId) {
       const metaEvidenceArchonEvidences = yield call(
@@ -270,6 +273,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   return {
     ...arbitrableTransaction,
+    ...metaEvidenceArchon.metaEvidenceJSON,
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE
