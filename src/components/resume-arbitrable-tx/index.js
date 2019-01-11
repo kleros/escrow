@@ -61,7 +61,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Share Transaction</div>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.shareLink}</div>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>
-              <a href={`mailto:${arbitrabletx.emailBuyer}?subject=Invoice ${encodeURIComponent(arbitrabletx.title)}&body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the${encodeURIComponent(arbitrabletx.title)}%20invoice : ${arbitrabletx.shareLink}.%0A%0ABest%2C%0A`}>
+              <a href={`mailto:${arbitrabletx.emailBuyer}?subject=Invoice ${encodeURIComponent(arbitrabletx.title)}&body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(arbitrabletx.title)}%20invoice : ${arbitrabletx.shareLink}.%0A%0ABest%2C%0A`}>
                 Send by Email
               </a>
             </div>
