@@ -9,6 +9,7 @@ import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
 import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
+import Notifications from '../components/notifications'
 import { ReactComponent as Kleros } from '../assets/kleros.svg'
 import { ReactComponent as Plus } from '../assets/plus.svg'
 
@@ -26,7 +27,8 @@ const Main = ({ children }) => (
           <li><a href='https://kleros.io'><Kleros style={{height: '35px', position: 'relative', top: '13px'}} /></a></li>
           <li onClick={() => navigate('/')}>Escrow</li>
           <li onClick={() => navigate('/new')} style={{float: 'right'}}><span className='btn-new'><Plus style={{width: '19px', height: '35px', paddingRight: '8px', position: 'relative', top: '12px'}} />New Transaction</span></li>
-          <li onClick={() => navigate('/')} style={{float: 'right', color: '#a892c5'}}>My Transactions</li>
+          <li onClick={() => navigate('/')} style={{float: 'right', color: '#a892c5', paddingRight: '50px'}}>My Transactions</li>
+          <li onClick={() => navigate('/notifications')} style={{float: 'right', color: '#a892c5', paddingRight: '50px'}}>Notifications</li>
         </ul>
       </nav>
     </header>
@@ -49,6 +51,7 @@ const App = ({store}) => (
             <New path="new" />
             <Resume path="resume/:metaEvidenceIPFSHash" />
             <ArbitrableTx path="/:arbitrableTxId" />
+            <Notifications path="notifications" />
             <NotFound default />
           </Main>
         </Router>
