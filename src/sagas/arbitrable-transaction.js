@@ -53,8 +53,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
       amount: arbitrabletxForm.amount,
-      emailBuyer: arbitrabletxForm.emailBuyer,
-      emailSeller: arbitrabletxForm.emailSeller,
       arbitrator: ARBITRATOR_ADDRESS
     })
   } else {
@@ -64,8 +62,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
-      emailBuyer: arbitrabletxForm.emailBuyer,
-      emailSeller: arbitrabletxForm.emailSeller,
       arbitrator: ARBITRATOR_ADDRESS
     })
   }
@@ -111,8 +107,6 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         seller: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.io${metaEvidenceDecoded.fileURI}` : null,
-        emailBuyer: metaEvidenceDecoded.emailBuyer,
-        emailSeller: metaEvidenceDecoded.emailSeller,
         arbitrator: metaEvidenceDecoded.arbitrator,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
       }

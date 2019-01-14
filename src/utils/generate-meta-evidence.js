@@ -6,8 +6,6 @@ export default ({
   fileURI,
   fileHash,
   amount,
-  emailBuyer,
-  emailSeller,
   arbitrator
 }) => (
   {
@@ -27,8 +25,6 @@ export default ({
     },
     seller,
     amount,
-    emailBuyer,
-    emailSeller,
     arbitrator
   }
 )
