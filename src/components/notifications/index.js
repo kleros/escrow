@@ -3,13 +3,13 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import Button from '../button'
-import { ReactComponent as Email } from '../../assets/plus-purple.svg'
+import { ReactComponent as Bell } from '../../assets/bell.svg'
 
 import './notifications.css'
 
 const Notifications = () => (
   <div className='NewArbitrableTx'>
-    <h1 className='NewArbitrableTx-h1'><Email style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />Notifications</h1>
+    <h1 className='NewArbitrableTx-h1'><Bell style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />Notifications</h1>
     <Formik
       initialValues={{ email: '' }}
       validate = {values => {
