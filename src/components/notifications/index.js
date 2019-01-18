@@ -30,7 +30,7 @@ const Notifications = () => (
         <Form className='FormNewArbitrableTx'>
           <div className='section-title'>
             <label htmlFor='email'>Email</label>
-            <Field name='email' placeholder='email' />
+            <Field name='email' placeholder='Email' />
             <ErrorMessage name='email' component='div' className='error'/>
           </div>
           <div className='section-submit'>

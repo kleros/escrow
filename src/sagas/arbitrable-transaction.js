@@ -106,7 +106,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         description: metaEvidenceDecoded.description,
         seller: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
-        file: metaEvidenceDecoded.fileURI ? `https://ipfs.io${metaEvidenceDecoded.fileURI}` : null,
+        file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
         arbitrator: metaEvidenceDecoded.arbitrator,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
       }
@@ -238,7 +238,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     )
 
     if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
-      arbitrableTransaction.file = `https://ipfs.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
+      arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
 
     if (arbitrableTransaction.disputeId) {
       const metaEvidenceArchonEvidences = yield call(

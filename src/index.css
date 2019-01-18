@@ -54,7 +54,7 @@ html {
 /* Layout styles -----------------------------------*/
 
 /* styles */
-body {
+body, textarea {
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 

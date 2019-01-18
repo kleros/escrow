@@ -30,7 +30,7 @@ class Resume extends PureComponent {
           arbitrabletxForm.amount !== undefined && (
             <ResumeArbitrableTx 
               arbitrabletx={arbitrabletxForm}
-              title={<React.Fragment>Resume</React.Fragment>}
+              title={<React.Fragment>Summary</React.Fragment>}
             >
               <Button onClick={() => {createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}}>
                 Submit Transaction
