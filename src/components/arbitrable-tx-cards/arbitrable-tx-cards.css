@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* mixin for multiline */
 .ArbitrableTxCards-cards {
   display: grid;
@@ -61,6 +62,20 @@
           text-transform: capitalize; }
     .ArbitrableTxCards-cards-section header {
       background: #fff; }
+    .ArbitrableTxCards-cards-section-new {
+      position: relative;
+      display: flex;
+      /* contexte sur le parent */
+      background: #f8f8f8;
+      color: #009aff; }
+      .ArbitrableTxCards-cards-section-new-content {
+        position: absolute;
+        top: 50%;
+        /* poussé de la moitié de hauteur du référent */
+        transform: translateY(-50%);
+        /* tiré de la moitié de sa propre hauteur */
+        width: 100%;
+        text-align: center; }
   .ArbitrableTxCards-cards section:hover {
     cursor: pointer; }
 

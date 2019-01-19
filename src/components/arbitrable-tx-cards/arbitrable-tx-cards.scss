@@ -81,6 +81,20 @@
       header {
         background: #fff;
       }
+
+      &-new {
+        position: relative;
+        display: flex; /* contexte sur le parent */
+        background: #f8f8f8;
+        color: #009aff;
+        &-content {
+          position: absolute;
+          top: 50%; /* poussé de la moitié de hauteur du référent */
+          transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
 
     section:hover {

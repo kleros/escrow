@@ -35,8 +35,13 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
           }
         </div>
       ) : (
-        <div className='ArbitrableTxCards-new' onClick={() => navigate('/new')}>
-          <FontAwesomeIcon icon={faPlus} size={'5x'} color={'#ccc'} />
+        <div className='ArbitrableTxCards-cards'>
+            <section className='ArbitrableTxCards-cards-section ArbitrableTxCards-cards-section-new' onClick={() => navigate('/new')}>
+              <div className='ArbitrableTxCards-cards-section-new-content'>
+                <div><FontAwesomeIcon icon={faPlus} size={'5x'} color={'#009aff'} /></div>
+                <div>New Transaction</div>
+              </div>
+            </section>
         </div>
       )
     }
