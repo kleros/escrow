@@ -266,8 +266,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
   }
 
   return {
-    ...arbitrableTransaction,
     ...metaEvidenceArchon.metaEvidenceJSON,
+    ...arbitrableTransaction, // Overwrite transaction.amount
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE
