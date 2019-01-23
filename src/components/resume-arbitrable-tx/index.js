@@ -20,7 +20,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
           </React.Fragment>
         )}
 
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Seller</div>
+        <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Sender</div>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.seller}</div>
         
         {arbitrabletx.amount > 0 && (

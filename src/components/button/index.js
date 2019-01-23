@@ -15,6 +15,7 @@ const Button = ({
       onClick={onClick}
       type={type}
       className={`Button ${className}`}
+      disabled={disabled}
       {...rest}
     >
       {children}

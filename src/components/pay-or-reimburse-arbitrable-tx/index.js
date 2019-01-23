@@ -12,19 +12,26 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburse
     validate = {values => {
       {/* TODO use Yup */}
       let errors = {}
+      if (!values.amount)
+        errors.amount = 'Amount Required'
+      if (values.amount > amount)
+        errors.amount = `Amount must be less than ${amount} ETH`
+      if (isNaN(values.amount))
+        errors.amount = 'Number Required'
       return errors
     }}
     onSubmit={values => payOrReimburseFn(id, values.amount)}
   >
-    {() => (
-      <Form className={'PayOrReimburseArbitrableTx'}>
-        <Field name='amount' placeholder='amount' style={{padding: '11px 22px 11px 12px', fontSize: '14px', marginRight: '-3px'}} />
-        <ErrorMessage name='title' component='div' />
-
-        <Button type='submit'>
-          {payOrReimburse}
-        </Button>
-      </Form>
+    {({isSubmitting}) => (
+      <>
+        <Form className={'PayOrReimburseArbitrableTx'}>
+          <Field name='amount' placeholder='amount' style={{padding: '11px 22px 11px 12px', fontSize: '14px', marginRight: '-3px'}} />
+          <Button type='submit' disabled={isSubmitting}>
+            {payOrReimburse}
+          </Button>
+        </Form>
+        <ErrorMessage name='amount' component='div' className='error' style={{paddingTop: '10px', color: 'red', fontSize: '0.9em'}} />
+      </>
     )}
   </Formik>
 )

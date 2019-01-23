@@ -9,4 +9,9 @@
   &:hover {
     cursor: pointer;
   }
+
+  &:disabled, &[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
 }

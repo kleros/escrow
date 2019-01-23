@@ -7,3 +7,6 @@
   border-radius: 3px; }
   .Button:hover {
     cursor: pointer; }
+  .Button:disabled, .Button[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed; }

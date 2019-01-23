@@ -62,3 +62,9 @@ body, textarea {
 	position: relative;
 	margin: 20% 50%;
 }
+
+button:disabled,
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

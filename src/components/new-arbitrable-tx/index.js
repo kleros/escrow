@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import Web3 from 'web3'
 
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
@@ -22,9 +23,13 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
         {/* TODO use Yup */}
         let errors = {}
         if (!values.seller)
-          errors.seller = 'Seller Address Required'
+          errors.seller = 'Sender Address Required'
+        if (!Web3.utils.isAddress(values.seller))
+          errors.seller = 'Valid Address Required'
         if (!values.amount)
           errors.amount = 'Amount Required'
+        if (isNaN(values.amount))
+          errors.amount = 'Number Required'
         return errors
       }}
       onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)}
@@ -36,8 +41,8 @@ const NewArbitrableTx = ({ formArbitrabletx }) => (
             <Field name='title' placeholder='Title' />
             <ErrorMessage name='title' component='div' />
             <ErrorMessage name='arbitrator' component='div' />
-            <label htmlFor='seller'>Seller</label>
-            <Field name='seller' placeholder='Seller Address' />
+            <label htmlFor='seller'>Sender</label>
+            <Field name='seller' placeholder='Sender Address' />
             <ErrorMessage name='seller' component='div' className='error' />
             <label htmlFor='amount'>Amount (ETH)</label>
             <Field name='amount' placeholder='Amount' />
