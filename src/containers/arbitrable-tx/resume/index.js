@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Formik, Form } from 'formik'
 
 import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../../reducers/arbitrable-transaction'
@@ -25,18 +26,23 @@ class Resume extends PureComponent {
     const { createArbitrabletx, arbitrabletxForm, metaEvidenceIPFSHash } = this.props
 
     return (
-      <div className=''>
+      <div>
         {
           arbitrabletxForm.amount !== undefined && (
             <ResumeArbitrableTx 
               arbitrabletx={arbitrabletxForm}
               title={<React.Fragment>Summary</React.Fragment>}
             >
-              <Button onClick={() => {createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}}>
-                Submit Transaction
-              </Button>
+              <Formik onSubmit={() => createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}>
+                {({isSubmitting}) => (
+                  <Form className={'PayOrReimburseArbitrableTx'}>
+                    <Button type='submit' disabled={isSubmitting}>
+                      Submit Transaction
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
             </ResumeArbitrableTx>
-          
           )
         }
       </div>

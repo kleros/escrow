@@ -3,16 +3,9 @@ import PropTypes from 'prop-types'
 import { ClimbingBoxLoader } from 'react-spinners'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
-
-import { web3 } from '../../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
-import { DISPUTE_CREATED, DISPUTE_RESOLVED } from '../../constants/arbitrable-tx'
-import AppealArbitrableTx from '../../components/appeal-arbitrable-tx'
-import ResumeArbitrableTx from '../../components/resume-arbitrable-tx'
 import renderStatusArbitrableTxSwitch from '../../utils/render-status-arbitrable-tx-switch'
 
 
@@ -56,8 +49,6 @@ class ArbitrableTx extends PureComponent {
     return null
   }
 
-  onChangeAmount = e => this.setState({ amount: e.target.value })
-
   render() {
     const {
       createPayOrReimburse,
@@ -71,38 +62,38 @@ class ArbitrableTx extends PureComponent {
     const { arbitrabletx, payOrReimburse } = this.state
 
     return (
-    <RenderIf
-      resource={arbitrabletx}
-      loading={
-        <div className='loader'>
-          <ClimbingBoxLoader color={'gray'} />
-        </div>
-      }
-      done={
-        arbitrabletx.data && (
-          <React.Fragment>
-            {
-              renderStatusArbitrableTxSwitch(
-                accounts.data,
-                arbitrabletx,
-                payOrReimburse,
-                createPayOrReimburse,
-                createExecuteTx,
-                createDispute,
-                createTimeout,
-                createEvidence,
-                createAppeal
-              )
-            }
-          </React.Fragment>
-        )
-      }
-      failedLoading={
-        <div className='loader'>
-          <ClimbingBoxLoader color={'gray'} />
-        </div>
-      }
-    />
+      <RenderIf
+        resource={arbitrabletx}
+        loading={
+          <div className='loader'>
+            <ClimbingBoxLoader color={'gray'} />
+          </div>
+        }
+        done={
+          arbitrabletx.data && (
+            <React.Fragment>
+              {
+                renderStatusArbitrableTxSwitch(
+                  accounts.data,
+                  arbitrabletx,
+                  payOrReimburse,
+                  createPayOrReimburse,
+                  createExecuteTx,
+                  createDispute,
+                  createTimeout,
+                  createEvidence,
+                  createAppeal
+                )
+              }
+            </React.Fragment>
+          )
+        }
+        failedLoading={
+          <div className='loader'>
+            <ClimbingBoxLoader color={'gray'} />
+          </div>
+        }
+      />
     )
   }
 }

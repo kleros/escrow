@@ -1,5 +1,6 @@
 import React from 'react'
 import { ClimbingBoxLoader } from 'react-spinners'
+import { Formik, Form } from 'formik'
 
 import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
@@ -47,10 +48,26 @@ export default (
                 >
                   {
                     accounts[0] === arbitrabletx.data.seller && Date.now() - arbitrabletx.data.lastInteraction * 1000 >= arbitrabletx.data.timeoutPayment * 1000 ? (
-                      <Button onClick={() => createExecuteTx(arbitrabletx.data.id)}>Execute Payment</Button>
+                      <Formik onSubmit={() => createExecuteTx(arbitrabletx.data.id)}>
+                        {({isSubmitting}) => (
+                          <Form className={'PayOrReimburseArbitrableTx'}>
+                            <Button type='submit' disabled={isSubmitting}>
+                              Execute Payment
+                            </Button>
+                          </Form>
+                        )}
+                      </Formik>
                     ) : (
                       <React.Fragment>
-                        <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+                        <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
+                          {({isSubmitting}) => (
+                            <Form className={'PayOrReimburseArbitrableTx'}>
+                              <Button type='submit' disabled={isSubmitting}>
+                              Raise a dispute
+                              </Button>
+                            </Form>
+                          )}
+                        </Formik>
                         <span style={{fontSize: '0.9em', padding: '0 2em', color: '#4a4a4a'}}>Or</span>
                         <PayOrReimburseArbitrableTx
                           payOrReimburse={payOrReimburse}
@@ -70,15 +87,15 @@ export default (
     case arbitrableTxConstants.WAITING_BUYER:
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
-        arbitrabletx={arbitrabletx.data}
-        title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
-        footer={
-          <MessageArbitrationFee
-            arbitrabletx={arbitrabletx}
-            createDispute={createDispute}
-          />
-        }
-      />
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
+          footer={
+            <MessageArbitrationFee
+              arbitrabletx={arbitrabletx}
+              createDispute={createDispute}
+            />
+          }
+        />
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
@@ -158,7 +175,15 @@ export default (
                     <p>You <b>lost</b> the dispute.</p>
                   )}
                   {arbitrabletx.data.appealable === true && (
-                    <Button onClick={() => createAppeal(arbitrabletx.data.id)}>Appeal the decision</Button>
+                    <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                      {({isSubmitting}) => (
+                        <Form className={'PayOrReimburseArbitrableTx'}>
+                          <Button type='submit' disabled={isSubmitting}>
+                            Appeal the decision
+                          </Button>
+                        </Form>
+                      )}
+                    </Formik>
                   )}
                 </React.Fragment>
               }
@@ -187,7 +212,15 @@ const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
           In order to not forfeit the dispute <b style={{fontWeight: 'bold'}}>pay the arbitration fee</b>. 
           <br />You will be refunded the fee if you win the dispute.
         </p>
-        <Button onClick={() => createDispute(arbitrabletx.data.id)}>Raise a dispute</Button>
+        <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
+          {({isSubmitting}) => (
+            <Form className={'PayOrReimburseArbitrableTx'}>
+              <Button type='submit' disabled={isSubmitting}>
+                Raise a dispute
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </React.Fragment>
     }
   />

@@ -16,7 +16,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
       }}
       onSubmit={evidence => submitEvidence(evidence, id)}
     >
-      {({ setFieldValue }) => (
+      {({ setFieldValue, isSubmitting }) => (
         <Form>
           <div className='NewEvidenceArbitrableTx-form'>
             <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
@@ -37,7 +37,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
             } />
           </div>
           <div className='NewEvidenceArbitrableTx-footer'>
-            <Button type='submit'>
+            <Button type='submit' disabled={isSubmitting}>
               Submit Evidence
             </Button>
           </div>
