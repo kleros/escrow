@@ -63,6 +63,10 @@
         font-size: 1em;
         font-family: Roboto;
         padding: 0.7em 1em; }
+      .NewArbitrableTx .FormNewArbitrableTx .section-description .error {
+        grid-column: 2 / 3;
+        color: red;
+        font-size: 0.9em; }
     .NewArbitrableTx .FormNewArbitrableTx .section-submit {
       grid-area: submit;
       padding-top: 2em;

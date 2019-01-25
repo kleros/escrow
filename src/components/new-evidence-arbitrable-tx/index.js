@@ -13,6 +13,12 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
       initialValues={{name: '', description: '', file: ''}}
       validate = {values => {
         {/* TODO use Yup */}
+        let errors = {}
+        if (values.name.length > 55)
+          errors.name = 'Number of characters for the name allowed is exceeded. The maximum is 55 characters.'
+        if (values.description.length > 1000000)
+          errors.description = 'The maximum numbers of the characters for the description is 1,000,000 characters.'
+        return errors
       }}
       onSubmit={evidence => submitEvidence(evidence, id)}
     >
@@ -20,10 +26,10 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
         <Form>
           <div className='NewEvidenceArbitrableTx-form'>
             <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
-            <ErrorMessage name='name' component='div' />
+            <ErrorMessage name='name' component='div' className='error' />
 
             <Field className='NewEvidenceArbitrableTx-form-textarea' component='textarea' name='description'>Description</Field>
-            <ErrorMessage name='description' component='div' className='def' />
+            <ErrorMessage name='description' component='div' className='error' />
 
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}
