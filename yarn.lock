@@ -1084,15 +1084,15 @@
     log-update "^2.3.0"
     strip-ansi "^3.0.1"
 
-"@kleros/archon@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@kleros/archon/-/archon-0.4.3.tgz#dc119640bb61f506aa39227f6ff589c73cf09791"
-  integrity sha512-6hFfwwLc5xxDO7aJNYJbmIdwDEJWocvIXPEEi6BOTUlhX5KA+tzS5tfpqljrCz4pbk/PPSOLUHL55B29HCX51g==
+"@kleros/archon@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@kleros/archon/-/archon-0.5.4.tgz#02c24f4317a9a083bf617e694b6ed46fc7992a5b"
+  integrity sha512-ytlue1bpYmJtxna0fBETeSE1Fi83SQqrVpG5ZSn5clf09rPxH1c9D8+umQEGfkF+FaGBUWEAGpHKzz+ZBwcydA==
   dependencies:
+    "@kleros/kleros-interaction" "^0.4.2"
     axios "^0.18.0"
     babel-runtime "^6.26.0"
     js-sha3 "^0.8.0"
-    kleros-interaction "^0.0.24"
     lodash "^4.17.4"
     multihashes "^0.4.14"
     nock "^10.0.0"
@@ -1135,6 +1135,15 @@
     stylelint-processor-styled-components "^1.5.1"
     stylelint-scss "^3.4.0"
     stylelint-selector-bem-pattern "^2.0.0"
+
+"@kleros/kleros-interaction@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.4.2.tgz#6360caa6ac0fcb75a2c3eeade42b48b21c1fd19f"
+  integrity sha512-o42H0zgay+s0Wmmeo4e/bHLtuJ2ndNaSP/OuvXsk5MTXUi41mxe9qs9iAIWQevPodF8mz3mDAFSYQyonFThXsQ==
+  dependencies:
+    minimetoken "^0.2.0"
+    openzeppelin-solidity "^1.12.0"
+    solidity-bytes-utils "^0.0.5"
 
 "@kleros/kleros-interaction@^0.5.0":
   version "0.5.0"
@@ -7829,14 +7838,6 @@ klaw@^1.0.0:
   integrity sha1-QIhDO0azsbolnXh4XY6W9zugJDk=
   optionalDependencies:
     graceful-fs "^4.1.9"
-
-kleros-interaction@^0.0.24:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/kleros-interaction/-/kleros-interaction-0.0.24.tgz#4bfd836b910ffee6634fffea0b6d85b44dbd3d92"
-  integrity sha512-N8eanUq17XrqDFtsaH1VJYgznUK1dzKmYQV5MddftPFCFxjVi7pLo7q2OJ2q35ZMZbt64tq9MZenOIFgGZU03w==
-  dependencies:
-    minimetoken "^0.2.0"
-    zeppelin-solidity "^1.7.0"
 
 kleur@^2.0.1:
   version "2.0.2"
@@ -14750,8 +14751,3 @@ yup@^0.26.6:
     property-expr "^1.5.0"
     synchronous-promise "^2.0.5"
     toposort "^2.0.2"
-
-zeppelin-solidity@^1.7.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/zeppelin-solidity/-/zeppelin-solidity-1.12.0.tgz#427edf8e0041ec8600875d3cb8fc9395f33ccfff"
-  integrity sha512-dgjPPnTmx14hAbTeOpTKemDeDCDdwglS0nquOAJG8h5o9zlb43FZafQSrMlIUUSp1EisDZfehrp5loGEYXHZBA==

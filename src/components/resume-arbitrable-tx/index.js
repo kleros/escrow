@@ -62,7 +62,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
               {
                 arbitrabletx.evidences.map(evidence => (
-                  <a style={{paddingRight: '1em'}} href={`https://ipfs.io${evidence.evidenceJSON.fileURI}`} alt={evidence.evidenceJSON.name} title={evidence.evidenceJSON.name} target='_blank' rel='noopener noreferrer'>
+                  <a style={{paddingRight: '1em'}} href={`https://ipfs.kleros.io${evidence.evidenceJSON.fileURI}`} alt={evidence.evidenceJSON.name} title={evidence.evidenceJSON.name} target='_blank' rel='noopener noreferrer'>
                     <PrimaryDocument />
                   </a>
                 ))
