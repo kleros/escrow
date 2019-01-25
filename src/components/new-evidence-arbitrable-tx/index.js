@@ -18,11 +18,13 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
           errors.name = 'Number of characters for the name allowed is exceeded. The maximum is 55 characters.'
         if (values.description.length > 1000000)
           errors.description = 'The maximum numbers of the characters for the description is 1,000,000 characters.'
+        if (values.file.size > 5000000)
+          errors.file = 'The maximum size of the file is 5Mo.'
         return errors
       }}
       onSubmit={evidence => submitEvidence(evidence, id)}
     >
-      {({ setFieldValue, isSubmitting }) => (
+      {({ setFieldValue, errors, touched }) => (
         <Form>
           <div className='NewEvidenceArbitrableTx-form'>
             <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
@@ -41,9 +43,10 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
                 })
               }
             } />
+            {errors.file && <div className='error'>{errors.file}</div>}
           </div>
           <div className='NewEvidenceArbitrableTx-footer'>
-            <Button type='submit' disabled={isSubmitting}>
+            <Button type='submit' disabled={touched.name === undefined || touched.description === undefined || Object.entries(errors).length > 0}>
               Submit Evidence
             </Button>
           </div>

@@ -445,22 +445,27 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let ipfsHashMetaEvidence = null
+  let fileURI = ''
 
-  const data = yield call(
-    readFile,
-    evidenceReceived.file.dataURL
-  )
+  if (evidenceReceived.file) {
+    const data = yield call(
+      readFile,
+      evidenceReceived.file.dataURL
+    )
 
-  // Upload the meta-evidence then return an ipfs hash
-  const fileIpfsHash = yield call(
-    ipfsPublish,
-    evidenceReceived.file.name,
-    data
-  )
+    // Upload the meta-evidence then return an ipfs hash
+    const fileIpfsHash = yield call(
+      ipfsPublish,
+      evidenceReceived.file.name,
+      data
+    )
+
+    fileURI = `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`
+  }
 
   // Pass IPFS path for URI. No need for fileHash
   const evidence = {
-    fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
+    fileURI,
     name: evidenceReceived.name,
     description: evidenceReceived.description
   }

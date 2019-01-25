@@ -39,6 +39,9 @@
       height: 8em; }
       .NewEvidenceArbitrableTx-form-textarea::placeholder {
         color: #fff; }
+    .NewEvidenceArbitrableTx-form .error {
+      color: red;
+      font-size: 0.9em; }
   .NewEvidenceArbitrableTx-footer {
     background: #1e075f;
     min-height: 7em;
