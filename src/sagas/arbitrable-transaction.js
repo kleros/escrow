@@ -356,7 +356,6 @@ function* createDispute({ payload: { id } }) {
         value: arbitrationCost - arbitrableTransaction.buyerFee
       }
     )
-  
   if (accounts[0] === arbitrableTransaction.seller)
     yield call(
       multipleArbitrableTransactionEth.methods.payArbitrationFeeBySeller(

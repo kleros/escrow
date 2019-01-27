@@ -2,6 +2,7 @@ import React from 'react'
 
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
+import Attachment from '../../components/attachment'
 
 import './resume-arbitrable-tx.css'
 
@@ -61,10 +62,13 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Evidences</div>
             <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
               {
-                arbitrabletx.evidences.map(evidence => (
-                  <a style={{paddingRight: '1em'}} href={`https://ipfs.kleros.io${evidence.evidenceJSON.fileURI}`} alt={evidence.evidenceJSON.name} title={evidence.evidenceJSON.name} target='_blank' rel='noopener noreferrer'>
-                    <PrimaryDocument />
-                  </a>
+                arbitrabletx.evidences.map((evidence, index) => (
+                  <Attachment
+                    URI={evidence.evidenceJSON.fileURI}
+                    title={evidence.evidenceJSON.name}
+                    description={evidence.evidenceJSON.description}
+                    key={index}
+                  />
                 ))
               }
             </div>

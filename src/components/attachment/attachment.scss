@@ -1,0 +1,27 @@
+.Attachment {
+  display: inline-block;
+  padding-right: 5px;
+  &-title {
+    font-size: 1.4em !important;
+    padding: 0.5em 0 0.5em 0;
+    font-weight: bold;
+  }
+  &-description {
+    padding-bottom: 0.8em;
+  }
+  &-component-link {
+    padding-right: 3px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  &-modal {
+    min-width: 50vw;
+    &-title {
+      font-size: 1.4em;
+      font-weight: bold;
+      padding: 24px 0 1em 0;
+    }
+  }
+
+}

@@ -16,8 +16,8 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
         let errors = {}
         if (values.name.length > 55)
           errors.name = 'Number of characters for the name allowed is exceeded. The maximum is 55 characters.'
-        if (values.description.length > 1000000)
-          errors.description = 'The maximum numbers of the characters for the description is 1,000,000 characters.'
+        if (values.description.length > 255)
+          errors.description = 'The maximum numbers of the characters for the description is 255 characters.'
         if (values.file.size > 5000000)
           errors.file = 'The maximum size of the file is 5Mo.'
         return errors
