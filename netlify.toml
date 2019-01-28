@@ -24,3 +24,7 @@
   REACT_APP_ARBITRATOR_EXTRADATA = "0x00"
   REACT_APP_PROD_IPFS_PROVIDER = ""
   YARN_FLAGS = "--no-ignore-optional"
+# Branch Athena context.
+[context.athena-escrow]
+  [context.athena-escrow.environment]
+  REACT_APP_PROD_ARBITRATOR_ADDRESS = "0x8847c0947a613c3de443f73351c3815ad0d37f98"
