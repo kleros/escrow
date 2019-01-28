@@ -30,7 +30,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           errors.seller = 'Valid Address Required'
         if (!values.amount)
           errors.amount = 'Amount Required'
-        if (values.amount < 0)
+        if (values.amount <= 0)
           errors.amount = 'Amount must be positive.'
         if (isNaN(values.amount))
           errors.amount = 'Number Required'

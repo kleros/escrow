@@ -14,8 +14,10 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburse
       let errors = {}
       if (!values.amount)
         errors.amount = 'Amount Required'
+      if (values.amount <= 0)
+        errors.amount = 'Amount must be positive.'
       if (values.amount > amount)
-        errors.amount = `Amount must be less than ${amount} ETH`
+        errors.amount = `Amount must be less or equal than ${amount} ETH`
       if (isNaN(values.amount))
         errors.amount = 'Number Required'
       return errors
