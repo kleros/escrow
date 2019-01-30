@@ -170,20 +170,27 @@ export default (
                 <React.Fragment>
                   {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
                   {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.buyer ? (
-                    <p>Congratulations! You <b>won</b> the dispute.</p>
-                  ) : (
-                    <p>You <b>lost</b> the dispute.</p>
-                  )}
-                  {arbitrabletx.data.appealable === true && (
-                    <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
-                      {({isSubmitting}) => (
-                        <Form className={'PayOrReimburseArbitrableTx'}>
-                          <Button type='submit' disabled={isSubmitting}>
-                            Appeal the decision
-                          </Button>
-                        </Form>
+                    <>
+                      <p>Congratulations! You <b>won</b> the dispute.</p>
+                      {arbitrabletx.data.appealable === true && (
+                        <p style={{fontSize: '0.8em'}}>For information, the other party can appeal the decision.</p>
                       )}
-                    </Formik>
+                    </>
+                  ) : (
+                    <>
+                      <p>You <b>lost</b> the dispute.</p>
+                      {arbitrabletx.data.appealable === true && (
+                        <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                          {({isSubmitting}) => (
+                            <Form className={'PayOrReimburseArbitrableTx'}>
+                              <Button type='submit' disabled={isSubmitting}>
+                                Appeal the decision
+                              </Button>
+                            </Form>
+                          )}
+                        </Formik>
+                      )}
+                    </>
                   )}
                 </React.Fragment>
               }

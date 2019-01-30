@@ -210,6 +210,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   let metaEvidenceArchon = {
     metaEvidenceJSON: {}
   }
+  let appealDecision = false
 
   // force convert to string
   const transactionId = id.toString()
@@ -256,10 +257,16 @@ function* fetchArbitrabletx({ payload: { id } }) {
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
     )
 
-    if (disputeStatus.toString() === disputeConstants.SOLVED.toString())
+    if (
+      disputeStatus.toString() === disputeConstants.SOLVED.toString()
+      || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
+    ) {
       ruling = yield call(
         arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
       )
+
+      /* TODO returns value if if there is an appeal in progress */
+    }
 
   } catch (err) {
     console.log(err)
@@ -270,7 +277,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     ...arbitrableTransaction, // Overwrite transaction.amount
     party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
     ruling,
-    appealable: disputeStatus === disputeConstants.APPEALABLE
+    appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
   }
 }
 
@@ -374,7 +381,7 @@ function* createDispute({ payload: { id } }) {
  * Raises an appeal.
  * @param {object} { payload: id } - The id of the arbitrable transaction.
  */
-function* createAppeal({ type, payload: { id } }) {
+function* createAppeal({ payload: { id } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const arbitrableTransaction = yield call(
