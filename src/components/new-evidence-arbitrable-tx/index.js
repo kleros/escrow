@@ -24,7 +24,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
       }}
       onSubmit={evidence => submitEvidence(evidence, id)}
     >
-      {({ setFieldValue, errors, touched }) => (
+      {({ isSubmitting, setFieldValue, errors, touched }) => (
         <Form>
           <div className='NewEvidenceArbitrableTx-form'>
             <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
@@ -46,7 +46,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
             {errors.file && <div className='error'>{errors.file}</div>}
           </div>
           <div className='NewEvidenceArbitrableTx-footer'>
-            <Button type='submit' disabled={touched.name === undefined || touched.description === undefined || Object.entries(errors).length > 0}>
+            <Button type='submit' disabled={isSubmitting || touched.name === undefined || touched.description === undefined || Object.entries(errors).length > 0}>
               Submit Evidence
             </Button>
           </div>
