@@ -28,3 +28,4 @@
 [context.athena-escrow]
   [context.athena-escrow.environment]
   REACT_APP_PROD_ARBITRATOR_ADDRESS = "0x8847c0947a613c3de443f73351c3815ad0d37f98"
+  REACT_APP_PROD_ARBITRABLE_ADDRESS = "0xdff38d64aa40fb55d3ac264e792bef5b28e03c01"
