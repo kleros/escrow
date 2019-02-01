@@ -40,6 +40,8 @@ const ARBITRATOR_ADDRESS =
   process.env[`REACT_APP_${env}_ARBITRATOR_ADDRESS`]
 const FEE_TIMEOUT =
   process.env[`REACT_APP_${env}_FEE_TIMEOUT`]
+const PATCH_USER_SETTINGS_URL =
+  process.env[`REACT_APP_${env}_PATCH_USER_SETTINGS_URL`]
 
 const multipleArbitrableTransactionEth = new web3.eth.Contract(
   multipleArbitrableTransaction.abi,
@@ -61,6 +63,7 @@ export {
   ARBITRABLE_ADDRESS,
   ARBITRATOR_ADDRESS,
   FEE_TIMEOUT,
+  PATCH_USER_SETTINGS_URL,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp,
@@ -78,6 +81,8 @@ setTimeout(
       ARBITRATOR_ADDRESS,
       'Payment timeout: ',
       FEE_TIMEOUT,
+      'URL to save email notification: ',
+      PATCH_USER_SETTINGS_URL,
       'Web3: ',
       window.web3,
       'ARBITRATOR INTERFACE',

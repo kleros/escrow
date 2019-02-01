@@ -9,7 +9,7 @@ import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
 import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
-import Notifications from '../components/notifications'
+import Notifications from '../containers/settings'
 import { ReactComponent as Kleros } from '../assets/kleros.svg'
 import { ReactComponent as Plus } from '../assets/plus.svg'
 

@@ -5,11 +5,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Button from '../button'
 import { ReactComponent as Bell } from '../../assets/bell.svg'
 
-import './notifications.css'
+import './email-form.css'
 
-const Notifications = () => (
+const EmailForm = ({updateEmail, msg}) => (
   <div className='NewArbitrableTx'>
     <h1 className='NewArbitrableTx-h1'><Bell style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />Notifications</h1>
+    <p className='EmailForm-msg'>
+      {msg}
+    </p>
     <Formik
       initialValues={{ email: '' }}
       validate = {values => {
@@ -24,9 +27,9 @@ const Notifications = () => (
         }
         return errors
       }}
-      onSubmit={email => {}}
+      onSubmit={email => updateEmail(email)}
     >
-      {({ setFieldValue }) => (
+      {({ isSubmitting, touched, errors }) => (
         <Form className='FormNewArbitrableTx'>
           <div className='section-title'>
             <label htmlFor='email'>Email</label>
@@ -34,7 +37,7 @@ const Notifications = () => (
             <ErrorMessage name='email' component='div' className='error'/>
           </div>
           <div className='section-submit'>
-            <Button type='submit'>Enable Notifications</Button>
+            <Button type='submit' disabled={isSubmitting || touched.email === undefined || Object.entries(errors).length > 0}>Enable Notifications</Button>
           </div>
         </Form>
       )}
@@ -42,4 +45,4 @@ const Notifications = () => (
   </div>
 )
 
-export default Notifications
+export default EmailForm

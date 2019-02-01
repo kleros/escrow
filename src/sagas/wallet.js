@@ -2,7 +2,7 @@ import { takeLatest, select, call } from 'redux-saga/effects'
 
 import * as walletSelectors from '../reducers/wallet'
 import * as walletActions from '../actions/wallet'
-import { web3 } from '../bootstrap/dapp-api'
+import { web3, PATCH_USER_SETTINGS_URL } from '../bootstrap/dapp-api'
 import { lessduxSaga } from '../utils/saga'
 import * as errorConstants from '../constants/error'
 
@@ -30,6 +30,39 @@ export function* fetchBalance() {
   return web3.utils.fromWei(balance, 'ether')
 }
 
+
+/**
+ * Updates the current wallet settings' email.
+ * @param {{ type: string, payload: ?object, meta: ?object }} action - The action object.
+ * @returns {object} - The updated settings object.
+ */
+function* updateEmail({ payload: { email } }) {
+  // Prepare and sign update
+  const address = yield select(walletSelectors.getAccount)
+  const settings = { email: { S: email } }
+  const signature = yield call(
+    web3.eth.personal.sign,
+    JSON.stringify(settings),
+    address
+  )
+
+  // Send update
+  const newSettings = yield call(fetch, PATCH_USER_SETTINGS_URL, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ payload: { address, settings, signature } })
+  })
+
+  // Return new settings
+  const attributes = (yield call(() => newSettings.json())).payload.settings
+    .Attributes
+  return {
+    email: attributes.email.S,
+    dogecoinAddress: attributes.dogecoinAddress && attributes.dogecoinAddress.S
+  }
+}
+
+
 /**
  * The root of the wallet saga.
  */
@@ -50,5 +83,14 @@ export default function* walletSaga() {
     'fetch',
     walletActions.balance,
     fetchBalance
+  )
+
+  // Settings
+  yield takeLatest(
+    walletActions.settings.UPDATE_EMAIL,
+    lessduxSaga,
+    'update',
+    walletActions.settings,
+    updateEmail
   )
 }
