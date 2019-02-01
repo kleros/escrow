@@ -57,7 +57,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
     })
   } else {
     metaEvidence = createMetaEvidence({
-      accounts: accounts[0],
+      buyer: accounts[0],
       seller: arbitrabletxForm.seller,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
@@ -266,6 +266,12 @@ function* fetchArbitrabletx({ payload: { id } }) {
       )
 
       /* TODO returns value if if there is an appeal in progress */
+      // const getAppealDecision = yield call(
+      //   archon.arbitrator.getAppealDecision,
+      //   ARBITRATOR_ADDRESS,
+      //   disputeId, // The unique identifier of the dispute
+      //   appealNumber // The appeal number. Must be >= 1
+      // )
     }
 
   } catch (err) {

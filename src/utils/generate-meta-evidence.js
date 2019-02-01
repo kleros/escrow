@@ -24,6 +24,7 @@ export default ({
       [seller]: 'Party B'
     },
     seller,
+    buyer,
     amount,
     arbitrator
   }
