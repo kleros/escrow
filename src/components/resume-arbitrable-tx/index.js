@@ -4,6 +4,7 @@ import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import Attachment from '../../components/attachment'
 import { ReactComponent as Copy } from '../../assets/copy.svg'
+import { ReactComponent as MailBill } from '../../assets/mail_bill.svg'
 
 import './resume-arbitrable-tx.css'
 
@@ -56,7 +57,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                   document.queryCommandSupported('copy') && (
                     !copied ? (
                       <Copy 
-                        style={{marginLeft: '1em', cursor: 'pointer'}} 
+                        style={{marginLeft: '1em', cursor: 'pointer'}}
                         onClick={() => {navigator.clipboard.writeText(arbitrabletx.shareLink) && setCopied(true)}} 
                       /> 
                     ) : (
@@ -64,6 +65,18 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                     )
                   ) 
                 }
+                <a
+                  href=
+                    {`
+                      mailto:client%40example.com
+                      ?subject=Invoice ${encodeURIComponent(arbitrabletx.title)}
+                      &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(arbitrabletx.title)}%20invoice: ${arbitrabletx.shareLink}.%0A%0ABest%2C%0A
+                    `}
+                  >
+                    <MailBill
+                      style={{marginLeft: '0.7em', cursor: 'pointer'}}
+                    />
+                </a>
               </div>
             </>
           )}
