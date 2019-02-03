@@ -3,6 +3,7 @@ import React from 'react'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import Attachment from '../../components/attachment'
+import { ReactComponent as Copy } from '../../assets/copy.svg'
 
 import './resume-arbitrable-tx.css'
 
@@ -51,7 +52,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
               /* Logical shortcut for only displaying the
                   button if the copy command exists */
               document.queryCommandSupported('copy') &&
-                <button style={{marginLeft: '1em'}} onClick={() => {navigator.clipboard.writeText(arbitrabletx.shareLink)}}>Copy</button> 
+                <Copy style={{marginLeft: '1em', cursor: 'pointer'}} onClick={() => {navigator.clipboard.writeText(arbitrabletx.shareLink)}} />
               }
             </div>
           </React.Fragment>
