@@ -44,7 +44,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
       }}
       onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)}
     >
-      {({ errors, setFieldValue, touched }) => (
+      {({ errors, setFieldValue, touched, isSubmitting }) => (
         <Form className='FormNewArbitrableTx'>
           <div className='section-title'>
             <label htmlFor='title'>Title</label>
@@ -76,7 +76,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
             <ErrorMessage name='description' component='div' className='error' />
           </div>
           <div className='section-submit'>
-            <Button type='submit' disabled={touched.seller === undefined || touched.amount === undefined || Object.entries(errors).length > 0}>Save Transaction</Button>
+            <Button type='submit' disabled={touched.seller === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
           </div>
         </Form>
       )}
