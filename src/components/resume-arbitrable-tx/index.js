@@ -26,7 +26,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           )}
 
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Sender</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.seller}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.sender}</div>
           
           {arbitrabletx.amount > 0 && (
             <>

@@ -16,7 +16,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
         title: '',
         description: '', 
         file: '',
-        seller: '',
+        sender: '',
         amount: ''
       }}
       validate = {values => {
@@ -24,10 +24,10 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
         let errors = {}
         if (values.title.length > 55)
           errors.title = 'Number of characters for the title allowed is exceeded. The maximum is 55 characters.'
-        if (!values.seller)
-          errors.seller = 'Sender Address Required'
-        if (!Web3.utils.isAddress(values.seller))
-          errors.seller = 'Valid Address Required'
+        if (!values.sender)
+          errors.sender = 'Sender Address Required'
+        if (!Web3.utils.isAddress(values.sender))
+          errors.sender = 'Valid Address Required'
         if (!values.amount)
           errors.amount = 'Amount Required'
         if (values.amount <= 0)
@@ -50,9 +50,9 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
             <label htmlFor='title'>Title</label>
             <Field name='title' placeholder='Title' />
             <ErrorMessage name='title' component='div' className='error' />
-            <label htmlFor='seller'>Sender</label>
-            <Field name='seller' placeholder='Sender Address' />
-            <ErrorMessage name='seller' component='div' className='error' />
+            <label htmlFor='sender'>Sender</label>
+            <Field name='sender' placeholder='Sender Address' />
+            <ErrorMessage name='sender' component='div' className='error' />
             <label htmlFor='amount'>Amount (ETH)</label>
             <Field name='amount' placeholder='Amount' />
             <ErrorMessage name='amount' component='div' className='error'/>
@@ -76,7 +76,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
             <ErrorMessage name='description' component='div' className='error' />
           </div>
           <div className='section-submit'>
-            <Button type='submit' disabled={touched.seller === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
+            <Button type='submit' disabled={touched.sender === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
           </div>
         </Form>
       )}

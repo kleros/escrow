@@ -47,7 +47,7 @@ export default (
                   title={<React.Fragment>Resume</React.Fragment>}
                 >
                   {
-                    accounts[0] === arbitrabletx.data.seller && Date.now() - arbitrabletx.data.lastInteraction * 1000 >= arbitrabletx.data.timeoutPayment * 1000 ? (
+                    accounts[0] === arbitrabletx.data.sender && Date.now() - arbitrabletx.data.lastInteraction * 1000 >= arbitrabletx.data.timeoutPayment * 1000 ? (
                       <Formik onSubmit={() => createExecuteTx(arbitrabletx.data.id)}>
                         {({isSubmitting}) => (
                           <Form className={'PayOrReimburseArbitrableTx'}>
@@ -84,11 +84,11 @@ export default (
           }
         </React.Fragment>
       )
-    case arbitrableTxConstants.WAITING_BUYER:
+    case arbitrableTxConstants.WAITING_RECEIVER:
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
+          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</React.Fragment>}
           footer={
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
@@ -99,21 +99,21 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the buyer</React.Fragment>}
+          title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the receiver</React.Fragment>}
         >
           <TimeoutArbitrableTx
             id={arbitrabletx.data.id}
             timeout={createTimeout}
             time={time(arbitrabletx)}
-            name={accounts[0] === arbitrabletx.data.buyer ? 'Withdraw' : 'Execute Payment' }
+            name={accounts[0] === arbitrabletx.data.receiver ? 'Withdraw' : 'Execute Payment' }
           />
         </ResumeArbitrableTx>
       )
-    case arbitrableTxConstants.WAITING_SELLER:
+    case arbitrableTxConstants.WAITING_SENDER:
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The buyer has raised a dispute</React.Fragment>}
+          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</React.Fragment>}
           footer={
             <MessageArbitrationFee 
               arbitrabletx={arbitrabletx}
@@ -125,13 +125,13 @@ export default (
         <React.Fragment>
           <ResumeArbitrableTx
             arbitrabletx={arbitrabletx.data}
-            title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the seller</React.Fragment>}
+            title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the sender</React.Fragment>}
           >
             <TimeoutArbitrableTx
                 id={arbitrabletx.data.id}
                 timeout={createTimeout}
                 time={time(arbitrabletx)}
-                name={accounts[0] === arbitrabletx.data.buyer ? 'Withdraw' : 'Execute Payment' }
+                name={accounts[0] === arbitrabletx.data.receiver ? 'Withdraw' : 'Execute Payment' }
             />
           </ResumeArbitrableTx>
         </React.Fragment>
@@ -169,7 +169,7 @@ export default (
               message={
                 <React.Fragment>
                   {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
-                  {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.buyer ? (
+                  {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.receiver ? (
                     <>
                       <p>Congratulations! You <b>won</b> the dispute.</p>
                       {arbitrabletx.data.appealable === true && (

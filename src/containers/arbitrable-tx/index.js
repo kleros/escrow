@@ -43,7 +43,7 @@ class ArbitrableTx extends PureComponent {
         return {
           ...state,
           arbitrabletx,
-          payOrReimburse: arbitrabletx.data.buyer !== accounts.data[0] ? 'Reimburse' : 'Pay'
+          payOrReimburse: arbitrabletx.data.receiver !== accounts.data[0] ? 'Reimburse' : 'Pay'
         }
       }
     return null

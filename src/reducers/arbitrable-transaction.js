@@ -9,7 +9,7 @@ const arbitrabletxFormShape = PropTypes.shape({
   description: PropTypes.string,
   file: PropTypes.string,
   arbitrator: PropTypes.string,
-  seller: PropTypes.string,
+  sender: PropTypes.string,
   email: PropTypes.string,
 })
 

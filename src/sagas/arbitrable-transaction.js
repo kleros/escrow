@@ -47,8 +47,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
-      buyer: accounts[0],
-      seller: arbitrabletxForm.seller,
+      receiver: accounts[0],
+      sender: arbitrabletxForm.sender,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
@@ -57,8 +57,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
     })
   } else {
     metaEvidence = createMetaEvidence({
-      buyer: accounts[0],
-      seller: arbitrabletxForm.seller,
+      receiver: accounts[0],
+      sender: arbitrabletxForm.sender,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
@@ -104,7 +104,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
       arbitrabletxResumeForm: {
         title: metaEvidenceDecoded.title,
         description: metaEvidenceDecoded.description,
-        seller: parties['Party B'],
+        sender: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
         arbitrator: metaEvidenceDecoded.arbitrator,
@@ -128,7 +128,7 @@ function* createArbitrabletx({ type, payload: { arbitrabletxReceived, metaEviden
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
       FEE_TIMEOUT,
-      arbitrabletxReceived.seller,
+      arbitrabletxReceived.sender,
       `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
     ).send,
     {
@@ -183,7 +183,7 @@ function* fetchArbitrabletxs() {
 
       arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
       arbitrableTransaction.id = arbitrableTransactionId
-      arbitrableTransaction.party = accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller'
+      arbitrableTransaction.party = accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender'
 
       arbitrableTransactions.push(arbitrableTransaction)
     } catch (err) {
@@ -281,7 +281,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   return {
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
-    party: accounts[0] === arbitrableTransaction.buyer ? 'buyer' : 'seller',
+    party: accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
   }
@@ -298,7 +298,7 @@ function* createPayOrReimburse({ payload: { id, amount } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
-  if (accounts[0] === arbitrableTransaction.buyer)
+  if (accounts[0] === arbitrableTransaction.receiver)
     yield call(
       multipleArbitrableTransactionEth.methods.pay(
         id,
@@ -325,7 +325,7 @@ function* createPayOrReimburse({ payload: { id, amount } }) {
 }
 
 /**
- * Transfer the transaction's amount to the seller if the timeout has passed.
+ * Transfer the transaction's amount to the sender if the timeout has passed.
  * @param {object} { payload: id } - The id of the arbitrableTx.
  */
 function* executeTransaction({ payload: { id } }) {
@@ -359,24 +359,24 @@ function* createDispute({ payload: { id } }) {
     arbitratorEth.methods.arbitrationCost('0x00').call
   )
 
-  if (accounts[0] === arbitrableTransaction.buyer)
+  if (accounts[0] === arbitrableTransaction.receiver)
     yield call(
-      multipleArbitrableTransactionEth.methods.payArbitrationFeeByBuyer(
+      multipleArbitrableTransactionEth.methods.payArbitrationFeeByReceiver(
         id
       ).send,
       {
         from: accounts[0],
-        value: arbitrationCost - arbitrableTransaction.buyerFee
+        value: arbitrationCost - arbitrableTransaction.receiverFee
       }
     )
-  if (accounts[0] === arbitrableTransaction.seller)
+  if (accounts[0] === arbitrableTransaction.sender)
     yield call(
-      multipleArbitrableTransactionEth.methods.payArbitrationFeeBySeller(
+      multipleArbitrableTransactionEth.methods.payArbitrationFeeBySender(
         id
       ).send,
       {
         from: accounts[0],
-        value: arbitrationCost - arbitrableTransaction.sellerFee
+        value: arbitrationCost - arbitrableTransaction.senderFee
       }
     )
 
@@ -424,9 +424,9 @@ function* createTimeout({ type, payload: { id } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
-  if (accounts[0] === arbitrableTransaction.buyer)
+  if (accounts[0] === arbitrableTransaction.receiver)
     yield call(
-      multipleArbitrableTransactionEth.methods.timeOutByBuyer(
+      multipleArbitrableTransactionEth.methods.timeOutByReceiver(
         id
       ).send,
       {
@@ -436,7 +436,7 @@ function* createTimeout({ type, payload: { id } }) {
     )
   else
     yield call(
-      multipleArbitrableTransactionEth.methods.timeOutBySeller(
+      multipleArbitrableTransactionEth.methods.timeOutBySender(
         id
       ).send,
       {
