@@ -46,36 +46,46 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
     >
       {({ errors, setFieldValue, touched, isSubmitting }) => (
         <Form className='FormNewArbitrableTx'>
-          <div className='section-title'>
-            <label htmlFor='title'>Title</label>
-            <Field name='title' placeholder='Title' />
-            <ErrorMessage name='title' component='div' className='error' />
-            <label htmlFor='sender'>Sender</label>
-            <Field name='sender' placeholder='Sender Address' />
-            <ErrorMessage name='sender' component='div' className='error' />
-            <label htmlFor='amount'>Amount (ETH)</label>
-            <Field name='amount' placeholder='Amount' />
-            <ErrorMessage name='amount' component='div' className='error'/>
-            {/* hack Formik for file type */}
-            {/* and store only the path on the file in the redux state */}
-            <label htmlFor='file' className='file'>Primary document</label>
-            <input id='file' style={{border: '#009AFF', padding: '0.6em 0'}} name='file' type='file' onChange={e => {
-                const file = e.currentTarget.files[0]
-                return setFieldValue('file', {
-                  dataURL: (window.URL || window.webkitURL).createObjectURL(file),
-                  name: file.name,
-                  size: file.size
-                })
-              }
-            } />
-            {errors.file && <div className='error'>{errors.file}</div>}
+          <label htmlFor='title' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-title'>Title</label>
+          <Field name='title' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-title' placeholder='Title' />
+          <ErrorMessage name='title' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-title' />
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-title'>Eg. Marketing Services Agreement with John</div>
+          <label htmlFor='sender' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-sender'>Sender</label>
+          <Field name='sender' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-sender' placeholder='Sender Address' />
+          <ErrorMessage name='sender' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-sender' />
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-sender'>
+            Enter the ETH address of the counterparty to this agreement.
           </div>
-          <div className='section-description'>
-            <label htmlFor='description'>Description</label>
-            <Field name='description' component='textarea' className='section-description-textarea' />
-            <ErrorMessage name='description' component='div' className='error' />
+          <label htmlFor='amount' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-amount'>Amount (ETH)</label>
+          <Field name='amount' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-amount' placeholder='Amount' />
+          <ErrorMessage name='amount' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-amount' />
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-amount'>
+            Enter the amount of money that will be sent to the escrow as payment 
+            for the receiver. 
+            <br />Funds will stay in the escrow until the transaction 
+            is completed.
           </div>
-          <div className='section-submit'>
+          {/* hack Formik for file type */}
+          {/* and store only the path on the file in the redux state */}
+          <label htmlFor='file' className='file' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-file'>Primary document</label>
+          <input className='FormNewArbitrableTx-label FormNewArbitrableTx-input-file' id='file' style={{border: '#009AFF', padding: '0.6em 0', fontSize: '1em'}} name='file' type='file' onChange={e => {
+              const file = e.currentTarget.files[0]
+              return setFieldValue('file', {
+                dataURL: (window.URL || window.webkitURL).createObjectURL(file),
+                name: file.name,
+                size: file.size
+              })
+            }
+          } />
+          {errors.file && <div className='FormNewArbitrableTx-error FormNewArbitrableTx-error-file'>{errors.file}</div>}
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-file'>
+            Upload the files that will be used as evidence in case there is a dispute. 
+            <br />If you need to add more than one file, zip them.
+          </div>
+          <label htmlFor='description' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-description'>Description</label>
+          <Field name='description' component='textarea' className='FormNewArbitrableTx-textarea FormNewArbitrableTx-input-description' />
+          <ErrorMessage name='description' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-description' />
+          <div className='FormNewArbitrableTx-submit'>
             <Button type='submit' disabled={touched.sender === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
           </div>
         </Form>

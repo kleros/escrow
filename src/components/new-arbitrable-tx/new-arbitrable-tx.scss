@@ -12,86 +12,147 @@
   }
 
   .FormNewArbitrableTx {
+    padding: 0.3em 0 1em 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-  
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-    "title description"
-    "submit submit";
+      "labelTitle labelTitle"
+      "inputTitle inputTitle"
+      "errorTitle helpTitle"
+      "labelSender labelSender"
+      "inputSender inputSender"
+      "errorSender helpSender"
+      "labelAmount labelAmount"
+      "inputAmount inputAmount"
+      "errorAmount helpAmount"
+      "labelFile labelFile"
+      "inputFile inputFile"
+      "errorFile helpFile"
+      "labelDescription labelDescription"
+      "inputDescription inputDescription"
+      "errorDescription helpDescription"
+      "submit submit";
 
-    padding: 3em 0 1em 0;
-
-    .section-title {
-      grid-area: title;
-      display: grid;
-      grid-gap: 16px;
-      grid-template-columns: 200px 1fr;
-      align-items: stretch;
-      justify-items: stretch;
-      label {
-        font-size: 0.85em;
-        color: #4a4a4a;
-        text-align: right;
-        grid-column: 1 / 2;
-        padding-right: 2em;
-        line-height: 40px;
-      }
-
-      input {
-        grid-column: 2 / 3;
-        max-width: 300px;
-        border: 1px solid #D9D9D9;
-        border-radius: 3px;
-        padding: 0 1em;
-        font-size: 1em;
-      }
-
-      .error {
-        grid-column: 2 / 3;
-        color: red;
-        font-size: 0.9em;
-      }
+    &-label-title {
+      grid-area: labelTitle;
     }
 
-    .section-description {
-      grid-area: description;
-      display: grid;
-      grid-gap: 16px;
-      grid-template-columns: auto 1fr;
-      grid-template-areas:
-        "label textarea";
-
-      label {
-        grid-area: label;
-        font-size: 0.85em;
-        color: #4a4a4a;
-        text-align: right;
-        grid-column: 1 / 2;
-        padding-right: 2em;
-        line-height: 40px;
-      }
-
-      &-textarea {
-        grid-area: textarea;
-        justify-items: stretch;
-        align-items: stretch;
-        border: 1px solid #D9D9D9;
-        border-radius: 3px;
-        padding: 0 1em;
-        font-size: 1em;
-        font-family: Roboto;
-        padding: 0.7em 1em;
-      }
-
-      .error {
-        grid-column: 2 / 3;
-        color: red;
-        font-size: 0.9em;
-      }
+    &-input-title {
+      grid-area: inputTitle;
     }
 
-    .section-submit {
+    &-error-title {
+      grid-area: errorTitle;
+    }
+
+    &-help-title {
+      grid-area: helpTitle;
+    }
+
+    &-label-sender {
+      grid-area: labelSender;
+    }
+
+    &-input-sender {
+      grid-area: inputSender;
+    }
+
+    &-error-sender {
+      grid-area: errorSender;
+    }
+
+    &-help-sender {
+      grid-area: helpSender;
+    }
+
+    &-label-amount {
+      grid-area: labelAmount;
+    }
+
+    &-input-amount {
+      grid-area: inputAmount;
+    }
+
+    &-error-amount {
+      grid-area: errorAmount;
+    }
+
+    &-help-amount {
+      grid-area: helpAmount;
+    }
+
+    &-label-file {
+      grid-area: labelFile;
+    }
+
+    &-input-file {
+      grid-area: inputFile;
+    }
+
+    &-error-file {
+      grid-area: errorFile;
+    }
+
+    &-help-file {
+      grid-area: helpFile;
+    }
+
+    &-label-description {
+      grid-area: labelDescription;
+    }
+
+    &-input-description {
+      grid-area: inputDescription;
+    }
+
+    &-error-description {
+      grid-area: errorDescription;
+    }
+
+    &-help-description {
+      grid-area: helpDescription;
+    }
+
+    &-label {
+      font-size: 1em;
+      color: #4a4a4a;
+      padding: 0.5em 0;
+
+    }
+
+    &-input {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0.5em 0.8em;
+      margin-bottom: 0.5em;
+      font-size: 1.1em;
+      box-sizing: border-box;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    &-error {
+      color: red;
+      font-size: 0.9em;
+    }
+
+    &-help {
+      font-style: italic;
+      font-size: 0.9em;
+      text-align: right;
+    }
+
+    &-textarea {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0 1em;
+      font-size: 1em;
+      font-family: Roboto;
+      padding: 0.7em 1em;
+      min-height: 10em;
+    }
+
+    &-submit {
       grid-area: submit;
       padding-top: 2em;
       text-align: right;

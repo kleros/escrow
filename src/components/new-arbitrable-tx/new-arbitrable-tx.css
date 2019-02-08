@@ -9,65 +9,79 @@
     border-bottom: 1px solid #efefef;
     line-height: 3em; }
   .NewArbitrableTx .FormNewArbitrableTx {
+    padding: 0.3em 0 1em 0;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas: "title description" "submit submit";
-    padding: 3em 0 1em 0; }
-    .NewArbitrableTx .FormNewArbitrableTx .section-title {
-      grid-area: title;
-      display: grid;
-      grid-gap: 16px;
-      grid-template-columns: 200px 1fr;
-      align-items: stretch;
-      justify-items: stretch; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-title label {
-        font-size: 0.85em;
-        color: #4a4a4a;
-        text-align: right;
-        grid-column: 1 / 2;
-        padding-right: 2em;
-        line-height: 40px; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-title input {
-        grid-column: 2 / 3;
-        max-width: 300px;
-        border: 1px solid #D9D9D9;
-        border-radius: 3px;
-        padding: 0 1em;
-        font-size: 1em; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-title .error {
-        grid-column: 2 / 3;
-        color: red;
-        font-size: 0.9em; }
-    .NewArbitrableTx .FormNewArbitrableTx .section-description {
-      grid-area: description;
-      display: grid;
-      grid-gap: 16px;
-      grid-template-columns: auto 1fr;
-      grid-template-areas: "label textarea"; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-description label {
-        grid-area: label;
-        font-size: 0.85em;
-        color: #4a4a4a;
-        text-align: right;
-        grid-column: 1 / 2;
-        padding-right: 2em;
-        line-height: 40px; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-description-textarea {
-        grid-area: textarea;
-        justify-items: stretch;
-        align-items: stretch;
-        border: 1px solid #D9D9D9;
-        border-radius: 3px;
-        padding: 0 1em;
-        font-size: 1em;
-        font-family: Roboto;
-        padding: 0.7em 1em; }
-      .NewArbitrableTx .FormNewArbitrableTx .section-description .error {
-        grid-column: 2 / 3;
-        color: red;
-        font-size: 0.9em; }
-    .NewArbitrableTx .FormNewArbitrableTx .section-submit {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelSender labelSender" "inputSender inputSender" "errorSender helpSender" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription labelDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-title {
+      grid-area: labelTitle; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-title {
+      grid-area: inputTitle; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-title {
+      grid-area: errorTitle; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-title {
+      grid-area: helpTitle; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-sender {
+      grid-area: labelSender; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-sender {
+      grid-area: inputSender; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-sender {
+      grid-area: errorSender; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-sender {
+      grid-area: helpSender; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-amount {
+      grid-area: labelAmount; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-amount {
+      grid-area: inputAmount; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-amount {
+      grid-area: errorAmount; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-amount {
+      grid-area: helpAmount; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-file {
+      grid-area: labelFile; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-file {
+      grid-area: inputFile; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-file {
+      grid-area: errorFile; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-file {
+      grid-area: helpFile; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-description {
+      grid-area: labelDescription; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-description {
+      grid-area: inputDescription; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-description {
+      grid-area: errorDescription; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-description {
+      grid-area: helpDescription; }
+    .NewArbitrableTx .FormNewArbitrableTx-label {
+      font-size: 1em;
+      color: #4a4a4a;
+      padding: 0.5em 0; }
+    .NewArbitrableTx .FormNewArbitrableTx-input {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0.5em 0.8em;
+      margin-bottom: 0.5em;
+      font-size: 1.1em;
+      box-sizing: border-box;
+      border-radius: 3px;
+      font-weight: 500; }
+    .NewArbitrableTx .FormNewArbitrableTx-error {
+      color: red;
+      font-size: 0.9em; }
+    .NewArbitrableTx .FormNewArbitrableTx-help {
+      font-style: italic;
+      font-size: 0.9em;
+      text-align: right; }
+    .NewArbitrableTx .FormNewArbitrableTx-textarea {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0 1em;
+      font-size: 1em;
+      font-family: Roboto;
+      padding: 0.7em 1em;
+      min-height: 10em; }
+    .NewArbitrableTx .FormNewArbitrableTx-submit {
       grid-area: submit;
       padding-top: 2em;
       text-align: right; }
