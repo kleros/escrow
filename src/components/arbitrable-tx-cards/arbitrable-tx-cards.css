@@ -6,41 +6,12 @@
   grid-gap: 2em;
   grid-auto-rows: 250px; }
   .ArbitrableTxCards-cards-section {
+    display: flex;
+    flex-direction: column;
     border-radius: 3px;
     border: #ccc solid 1px;
     overflow: hidden;
     color: #4a4a4a; }
-    .ArbitrableTxCards-cards-section-h2 {
-      font-size: 1.2em;
-      margin: 1em;
-      padding-bottom: 1em;
-      border-bottom: 1px solid #ebebeb;
-      font-weight: 500;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden; }
-    .ArbitrableTxCards-cards-section-p {
-      overflow: hidden;
-      position: relative;
-      line-height: 1.2em;
-      max-height: 6em;
-      text-align: justify;
-      margin-right: -1em;
-      padding-right: 1em;
-      margin: 0 1.15em 1em 1.15em; }
-      .ArbitrableTxCards-cards-section-p:before {
-        content: '...';
-        position: absolute;
-        right: 0;
-        bottom: 0; }
-      .ArbitrableTxCards-cards-section-p:after {
-        content: '';
-        position: absolute;
-        right: 0;
-        width: 1em;
-        height: 1em;
-        margin-top: 0.2em;
-        background: white; }
     .ArbitrableTxCards-cards-section-header {
       display: flex;
       flex-wrap: wrap;
@@ -60,8 +31,62 @@
         color: #4004a3; }
         .ArbitrableTxCards-cards-section-header-party:first-letter {
           text-transform: capitalize; }
-    .ArbitrableTxCards-cards-section header {
-      background: #fff; }
+    .ArbitrableTxCards-cards-section-h2 {
+      font-size: 1.2em;
+      margin: 1em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #ebebeb;
+      font-weight: 500;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden; }
+    .ArbitrableTxCards-cards-section-description {
+      flex-grow: 1; }
+      .ArbitrableTxCards-cards-section-description-p {
+        overflow: hidden;
+        position: relative;
+        line-height: 1.2em;
+        max-height: 6em;
+        text-align: justify;
+        margin-right: -1em;
+        padding-right: 1em;
+        margin: 0 1.15em 1em 1.15em; }
+        .ArbitrableTxCards-cards-section-description-p:before {
+          content: '...';
+          position: absolute;
+          right: 0;
+          bottom: 0; }
+        .ArbitrableTxCards-cards-section-description-p:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          width: 1em;
+          height: 1em;
+          margin-top: 0.2em;
+          background: white; }
+    .ArbitrableTxCards-cards-section-footer {
+      background: #f8f8f8;
+      padding: 1em 0; }
+      .ArbitrableTxCards-cards-section-footer-completed {
+        color: #009aff;
+        font-weight: 500; }
+      .ArbitrableTxCards-cards-section-footer-completed:before {
+        padding: 0 0.5em 0 1em;
+        position: relative;
+        content: url(../../assets/icon-success-blue.svg); }
+      .ArbitrableTxCards-cards-section-footer-waiting {
+        color: #4004a3;
+        font-weight: 500;
+        padding-left: 1em; }
+      .ArbitrableTxCards-cards-section-footer-waiting:before {
+        padding: 0 0.5em 0 1em; }
+      .ArbitrableTxCards-cards-section-footer-dispute {
+        color: #ff0404;
+        font-weight: 500; }
+      .ArbitrableTxCards-cards-section-footer-dispute:before {
+        padding: 0 0.5em 0 1em;
+        position: relative;
+        content: url(../../assets/icon-dispute-red.svg); }
     .ArbitrableTxCards-cards-section-new {
       position: relative;
       display: flex;

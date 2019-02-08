@@ -18,6 +18,7 @@ import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
 import readFile from '../utils/read-file'
 import createMetaEvidence from '../utils/generate-meta-evidence'
+import getStatusArbitrable from '../utils/get-status-arbitrable'
 
 import getMetaEvidence from './api/get-meta-evidence'
 import ipfsPublish from './api/ipfs-publish'
@@ -184,6 +185,9 @@ function* fetchArbitrabletxs() {
       arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
       arbitrableTransaction.id = arbitrableTransactionId
       arbitrableTransaction.party = accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender'
+      arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
+      arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
+      arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
 
       arbitrableTransactions.push(arbitrableTransaction)
     } catch (err) {
