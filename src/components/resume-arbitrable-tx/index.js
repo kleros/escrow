@@ -15,30 +15,24 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
       <div className='ResumeArbitrableTx'>
         <h1 className='ResumeArbitrableTx-h1'>{title}</h1>
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Title</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.title}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title'>Title</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
+{console.log({arbitrabletx})}
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-sender'>{arbitrabletx.otherParty}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-sender'>{arbitrabletx.otherPartyAddress}</div>
 
-          {arbitrabletx.description && (
-            <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Description</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.description}</div>
-            </>
-          )}
-
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Sender</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.sender}</div>
-          
           {arbitrabletx.amount > 0 && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Amount</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>{arbitrabletx.amount} ETH</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Amount</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.amount} ETH</div>
             </>
           )}
+
 
           {arbitrabletx.file && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Primary Document</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-file'>Primary Document</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-file' style={{border: '0'}}>
                 <a href={arbitrabletx.file} alt='Primary Document' target='_blank' rel='noopener noreferrer'>
                   <PrimaryDocument />
                 </a>
@@ -46,37 +40,19 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             </>
           )}
 
+          {arbitrabletx.description && (
+            <>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-description'>Description</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-description'>{arbitrabletx.description}</div>
+            </>
+          )}
+
+
           {arbitrabletx.shareLink && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Share Transaction</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content'>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-share'>Share Transaction</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-link-share'>
                 {arbitrabletx.shareLink}
-                {
-                /* Logical shortcut for only displaying the
-                    button if the copy command exists */
-                  document.queryCommandSupported('copy') && (
-                    !copied ? (
-                      <Copy 
-                        style={{marginLeft: '1em', cursor: 'pointer'}}
-                        onClick={() => {navigator.clipboard.writeText(arbitrabletx.shareLink) && setCopied(true)}} 
-                      /> 
-                    ) : (
-                      <span style={{marginLeft: '1em', color: '#4004a3'}}>Copied</span>
-                    )
-                  ) 
-                }
-                <a
-                  href=
-                    {`
-                      mailto:client%40example.com
-                      ?subject=Invoice ${encodeURIComponent(arbitrabletx.title)}
-                      &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(arbitrabletx.title)}%20invoice: ${arbitrabletx.shareLink}.%0A%0ABest%2C%0A
-                    `}
-                  >
-                    <MailBill
-                      style={{marginLeft: '0.7em', cursor: 'pointer'}}
-                    />
-                </a>
               </div>
             </>
           )}
@@ -98,10 +74,12 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               </div>
             </>
           )}
+
+          <div className= 'ResumeArbitrableTx-ContentNewArbitrableTx-submit'>
+            {children}
+          </div>
         </div>
-        <div className= 'ResumeArbitrableTx-section-submit'>
-          {children}
-        </div>
+
       </div>
       {footer}
     </>

@@ -106,6 +106,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         title: metaEvidenceDecoded.title,
         description: metaEvidenceDecoded.description,
         sender: parties['Party B'],
+        otherParty: 'Sender',
+        otherPartyAddress: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
         arbitrator: metaEvidenceDecoded.arbitrator,
@@ -256,6 +258,9 @@ function* fetchArbitrabletx({ payload: { id } }) {
       if (metaEvidenceArchonEvidences.length > 0)
         arbitrableTransaction.evidences = metaEvidenceArchonEvidences
     }
+
+    arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
+    arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.receiver ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
 
     disputeStatus = yield call(
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call

@@ -2,49 +2,50 @@
   border: 1px solid #ccc;
   box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
   border-radius: 3px;
-  padding: 1em 2em 2em 2em;
-  display: grid;
-  grid-gap: 16px;
-  grid-template-rows: 1fr auto;
-  grid-template-areas: "h1" "content" "submit"; }
+  padding: 1em 2em 2em 2em; }
   .ResumeArbitrableTx-h1 {
-    grid-area: h1;
     color: #4004A3;
     font-size: 18px;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid #efefef;
     line-height: 3em; }
   .ResumeArbitrableTx-ContentNewArbitrableTx {
+    padding: 0.3em 0 1em 0;
     display: grid;
-    grid-gap: 16px;
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: auto;
-    align-items: stretch;
-    justify-items: stretch; }
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-areas: "nameTitle nameTitle nameTitle" "contentTitle contentTitle contentTitle" "nameSender nameAmount nameAmount" "contentSender contentAmount contentAmount" "nameFile nameFile nameFile" "contentFile contentFile contentFile" "nameDescription nameDescription nameAllDescription" "contentDescription contentDescription contentDescription" "nameShare nameShare nameShare" "linkShare linkShare submit"; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-title {
+      grid-area: nameTitle; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-title {
+      grid-area: contentTitle; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-sender {
+      grid-area: nameSender; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-sender {
+      grid-area: contentSender; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-amount {
+      grid-area: nameAmount; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-amount {
+      grid-area: contentAmount; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-file {
+      grid-area: nameFile; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-file {
+      grid-area: contentFile; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-description {
+      grid-area: nameDescription; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description {
+      grid-area: nameAllDescription; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-description {
+      grid-area: contentDescription; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
+      grid-area: nameShare; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
+      grid-area: linkShare; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-submit {
+      grid-area: submit;
+      text-align: right; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name {
-      grid-column: 1 / 2;
-      text-align: right;
-      font-size: 0.85em;
+      font-size: 0.8em;
       color: #4a4a4a;
-      text-align: right;
-      grid-column: 1 / 2;
-      padding-right: 2em;
-      line-height: 40px; }
+      padding: 0.8em 0 0.6em 0; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content {
       font-size: 1em;
-      grid-column: 2 / 3;
-      line-height: 40px; }
-  .ResumeArbitrableTx-section-submit {
-    grid-area: submit;
-    margin-top: 1em;
-    text-align: right; }
-    .ResumeArbitrableTx-section-submit-btn {
-      float: right;
-      font-size: 0.9em;
-      color: #fff;
-      border: 0;
-      float: right;
-      background: #009aff;
-      padding: 13px 24px 13px 14px;
-      border-radius: 3px; }
-    .ResumeArbitrableTx-section-submit-btn:hover {
-      cursor: pointer; }
+      padding-bottom: 1em; }

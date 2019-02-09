@@ -5,64 +5,94 @@
   padding: 1em 2em 2em 2em;
 
   &-h1 {
-    grid-area: h1;
     color: #4004A3;
     font-size: 18px;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid #efefef;
     line-height: 3em;
   }
 
-  display: grid;
-  grid-gap: 16px;
-  grid-template-rows: 1fr auto;
-
-  grid-template-areas:
-    "h1"
-    "content"
-    "submit";
-
   &-ContentNewArbitrableTx {
+    padding: 0.3em 0 1em 0;
     display: grid;
-    grid-gap: 16px;
-    grid-template-columns: 200px 1fr;
-    grid-template-rows: auto;
-    align-items: stretch;
-    justify-items: stretch;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-areas:
+      "nameTitle nameTitle nameTitle"
+      "contentTitle contentTitle contentTitle"
+      "nameSender nameAmount nameAmount"
+      "contentSender contentAmount contentAmount"
+      "nameFile nameFile nameFile"
+      "contentFile contentFile contentFile"
+      "nameDescription nameDescription nameAllDescription"
+      "contentDescription contentDescription contentDescription"
+      "nameShare nameShare nameShare"
+      "linkShare linkShare submit";
+
+    &-name-title {
+      grid-area: nameTitle;
+    }
+
+    &-content-title {
+      grid-area: contentTitle;
+    }
+
+    &-name-sender {
+      grid-area: nameSender;
+    }
+
+    &-content-sender {
+      grid-area: contentSender;
+    }
+
+    &-name-amount {
+      grid-area: nameAmount;
+    }
+
+    &-content-amount {
+      grid-area: contentAmount;
+    }
+
+    &-name-file {
+      grid-area: nameFile;
+    }
+
+    &-content-file {
+      grid-area: contentFile;
+    }
+
+    &-name-description {
+      grid-area: nameDescription;
+    }
+
+    &-name-all-description {
+      grid-area: nameAllDescription;
+    }
+
+    &-content-description {
+      grid-area: contentDescription;
+    }
+
+    &-name-share {
+      grid-area: nameShare;
+    }
+
+    &-link-share {
+      grid-area: linkShare;
+    }
+
+    &-submit {
+      grid-area: submit;
+      text-align: right;
+    }
 
     &-name {
-      grid-column: 1 / 2;
-      text-align: right;
-      font-size: 0.85em;
+      font-size: 0.8em;
       color: #4a4a4a;
-      text-align: right;
-      grid-column: 1 / 2;
-      padding-right: 2em;
-      line-height: 40px;
+      padding: 0.8em 0 0.6em 0;
     }
 
     &-content {
       font-size: 1em;
-      grid-column: 2 / 3;
-      line-height: 40px;
-    }
-  }
-
-  &-section-submit {
-    grid-area: submit;
-    margin-top: 1em;
-    text-align: right;
-    &-btn {
-      float: right;
-      font-size: 0.9em;
-      color: #fff;
-      border: 0;
-      float: right;
-      background: #009aff;
-      padding: 13px 24px 13px 14px;
-      border-radius: 3px;
-    }
-    &-btn:hover {
-      cursor: pointer;
+      padding-bottom: 1em;
     }
   }
 }
