@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import Attachment from '../../components/attachment'
+import Button from '../../components/button'
 import { ReactComponent as Copy } from '../../assets/copy.svg'
 import { ReactComponent as MailBill } from '../../assets/mail_bill.svg'
+import { shortUrl } from '../../utils/short-url'
 
 import './resume-arbitrable-tx.css'
 
@@ -17,7 +19,6 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title'>Title</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
-{console.log({arbitrabletx})}
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-sender'>{arbitrabletx.otherParty}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-sender'>{arbitrabletx.otherPartyAddress}</div>
 
@@ -51,8 +52,33 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           {arbitrabletx.shareLink && (
             <>
               <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-share'>Share Transaction</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-link-share'>
-                {arbitrabletx.shareLink}
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-link-share'>
+                <div className='ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url'>
+                  {shortUrl(arbitrabletx.shareLink)}
+                </div>
+                {
+                  /*
+                    Logical shortcut for only displaying the
+                    button if the copy command exists
+                  */
+                  document.queryCommandSupported('copy') && (
+                    !copied ? (
+                      <Button
+                        style={{marginLeft: '-3px', paddingTop: '12px', boxSizing: 'border-box', width: '130px'}}
+                        onClick={() => {navigator.clipboard.writeText(arbitrabletx.shareLink) && setCopied(true)}}
+                      >
+                        Copy
+                      </Button>
+                    ) : (
+                      <Button
+                        disabled={true}
+                        style={{marginLeft: '-3px', paddingTop: '12px', boxSizing: 'border-box', width: '130px'}}
+                      >
+                        Copied
+                      </Button>
+                    )
+                  )	
+                }
               </div>
             </>
           )}

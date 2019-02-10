@@ -63,7 +63,7 @@ export default (
                           {({isSubmitting}) => (
                             <Form className={'PayOrReimburseArbitrableTx'}>
                               <Button type='submit' disabled={isSubmitting}>
-                              Raise a dispute
+                                Raise a dispute
                               </Button>
                             </Form>
                           )}
