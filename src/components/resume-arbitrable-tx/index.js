@@ -44,7 +44,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           {arbitrabletx.description && (
             <>
               <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name-description'>Description</div>
-              <div className={`ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description`} onClick={() => setShowAllDescription(!showAllDescription)}><Arrow className={`${showAllDescription ? 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all' : 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all'}`} onClick={() => setShowAllDescription(!showAllDescription.replace(/\r?\n/g, '<br />'))} /></div>
+              <div className={`ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description`} onClick={() => setShowAllDescription(!showAllDescription)}><Arrow className={`${showAllDescription ? 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all' : 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all'}`} onClick={() => setShowAllDescription(!showAllDescription)} /></div>
               <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-description'><p className={`${showAllDescription && 'ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short'}`}>{arbitrabletx.description}</p></div>
             </>
           )}
@@ -80,12 +80,12 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                     )
                   )	
                 }
-                <a	
-                  href=	
-                    {`	
-                      mailto:alice%40example.com	
-                      ?subject=Invoice ${encodeURIComponent(arbitrabletx.title)}	
-                      &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(arbitrabletx.title)}%20invoice: ${arbitrabletx.shareLink}.%0A%0ABest%2C%0A	
+                <a
+                  href=
+                    {`
+                      mailto:alice%40example.com
+                      ?subject=Invoice ${encodeURIComponent(arbitrabletx.title)}
+                      &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(arbitrabletx.title)}%20invoice: ${arbitrabletx.shareLink}.%0A%0ABest%2C%0A
                     `}
                 >
                   <Button

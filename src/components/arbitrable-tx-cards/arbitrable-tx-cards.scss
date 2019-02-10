@@ -79,7 +79,7 @@
       &-description {
         flex-grow: 1;
         &-p {
-          @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 5, $bgColor: white);
+          @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
           margin: 0 1.15em 1em 1.15em;
         }
       }
