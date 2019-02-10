@@ -1,3 +1,4 @@
+/* mixin for multiline */
 .ResumeArbitrableTx {
   border: 1px solid #ccc;
   box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
@@ -30,11 +31,69 @@
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-file {
       grid-area: contentFile; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-description {
-      grid-area: nameDescription; }
+      grid-area: nameDescription;
+      padding: 1em 2em 1em 2em;
+      color: #4a4a4a;
+      background: #f8f8f8;
+      border: 1px solid #d9d9d9;
+      border-bottom: 0;
+      border-right: 0;
+      box-sizing: border-box;
+      border-top-left-radius: 3px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description {
-      grid-area: nameAllDescription; }
+      grid-area: nameAllDescription;
+      color: #4a4a4a;
+      background: #f8f8f8;
+      border: 1px solid #d9d9d9;
+      border-bottom: 0;
+      border-left: 0;
+      box-sizing: border-box;
+      border-top-right-radius: 3px;
+      cursor: pointer;
+      text-align: right;
+      padding-right: 2em;
+      padding-top: 0.5em; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all {
+        transform: rotate(360deg);
+        transition-duration: 0.8s;
+        transition-property: transform; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all {
+        transform: rotate(180deg);
+        transition-duration: 0.8s;
+        transition-property: transform; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-description {
-      grid-area: contentDescription; }
+      grid-area: contentDescription;
+      padding: 0 2em 1em 2em;
+      color: #4a4a4a;
+      background: #f8f8f8;
+      border: 1px solid #d9d9d9;
+      border-top: 0;
+      box-sizing: border-box;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      margin-bottom: 1em;
+      white-space: pre-line; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short {
+        overflow: hidden;
+        position: relative;
+        line-height: 1.2em;
+        max-height: 12em;
+        text-align: justify;
+        margin-right: -1em;
+        padding-right: 1em; }
+        .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short:before {
+          content: '...';
+          position: absolute;
+          right: 0;
+          bottom: 0; }
+        .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          width: 1em;
+          height: 1em;
+          margin-top: 0.2em;
+          background: white; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
       grid-area: nameShare; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
@@ -47,7 +106,8 @@
         border-right: none;
         padding-left: 0.8em;
         line-height: 40px;
-        width: 250px; }
+        width: 250px;
+        user-select: none; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-submit {
       grid-area: submit;
       text-align: right; }

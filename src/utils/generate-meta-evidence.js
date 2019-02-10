@@ -6,10 +6,12 @@ export default ({
   fileURI,
   fileHash,
   amount,
-  arbitrator
+  arbitrator,
+  subCategory
 }) => (
   {
     category: 'Escrow',
+    subCategory,
     title,
     description,
     fileURI,

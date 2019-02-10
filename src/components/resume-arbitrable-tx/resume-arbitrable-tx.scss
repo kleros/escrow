@@ -1,3 +1,29 @@
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
+  }
+}
+
 .ResumeArbitrableTx {
   border: 1px solid #ccc;
   box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
@@ -61,14 +87,60 @@
 
     &-name-description {
       grid-area: nameDescription;
+      padding: 1em 2em 1em 2em;
+      color: #4a4a4a;
+      background: #f8f8f8;
+      border: 1px solid #d9d9d9;
+      border-bottom: 0;
+      border-right: 0;
+      box-sizing: border-box;
+      border-top-left-radius: 3px;
     }
 
     &-name-all-description {
       grid-area: nameAllDescription;
+      color: #4a4a4a;
+      background: #f8f8f8;
+      border: 1px solid #d9d9d9;
+      border-bottom: 0;
+      border-left: 0;
+      box-sizing: border-box;
+      border-top-right-radius: 3px;
+      cursor: pointer;
+      text-align: right;
+      padding-right: 2em;
+      padding-top: 0.5em;
+
+      &-show-all {
+        transform: rotate(360deg);
+        transition-duration: 0.8s;
+        transition-property: transform;
+      }
+
+      &-not-show-all {
+        transform: rotate(180deg);
+        transition-duration: 0.8s;
+        transition-property: transform;
+      }
     }
 
     &-content-description {
       grid-area: contentDescription;
+      padding: 0 2em 1em 2em;
+      color: #4a4a4a;
+      background: #f8f8f8;
+      border: 1px solid #d9d9d9;
+      border-top: 0;
+      box-sizing: border-box;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      margin-bottom: 1em;
+      white-space: pre-line;
+
+
+      &-p-short {
+        @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 10, $bgColor: white);
+      }
     }
 
     &-name-share {
@@ -86,6 +158,7 @@
         padding-left: 0.8em;
         line-height: 40px;
         width: 250px;
+        user-select: none;
       }
     }
 
