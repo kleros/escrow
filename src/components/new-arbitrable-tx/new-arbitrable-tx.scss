@@ -28,7 +28,7 @@
       "labelFile labelFile"
       "inputFile inputFile"
       "errorFile helpFile"
-      "labelDescription labelDescription"
+      "labelDescription templateDescription"
       "inputDescription inputDescription"
       "errorDescription helpDescription"
       "submit submit";
@@ -95,14 +95,27 @@
 
     &-help-file {
       grid-area: helpFile;
+      margin-bottom: 2em;
     }
 
     &-label-description {
       grid-area: labelDescription;
     }
 
+    &-template-description-wrapper {
+      grid-area: templateDescription;
+      text-align: right;
+      &-content {
+        color: #4004a3;
+        display: inline-block;
+        width: 50%;
+        text-align: left;
+      }
+    }
+
     &-input-description {
       grid-area: inputDescription;
+      margin-top: 1em;
     }
 
     &-error-description {

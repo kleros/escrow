@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import Select from 'react-select'
 import Web3 from 'web3'
 
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
+import templates from '../../constants/templates'
 
 import './new-arbitrable-tx.css'
+
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: '1px solid #ccc',
+    color: state.isSelected ? '#fff' : '#4a4a4a',
+    background: state.isSelected ? '#4d00b4' : state.isFocused ? '#f5f5f5' : null
+  }),
+  singleValue: (provided, state) => {
+    const opacity = state.isDisabled ? 0.5 : 1
+    const transition = 'opacity 300ms'
+
+    return { ...provided, opacity, transition }
+  }
+}
 
 const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
   <div className='NewArbitrableTx'>
@@ -40,11 +57,12 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           errors.description = 'The maximum numbers of the characters for the description is 1,000,000 characters.'
         if (values.file.size > 5000000)
           errors.file = 'The maximum size of the file is 5Mo.'
+
         return errors
       }}
       onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)}
     >
-      {({ errors, setFieldValue, touched, isSubmitting }) => (
+      {({ errors, setFieldValue, touched, isSubmitting, values, handleChange }) => (
         <Form className='FormNewArbitrableTx'>
           <label htmlFor='title' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-title'>Title</label>
           <Field name='title' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-title' placeholder='Title' />
@@ -83,7 +101,36 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
             <br />If you need to add more than one file, zip them.
           </div>
           <label htmlFor='description' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-description'>Description</label>
-          <Field name='description' component='textarea' className='FormNewArbitrableTx-textarea FormNewArbitrableTx-input-description' />
+          <div className='FormNewArbitrableTx-template-description-wrapper'>
+            <Field
+              render={({ form }) => (
+                <Select
+                  className='FormNewArbitrableTx-template-description-wrapper-content'
+                  classNamePrefix='select'
+                  isClearable={false}
+                  isSearchable={true}
+                  name='templates'
+                  options={templates}
+                  styles={customStyles}
+                  onChange={e => form.setFieldValue('description', e.content)}
+                />
+              )}
+            />
+          </div>
+          <Field
+            name='description'
+            value={values.description}
+            render={({ field, form }) => (
+              <textarea
+                {...field}
+                className='FormNewArbitrableTx-textarea FormNewArbitrableTx-input-description'
+                onChange={e => {
+                  handleChange(e)
+                  form.setFieldValue('description', e.target.value)
+                }}
+              />
+            )}
+          />
           <ErrorMessage name='description' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-description' />
           <div className='FormNewArbitrableTx-submit'>
             <Button type='submit' disabled={touched.sender === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>

@@ -6,7 +6,6 @@ export default ({
   accounts, 
   arbitrabletx
 }) => {
-  console.log({arbitrabletx})
   // eslint-disable-next-line default-case
   switch(arbitrabletx.status) {
     case arbitrableTxConstants.NO_DISPUTE:

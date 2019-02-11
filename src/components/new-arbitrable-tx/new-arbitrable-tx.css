@@ -12,7 +12,7 @@
     padding: 0.3em 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelSender labelSender" "inputSender inputSender" "errorSender helpSender" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription labelDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
+    grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelSender labelSender" "inputSender inputSender" "errorSender helpSender" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
     .NewArbitrableTx .FormNewArbitrableTx-label-title {
       grid-area: labelTitle; }
     .NewArbitrableTx .FormNewArbitrableTx-input-title {
@@ -44,11 +44,21 @@
     .NewArbitrableTx .FormNewArbitrableTx-error-file {
       grid-area: errorFile; }
     .NewArbitrableTx .FormNewArbitrableTx-help-file {
-      grid-area: helpFile; }
+      grid-area: helpFile;
+      margin-bottom: 2em; }
     .NewArbitrableTx .FormNewArbitrableTx-label-description {
       grid-area: labelDescription; }
+    .NewArbitrableTx .FormNewArbitrableTx-template-description-wrapper {
+      grid-area: templateDescription;
+      text-align: right; }
+      .NewArbitrableTx .FormNewArbitrableTx-template-description-wrapper-content {
+        color: #4004a3;
+        display: inline-block;
+        width: 50%;
+        text-align: left; }
     .NewArbitrableTx .FormNewArbitrableTx-input-description {
-      grid-area: inputDescription; }
+      grid-area: inputDescription;
+      margin-top: 1em; }
     .NewArbitrableTx .FormNewArbitrableTx-error-description {
       grid-area: errorDescription; }
     .NewArbitrableTx .FormNewArbitrableTx-help-description {
