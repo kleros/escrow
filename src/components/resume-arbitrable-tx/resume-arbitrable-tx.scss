@@ -1,10 +1,9 @@
 /* mixin for multiline */
-@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: #f8f8f8){
   overflow: hidden;
   position: relative;
   line-height: $lineHeight;
   max-height: $lineHeight * $lineCount;
-  text-align: justify;
   margin-right: -1em;
   padding-right: 1em;
   &:before {
@@ -18,8 +17,7 @@
     position: absolute;
     right: 0;
     width: 1em;
-    height: 1em;
-    margin-top: 0.2em;
+    height: 1.2em;
     background: $bgColor;
   }
 }
@@ -121,6 +119,7 @@
         transform: rotate(180deg);
         transition-duration: 0.8s;
         transition-property: transform;
+
       }
     }
 
@@ -136,10 +135,10 @@
       border-bottom-right-radius: 3px;
       margin-bottom: 1em;
       white-space: pre-line;
-
-
+      min-height: 3em;
+      line-height: 1.2em;
       &-p-short {
-        @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 10, $bgColor: white);
+        @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 10);
       }
     }
 

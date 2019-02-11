@@ -1,0 +1,29 @@
+.AgreementFully {
+  background: linear-gradient(52.79deg, #1e075f 29.65%, #4004a3 76.51%);
+  color: #fff;
+  text-align: center;
+
+  &-message {
+    text-align: center;
+    background-image: url(../../assets/ellipsis.svg);
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: center;
+    min-height: 190px;
+    p {
+      font-size: 1.4em;
+      line-height: 1.4em;
+      padding: 2em 0 1em 0;
+    }
+    b {
+      font-weight: bold;
+    }
+  }
+
+  &-footer {
+    padding: 1em 2em;
+    text-align: left;
+    background: #1e075f;
+    min-height: 70px;
+  }
+}

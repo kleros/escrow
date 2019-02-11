@@ -6,7 +6,7 @@ import './success-arbitrable-tx.css'
 const SuccessArbitrableTx = ({ message, children, footer }) => (
   <div className='SuccessArbitrableTx'>
     <div className='SuccessArbitrableTx-message'>{message}</div>
-    {children}
+      {children}
     <div className='SuccessArbitrableTx-footer'>{footer}</div>
   </div>
 )

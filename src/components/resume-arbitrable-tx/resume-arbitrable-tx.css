@@ -72,13 +72,14 @@
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
       margin-bottom: 1em;
-      white-space: pre-line; }
+      white-space: pre-line;
+      min-height: 3em;
+      line-height: 1.2em; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short {
         overflow: hidden;
         position: relative;
         line-height: 1.2em;
         max-height: 12em;
-        text-align: justify;
         margin-right: -1em;
         padding-right: 1em; }
         .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short:before {
@@ -91,9 +92,8 @@
           position: absolute;
           right: 0;
           width: 1em;
-          height: 1em;
-          margin-top: 0.2em;
-          background: white; }
+          height: 1.2em;
+          background: #f8f8f8; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
       grid-area: nameShare; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
