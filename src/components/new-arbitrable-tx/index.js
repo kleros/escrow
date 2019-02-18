@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 import Web3 from 'web3'
+import Textarea from 'react-textarea-autosize'
 
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
@@ -121,9 +122,10 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
             name='description'
             value={values.description}
             render={({ field, form }) => (
-              <textarea
+              <Textarea
                 {...field}
                 className='FormNewArbitrableTx-textarea FormNewArbitrableTx-input-description'
+                minRows={10}
                 onChange={e => {
                   handleChange(e)
                   form.setFieldValue('description', e.target.value)

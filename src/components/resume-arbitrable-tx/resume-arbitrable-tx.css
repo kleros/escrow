@@ -10,7 +10,7 @@
     border-bottom: 1px solid #efefef;
     line-height: 3em; }
   .ResumeArbitrableTx-ContentNewArbitrableTx {
-    padding: 0.3em 0 1em 0;
+    padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-areas: "nameTitle nameTitle nameTitle" "contentTitle contentTitle contentTitle" "nameSender nameAmount nameAmount" "contentSender contentAmount contentAmount" "nameFile nameFile nameFile" "contentFile contentFile contentFile" "nameDescription nameDescription nameAllDescription" "contentDescription contentDescription contentDescription" "nameShare nameShare nameShare" "linkShare linkShare submit"; }
@@ -107,7 +107,8 @@
         padding-left: 0.8em;
         line-height: 40px;
         width: 250px;
-        user-select: none; }
+        user-select: none;
+        color: #4a4a4a; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-submit {
       grid-area: submit;
       text-align: right; }

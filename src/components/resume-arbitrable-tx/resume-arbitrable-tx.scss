@@ -36,7 +36,7 @@
   }
 
   &-ContentNewArbitrableTx {
-    padding: 0.3em 0 1em 0;
+    padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-areas:
@@ -158,6 +158,7 @@
         line-height: 40px;
         width: 250px;
         user-select: none;
+        color: #4a4a4a;
       }
     }
 

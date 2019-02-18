@@ -9,7 +9,7 @@
     border-bottom: 1px solid #efefef;
     line-height: 3em; }
   .NewArbitrableTx .FormNewArbitrableTx {
-    padding: 0.3em 0 1em 0;
+    padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelSender labelSender" "inputSender inputSender" "errorSender helpSender" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
@@ -89,8 +89,7 @@
       padding: 0 1em;
       font-size: 1em;
       font-family: Roboto;
-      padding: 0.7em 1em;
-      min-height: 10em; }
+      padding: 0.7em 1em; }
     .NewArbitrableTx .FormNewArbitrableTx-submit {
       grid-area: submit;
       padding-top: 2em;

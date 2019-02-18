@@ -8,7 +8,7 @@ import { ReactComponent as Bell } from '../../assets/bell.svg'
 import './email-form.css'
 
 const EmailForm = ({updateEmail, msg}) => (
-  <div className='NewArbitrableTx'>
+  <div className='EmailForm'>
     <h1 className='NewArbitrableTx-h1'><Bell style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />Notifications</h1>
     <p className='EmailForm-msg'>
       {msg}
@@ -30,13 +30,10 @@ const EmailForm = ({updateEmail, msg}) => (
       onSubmit={email => updateEmail(email)}
     >
       {({ isSubmitting, touched, errors }) => (
-        <Form className='FormNewArbitrableTx'>
+        <Form className='EmailForm-Form'>
           <div className='section-title'>
-            <label htmlFor='email'>Email</label>
-            <Field name='email' placeholder='Email' />
-            <ErrorMessage name='email' component='div' className='error'/>
-          </div>
-          <div className='section-submit'>
+            <Field name='email' placeholder='Email' className='EmailForm-input' />
+            <ErrorMessage name='email' component='div' className='EmailForm-error'/>
             <Button type='submit' disabled={isSubmitting || touched.email === undefined || Object.entries(errors).length > 0}>Enable Notifications</Button>
           </div>
         </Form>

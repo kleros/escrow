@@ -31,6 +31,7 @@
     "react-scripts": "2.1.1",
     "react-select": "^2.3.0",
     "react-spinners": "^0.4.7",
+    "react-textarea-autosize": "^7.1.0",
     "react-tooltip": "^3.9.2",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
