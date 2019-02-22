@@ -1145,11 +1145,12 @@
     openzeppelin-solidity "^1.12.0"
     solidity-bytes-utils "^0.0.5"
 
-"@kleros/kleros-interaction@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.6.1.tgz#5af14101d8908efa0f3c7f5abf25a35d13445550"
-  integrity sha512-RsJp185djhjiDOLwomLi9I6/XrkZQsFWqfva4bb86+qMQEuBPCMP00iEix5ngvOr+yHz/8uq4rNVP6/Igh25FA==
+"@kleros/kleros-interaction@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.7.0.tgz#f416c3b370345d5a8c2f95366d6d741c97ecda81"
+  integrity sha512-31q0mt2BvskI5w8A4hsOlnXgsNoG3EdWo4U5TI86070pjdGhrKw9mDIJRt9BR1YRUPyCCUegzTlG+owyRgV/LQ==
   dependencies:
+    "@realitio/realitio-contracts" "^2.0.5"
     minimetoken "^0.2.0"
     openzeppelin-solidity "^1.12.0"
     solidity-bytes-utils "^0.0.5"
@@ -1186,6 +1187,11 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
+
+"@realitio/realitio-contracts@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@realitio/realitio-contracts/-/realitio-contracts-2.0.5.tgz#785db5f1af064add917e91cd56f037243ff392a3"
+  integrity sha512-bt2dQxqd0VDqJwdOJn6t+dySGRe8YqaqmFwzWnB+R9ozREQPQ0kSfOnhFV7nFFZRdI2eEXP0M3p18l1WyGtrZg==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"

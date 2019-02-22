@@ -26,13 +26,13 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, payOrReimburse
   >
     {({isSubmitting}) => (
       <>
-        <Form className={'PayOrReimburseArbitrableTx'}>
-          <Field name='amount' placeholder='amount' style={{padding: '11px 22px 11px 12px', fontSize: '14px', marginRight: '-3px'}} />
+        <Form className={'PayOrReimburseArbitrableTx PayOrReimburseArbitrableTx-pay'}>
+          <Field name='amount' placeholder='amount' className='PayOrReimburseArbitrableTx-pay-field' />
           <Button type='submit' disabled={isSubmitting}>
             {payOrReimburse}
           </Button>
         </Form>
-        <ErrorMessage name='amount' component='div' className='error' style={{paddingTop: '10px', color: 'red', fontSize: '0.9em'}} />
+        <ErrorMessage name='amount' component='div' className='error' style={{paddingTop: '10px', paddingRight: '30px', color: 'red', fontSize: '0.9em', textAlign: 'right'}} />
       </>
     )}
   </Formik>

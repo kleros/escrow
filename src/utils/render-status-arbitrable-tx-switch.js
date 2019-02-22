@@ -4,7 +4,6 @@ import { Formik, Form } from 'formik'
 
 import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
-import PayOrReimburseArbitrableTx from '../components/pay-or-reimburse-arbitrable-tx'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
 import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
@@ -70,26 +69,13 @@ export default (
                               Did the other party <b>fully comply with the agreement</b>?
                             </p>
                           }
-                        >
-                          <>
-                            <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
-                              {({isSubmitting}) => (
-                                <Form className={'PayOrReimburseArbitrableTx'}>
-                                  <Button type='submit' disabled={isSubmitting} style={{width: '240px'}}>
-                                    Raise a dispute
-                                  </Button>
-                                </Form>
-                              )}
-                            </Formik>
-                            <span style={{padding: '3em'}}>&nbsp;</span>
-                            <PayOrReimburseArbitrableTx
-                              payOrReimburse={payOrReimburse}
-                              payOrReimburseFn={createPayOrReimburse}
-                              amount={arbitrabletx.data.amount}
-                              id={arbitrabletx.data.id}
-                            />
-                          </>
-                        </AgreementFully>
+                          payOrReimburse={payOrReimburse}
+                          payOrReimburseFn={createPayOrReimburse}
+                          amount={arbitrabletx.data.amount}
+                          id={arbitrabletx.data.id}
+                          createDispute={createDispute}
+                          arbitrabletx={arbitrabletx}
+                        />
                       }
                     />
                   )

@@ -1,3 +1,20 @@
 .PayOrReimburseArbitrableTx {
   display: inline-block;
+  &-pay:before {
+    content: 'ETH';
+    color: #444;
+    font-size: 14px;
+    position: relative;
+    right: -40px;
+  }
+  &-pay-field {
+    padding: 12px 4px 12px 45px; 
+    font-size: 14px;
+    margin-right: -3px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+  }
+  &-pay-field:focus { outline:0; }
 }

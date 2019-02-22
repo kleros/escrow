@@ -16,7 +16,7 @@ import isVideo from 'is-video'
 import './attachment.css'
 
 const Attachment = ({ URI, title, description }) => {
-  const [open, setModal] = useState(false);
+  const [open, setModal] = useState(false)
   let Component
   if (isTextPath(URI)) Component = Document
   else if (isImage(URI)) Component = Image
