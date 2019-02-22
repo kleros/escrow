@@ -34,18 +34,18 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
                 <div className='ArbitrableTxCards-cards-section-footer'>
                   {arbitrabletx.detailsStatus === statusArbitrableTxConstants.ONGOING_TRANSACTION && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Transaction in Progress</div>}
                   {arbitrabletx.detailsStatus === statusArbitrableTxConstants.TRANSACTION_COMPLETED && <div className='ArbitrableTxCards-cards-section-footer-completed'>Transaction Complete</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.EXECUTE_PAYMENT && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Make Payment</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.ONGOING_SETTLEMENT && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Settlement in Progress</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.EXECUTE_PAYMENT && <div className='ArbitrableTxCards-cards-section-footer-make-payment'>Make Payment</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.ONGOING_SETTLEMENT && <div className='ArbitrableTxCards-cards-section-footer-settlement-in-progress'>Settlement in Progress</div>}
                   {arbitrabletx.detailsStatus === statusArbitrableTxConstants.WAITING_RECEIVER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Waiting on Receiver</div>}
                   {arbitrabletx.detailsStatus === statusArbitrableTxConstants.WAITING_SENDER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Waiting on Sender</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.HAS_TO_PAY_RECEIVER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Has to pay</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.HAS_TO_PAY_SENDER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Has to pay</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.TIMEOUT_SENDER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Timeout</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.TIMEOUT_RECEIVER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Timemout</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.ONGOING_DISPUTE && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Ongoing dispute</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.APPEALABLE_LOOSER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Appeal decision available</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.HAS_TO_PAY_RECEIVER && <div className='ArbitrableTxCards-cards-section-footer-make-payment'>Receiver has to pay</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.HAS_TO_PAY_SENDER && <div className='ArbitrableTxCards-cards-section-footer-make-payment'>Sender has to pay</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.TIMEOUT_SENDER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Time left for Receiver to respond</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.TIMEOUT_RECEIVER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Time left for Sender to respond</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.ONGOING_DISPUTE && <div className='ArbitrableTxCards-cards-section-footer-dispute'>Ongoing dispute</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.APPEALABLE_LOOSER && <div className='ArbitrableTxCards-cards-section-footer-dispute'>Appeal possible</div>}
                   {arbitrabletx.detailsStatus === statusArbitrableTxConstants.APPEALABLE_WINNER && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Wait if the other party do an appeal</div>}
-                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.DISPUTE_RESOLVED && <div className='ArbitrableTxCards-cards-section-footer-waiting'>Dispute Resolved</div>}
+                  {arbitrabletx.detailsStatus === statusArbitrableTxConstants.DISPUTE_RESOLVED && <div className='ArbitrableTxCards-cards-section-footer-completed'>Dispute Resolved</div>}
                 </div>
               </section>
             ))

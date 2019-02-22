@@ -86,30 +86,51 @@
 
       &-footer {
         background: #f8f8f8;
-        padding: 1em 0;
+        line-height: 3em;
+
         &-completed {
           color: #009aff;
           font-weight: 500;
         }
         &-completed:before {
-          padding: 0 0.5em 0 1em;
+          padding: 0 0.5em 0 1.4em;
           position: relative;
           content: url(../../assets/icon-success-blue.svg);
         }
         &-waiting {
           color: #4004a3;
           font-weight: 500;
-          padding-left: 1em;
         }
         &-waiting:before {
-          padding: 0 0.5em 0 1em;
+          padding: 0 0.5em 0 1.4em;
+          position: relative;
+          content: url(../../assets/time.svg);
+          top: 2px;
+        }
+        &-make-payment {
+          color: #37d500;
+          font-weight: 500;
+        }
+        &-make-payment:before {
+          padding: 0 0.5em 0 1.4em;
+          position: relative;
+          content: url(../../assets/make-payment.svg);
+        }
+        &-settlement-in-progress {
+          color: #ff9900;
+          font-weight: 500;
+        }
+        &-settlement-in-progress:before {
+          padding: 0 0.5em 0 1.4em;
+          position: relative;
+          content: url(../../assets/settlement-in-progress.svg);
         }
         &-dispute {
           color: #ff0404;
           font-weight: 500;
         }
         &-dispute:before {
-          padding: 0 0.5em 0 1em;
+          padding: 0 0.5em 0 1.4em;
           position: relative;
           content: url(../../assets/icon-dispute-red.svg);
         }

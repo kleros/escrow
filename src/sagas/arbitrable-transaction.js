@@ -121,7 +121,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
  * Creates a new arbitrableTx.
  * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
  */
-function* createArbitrabletx({ type, payload: { arbitrabletxReceived, metaEvidenceIPFSHash } }) {
+function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFSHash } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const arbitrableTransactionCount = yield call(

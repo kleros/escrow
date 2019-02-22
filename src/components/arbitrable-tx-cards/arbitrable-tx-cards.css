@@ -66,25 +66,41 @@
           background: white; }
     .ArbitrableTxCards-cards-section-footer {
       background: #f8f8f8;
-      padding: 1em 0; }
+      line-height: 3em; }
       .ArbitrableTxCards-cards-section-footer-completed {
         color: #009aff;
         font-weight: 500; }
       .ArbitrableTxCards-cards-section-footer-completed:before {
-        padding: 0 0.5em 0 1em;
+        padding: 0 0.5em 0 1.4em;
         position: relative;
         content: url(../../assets/icon-success-blue.svg); }
       .ArbitrableTxCards-cards-section-footer-waiting {
         color: #4004a3;
-        font-weight: 500;
-        padding-left: 1em; }
+        font-weight: 500; }
       .ArbitrableTxCards-cards-section-footer-waiting:before {
-        padding: 0 0.5em 0 1em; }
+        padding: 0 0.5em 0 1.4em;
+        position: relative;
+        content: url(../../assets/time.svg);
+        top: 2px; }
+      .ArbitrableTxCards-cards-section-footer-make-payment {
+        color: #37d500;
+        font-weight: 500; }
+      .ArbitrableTxCards-cards-section-footer-make-payment:before {
+        padding: 0 0.5em 0 1.4em;
+        position: relative;
+        content: url(../../assets/make-payment.svg); }
+      .ArbitrableTxCards-cards-section-footer-settlement-in-progress {
+        color: #ff9900;
+        font-weight: 500; }
+      .ArbitrableTxCards-cards-section-footer-settlement-in-progress:before {
+        padding: 0 0.5em 0 1.4em;
+        position: relative;
+        content: url(../../assets/settlement-in-progress.svg); }
       .ArbitrableTxCards-cards-section-footer-dispute {
         color: #ff0404;
         font-weight: 500; }
       .ArbitrableTxCards-cards-section-footer-dispute:before {
-        padding: 0 0.5em 0 1em;
+        padding: 0 0.5em 0 1.4em;
         position: relative;
         content: url(../../assets/icon-dispute-red.svg); }
     .ArbitrableTxCards-cards-section-new {
