@@ -4,21 +4,40 @@ import { Formik, Form } from 'formik'
 import Button from '../button'
 import Modal from 'react-responsive-modal'
 
-import 'react-rangeslider/lib/index.css'
-
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
+
+
+import Slider from 'react-rangeslider'
+
+import 'react-rangeslider/lib/index.css'
 
 import './agreement-fully.css'
 
 const AgreementFully = ({
   message, 
-  children, 
   createDispute,
   arbitrabletx,
   payOrReimburse,
   payOrReimburseFn
 }) => {
   const [open, setModal] = useState(false)
+  const [percent, setPercent] = useState(50) // set Percent
+  const [amount, setAmount] = useState(0.5 * arbitrabletx.data.amount) // set Percent
+  const setPercentByAmount = amount => {
+    if (amount <= arbitrabletx.data.amount) {
+      setAmount(amount)
+      setPercent(amount * 100 / arbitrabletx.data.amount)
+    } else {
+      setAmount(arbitrabletx.data.amount)
+      setPercent(100)
+    }
+  }
+
+  const setAmountByPercent = percent => {
+    setPercent(percent)
+    setAmount(1 * Number(percent / 100 * arbitrabletx.data.amount).toFixed(18))
+  }
+
   return (
     <div className='AgreementFully'>
       <Modal
@@ -34,6 +53,16 @@ const AgreementFully = ({
           Propose a settlement by choosing the escrow amount percentage to send to the other party.
           <br />If this is declined, the case will go to court.
         </p>
+        <Slider
+          min={0}
+          max={100}
+          labels={{0: '0%', 100: '100%'}}
+          value={percent}
+          onChange={setAmountByPercent}
+        />
+        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>
+          You are offering <span style={{color: '#009aff'}}>{percent.toFixed()}%</span>. The other party must accept before processing.
+        </p>
         <div style={{textAlign: 'center'}}>
         <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
           {({isSubmitting}) => (
@@ -44,18 +73,22 @@ const AgreementFully = ({
             </Form>
           )}
         </Formik>
-        <span style={{padding: '3em'}}>&nbsp;</span>
+        <span style={{padding: '1em'}}>&nbsp;</span>
         <PayOrReimburseArbitrableTx
           payOrReimburse={payOrReimburse}
           payOrReimburseFn={payOrReimburseFn}
-          amount={arbitrabletx.data.amount}
+          amount={amount}
+          amountMax={arbitrabletx.data.amount}
           id={arbitrabletx.data.id}
+          onChangeAmount={setPercentByAmount}
         />
         </div>
-        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 0'}}>Raise dispute: You will need to pay the arbitration fee of 0.01ETH.</p>
+        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>Raise dispute: You will need to pay the arbitration fee of 0.01ETH.</p>
       </Modal>
       <div className='AgreementFully-message'>
-        {message}
+        <p>
+          Did the other party <b>fully comply with the agreement</b>?
+        </p>
         <Button onClick={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)} style={{width: '220px'}}>Yes</Button>
         <span style={{padding: '3em'}}>&nbsp;</span>
         <Button onClick={() => setModal(!open)} style={{width: '220px'}}>No</Button>

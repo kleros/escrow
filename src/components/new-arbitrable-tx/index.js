@@ -135,6 +135,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           />
           <ErrorMessage name='description' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-description' />
           <div className='FormNewArbitrableTx-submit'>
+            {touched.description = true}
             <Button type='submit' disabled={touched.sender === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
           </div>
         </Form>

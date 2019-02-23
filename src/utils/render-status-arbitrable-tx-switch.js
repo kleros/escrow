@@ -64,11 +64,6 @@ export default (
                       title={<React.Fragment>Resume</React.Fragment>}
                       footer={
                         <AgreementFully
-                          message={
-                            <p>
-                              Did the other party <b>fully comply with the agreement</b>?
-                            </p>
-                          }
                           payOrReimburse={payOrReimburse}
                           payOrReimburseFn={createPayOrReimburse}
                           amount={arbitrabletx.data.amount}

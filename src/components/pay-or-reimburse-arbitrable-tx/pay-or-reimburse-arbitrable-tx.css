@@ -13,6 +13,19 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border: 1px solid #d9d9d9;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    width: 230px; }
   .PayOrReimburseArbitrableTx-pay-field:focus {
     outline: 0; }
+
+.rangeslider {
+  box-sizing: border-box;
+  margin: 10em;
+  background: red; }
+
+.rangeslider-horizontal {
+  position: relative;
+  left: 5%;
+  width: 90%; }
+  .rangeslider-horizontal .rangeslider__fill {
+    background-color: #009AFF !important; }

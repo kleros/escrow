@@ -226,7 +226,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
   )
 
   arbitrableTransaction.id = id
-  arbitrableTransaction.metaEvidence = null
   arbitrableTransaction.evidences = null
 
   arbitrableTransaction.amount = web3.utils.fromWei(arbitrableTransaction.amount.toString(), 'ether')
