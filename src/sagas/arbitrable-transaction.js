@@ -266,19 +266,19 @@ function* fetchArbitrabletx({ payload: { id } }) {
     )
 
     if (
-      disputeStatus.toString() === disputeConstants.SOLVED.toString()
+      disputeStatus.toString() === disputeConstants.SOLVED.toString() 
       || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
     ) {
       ruling = yield call(
         arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
       )
 
-      /* TODO returns value if if there is an appeal in progress */
+      /* TODO returns value if there is an appeal in progress */
       // const getAppealDecision = yield call(
       //   archon.arbitrator.getAppealDecision,
       //   ARBITRATOR_ADDRESS,
-      //   disputeId, // The unique identifier of the dispute
-      //   appealNumber // The appeal number. Must be >= 1
+      //   arbitrableTransaction.disputeId, // The unique identifier of the dispute
+      //   1 // The appeal number. Must be >= 1
       // )
     }
 

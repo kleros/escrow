@@ -133,7 +133,7 @@ export default (
         </React.Fragment>
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
-      return (
+      return arbitrabletx.data.ruling === null ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment>Dispute Ongoing</React.Fragment>}
@@ -144,6 +144,89 @@ export default (
             />
           }
         />
+      ) : (
+        <ResumeArbitrableTx
+          arbitrabletx={arbitrabletx.data}
+          title={<React.Fragment>Dispute Ongoing</React.Fragment>}
+          footer={
+            <DisputeArbitrableTx
+              message={
+                <>
+                  {
+                    arbitrabletx.data.ruling === '0' && (
+                      <>
+                        <p>Jurors refused to vote</p>
+                        <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                          {({isSubmitting}) => (
+                            <Form className={'PayOrReimburseArbitrableTx'}>
+                              <Button type='submit' disabled={isSubmitting}>
+                                Appeal the decision
+                              </Button>
+                            </Form>
+                          )}
+                        </Formik>
+                      </>
+                    )
+                  }
+                  {accounts[0] === arbitrabletx.data.receiver && (
+                    <>
+                      {arbitrabletx.data.ruling === '1' ? (
+                        <>
+                          <p>Congratulations! You <b>won</b> the dispute.</p>
+                          <p style={{fontSize: '0.8em'}}>
+                            For information, the other party can appeal the decision.
+                            <br />You can create new evidences to avoid to lose the appeal, if any.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p>You <b>lost</b> the dispute.</p>
+                          <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                            {({isSubmitting}) => (
+                              <Form className={'PayOrReimburseArbitrableTx'}>
+                                <Button type='submit' disabled={isSubmitting}>
+                                  Appeal the decision
+                                </Button>
+                              </Form>
+                            )}
+                          </Formik>
+                        </>
+                      )}
+                    </>
+                  )}
+                  {accounts[0] === arbitrabletx.data.sender && (
+                    <>
+                      {arbitrabletx.data.ruling === '2' ? (
+                        <>
+                          <p>Congratulations! You <b>won</b> the dispute.</p>
+                          <p style={{fontSize: '0.8em'}}>For information, the other party can appeal the decision.</p>
+                        </>
+                      ) : (
+                        <>
+                          <p>You <b>lost</b> the dispute.</p>
+                          <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                            {({isSubmitting}) => (
+                              <Form className={'PayOrReimburseArbitrableTx'}>
+                                <Button type='submit' disabled={isSubmitting}>
+                                  Appeal the decision
+                                </Button>
+                              </Form>
+                            )}
+                          </Formik>
+                        </>
+                      )}
+                    </>
+                  )}
+                  <NewEvidenceArbitrableTx
+                    id={arbitrabletx.data.id}
+                    submitEvidence={createEvidence}
+                  />
+                </>
+              }
+            />
+          }
+        />
+        
       )
     case arbitrableTxConstants.DISPUTE_RESOLVED:
       return arbitrabletx.data.ruling === null ? (
@@ -166,27 +249,9 @@ export default (
                 <React.Fragment>
                   {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
                   {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.receiver ? (
-                    <>
-                      <p>Congratulations! You <b>won</b> the dispute.</p>
-                      {arbitrabletx.data.appealable === true && (
-                        <p style={{fontSize: '0.8em'}}>For information, the other party can appeal the decision.</p>
-                      )}
-                    </>
+                    <p>Congratulations! You <b>won</b> the dispute.</p>
                   ) : (
-                    <>
-                      <p>You <b>lost</b> the dispute.</p>
-                      {arbitrabletx.data.appealable === true && (
-                        <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
-                          {({isSubmitting}) => (
-                            <Form className={'PayOrReimburseArbitrableTx'}>
-                              <Button type='submit' disabled={isSubmitting}>
-                                Appeal the decision
-                              </Button>
-                            </Form>
-                          )}
-                        </Formik>
-                      )}
-                    </>
+                    <p>You <b>lost</b> the dispute.</p>
                   )}
                 </React.Fragment>
               }
