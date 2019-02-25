@@ -273,13 +273,20 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
       )
 
-      /* TODO returns value if there is an appeal in progress */
+      /* FIXME returns value if there is an appeal in progress */
       // const getAppealDecision = yield call(
       //   archon.arbitrator.getAppealDecision,
       //   ARBITRATOR_ADDRESS,
-      //   arbitrableTransaction.disputeId, // The unique identifier of the dispute
+      //   parseInt(arbitrableTransaction.disputeId), // The unique identifier of the dispute
       //   1 // The appeal number. Must be >= 1
       // )
+      // For tests
+      // arbitratorEth.getPastEvents('AppealDecision', {
+      //   filter: {_disputeID: 0, _arbitrable: ARBITRABLE_ADDRESS}, // Using an array means OR: e.g. 20 or 23
+      //   fromBlock: 1,
+      //   toBlock: 'latest'
+      // }).then(events => console.log({events}))
+
     }
 
   } catch (err) {
@@ -289,7 +296,8 @@ function* fetchArbitrabletx({ payload: { id } }) {
   return {
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
-    party: accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender',
+    disputeStatus,
+    party: accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender', // TODO add `None` party.
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
   }
@@ -407,9 +415,8 @@ function* createAppeal({ payload: { id } }) {
   )
 
   yield call(
-    arbitratorEth.methods.appeal(
-      arbitrableTransaction.disputeId,
-      '0x00'
+    multipleArbitrableTransactionEth.methods.appeal(
+      id
     ).send,
     {
       from: accounts[0],

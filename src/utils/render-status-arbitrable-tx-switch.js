@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 
 import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
+import * as disputeConstants from '../constants/dispute'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
 import NewEvidenceArbitrableTx from '../components/new-evidence-arbitrable-tx'
 import ResumeArbitrableTx from '../components/resume-arbitrable-tx'
@@ -133,7 +134,7 @@ export default (
         </React.Fragment>
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
-      return arbitrabletx.data.ruling === null ? (
+      return arbitrabletx.data.disputeStatus === disputeConstants.WAITING.toString() ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<React.Fragment>Dispute Ongoing</React.Fragment>}
@@ -175,7 +176,6 @@ export default (
                           <p>Congratulations! You <b>won</b> the dispute.</p>
                           <p style={{fontSize: '0.8em'}}>
                             For information, the other party can appeal the decision.
-                            <br />You can create new evidences to avoid to lose the appeal, if any.
                           </p>
                         </>
                       ) : (
@@ -217,10 +217,6 @@ export default (
                       )}
                     </>
                   )}
-                  <NewEvidenceArbitrableTx
-                    id={arbitrabletx.data.id}
-                    submitEvidence={createEvidence}
-                  />
                 </>
               }
             />
