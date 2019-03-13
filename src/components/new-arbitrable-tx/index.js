@@ -34,7 +34,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
         title: '',
         description: '', 
         file: '',
-        sender: '',
+        receiver: '',
         amount: ''
       }}
       validate = {values => {
@@ -42,10 +42,10 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
         let errors = {}
         if (values.title.length > 55)
           errors.title = 'Number of characters for the title allowed is exceeded. The maximum is 55 characters.'
-        if (!values.sender)
-          errors.sender = 'Sender Address Required'
-        if (!Web3.utils.isAddress(values.sender))
-          errors.sender = 'Valid Address Required'
+        if (!values.receiver)
+          errors.receiver = 'Receiver Address Required'
+        if (!Web3.utils.isAddress(values.receiver))
+          errors.receiver = 'Valid Address Required'
         if (!values.amount)
           errors.amount = 'Amount Required'
         if (values.amount <= 0)
@@ -69,10 +69,10 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           <Field name='title' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-title' placeholder='Title' />
           <ErrorMessage name='title' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-title' />
           <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-title'>Eg. Marketing Services Agreement with John</div>
-          <label htmlFor='sender' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-sender'>Sender</label>
-          <Field name='sender' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-sender' placeholder='Sender Address' />
-          <ErrorMessage name='sender' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-sender' />
-          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-sender'>
+          <label htmlFor='receiver' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-receiver'>Receiver</label>
+          <Field name='receiver' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-receiver' placeholder='Receiver address of the arbitrable payment' />
+          <ErrorMessage name='receiver' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-receiver' />
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-receiver'>
             Enter the ETH address of the counterparty to this agreement.
           </div>
           <label htmlFor='amount' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-amount'>Amount (ETH)</label>
@@ -86,7 +86,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           </div>
           {/* hack Formik for file type */}
           {/* and store only the path on the file in the redux state */}
-          <label htmlFor='file' className='file' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-file'>Primary document</label>
+          <label htmlFor='file' className='file' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-file'>Agreement Documents</label>
           <input className='FormNewArbitrableTx-label FormNewArbitrableTx-input-file' id='file' style={{border: '#009AFF', padding: '0.6em 0', fontSize: '1em'}} name='file' type='file' onChange={e => {
               const file = e.currentTarget.files[0]
               return setFieldValue('file', {
@@ -136,7 +136,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           <ErrorMessage name='description' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-description' />
           <div className='FormNewArbitrableTx-submit'>
             {touched.description = true}
-            <Button type='submit' disabled={touched.sender === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
+            <Button type='submit' disabled={touched.receiver === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
           </div>
         </Form>
       )}

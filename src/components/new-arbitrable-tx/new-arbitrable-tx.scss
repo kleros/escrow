@@ -19,9 +19,9 @@
       "labelTitle labelTitle"
       "inputTitle inputTitle"
       "errorTitle helpTitle"
-      "labelSender labelSender"
-      "inputSender inputSender"
-      "errorSender helpSender"
+      "labelReceiver labelReceiver"
+      "inputReceiver inputReceiver"
+      "errorReceiver helpReceiver"
       "labelAmount labelAmount"
       "inputAmount inputAmount"
       "errorAmount helpAmount"
@@ -49,20 +49,20 @@
       grid-area: helpTitle;
     }
 
-    &-label-sender {
-      grid-area: labelSender;
+    &-label-receiver {
+      grid-area: labelReceiver;
     }
 
-    &-input-sender {
-      grid-area: inputSender;
+    &-input-receiver {
+      grid-area: inputReceiver;
     }
 
-    &-error-sender {
-      grid-area: errorSender;
+    &-error-receiver {
+      grid-area: errorReceiver;
     }
 
-    &-help-sender {
-      grid-area: helpSender;
+    &-help-receiver {
+      grid-area: helpReceiver;
     }
 
     &-label-amount {

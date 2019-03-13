@@ -1,6 +1,6 @@
 export default ({
-  receiver,
   sender,
+  receiver,
   title,
   description,
   fileURI,
@@ -22,8 +22,8 @@ export default ({
       descriptions: ['Select to return funds to Party A', 'Select to release funds to Party B'],
     },
     aliases: {
-      [receiver]: 'Party A',
-      [sender]: 'Party B'
+      [sender]: 'Party A',
+      [receiver]: 'Party B'
     },
     sender,
     receiver,

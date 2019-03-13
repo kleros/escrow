@@ -65,6 +65,7 @@ body, textarea {
 .loader {
 	position: relative;
 	margin: 20% 50%;
+	transform: rotate(90deg);
 }
 
 button:disabled,

@@ -19,8 +19,8 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
         <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title'>Title</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-sender'>{arbitrabletx.otherParty}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-sender'>{arbitrabletx.otherPartyAddress}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty'>{arbitrabletx.otherParty}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{arbitrabletx.otherPartyAddress}</div>
 
           {arbitrabletx.amount > 0 && (
             <>

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
-import { ClimbingBoxLoader } from 'react-spinners'
+import { BeatLoader } from 'react-spinners'
 
 import * as walletSelectors from '../../reducers/wallet'
 import * as walletActions from '../../actions/wallet'
@@ -19,12 +19,12 @@ const Settings = ({
       resource={settings}
       loading={
         <div className='loader'>
-          <ClimbingBoxLoader color={'gray'} />
+          <BeatLoader color={'gray'} />
         </div>
       }
       updating={
         <div className='loader'>
-          <ClimbingBoxLoader color={'gray'} />
+          <BeatLoader color={'gray'} />
         </div>
       }
       done={

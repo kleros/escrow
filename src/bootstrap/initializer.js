@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
-import { ClimbingBoxLoader } from 'react-spinners'
+import { PulseLoader } from 'react-spinners'
 
 import * as walletSelectors from '../reducers/wallet'
 import * as walletActions from '../actions/wallet'
@@ -35,7 +35,11 @@ class Initializer extends PureComponent {
     return (
       <RenderIf
         resource={accounts}
-        loading={<div className='loader'><ClimbingBoxLoader className='loader' color='gray' /></div>}
+        loading={
+          <div className='loader'>
+            <PulseLoader className='loader' color='gray' />
+          </div>
+        }
         done={children}
         failedLoading={<RequiresMetaMaskPage needsUnlock={Boolean(web3.eth)} />}
         extraValues={[

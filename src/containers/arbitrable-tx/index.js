@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { ClimbingBoxLoader } from 'react-spinners'
+import { BeatLoader } from 'react-spinners'
 import { connect } from 'react-redux'
 import { RenderIf } from 'lessdux'
 
@@ -66,7 +66,7 @@ class ArbitrableTx extends PureComponent {
         resource={arbitrabletx}
         loading={
           <div className='loader'>
-            <ClimbingBoxLoader color={'gray'} />
+            <BeatLoader color={'gray'} />
           </div>
         }
         done={
@@ -90,7 +90,7 @@ class ArbitrableTx extends PureComponent {
         }
         failedLoading={
           <div className='loader'>
-            <ClimbingBoxLoader color={'gray'} />
+            <BeatLoader color={'gray'} />
           </div>
         }
       />

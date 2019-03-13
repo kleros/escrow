@@ -42,8 +42,8 @@
     grid-template-areas:
       "nameTitle nameTitle nameTitle"
       "contentTitle contentTitle contentTitle"
-      "nameSender nameAmount nameAmount"
-      "contentSender contentAmount contentAmount"
+      "nameOtherParty nameAmount nameAmount"
+      "contentOtherParty contentAmount contentAmount"
       "nameFile nameFile nameFile"
       "contentFile contentFile contentFile"
       "nameDescription nameDescription nameAllDescription"
@@ -59,12 +59,13 @@
       grid-area: contentTitle;
     }
 
-    &-name-sender {
-      grid-area: nameSender;
+    &-name-otherParty {
+      grid-area: nameOtherParty;
+      text-transform: capitalize;
     }
 
-    &-content-sender {
-      grid-area: contentSender;
+    &-content-otherParty {
+      grid-area: contentOtherParty;
     }
 
     &-name-amount {

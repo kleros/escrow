@@ -48,8 +48,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
-      receiver: accounts[0],
-      sender: arbitrabletxForm.sender,
+      sender: accounts[0],
+      receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
@@ -58,8 +58,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
     })
   } else {
     metaEvidence = createMetaEvidence({
-      receiver: accounts[0],
-      sender: arbitrabletxForm.sender,
+      sender: accounts[0],
+      receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
@@ -105,8 +105,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
       arbitrabletxResumeForm: {
         title: metaEvidenceDecoded.title,
         description: metaEvidenceDecoded.description,
-        sender: parties['Party B'],
-        otherParty: 'Sender',
+        receiver: parties['Party B'],
+        otherParty: 'Receiver',
         otherPartyAddress: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
@@ -131,7 +131,7 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
       FEE_TIMEOUT,
-      arbitrabletxReceived.sender,
+      arbitrabletxReceived.receiver,
       `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
     ).send,
     {
@@ -186,7 +186,7 @@ function* fetchArbitrabletxs() {
 
       arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
       arbitrableTransaction.id = arbitrableTransactionId
-      arbitrableTransaction.party = accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender'
+      arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver'
       arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
       arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
       arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
@@ -246,6 +246,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
       arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
 
+    // NOTE: assuming disputeID is not equal to 0
     if (arbitrableTransaction.disputeId) {
       const metaEvidenceArchonEvidences = yield call(
         archon.arbitrable.getEvidence,
@@ -258,8 +259,10 @@ function* fetchArbitrabletx({ payload: { id } }) {
         arbitrableTransaction.evidences = metaEvidenceArchonEvidences
     }
 
-    arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
-    arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.receiver ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
+    arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
+    console.log('sender',arbitrableTransaction.sender)
+    console.log('acc',accounts[0])
+    arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.sender ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
 
     disputeStatus = yield call(
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
@@ -286,7 +289,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
       //   fromBlock: 1,
       //   toBlock: 'latest'
       // }).then(events => console.log({events}))
-
     }
 
   } catch (err) {
@@ -297,7 +299,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
     disputeStatus,
-    party: accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'sender', // TODO add `None` party.
+    party: accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver', // TODO: add `None` party.
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
   }

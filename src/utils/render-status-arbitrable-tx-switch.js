@@ -1,5 +1,5 @@
 import React from 'react'
-import { ClimbingBoxLoader } from 'react-spinners'
+import { BeatLoader } from 'react-spinners'
 import { Formik, Form } from 'formik'
 
 import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
@@ -258,7 +258,7 @@ export default (
     default:
       return (
         <div className='loader'>
-          <ClimbingBoxLoader color={'gray'} />
+          <BeatLoader color={'gray'} />
         </div>
       )
   }

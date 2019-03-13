@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { ClimbingBoxLoader } from 'react-spinners'
+import { BeatLoader } from 'react-spinners'
 import { RenderIf } from 'lessdux'
 
 import * as walletActions from '../../actions/wallet'
@@ -43,7 +43,7 @@ class Home extends PureComponent {
           resource={arbitrabletxs}
           loading={
             <div className='loader'>
-              <ClimbingBoxLoader color={'gray'} />
+              <BeatLoader color={'gray'} />
             </div>
           }
           done={

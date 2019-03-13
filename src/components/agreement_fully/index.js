@@ -89,7 +89,15 @@ const AgreementFully = ({
         <p>
           Did the other party <b>fully comply with the agreement</b>?
         </p>
-        <Button onClick={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)} style={{width: '220px'}}>Yes</Button>
+        <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)}>
+          {({isSubmitting}) => (
+            <Form className={'PayOrReimburseArbitrableTx'}>
+              <Button type='submit' disabled={isSubmitting} style={{width: '220px'}}>
+                Yes
+              </Button>
+            </Form>
+          )}
+        </Formik>
         <span style={{padding: '3em'}}>&nbsp;</span>
         <Button onClick={() => setModal(!open)} style={{width: '220px'}}>No</Button>
       </div>

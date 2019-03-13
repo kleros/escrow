@@ -12,7 +12,7 @@
     padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelSender labelSender" "inputSender inputSender" "errorSender helpSender" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
+    grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelReceiver labelReceiver" "inputReceiver inputReceiver" "errorReceiver helpReceiver" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
     .NewArbitrableTx .FormNewArbitrableTx-label-title {
       grid-area: labelTitle; }
     .NewArbitrableTx .FormNewArbitrableTx-input-title {
@@ -21,14 +21,14 @@
       grid-area: errorTitle; }
     .NewArbitrableTx .FormNewArbitrableTx-help-title {
       grid-area: helpTitle; }
-    .NewArbitrableTx .FormNewArbitrableTx-label-sender {
-      grid-area: labelSender; }
-    .NewArbitrableTx .FormNewArbitrableTx-input-sender {
-      grid-area: inputSender; }
-    .NewArbitrableTx .FormNewArbitrableTx-error-sender {
-      grid-area: errorSender; }
-    .NewArbitrableTx .FormNewArbitrableTx-help-sender {
-      grid-area: helpSender; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-receiver {
+      grid-area: labelReceiver; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-receiver {
+      grid-area: inputReceiver; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-receiver {
+      grid-area: errorReceiver; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-receiver {
+      grid-area: helpReceiver; }
     .NewArbitrableTx .FormNewArbitrableTx-label-amount {
       grid-area: labelAmount; }
     .NewArbitrableTx .FormNewArbitrableTx-input-amount {
