@@ -47,7 +47,7 @@ export default (
                   accounts[0] === arbitrabletx.data.sender && Date.now() - arbitrabletx.data.lastInteraction * 1000 >= arbitrabletx.data.timeoutPayment * 1000 ? (
                     <ResumeArbitrableTx
                       arbitrabletx={arbitrabletx.data}
-                      title={<React.Fragment>Resume</React.Fragment>}
+                      title={<React.Fragment>Resume - Execute Payment</React.Fragment>}
                     >
                       <Formik onSubmit={() => createExecuteTx(arbitrabletx.data.id)}>
                         {({isSubmitting}) => (
@@ -62,7 +62,7 @@ export default (
                   ) : (
                     <ResumeArbitrableTx
                       arbitrabletx={arbitrabletx.data}
-                      title={<React.Fragment>Resume</React.Fragment>}
+                      title={<React.Fragment>Transaction Ongoing</React.Fragment>}
                       footer={
                         <AgreementFully
                           payOrReimburse={payOrReimburse}
@@ -71,6 +71,7 @@ export default (
                           id={arbitrabletx.data.id}
                           createDispute={createDispute}
                           arbitrabletx={arbitrabletx}
+                          accounts={accounts}
                         />
                       }
                     />
@@ -222,7 +223,6 @@ export default (
             />
           }
         />
-        
       )
     case arbitrableTxConstants.DISPUTE_RESOLVED:
       return arbitrabletx.data.ruling === null ? (

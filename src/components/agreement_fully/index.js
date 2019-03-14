@@ -18,7 +18,8 @@ const AgreementFully = ({
   createDispute,
   arbitrabletx,
   payOrReimburse,
-  payOrReimburseFn
+  payOrReimburseFn,
+  accounts
 }) => {
   const [open, setModal] = useState(false)
   const [percent, setPercent] = useState(50) // set Percent
@@ -87,7 +88,13 @@ const AgreementFully = ({
       </Modal>
       <div className='AgreementFully-message'>
         <p>
-          Did the other party <b>fully comply with the {arbitrabletx.data.amount === arbitrabletx.data.originalAmount ? 'agreement' : 'settlement'}</b>?
+          {
+            arbitrabletx.data.sender === accounts[0] ? (
+              <>Did the other party <b>fully comply with the {arbitrabletx.data.amount === arbitrabletx.data.originalAmount ? 'agreement' : 'settlement'}</b>?</>
+            ) : (
+              <>Do you want to <b>fully reimburse</b> the sender?</>
+            )
+          }
         </p>
         <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)}>
           {({isSubmitting}) => (
@@ -102,8 +109,20 @@ const AgreementFully = ({
         <Button onClick={() => setModal(!open)} style={{width: '220px'}}>No</Button>
       </div>
       <div className='AgreementFully-footer' style={{fontSize: '14px', paddingTop: '1em'}}>
-        1. If you say yes, you'll pay the final amount  in full.
-        <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+
+        {
+            arbitrabletx.data.sender === accounts[0] ? (
+              <>
+                1. If you say yes, you'll pay the final amount  in full.
+                <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+              </>
+            ) : (
+              <>
+                1. If you say yes, you'll reimburse the final amount  in full.
+                <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+              </>
+            )
+          }
       </div>
     </div>
   )

@@ -24,9 +24,9 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, amountMax, pay
         errors.amount = 'Number Required'
       return errors
     }}
-    onSubmit={() => console.log({amount}) || payOrReimburseFn(id, amount.toString())}
+    onSubmit={() => payOrReimburseFn(id, amount.toString())}
   >
-    {({isSubmitting, values }) => (
+    {({isSubmitting}) => (
       <>
         <Form className={'PayOrReimburseArbitrableTx PayOrReimburseArbitrableTx-pay'}>
           <Field

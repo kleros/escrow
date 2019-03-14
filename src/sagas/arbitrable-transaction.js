@@ -128,6 +128,9 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
     multipleArbitrableTransactionEth.methods.getCountTransactions().call
   )
 
+  console.log('arbitrabletxReceived.receiver', arbitrabletxReceived.receiver)
+  console.log('accounts[0]', accounts[0])
+
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
       FEE_TIMEOUT,
@@ -246,13 +249,16 @@ function* fetchArbitrabletx({ payload: { id } }) {
     if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
       arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
 
+    console.log('ARBITRABLE_ADDRESS',ARBITRABLE_ADDRESS)
+    console.log('ARBITRATOR_ADDRESS',ARBITRATOR_ADDRESS)
+    console.log(arbitrableTransaction.disputeId)
     // NOTE: assuming disputeID is not equal to 0
     if (arbitrableTransaction.disputeId) {
       const metaEvidenceArchonEvidences = yield call(
         archon.arbitrable.getEvidence,
         ARBITRABLE_ADDRESS,
         ARBITRATOR_ADDRESS,
-        arbitrableTransaction.disputeId
+        arbitrableTransaction.id
       )
 
       if (metaEvidenceArchonEvidences.length > 0)
@@ -315,7 +321,7 @@ function* createPayOrReimburse({ payload: { id, amount } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
-  if (accounts[0] === arbitrableTransaction.receiver)
+  if (accounts[0] === arbitrableTransaction.sender)
     yield call(
       multipleArbitrableTransactionEth.methods.pay(
         id,
@@ -326,7 +332,7 @@ function* createPayOrReimburse({ payload: { id, amount } }) {
         value: 0
       }
     )
-  else
+  if (accounts[0] === arbitrableTransaction.receiver)
     yield call(
       multipleArbitrableTransactionEth.methods.reimburse(
         id,

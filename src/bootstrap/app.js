@@ -27,7 +27,6 @@ const Main = ({ children }) => (
           <li onClick={() => navigate('/')}><Kleros style={{height: '35px', position: 'relative', top: '13px'}} /></li>
           <li onClick={() => navigate('/')}>Escrow</li>
           <li onClick={() => navigate('/new')} style={{float: 'right'}}><span className='btn-new'><Plus style={{width: '19px', height: '35px', paddingRight: '8px', position: 'relative', top: '12px'}} />New Transaction</span></li>
-          <li onClick={() => navigate('/')} style={{float: 'right', color: '#a892c5', paddingRight: '50px'}}>My Transactions</li>
           <li onClick={() => navigate('/notifications')} style={{float: 'right', color: '#a892c5', paddingRight: '50px'}}>Notifications</li>
         </ul>
       </nav>
