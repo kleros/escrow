@@ -87,7 +87,7 @@ const AgreementFully = ({
       </Modal>
       <div className='AgreementFully-message'>
         <p>
-          Did the other party <b>fully comply with the agreement</b>?
+          Did the other party <b>fully comply with the {arbitrabletx.data.amount === arbitrabletx.data.originalAmount ? 'agreement' : 'settlement'}</b>?
         </p>
         <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)}>
           {({isSubmitting}) => (

@@ -2,7 +2,8 @@
 .ResumeArbitrableTx {
   border: 1px solid #ccc;
   box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
-  border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   padding: 1em 2em 2em 2em; }
   .ResumeArbitrableTx-h1 {
     color: #4004A3;

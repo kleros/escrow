@@ -260,8 +260,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
     }
 
     arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
-    console.log('sender',arbitrableTransaction.sender)
-    console.log('acc',accounts[0])
     arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.sender ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
 
     disputeStatus = yield call(
@@ -298,6 +296,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   return {
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
+    originalAmount: metaEvidenceArchon.metaEvidenceJSON.amount,
     disputeStatus,
     party: accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver', // TODO: add `None` party.
     ruling,
