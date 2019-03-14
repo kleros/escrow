@@ -36,9 +36,7 @@ class Initializer extends PureComponent {
       <RenderIf
         resource={accounts}
         loading={
-          <div className='loader'>
-            <PulseLoader className='loader' color='gray' />
-          </div>
+          <PulseLoader className='loader' color='gray' />
         }
         done={children}
         failedLoading={<RequiresMetaMaskPage needsUnlock={Boolean(web3.eth)} />}

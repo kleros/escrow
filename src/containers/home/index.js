@@ -42,9 +42,7 @@ class Home extends PureComponent {
         <RenderIf
           resource={arbitrabletxs}
           loading={
-            <div className='loader'>
-              <BeatLoader color={'gray'} />
-            </div>
+            <BeatLoader className='loader' color={'gray'} />
           }
           done={
             arbitrabletxs.data && (

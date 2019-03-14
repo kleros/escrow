@@ -256,11 +256,7 @@ export default (
         />
       )
     default:
-      return (
-        <div className='loader'>
-          <BeatLoader color={'gray'} />
-        </div>
-      )
+      return <BeatLoader className='loader' color={'gray'} />
   }
 }
 

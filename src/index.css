@@ -63,9 +63,10 @@ body, textarea {
 }
 
 .loader {
-	position: relative;
-	margin: 20% 50%;
-	transform: rotate(90deg);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 button:disabled,

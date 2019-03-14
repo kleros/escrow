@@ -86,7 +86,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           </div>
           {/* hack Formik for file type */}
           {/* and store only the path on the file in the redux state */}
-          <label htmlFor='file' className='file' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-file'>Agreement Documents</label>
+          <label htmlFor='file' className='file' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-file'>Agreement Documents (optional)</label>
           <input className='FormNewArbitrableTx-label FormNewArbitrableTx-input-file' id='file' style={{border: '#009AFF', padding: '0.6em 0', fontSize: '1em'}} name='file' type='file' onChange={e => {
               const file = e.currentTarget.files[0]
               return setFieldValue('file', {
@@ -101,7 +101,7 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
             Upload the files that will be used as evidence in case there is a dispute. 
             <br />If you need to add more than one file, zip them.
           </div>
-          <label htmlFor='description' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-description'>Description</label>
+          <label htmlFor='description' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-description'>Description (optional)</label>
           <div className='FormNewArbitrableTx-template-description-wrapper'>
             <Field
               render={({ form }) => (
