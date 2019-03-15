@@ -38,6 +38,13 @@ export default (
                 footer={
                   <SuccessArbitrableTx
                     message={<p>Transaction completed <b>with success</b>.</p>}
+                    footer={
+                      arbitrabletx.data.sender === accounts[0] ? (
+                        <>Funds in the escrow have been transfered to the other party.</>
+                      ) :  (
+                        <>The transaction of the smart contract escrow is executed and you received the payment for this service.</>
+                      )
+                    }
                   />
                 }
               />
@@ -232,6 +239,7 @@ export default (
           footer={
             <SuccessArbitrableTx
               message={<p>Transaction completed <b>with success</b>.</p>}
+              footer={<p>The funds are transfered to the winning party or spliting if the the jurors are refused to vote.</p>}
             />
           }
         />

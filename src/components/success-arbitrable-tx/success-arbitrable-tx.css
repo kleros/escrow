@@ -13,5 +13,8 @@
       line-height: 1.4em;
       padding: 2em 0 1em 0; }
   .SuccessArbitrableTx-footer {
+    padding: 1em 2em;
+    text-align: left;
     background: #1e075f;
-    min-height: 70px; }
+    min-height: 70px;
+    font-size: 0.8em; }
