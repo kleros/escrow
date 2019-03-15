@@ -249,9 +249,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
     if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
       arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
 
-    console.log('ARBITRABLE_ADDRESS',ARBITRABLE_ADDRESS)
-    console.log('ARBITRATOR_ADDRESS',ARBITRATOR_ADDRESS)
-    console.log(arbitrableTransaction.disputeId)
     // NOTE: assuming disputeID is not equal to 0
     if (arbitrableTransaction.disputeId) {
       const metaEvidenceArchonEvidences = yield call(

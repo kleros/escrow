@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Formik, Form } from 'formik'
 import Button from '../button'
 import Modal from 'react-responsive-modal'
+import Countdown from 'react-countdown-now'
 
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
 
@@ -115,11 +116,13 @@ const AgreementFully = ({
               <>
                 1. If you say yes, you'll pay the final amount  in full.
                 <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+                <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
               </>
             ) : (
               <>
                 1. If you say yes, you'll reimburse the final amount  in full.
                 <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+                <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
               </>
             )
           }
