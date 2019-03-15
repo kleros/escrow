@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { ClipLoader } from 'react-spinners'
 
 import Button from '../button'
 
@@ -47,7 +48,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
           </div>
           <div className='NewEvidenceArbitrableTx-footer'>
             <Button type='submit' disabled={isSubmitting || values.name.length === 0 || Object.entries(errors).length > 0}>
-              Submit Evidence
+              {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} Submit Evidence
             </Button>
           </div>
         </Form>

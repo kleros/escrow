@@ -4,6 +4,7 @@ import { Formik, Form } from 'formik'
 import Button from '../button'
 import Modal from 'react-responsive-modal'
 import Countdown from 'react-countdown-now'
+import { ClipLoader } from 'react-spinners'
 
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
 
@@ -70,7 +71,7 @@ const AgreementFully = ({
           {({isSubmitting}) => (
             <Form style={{display: 'inline-block'}}>
               <Button type='submit' disabled={isSubmitting} style={{width: '240px'}}>
-                Raise a dispute
+                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Raise a dispute
               </Button>
             </Form>
           )}
@@ -101,7 +102,7 @@ const AgreementFully = ({
           {({isSubmitting}) => (
             <Form className={'PayOrReimburseArbitrableTx'}>
               <Button type='submit' disabled={isSubmitting} style={{width: '220px'}}>
-                Yes
+                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Yes
               </Button>
             </Form>
           )}

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Countdown from 'react-countdown-now'
 import { Formik, Form } from 'formik'
+import { ClipLoader } from 'react-spinners'
 
 import Button from '../button'
 
@@ -13,7 +14,7 @@ const TimeoutArbitrableTx = ({ id, timeout, time, name }) => (
       {({isSubmitting}) => (
         <Form className={'PayOrReimburseArbitrableTx'}>
           <Button type='submit' disabled={isSubmitting || time - Date.now() > 0}>
-            {name}
+            <>{isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} {name}</>
           </Button>
         </Form>
       )}

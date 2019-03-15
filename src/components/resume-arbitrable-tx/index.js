@@ -65,7 +65,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                   document.queryCommandSupported('copy') && (
                     !copied ? (
                       <Button
-                        style={{marginLeft: '-3px', paddingTop: '12px', boxSizing: 'border-box', width: '130px'}}
+                        style={{marginLeft: '-3px', border: '1px solid #009aff'}}
                         onClick={() => {navigator.clipboard.writeText(arbitrabletx.shareLink) && setCopied(true)}}
                       >
                         Copy
@@ -73,7 +73,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                     ) : (
                       <Button
                         disabled={true}
-                        style={{marginLeft: '-3px', paddingTop: '12px', boxSizing: 'border-box', width: '130px'}}
+                        style={{marginLeft: '-3px', border: '1px solid #ccc'}}
                       >
                         Copied
                       </Button>
@@ -89,7 +89,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                     `}
                 >
                   <Button
-                    style={{paddingTop: '12px', marginLeft: '1em', boxSizing: 'border-box'}}
+                    style={{marginLeft: '1em', border: '1px solid #009aff'}}
                   >
                     Send by Email
                   </Button>

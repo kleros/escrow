@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { ClipLoader } from 'react-spinners'
 
 import Button from '../button'
 import { ReactComponent as Bell } from '../../assets/bell.svg'
@@ -34,7 +35,9 @@ const EmailForm = ({updateEmail, msg}) => (
           <div className='section-title'>
             <Field name='email' placeholder='Email' className='EmailForm-input' />
             <ErrorMessage name='email' component='div' className='EmailForm-error'/>
-            <Button type='submit' disabled={isSubmitting || touched.email === undefined || Object.entries(errors).length > 0}>Enable Notifications</Button>
+            <Button type='submit' disabled={isSubmitting || touched.email === undefined || Object.entries(errors).length > 0}>
+              {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Enable Notifications
+            </Button>
           </div>
         </Form>
       )}

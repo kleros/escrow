@@ -3,8 +3,9 @@
   color: #fff;
   border: 0;
   background: #009aff;
-  padding: 13px 24px 13px 14px;
-  border-radius: 3px; }
+  padding: 0 17px;
+  border-radius: 3px;
+  line-height: 40px; }
   .Button:hover {
     cursor: pointer; }
   .Button:disabled, .Button[disabled] {

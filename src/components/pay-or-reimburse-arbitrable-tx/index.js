@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { ClipLoader } from 'react-spinners'
 
 import Button from '../button'
 
@@ -37,8 +38,7 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, amountMax, pay
             onChange={e => onChangeAmount(e.target.value)}
           />
           <Button type='submit' disabled={isSubmitting}>
-            {payOrReimburse}
-            {/* FIXME propose settlemet or reimburse */}
+            {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} {payOrReimburse}
           </Button>
         </Form>
         <ErrorMessage name='amount' component='div' className='error' style={{paddingTop: '10px', paddingRight: '30px', color: 'red', fontSize: '0.9em', textAlign: 'right'}} />

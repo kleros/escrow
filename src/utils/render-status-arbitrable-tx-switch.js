@@ -1,6 +1,7 @@
 import React from 'react'
 import { BeatLoader } from 'react-spinners'
 import { Formik, Form } from 'formik'
+import { ClipLoader } from 'react-spinners'
 
 import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
@@ -60,7 +61,7 @@ export default (
                         {({isSubmitting}) => (
                           <Form className={'PayOrReimburseArbitrableTx'}>
                             <Button type='submit' disabled={isSubmitting}>
-                              Execute Payment
+                            {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} Execute Payment
                             </Button>
                           </Form>
                         )}
@@ -169,7 +170,7 @@ export default (
                           {({isSubmitting}) => (
                             <Form className={'PayOrReimburseArbitrableTx'}>
                               <Button type='submit' disabled={isSubmitting}>
-                                Appeal the decision
+                                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Appeal the decision
                               </Button>
                             </Form>
                           )}
@@ -193,7 +194,7 @@ export default (
                             {({isSubmitting}) => (
                               <Form className={'PayOrReimburseArbitrableTx'}>
                                 <Button type='submit' disabled={isSubmitting}>
-                                  Appeal the decision
+                                  {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} >{<ClipLoader size={20} color={'#fff'} />}</span>} Appeal the decision
                                 </Button>
                               </Form>
                             )}
@@ -216,7 +217,7 @@ export default (
                             {({isSubmitting}) => (
                               <Form className={'PayOrReimburseArbitrableTx'}>
                                 <Button type='submit' disabled={isSubmitting}>
-                                  Appeal the decision
+                                  {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} >{<ClipLoader size={20} color={'#fff'} />}</span>}  Appeal the decision
                                 </Button>
                               </Form>
                             )}
@@ -284,7 +285,7 @@ const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
           {({isSubmitting}) => (
             <Form className={'PayOrReimburseArbitrableTx'}>
               <Button type='submit' disabled={isSubmitting}>
-                Raise a dispute
+                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Raise a dispute
               </Button>
             </Form>
           )}

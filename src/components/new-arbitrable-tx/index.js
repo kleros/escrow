@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 import Web3 from 'web3'
 import Textarea from 'react-textarea-autosize'
+import { ClipLoader } from 'react-spinners'
 
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
@@ -140,7 +141,12 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
             {touched.description = true}
             {touched.file = true}
             {values.amount > 0 ? touched.amount = true : null}
-            <Button type='submit' disabled={touched.receiver === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}>Save Transaction</Button>
+            <Button 
+              type='submit' 
+              disabled={touched.receiver === undefined || touched.amount === undefined || Object.entries(errors).length > 0 || isSubmitting}
+            >
+              {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'white'} /></span>} Save Transaction
+            </Button>
           </div>
         </Form>
       )}

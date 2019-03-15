@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Formik, Form } from 'formik'
+import { ClipLoader } from 'react-spinners'
 
 import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../../reducers/arbitrable-transaction'
@@ -36,8 +37,8 @@ class Resume extends PureComponent {
               <Formik onSubmit={() => createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}>
                 {({isSubmitting}) => (
                   <Form className={'PayOrReimburseArbitrableTx'}>
-                    <Button type='submit' disabled={isSubmitting}>
-                      Submit Transaction
+                    <Button type='submit' disabled={isSubmitting} style={{position: 'relative', top: '2px'}}>
+                    {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Submit Transaction
                     </Button>
                   </Form>
                 )}
