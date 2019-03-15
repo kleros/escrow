@@ -32,9 +32,9 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
 
           {arbitrabletx.file && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-file'>Primary Document</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-file'>Agreement Documents</div>
               <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-file' style={{border: '0'}}>
-                <a href={arbitrabletx.file} alt='Primary Document' target='_blank' rel='noopener noreferrer'>
+                <a href={arbitrabletx.file} alt='Agreement Documents' target='_blank' rel='noopener noreferrer'>
                   <PrimaryDocument />
                 </a>
               </div>
