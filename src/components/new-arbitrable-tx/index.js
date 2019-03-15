@@ -26,7 +26,7 @@ const customStyles = {
   }
 }
 
-const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
+const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
   <div className='NewArbitrableTx'>
     <h1 className='NewArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />New Transaction</h1>
     <Formik
@@ -46,6 +46,8 @@ const NewArbitrableTx = ({ formArbitrabletx, balance }) => (
           errors.receiver = 'Receiver Address Required'
         if (!Web3.utils.isAddress(values.receiver))
           errors.receiver = 'Valid Address Required'
+        if (values.receiver === accounts[0])
+          errors.receiver = 'The address must be different than your wallet address.'
         if (!values.amount)
           errors.amount = 'Amount Required'
         if (values.amount <= 0)

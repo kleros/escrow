@@ -25,22 +25,26 @@ class New extends PureComponent {
   }
 
   render() {
-    const { formArbitrabletx, balance } = this.props
+    const { formArbitrabletx, balance, accounts } = this.props
 
     return (
-      <div className=''>
-        <NewArbitrableTx formArbitrabletx={formArbitrabletx} balance={balance} />
-      </div>
+      <NewArbitrableTx
+        formArbitrabletx={formArbitrabletx}
+        balance={balance}
+        accounts={accounts.data}
+      />
     )
   }
 }
 
 export default connect(
   state => ({
-    balance: state.wallet.balance
+    balance: state.wallet.balance,
+    accounts: state.wallet.accounts
   }),
   {
     formArbitrabletx: arbitrabletxActions.formArbitrabletx,
-    fetchBalance: walletActions.fetchBalance
+    fetchBalance: walletActions.fetchBalance,
+    fetchAccounts: walletActions.fetchAccounts
   }
 )(New)
