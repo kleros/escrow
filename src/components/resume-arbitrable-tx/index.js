@@ -52,7 +52,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
 
           {arbitrabletx.shareLink && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-share'>Share Transaction</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-share'>Share Transaction as an Invoice</div>
               <div className='ResumeArbitrableTx-ContentNewArbitrableTx-link-share'>
                 <div className='ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url'>
                   {shortUrl(arbitrabletx.shareLink)}
