@@ -219,7 +219,6 @@ function* fetchArbitrabletx({ payload: { id } }) {
   let metaEvidenceArchon = {
     metaEvidenceJSON: {}
   }
-  let appealDecision = false
 
   // force convert to string
   const transactionId = id.toString()
@@ -272,26 +271,10 @@ function* fetchArbitrabletx({ payload: { id } }) {
     if (
       disputeStatus.toString() === disputeConstants.SOLVED.toString() 
       || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
-    ) {
+    )
       ruling = yield call(
         arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
       )
-
-      /* FIXME returns value if there is an appeal in progress */
-      // const getAppealDecision = yield call(
-      //   archon.arbitrator.getAppealDecision,
-      //   ARBITRATOR_ADDRESS,
-      //   parseInt(arbitrableTransaction.disputeId), // The unique identifier of the dispute
-      //   1 // The appeal number. Must be >= 1
-      // )
-      // For tests
-      // arbitratorEth.getPastEvents('AppealDecision', {
-      //   filter: {_disputeID: 0, _arbitrable: ARBITRABLE_ADDRESS}, // Using an array means OR: e.g. 20 or 23
-      //   fromBlock: 1,
-      //   toBlock: 'latest'
-      // }).then(events => console.log({events}))
-    }
-
   } catch (err) {
     console.log(err)
   }
@@ -301,7 +284,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     ...arbitrableTransaction, // Overwrite transaction.amount
     originalAmount: metaEvidenceArchon.metaEvidenceJSON.amount,
     disputeStatus,
-    party: accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver', // TODO: add `None` party.
+    party: accounts[0] === arbitrableTransaction.sender ? 'sender' : accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'none',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
   }

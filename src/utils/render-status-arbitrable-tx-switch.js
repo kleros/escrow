@@ -276,7 +276,7 @@ const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}F
 const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
   <DisputeArbitrableTx
     message={
-      <React.Fragment>
+      <>
         <p>
           In order to not forfeit the dispute <b style={{fontWeight: 'bold'}}>pay the arbitration fee</b>. 
           <br />You will be refunded the fee if you win the dispute.
@@ -284,13 +284,19 @@ const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
         <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
           {({isSubmitting}) => (
             <Form className={'PayOrReimburseArbitrableTx'}>
-              <Button type='submit' disabled={isSubmitting}>
-                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Raise a dispute
+              <Button type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'}>
+                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} 
+                Raise a dispute
               </Button>
             </Form>
           )}
         </Formik>
-      </React.Fragment>
+        {
+          arbitrabletx.data.party === 'none' && (
+            <div style={{margin: '1em', color: 'red'}}>You Ethereum address does not match with this transaction.</div>
+          )
+        }
+      </>
     }
   />
 )

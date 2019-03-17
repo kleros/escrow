@@ -101,32 +101,39 @@ const AgreementFully = ({
         <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)}>
           {({isSubmitting}) => (
             <Form className={'PayOrReimburseArbitrableTx'}>
-              <Button type='submit' disabled={isSubmitting} style={{width: '220px'}}>
+              <Button type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'} style={{width: '220px'}}>
                 {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Yes
               </Button>
             </Form>
           )}
         </Formik>
         <span style={{padding: '3em'}}>&nbsp;</span>
-        <Button onClick={() => setModal(!open)} style={{width: '220px'}}>No</Button>
+        <Button onClick={() => setModal(!open)} disabled={arbitrabletx.data.party === 'none'} style={{width: '220px'}}>No</Button>
       </div>
       <div className='AgreementFully-footer' style={{fontSize: '14px', paddingTop: '1em'}}>
-
         {
-            arbitrabletx.data.sender === accounts[0] ? (
-              <>
-                1. If you say yes, you'll pay the final amount  in full.
-                <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
-                <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
-              </>
-            ) : (
-              <>
-                1. If you say yes, you'll reimburse the final amount  in full.
-                <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
-                <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
-              </>
-            )
-          }
+          arbitrabletx.data.sender === accounts[0] && (
+            <>
+              1. If you say yes, you'll pay the final amount  in full.
+              <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+              <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
+            </>
+          )
+        }
+        {
+          arbitrabletx.data.receiver === accounts[0] && (
+            <>
+              1. If you say yes, you'll reimburse the final amount  in full.
+              <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+              <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
+            </>
+          )
+        }
+        {
+          arbitrabletx.data.party === 'none' && (
+            <span style={{color: 'red'}}>You Ethereum address does not match with this transaction.</span>
+          )
+        }
       </div>
     </div>
   )
