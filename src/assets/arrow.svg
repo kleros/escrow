@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.09949 -0.000244141L9.77411 5.65661H0.424869L5.09949 -0.000244141Z" fill="#CCCCCC"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M 5.099 0 L 9.774 5.657 L 0.425 5.657 L 5.099 0 Z" fill="#CCCCCC" transform="matrix(-1, 0, 0, -1, 10.199, 5.657)"/>
 </svg>

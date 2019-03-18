@@ -56,7 +56,6 @@
       padding-right: 2em;
       padding-top: 0.5em; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all {
-        transform: rotate(360deg);
         transition-duration: 0.8s;
         transition-property: transform; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all {
