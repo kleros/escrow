@@ -15,6 +15,7 @@ import AgreementFully from '../components/agreement_fully'
 import Button from '../components/button'
 import { ReactComponent as Dispute } from '../assets/dispute.svg'
 import { ReactComponent as Time } from '../assets/time.svg'
+import { className } from 'postcss-selector-parser';
 
 export default (
   accounts, 
@@ -172,6 +173,11 @@ export default (
                               <Button type='submit' disabled={isSubmitting}>
                                 {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Appeal the decision
                               </Button>
+                              {isSubmitting && (
+                                <div style={{padding: '2em 0'}}>
+                                  If the the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} className='reload' style={{color: '#009aff'}}>click here to reload the page</span>.
+                                </div>
+                              )}
                             </Form>
                           )}
                         </Formik>
@@ -196,6 +202,11 @@ export default (
                                 <Button type='submit' disabled={isSubmitting}>
                                   {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} >{<ClipLoader size={20} color={'#fff'} />}</span>} Appeal the decision
                                 </Button>
+                                {isSubmitting && (
+                                  <div style={{padding: '2em 0'}}>
+                                    If the the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} className='reload' style={{color: '#009aff'}}>click here to reload the page</span>.
+                                  </div>
+                                )}
                               </Form>
                             )}
                           </Formik>
@@ -219,6 +230,11 @@ export default (
                                 <Button type='submit' disabled={isSubmitting}>
                                   {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} >{<ClipLoader size={20} color={'#fff'} />}</span>}  Appeal the decision
                                 </Button>
+                                {isSubmitting && (
+                                  <div style={{padding: '2em 0'}}>
+                                    If the the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} className='reload' style={{color: '#009aff'}}>click here to reload the page</span>.
+                                  </div>
+                                )}
                               </Form>
                             )}
                           </Formik>
@@ -285,9 +301,14 @@ const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
           {({isSubmitting}) => (
             <Form className={'PayOrReimburseArbitrableTx'}>
               <Button type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'}>
-                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} 
+                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>}
                 Raise a dispute
               </Button>
+              {isSubmitting && (
+                <div style={{padding: '2em 0'}}>
+                  If the the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} className='reload' style={{color: '#009aff'}}>click here to reload the page</span>.
+                </div>
+              )}
             </Form>
           )}
         </Formik>

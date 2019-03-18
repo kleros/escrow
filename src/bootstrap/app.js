@@ -41,7 +41,7 @@ const Main = ({ children }) => (
 const App = ({store}) => (
   <Provider store={store}>
     <Initializer>
-      <React.Fragment>
+      <>
         <Helmet>
           <title>Escrow - Blockchain service - Kleros</title>
         </Helmet>
@@ -55,7 +55,7 @@ const App = ({store}) => (
             <NotFound default />
           </Main>
         </Router>
-      </React.Fragment>
+      </>
     </Initializer>
   </Provider>
 )
