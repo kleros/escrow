@@ -47,7 +47,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
           errors.receiver = 'Receiver Address Required'
         if (!Web3.utils.isAddress(values.receiver))
           errors.receiver = 'Valid Address Required'
-        if (values.receiver === accounts[0])
+        if (values.receiver.toLowerCase() === accounts[0].toLowerCase())
           errors.receiver = 'The address must be different than your wallet address.'
         if (!values.amount)
           errors.amount = 'Amount Required'
