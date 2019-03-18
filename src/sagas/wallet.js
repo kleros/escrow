@@ -32,14 +32,13 @@ export function* fetchBalance() {
 
 
 /**
- * Updates the current wallet settings' email.
+ * Updates the current wallet settings.
  * @param {{ type: string, payload: ?object, meta: ?object }} action - The action object.
  * @returns {object} - The updated settings object.
  */
-function* updateEmail({ payload: { email } }) {
+function* updateEmail({ payload: { settings } }) {
   // Prepare and sign update
   const address = yield select(walletSelectors.getAccount)
-  const settings = { email: { S: email } }
   const signature = yield call(
     web3.eth.personal.sign,
     JSON.stringify(settings),
@@ -57,11 +56,9 @@ function* updateEmail({ payload: { email } }) {
   const attributes = (yield call(() => newSettings.json())).payload.settings
     .Attributes
   return {
-    email: attributes.email.S,
-    dogecoinAddress: attributes.dogecoinAddress && attributes.dogecoinAddress.S
+    email: attributes.email.S
   }
 }
-
 
 /**
  * The root of the wallet saga.
@@ -87,10 +84,10 @@ export default function* walletSaga() {
 
   // Settings
   yield takeLatest(
-    walletActions.settings.UPDATE_EMAIL,
+    walletActions.settingsEmail.UPDATE_EMAIL,
     lessduxSaga,
     'update',
-    walletActions.settings,
+    walletActions.settingsEmail,
     updateEmail
   )
 }

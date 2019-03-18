@@ -69,7 +69,7 @@ class ArbitrableTx extends PureComponent {
         }
         done={
           arbitrabletx.data && (
-            <React.Fragment>
+            <>
               {
                 renderStatusArbitrableTxSwitch(
                   accounts.data,
@@ -83,7 +83,7 @@ class ArbitrableTx extends PureComponent {
                   createAppeal
                 )
               }
-            </React.Fragment>
+            </>
           )
         }
         failedLoading={

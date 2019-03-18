@@ -9,7 +9,7 @@ export const accounts = createActions('ACCOUNTS')
 export const balance = createActions('BALANCE')
 
 // Settings
-export const settings = {
+export const settingsEmail = {
   ...createActions('SETTINGS', { withUpdate: true }),
   UPDATE_EMAIL: 'UPDATE_SETTINGS_EMAIL'
 }
@@ -23,7 +23,7 @@ export const fetchAccounts = () => ({ type: accounts.FETCH })
 export const fetchBalance = () => ({ type: balance.FETCH })
 
 // Settings
-export const updateEmail = ({ email }) => ({
-  type: settings.UPDATE_EMAIL,
-  payload: { email }
+export const updateEmail = ({ settings }) => ({
+  type: settingsEmail.UPDATE_EMAIL,
+  payload: { settings }
 })

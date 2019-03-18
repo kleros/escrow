@@ -32,6 +32,7 @@ const Settings = ({
               an appeal or when the arbitrator give a ruling for your
               arbitrable transaction.`
             }
+            settingsAcc={settings}
           />
         )
       }

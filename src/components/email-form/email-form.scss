@@ -6,7 +6,7 @@
 
   &-h1 {
     grid-area: h1;
-    color: #4004A3;
+    color: #4004a3;
     font-size: 18px;
     border-bottom: 1px solid #EFEFEF;
     line-height: 3em;
@@ -37,5 +37,15 @@
   &-error {
     color: red;
     font-size: 0.9em;
+    padding-top: 1em;
   }
+
+  &-title-b {
+    font-weight: bold;
+    padding: 0.5em 0;
+  }
+}
+
+.Checkbox {
+  margin: 1em 1em 2em 0;
 }
