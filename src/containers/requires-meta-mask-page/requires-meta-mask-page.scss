@@ -1,19 +1,53 @@
-/* @define RequiresMetaMaskPage */
-.RequiresMetaMaskPage {
-    height: 100%;
-    overflow-y: scroll;
-  
-    // stylelint-disable-next-line plugin/selector-bem-pattern
-    &-FAQ {
-      padding: 40px 20%;
-    }
-  
-    &-card {
-      margin: 100px -15%;
-      text-align: center;
-  
-      &-button {
-        margin: 8px;
-      }
+/* @define RequiresMetamask */
+.RequiresMetamaskPage {
+  background: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 42px 60px 52px 73px;
+
+  &-title {
+    font-size: 2em;
+    color: #808080;
+    padding: 0.1em 0 0.5em 0;
+
+  }
+
+  &-FAQ {
+    padding: 40px 20%;
+  }
+
+  &-support {
+    padding-top: 1em;
+    &-a {
+      text-decoration: none;
+      padding-right: 2em;
+      color: #808080;
     }
   }
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+    padding: 0;
+    padding-top: 40px;
+
+    &-logo {
+      margin: 0 20%;
+    }
+
+    &-content {
+      margin: 0 20%;
+    }
+  }
+
+  &-logo {
+    height: 105px;
+    margin-left: 56px;
+    width: 100px;
+  }
+
+  &-content {
+    flex: 1 1;
+    margin-left: 56px;
+  }
+}

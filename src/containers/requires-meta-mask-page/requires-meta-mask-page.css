@@ -1,11 +1,35 @@
-/* @define RequiresMetaMaskPage */
-.RequiresMetaMaskPage {
-  height: 100%;
-  overflow-y: scroll; }
-  .RequiresMetaMaskPage-FAQ {
+/* @define RequiresMetamask */
+.RequiresMetamaskPage {
+  background: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 42px 60px 52px 73px; }
+  .RequiresMetamaskPage-title {
+    font-size: 2em;
+    color: #808080;
+    padding: 0.1em 0 0.5em 0; }
+  .RequiresMetamaskPage-FAQ {
     padding: 40px 20%; }
-  .RequiresMetaMaskPage-card {
-    margin: 100px -15%;
-    text-align: center; }
-    .RequiresMetaMaskPage-card-button {
-      margin: 8px; }
+  .RequiresMetamaskPage-support {
+    padding-top: 1em; }
+    .RequiresMetamaskPage-support-a {
+      text-decoration: none;
+      padding-right: 2em;
+      color: #808080; }
+  @media (max-width: 400px) {
+    .RequiresMetamaskPage {
+      flex-direction: column;
+      padding: 0;
+      padding-top: 40px; }
+      .RequiresMetamaskPage-logo {
+        margin: 0 20%; }
+      .RequiresMetamaskPage-content {
+        margin: 0 20%; } }
+  .RequiresMetamaskPage-logo {
+    height: 105px;
+    margin-left: 56px;
+    width: 100px; }
+  .RequiresMetamaskPage-content {
+    flex: 1 1;
+    margin-left: 56px; }

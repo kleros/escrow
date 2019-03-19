@@ -39,7 +39,9 @@ class Initializer extends PureComponent {
           <PulseLoader className='loader' color='gray' />
         }
         done={children}
-        failedLoading={<RequiresMetaMaskPage needsUnlock={Boolean(web3.eth)} />}
+        failedLoading={<RequiresMetaMaskPage 
+          needsUnlock={Boolean(web3.eth)} 
+        />}
         extraValues={[
           accounts.data && (accounts.data[0] || null)
         ]}
