@@ -22,15 +22,21 @@ const NotFound = () => (
 
 const Main = ({ children }) => (
   <div className='App'>
-    <header className='App-header'>
-      <nav>
-        <ul>
-          <li onClick={() => navigate('/')}><Kleros style={{height: '35px', position: 'relative', top: '13px'}} /></li>
-          <li onClick={() => navigate('/')}>Escrow</li>
-          <li onClick={() => navigate('/new')} style={{float: 'right'}}><span className='btn-new'><Plus style={{width: '19px', height: '35px', paddingRight: '8px', position: 'relative', top: '12px'}} />New Transaction</span></li>
-          <li onClick={() => navigate('/notifications')} style={{float: 'right', padding: '4px 30px 0 0', top: '10px'}}><Envelope /></li>
-        </ul>
-      </nav>
+    <header className="header">
+      <Kleros className="logo" onClick={() => navigate('/')} style={{position: 'relative', top: '10px', left: '20px'}} />
+      <input className="menu-btn" type="checkbox" id="menu-btn" />
+      <label className="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+      <ul className="menu">
+        <li onClick={() => navigate('/notifications')}>
+          <Envelope style={{height: '15px'}} />
+        </li>
+        <li onClick={() => navigate('/new')}>
+          <span className='btn-new'>
+            <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
+            New Transaction
+          </span>
+        </li>
+      </ul>
     </header>
     <main>
       {children}

@@ -8,7 +8,6 @@ import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import renderStatusArbitrableTxSwitch from '../../utils/render-status-arbitrable-tx-switch'
 
-
 import './arbitrable-tx.css'
 
 class ArbitrableTx extends PureComponent {

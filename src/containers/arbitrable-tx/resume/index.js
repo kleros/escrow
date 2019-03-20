@@ -27,7 +27,7 @@ class Resume extends PureComponent {
     const { createArbitrabletx, arbitrabletxForm, metaEvidenceIPFSHash } = this.props
 
     return (
-      <div>
+      <>
         {
           arbitrabletxForm.amount !== undefined && (
             <ResumeArbitrableTx 
@@ -46,7 +46,7 @@ class Resume extends PureComponent {
             </ResumeArbitrableTx>
           )
         }
-      </div>
+      </>
     )
   }
 }
