@@ -46,7 +46,12 @@ const EmailForm = ({updateEmail, msg, settingsAcc}) => (
       {msg}
     </p>
     <Formik
-      initialValues={{ email: '' }}
+      initialValues={{ 
+        email: settingsAcc.data.email,
+        dispute: settingsAcc.data.disputeEmailNotification,
+        appeal: settingsAcc.data.appealEmailNotification,
+        rulingGiven: settingsAcc.data.rulingGivenEmailNotification
+      }}
       validate = {values => {
         {/* TODO use Yup */}
         let errors = {}
@@ -99,12 +104,13 @@ const EmailForm = ({updateEmail, msg, settingsAcc}) => (
               label="When a ruling is given."
             />
             <Field name='email' placeholder='Email' className='EmailForm-input' />
-            <Button type='submit' disabled={isSubmitting || Object.entries(errors).length > 0}>
+            <Button type='submit' disabled={!touched.email || isSubmitting || Object.entries(errors).length > 0}>
               {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Enable Notifications
             </Button>
             <ErrorMessage name='email' component='div' className='EmailForm-error'/>
-
-            {settingsAcc.data.email !== '' && <div style={{color: 'blue', padding: '1em 0'}}>Settings notifications saved.</div>}
+            <div>
+              {settingsAcc.data.email !== '' && <div style={{display: 'inline-block', color: '#270', margin: '2em 0', padding: '0 1em', lineHeight: '40px', background: '#dff2bf', borderRadius: '5px', fontSize: '0.9em'}}>Settings notifications saved.</div>}
+            </div>
         </Form>
       )}
     </Formik>

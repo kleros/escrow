@@ -55,8 +55,12 @@ function* updateEmail({ payload: { settings } }) {
   // Return new settings
   const attributes = (yield call(() => newSettings.json())).payload.settings
     .Attributes
+
   return {
-    email: attributes.email.S
+    email: attributes.email.S,
+    disputeEmailNotification: attributes.escrowNotificationSettingDispute.BOOL,
+    appealEmailNotification: attributes.escrowNotificationSettingAppeal.BOOL,
+    rulingGivenEmailNotification: attributes.escrowNotificationSettingRulingGiven.BOOL
   }
 }
 

@@ -36,8 +36,28 @@ const Settings = ({
           />
         )
       }
-      failedLoading="There was an error fetching your settings."
-      failedUpdating="There was an error updating your settings."
+      failedLoading={
+          <EmailForm
+            updateEmail={updateEmail}
+            msg={
+              `Save an email to be notified whenever you have a dispute,
+              an appeal or when the arbitrator give a ruling for your
+              arbitrable transaction.`
+            }
+            settingsAcc={settings}
+          />
+      }
+      failedUpdating={
+        <EmailForm
+          updateEmail={updateEmail}
+          msg={
+            `Save an email to be notified whenever you have a dispute,
+            an appeal or when the arbitrator give a ruling for your
+            arbitrable transaction.`
+          }
+          settingsAcc={settings}
+        />
+      }
     />
   </div>
 )
