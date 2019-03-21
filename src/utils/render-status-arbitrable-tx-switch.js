@@ -242,6 +242,13 @@ export default (
                       )}
                     </>
                   )}
+                  {'none' === arbitrabletx.data.party && (
+                    <>
+                      {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote.</p>}
+                      {arbitrabletx.data.ruling === '1' && <p>Sender wins the dispute.</p>}
+                      {arbitrabletx.data.ruling === '2' && <p>Receiver wins the dispute.</p>}
+                    </>
+                  )}
                 </>
               }
             />
@@ -267,14 +274,22 @@ export default (
           footer={
             <DisputeArbitrableTx
               message={
-                <React.Fragment>
-                  {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
-                  {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.receiver ? (
-                    <p>Congratulations! You <b>won</b> the dispute.</p>
-                  ) : (
-                    <p>You <b>lost</b> the dispute.</p>
-                  )}
-                </React.Fragment>
+                arbitrabletx.data.party !== 'none' ? (
+                  <>
+                    {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
+                    {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.receiver ? (
+                      <p>Congratulations! You <b>won</b> the dispute.</p>
+                    ) : (
+                      <p>You <b>lost</b> the dispute.</p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote.</p>}
+                    {arbitrabletx.data.ruling === '1' && <p>Sender wins the dispute.</p>}
+                    {arbitrabletx.data.ruling === '2' && <p>Receiver wins the dispute.</p>}
+                  </>
+                )
               }
             />
           }
