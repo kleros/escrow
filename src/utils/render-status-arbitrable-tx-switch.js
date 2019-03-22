@@ -95,7 +95,7 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</React.Fragment>}
+          title={<><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</>}
           footer={
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
@@ -106,13 +106,13 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the receiver</React.Fragment>}
+          title={<><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the receiver</>}
         >
           <TimeoutArbitrableTx
             id={arbitrabletx.data.id}
             timeout={createTimeout}
             time={time(arbitrabletx)}
-            name={accounts[0] === arbitrabletx.data.receiver ? 'Withdraw' : 'Execute Payment' }
+            name={'Withdraw'}
           />
         </ResumeArbitrableTx>
       )
@@ -138,7 +138,7 @@ export default (
                 id={arbitrabletx.data.id}
                 timeout={createTimeout}
                 time={time(arbitrabletx)}
-                name={accounts[0] === arbitrabletx.data.receiver ? 'Withdraw' : 'Execute Payment' }
+                name={'Execute Payment'}
             />
           </ResumeArbitrableTx>
         </React.Fragment>
@@ -184,7 +184,7 @@ export default (
                       </>
                     )
                   }
-                  {accounts[0] === arbitrabletx.data.receiver && (
+                  {accounts[0] === arbitrabletx.data.sender && (
                     <>
                       {arbitrabletx.data.ruling === '1' ? (
                         <>
@@ -214,7 +214,7 @@ export default (
                       )}
                     </>
                   )}
-                  {accounts[0] === arbitrabletx.data.sender && (
+                  {accounts[0] === arbitrabletx.data.receiver && (
                     <>
                       {arbitrabletx.data.ruling === '2' ? (
                         <>
@@ -277,7 +277,7 @@ export default (
                 arbitrabletx.data.party !== 'none' ? (
                   <>
                     {arbitrabletx.data.ruling === '0' && <p>Jurors refused to vote</p>}
-                    {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.receiver ? (
+                    {arbitrabletx.data.ruling === '1' && accounts[0] === arbitrabletx.data.sender ? (
                       <p>Congratulations! You <b>won</b> the dispute.</p>
                     ) : (
                       <p>You <b>lost</b> the dispute.</p>

@@ -54,7 +54,7 @@ const AgreementFully = ({
         <h2 className='Attachment-modal-title' style={{textAlign: 'center'}}>Propose Settlement or Raise Dispute</h2>
         <p style={{textAlign: 'center', color: '#4a4a4a', fontSize: '14px', paddingBottom: '2em'}}>
           Propose a settlement by choosing the escrow amount percentage to send to the other party.
-          <br />If this is declined, the case will go to court.
+          <br />If this is declined, the counter party can raise a dispute.
         </p>
         <Slider
           min={0}
@@ -64,7 +64,7 @@ const AgreementFully = ({
           onChange={setAmountByPercent}
         />
         <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>
-          You are offering <span style={{color: '#009aff'}}>{percent.toFixed()}%</span>. The other party must accept before processing.
+          You are offering <span style={{color: '#009aff'}}>{percent.toFixed()}%</span>.
         </p>
         <div style={{textAlign: 'center'}}>
         <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
