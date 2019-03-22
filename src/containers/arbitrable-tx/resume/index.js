@@ -32,7 +32,7 @@ class Resume extends PureComponent {
           arbitrabletxForm.amount !== undefined && (
             <ResumeArbitrableTx 
               arbitrabletx={arbitrabletxForm}
-              title={<React.Fragment>Summary</React.Fragment>}
+              title={'Summary'}
             >
               <Formik onSubmit={() => createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)}>
                 {({isSubmitting}) => (

@@ -22,10 +22,25 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty'>{arbitrabletx.otherParty}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{arbitrabletx.otherPartyAddress}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Terminal Date (UTC)</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout'>{dateToUTC(new Date(new Date().getTime() + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Amount</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.amount} ETH</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Terminal Date and Time (UTC)</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout'>
+            {title === 'Summary' ? (
+              <>{dateToUTC(new Date(new Date().getTime() + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</>
+            ) : (
+              <>{dateToUTC(new Date(arbitrabletx.lastInteraction * 1000 + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</>
+            )}
+          </div>
+          {arbitrabletx.amount > 0 ? (
+            <>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Amount</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.amount} ETH</div>
+            </>
+          ) : (
+            <>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Original Amount</div>
+              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.originalAmount} ETH</div>
+            </>
+          )}
 
           {arbitrabletx.file && (
             <>
