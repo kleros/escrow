@@ -103,10 +103,10 @@
       text-align: right; }
 
 .react-datepicker-wrapper {
-  display: block; }
+  display: block !important; }
 
 .react-datepicker__input-container {
-  display: block; }
+  display: block !important; }
   .react-datepicker__input-container input {
     width: 100%;
     border: 1px solid #d9d9d9;
