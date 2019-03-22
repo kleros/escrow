@@ -6,6 +6,7 @@ export default ({
   fileURI,
   fileHash,
   amount,
+  timeout,
   arbitrator,
   subCategory
 }) => (
@@ -28,6 +29,7 @@ export default ({
     sender,
     receiver,
     amount,
+    timeout,
     arbitrator
   }
 )

@@ -68,8 +68,6 @@ const RequiresMetamaskPage = ({
 )
 
 RequiresMetamaskPage.propTypes = {
-  requiredNetwork: PropTypes.string.isRequired,
-  metamaskNetwork: PropTypes.string,
   needsUnlock: PropTypes.bool.isRequired
 }
 

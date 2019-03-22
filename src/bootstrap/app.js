@@ -25,7 +25,7 @@ const Main = ({ children }) => (
     <header className="header">
       <Kleros className="logo" onClick={() => navigate('/')} style={{position: 'relative', top: '10px', left: '20px'}} />
       <input className="menu-btn" type="checkbox" id="menu-btn" />
-      <label className="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+      <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
       <ul className="menu">
         <li onClick={() => navigate('/notifications')}>
           <Envelope style={{height: '15px'}} />

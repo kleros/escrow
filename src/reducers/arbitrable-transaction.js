@@ -11,6 +11,7 @@ const arbitrabletxFormShape = PropTypes.shape({
   arbitrator: PropTypes.string,
   sender: PropTypes.string,
   email: PropTypes.string,
+  timeout: PropTypes.Number
 })
 
 export const _arbitrabletxShape = PropTypes.shape({
@@ -20,11 +21,11 @@ export const _arbitrabletxShape = PropTypes.shape({
   description: PropTypes.string,
   disputeId: PropTypes.string,
   email: PropTypes.string,
+  timeout: PropTypes.Number,
   evidences: PropTypes.arrayOf(
     PropTypes.shape({ _id: PropTypes.string, url: PropTypes.string })
   ),
   partyB: PropTypes.string,
-  timeout: PropTypes.string,
   _id: PropTypes.string
 })
 export const _arbitrabletxsShape = PropTypes.arrayOf(_arbitrabletxShape.isRequired)

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Field, ErrorMessage } from 'formik'
+import { Form, Datepicker } from 'react-formik-ui';
 import Select from 'react-select'
 import Web3 from 'web3'
 import Textarea from 'react-textarea-autosize'
@@ -9,6 +10,7 @@ import { ClipLoader } from 'react-spinners'
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
 import templates from '../../constants/templates'
+import dateToUTC from '../../utils/date-to-utc'
 
 import './new-arbitrable-tx.css'
 
@@ -33,14 +35,17 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
     <Formik
       initialValues={{
         title: '',
-        description: '', 
-        file: '',
         receiver: '',
-        amount: ''
+        timeout: 0,
+        amount: '',
+        file: '',
+        description: ''
       }}
       validate = {values => {
         {/* TODO use Yup */}
         let errors = {}
+        if (!values.title)
+          errors.title = 'Title Required'
         if (values.title.length > 55)
           errors.title = 'Number of characters for the title allowed is exceeded. The maximum is 55 characters.'
         if (!values.receiver)
@@ -49,6 +54,10 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
           errors.receiver = 'Valid Address Required'
         if (values.receiver.toLowerCase() === accounts[0].toLowerCase())
           errors.receiver = 'The address must be different than your wallet address.'
+        if (!values.timeout)
+          errors.timeout = 'Terminal Date Required'
+        if (values.timeout < dateToUTC(new Date()))
+          errors.timeout = 'Terminal Date must higher than now.'
         if (!values.amount)
           errors.amount = 'Amount Required'
         if (values.amount <= 0)
@@ -64,7 +73,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
 
         return errors
       }}
-      onSubmit={arbitrabletx => formArbitrabletx(arbitrabletx)}
+      onSubmit={values => formArbitrabletx({...values, timeout: Math.round((values.timeout - dateToUTC(new Date())) / 1000)})}
     >
       {({ errors, setFieldValue, touched, isSubmitting, values, handleChange }) => (
         <Form className='FormNewArbitrableTx'>
@@ -77,6 +86,22 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
           <ErrorMessage name='receiver' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-receiver' />
           <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-receiver'>
             Enter the ETH address of the counterparty to this agreement.
+          </div>
+          <label htmlFor='timeout' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-timeout'>Terminal Date and Time (UTC)</label>
+          <Datepicker
+            name='timeout'
+            className='FormNewArbitrableTx-input-timeout'
+            placeholder='Terminal Date and Time'
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={30}
+            dateFormat="dd.MM.yyyy hh:mm aa"
+            timeCaption="time"
+            minDate={dateToUTC(new Date())}
+          />
+          <ErrorMessage name='timeout' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-timeout' />
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-timeout'>
+            After this deadline the counter party can execute the arbitrable payment.
           </div>
           <label htmlFor='amount' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-amount'>Amount (ETH)</label>
           <Field name='amount' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-amount' placeholder='Amount' />

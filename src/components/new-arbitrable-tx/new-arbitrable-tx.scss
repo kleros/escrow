@@ -22,6 +22,9 @@
       "labelReceiver labelReceiver"
       "inputReceiver inputReceiver"
       "errorReceiver helpReceiver"
+      "labelTimeout labelTimeout"
+      "inputTimeout inputTimeout"
+      "errorTimeout helpTimeout"
       "labelAmount labelAmount"
       "inputAmount inputAmount"
       "errorAmount helpAmount"
@@ -63,6 +66,22 @@
 
     &-help-receiver {
       grid-area: helpReceiver;
+    }
+
+    &-label-timeout {
+      grid-area: labelTimeout;
+    }
+
+    &-input-timeout {
+      grid-area: inputTimeout;
+    }
+
+    &-error-timeout {
+      grid-area: errorTimeout;
+    }
+
+    &-help-timeout {
+      grid-area: helpTimeout;
     }
 
     &-label-amount {
@@ -140,7 +159,6 @@
       margin-bottom: 0.5em;
       font-size: 1.1em;
       box-sizing: border-box;
-      border-radius: 3px;
       font-weight: 500;
     }
 
@@ -170,4 +188,26 @@
       text-align: right;
     }
   }
+}
+
+.react-datepicker-wrapper {
+  display: block;
+}
+
+.react-datepicker__input-container {
+  display: block;
+  input {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    padding: 0.5em 0.8em;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    font-weight: 500;
+  }
+}
+
+span.error {
+  display: none;
 }

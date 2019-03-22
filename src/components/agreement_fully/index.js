@@ -116,7 +116,7 @@ const AgreementFully = ({
             <>
               1. If you say yes, you'll pay the final amount  in full.
               <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
-              <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
+              <br /><br />Timeout to execute the arbitrable payment transaction <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
             </>
           )
         }
@@ -125,7 +125,7 @@ const AgreementFully = ({
             <>
               1. If you say yes, you'll reimburse the final amount  in full.
               <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
-              <br /><br />Timeout to raise a dispute <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
+              <br /><br />Timeout to execute the arbitrable payment <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
             </>
           )
         }

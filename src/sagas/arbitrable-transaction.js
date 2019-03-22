@@ -8,8 +8,7 @@ import {
   arbitratorEth,
   getNetwork,
   ARBITRABLE_ADDRESS,
-  ARBITRATOR_ADDRESS,
-  FEE_TIMEOUT
+  ARBITRATOR_ADDRESS
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
@@ -54,6 +53,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
       amount: arbitrabletxForm.amount,
+      timeout: arbitrabletxForm.timeout,
       arbitrator: ARBITRATOR_ADDRESS
     })
   } else {
@@ -63,6 +63,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
+      timeout: arbitrabletxForm.timeout,
       arbitrator: ARBITRATOR_ADDRESS
     })
   }
@@ -109,6 +110,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         otherParty: 'Receiver',
         otherPartyAddress: parties['Party B'],
         amount: metaEvidenceDecoded.amount,
+        timeout: metaEvidenceDecoded.timeout,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
         arbitrator: metaEvidenceDecoded.arbitrator,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
@@ -128,12 +130,9 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
     multipleArbitrableTransactionEth.methods.getCountTransactions().call
   )
 
-  console.log('arbitrabletxReceived.receiver', arbitrabletxReceived.receiver)
-  console.log('accounts[0]', accounts[0])
-
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
-      FEE_TIMEOUT,
+      arbitrabletxReceived.timeout.toString(),
       arbitrabletxReceived.receiver,
       `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
     ).send,
