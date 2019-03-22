@@ -86,7 +86,7 @@ const AgreementFully = ({
           onChangeAmount={setPercentByAmount}
         />
         </div>
-        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>Raise dispute: You will need to pay the arbitration fee of 0.01ETH.</p>
+        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>Raise dispute: you will need to pay the arbitration fee of {arbitrabletx.data.arbitrationCost}ETH.</p>
       </Modal>
       <div className='AgreementFully-message'>
         <p>

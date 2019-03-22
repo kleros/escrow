@@ -8,7 +8,8 @@ import {
   arbitratorEth,
   getNetwork,
   ARBITRABLE_ADDRESS,
-  ARBITRATOR_ADDRESS
+  ARBITRATOR_ADDRESS,
+  ARBITRATOR_EXTRADATA
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
@@ -212,12 +213,13 @@ function* fetchArbitrabletx({ payload: { id } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  let arbitrableTransaction
+  let arbitrableTransaction = {}
   let ruling = null
   let disputeStatus = null
   let metaEvidenceArchon = {
     metaEvidenceJSON: {}
   }
+  let arbitrationCost = 0
 
   // force convert to string
   const transactionId = id.toString()
@@ -267,6 +269,10 @@ function* fetchArbitrabletx({ payload: { id } }) {
       arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
     )
 
+    arbitrationCost = yield call(
+      arbitratorEth.methods.arbitrationCost(ARBITRATOR_EXTRADATA).call
+    )
+
     if (
       disputeStatus.toString() === disputeConstants.SOLVED.toString() 
       || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
@@ -281,6 +287,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   return {
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
+    arbitrationCost: web3.utils.fromWei(arbitrationCost.toString(), 'ether'),
     originalAmount: metaEvidenceArchon.metaEvidenceJSON.amount,
     disputeStatus,
     party: accounts[0] === arbitrableTransaction.sender ? 'sender' : accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'none',
