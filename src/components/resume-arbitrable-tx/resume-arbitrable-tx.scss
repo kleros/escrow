@@ -43,8 +43,10 @@
     grid-template-areas:
       "nameTitle nameTitle nameTitle"
       "contentTitle contentTitle contentTitle"
-      "nameOtherParty nameAmount nameAmount"
-      "contentOtherParty contentAmount contentAmount"
+      "nameOtherParty nameOtherParty nameOtherParty"
+      "contentOtherParty contentOtherParty contentOtherParty"
+      "nameTimeout nameAmount nameAmount"
+      "contentTimeout contentAmount contentAmount"
       "nameFile nameFile nameFile"
       "contentFile contentFile contentFile"
       "nameDescription nameDescription nameAllDescription"
@@ -67,6 +69,14 @@
 
     &-content-otherParty {
       grid-area: contentOtherParty;
+    }
+
+    &-name-timeout {
+      grid-area: nameTimeout;
+    }
+
+    &-content-timeout {
+      grid-area: contentTimeout;
     }
 
     &-name-amount {

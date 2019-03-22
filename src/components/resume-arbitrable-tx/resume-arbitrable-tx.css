@@ -14,7 +14,7 @@
     padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-areas: "nameTitle nameTitle nameTitle" "contentTitle contentTitle contentTitle" "nameOtherParty nameAmount nameAmount" "contentOtherParty contentAmount contentAmount" "nameFile nameFile nameFile" "contentFile contentFile contentFile" "nameDescription nameDescription nameAllDescription" "contentDescription contentDescription contentDescription" "nameShare nameShare nameShare" "linkShare linkShare submit"; }
+    grid-template-areas: "nameTitle nameTitle nameTitle" "contentTitle contentTitle contentTitle" "nameOtherParty nameOtherParty nameOtherParty" "contentOtherParty contentOtherParty contentOtherParty" "nameTimeout nameAmount nameAmount" "contentTimeout contentAmount contentAmount" "nameFile nameFile nameFile" "contentFile contentFile contentFile" "nameDescription nameDescription nameAllDescription" "contentDescription contentDescription contentDescription" "nameShare nameShare nameShare" "linkShare linkShare submit"; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-title {
       grid-area: nameTitle; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-title {
@@ -24,6 +24,10 @@
       text-transform: capitalize; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty {
       grid-area: contentOtherParty; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout {
+      grid-area: nameTimeout; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout {
+      grid-area: contentTimeout; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-amount {
       grid-area: nameAmount; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-amount {

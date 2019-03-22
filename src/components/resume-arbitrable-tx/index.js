@@ -6,6 +6,7 @@ import Attachment from '../../components/attachment'
 import Button from '../../components/button'
 import { ReactComponent as Arrow } from '../../assets/arrow.svg'
 import { shortUrl } from '../../utils/short-url'
+import dateToUTC from '../../utils/date-to-utc'
 
 import './resume-arbitrable-tx.css'
 
@@ -21,14 +22,10 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty'>{arbitrabletx.otherParty}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{arbitrabletx.otherPartyAddress}</div>
-
-          {arbitrabletx.amount > 0 && (
-            <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Amount</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.amount} ETH</div>
-            </>
-          )}
-
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Terminal Date (UTC)</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout'>{dateToUTC(new Date(new Date().getTime() + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Amount</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.amount} ETH</div>
 
           {arbitrabletx.file && (
             <>
@@ -48,7 +45,6 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-description'><p className={`${showAllDescription && 'ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short'}`}>{arbitrabletx.description}</p></div>
             </>
           )}
-
 
           {arbitrabletx.shareLink && (
             <>
