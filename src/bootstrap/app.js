@@ -22,15 +22,15 @@ const NotFound = () => (
 
 const Main = ({ children }) => (
   <div className='App'>
-    <header className="header">
-      <Kleros className="logo" onClick={() => navigate('/')} style={{position: 'relative', top: '10px', left: '20px'}} />
-      <input className="menu-btn" type="checkbox" id="menu-btn" />
-      <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
-      <ul className="menu">
-        <li onClick={() => navigate('/notifications')}>
+    <header className='header'>
+      <Kleros className='logo' onClick={() => navigate('/')} style={{position: 'relative', top: '10px', left: '20px'}} />
+      <input className='menu-btn' type='checkbox' id='menu-btn' />
+      <label className='menu-icon' for='menu-btn'><span class='navicon'></span></label>
+      <ul className='menu'>
+        <li onClick={() => navigate('notifications')}>
           <Envelope style={{height: '15px'}} />
         </li>
-        <li onClick={() => navigate('/new')}>
+        <li onClick={() => navigate('new')}>
           <span className='btn-new'>
             <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
             New Transaction

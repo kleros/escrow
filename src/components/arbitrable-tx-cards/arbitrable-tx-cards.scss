@@ -24,8 +24,6 @@
   }
 }
 
-
-
 .ArbitrableTxCards {
   &-cards {
     display: grid;
@@ -167,5 +165,32 @@
     text-align: center;
     line-height: 60vh;
     cursor: pointer;
+  }
+}
+
+/* 48em = 768px */
+
+@media (max-width: 48em) {
+  .ArbitrableTxCards {
+    &-h1 {
+      text-align: center;
+      font-size: 1.1em;
+      padding: 0 0 1.5em 0;
+    }
+    &-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      justify-items: center;
+      &-section {
+        display: flex;
+        flex-direction: column;
+        border-radius: 3px;
+        border: #ccc solid 1px;
+        overflow: hidden;
+        color: #4a4a4a;
+        width: 90vw;
+      }
+    }
   }
 }

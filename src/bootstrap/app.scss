@@ -1,7 +1,5 @@
 .App {
   main {
-    width: 1200px;
-    max-width: 1200px;
     margin: 0 auto;
     padding-top: 100px;
   }
@@ -123,6 +121,11 @@
 /* 48em = 768px */
 
 @media (min-width: 48em) {
+  .App {
+    main {
+      width: 1200px;
+    }
+  }
   .header li {
     float: left;
     text-align: left;

@@ -29,6 +29,9 @@ class Home extends PureComponent {
   }
 
   componentDidMount() {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+    })
     const { fetchBalance, fetchArbitrabletxs } = this.props
     fetchBalance()
     fetchArbitrabletxs()

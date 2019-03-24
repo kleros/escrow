@@ -124,3 +124,21 @@
     .ResumeArbitrableTx-ContentNewArbitrableTx-content {
       font-size: 1em;
       padding-bottom: 1em; }
+
+@media (max-width: 48em) {
+  .ResumeArbitrableTx {
+    border: none;
+    box-shadow: none;
+    padding-top: 0; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "nameTitle nameTitle" "contentTitle contentTitle" "nameOtherParty nameOtherParty" "contentOtherParty contentOtherParty" "nameAmount nameAmount" "contentAmount contentAmount" "nameTimeout nameTimeout" "contentTimeout contentTimeout" "nameFile nameFile" "contentFile contentFile" "nameDescription nameAllDescription" "contentDescription contentDescription" "submit submit"; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
+        display: none; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
+        display: none; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-submit .PayOrReimburseArbitrableTx {
+        width: 100%; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-submit button {
+        display: block;
+        width: 100%; } }

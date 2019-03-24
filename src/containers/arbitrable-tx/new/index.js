@@ -20,6 +20,10 @@ class New extends PureComponent {
   }
 
   componentDidMount() {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+    })
+
     const { fetchBalance } = this.props
     fetchBalance()
   }

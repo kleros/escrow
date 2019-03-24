@@ -31,6 +31,10 @@ class ArbitrableTx extends PureComponent {
   }
 
   componentDidMount() {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+    })
+
     const { fetchArbitrabletx, arbitrableTxId } = this.props
     fetchArbitrabletx(arbitrableTxId)
   }

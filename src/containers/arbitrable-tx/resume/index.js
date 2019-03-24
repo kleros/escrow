@@ -19,6 +19,10 @@ class Resume extends PureComponent {
   }
 
   componentDidMount() {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+    })
+
     const { fetchMetaEvidenceArbitrabletx, metaEvidenceIPFSHash } = this.props
     fetchMetaEvidenceArbitrabletx(metaEvidenceIPFSHash)
   }

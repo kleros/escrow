@@ -190,3 +190,46 @@
     }
   }
 }
+
+@media (max-width: 48em) {
+  .ResumeArbitrableTx {
+    border: none;
+    box-shadow: none;
+    padding-top: 0;
+    &-ContentNewArbitrableTx {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "nameTitle nameTitle"
+        "contentTitle contentTitle"
+        "nameOtherParty nameOtherParty"
+        "contentOtherParty contentOtherParty"
+        "nameAmount nameAmount"
+        "contentAmount contentAmount"
+        "nameTimeout nameTimeout"
+        "contentTimeout contentTimeout"
+        "nameFile nameFile"
+        "contentFile contentFile"
+        "nameDescription nameAllDescription"
+        "contentDescription contentDescription"
+        "submit submit";
+
+      &-name-share {
+        display: none;
+      }
+      &-link-share {
+        display: none;
+      }
+
+      &-submit {
+        .PayOrReimburseArbitrableTx {
+          width: 100%;
+        }
+          button {
+            display: block;
+            width: 100%;
+          }
+
+      }
+    }
+  }
+}

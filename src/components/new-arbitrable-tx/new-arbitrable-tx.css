@@ -119,3 +119,16 @@
 
 span.error {
   display: none; }
+
+@media (max-width: 48em) {
+  .NewArbitrableTx {
+    border: none;
+    box-shadow: none;
+    padding-top: 0; }
+  .FormNewArbitrableTx-submit {
+    text-align: center !important; }
+    .FormNewArbitrableTx-submit button {
+      float: none;
+      display: inline;
+      margin: 0 auto;
+      width: 100%; } }
