@@ -164,9 +164,9 @@ export default (
               message={
                 <>
                   {
-                    arbitrabletx.data.ruling === '0' && (
+                    'none' !== arbitrabletx.data.party && arbitrabletx.data.ruling === '0' && (
                       <>
-                        <p>Jurors refused to vote</p>
+                        <p>Jurors refused to vote.</p>
                         <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
                           {({isSubmitting}) => (
                             <Form className={'PayOrReimburseArbitrableTx'}>
@@ -184,7 +184,7 @@ export default (
                       </>
                     )
                   }
-                  {accounts[0] === arbitrabletx.data.sender && (
+                  {arbitrabletx.data.ruling !== '0' && accounts[0] === arbitrabletx.data.sender && (
                     <>
                       {arbitrabletx.data.ruling === '1' ? (
                         <>
@@ -214,7 +214,7 @@ export default (
                       )}
                     </>
                   )}
-                  {accounts[0] === arbitrabletx.data.receiver && (
+                  {arbitrabletx.data.ruling !== '0' && accounts[0] === arbitrabletx.data.receiver && (
                     <>
                       {arbitrabletx.data.ruling === '2' ? (
                         <>
