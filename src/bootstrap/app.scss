@@ -123,7 +123,7 @@
 @media (min-width: 48em) {
   .App {
     main {
-      width: 1200px;
+      padding: 100px 2em 0 2em;
     }
   }
   .header li {
@@ -140,5 +140,13 @@
   }
   .header .menu-icon {
     display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .App {
+    main {
+      width: 1200px;
+    }
   }
 }
