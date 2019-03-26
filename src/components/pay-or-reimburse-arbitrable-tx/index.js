@@ -37,7 +37,7 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, amountMax, pay
             className='PayOrReimburseArbitrableTx-pay-field'
             onChange={e => onChangeAmount(e.target.value)}
           />
-          <Button type='submit' disabled={isSubmitting}>
+          <Button className='PayOrReimburseArbitrableTx-pay-Button' type='submit' disabled={isSubmitting}>
             {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} {payOrReimburse}
           </Button>
         </Form>

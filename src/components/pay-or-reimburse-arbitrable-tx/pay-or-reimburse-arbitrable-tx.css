@@ -1,5 +1,10 @@
 .PayOrReimburseArbitrableTx {
   display: inline-block; }
+  .PayOrReimburseArbitrableTx-yes {
+    width: 220px; }
+  .PayOrReimburseArbitrableTx-no {
+    margin-left: 3em;
+    width: 220px; }
   .PayOrReimburseArbitrableTx-pay:before {
     content: 'ETH';
     color: #444;
@@ -9,9 +14,8 @@
   .PayOrReimburseArbitrableTx-pay-field {
     padding: 10px 4px 11px 45px;
     font-size: 14px;
-    margin-right: -3px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    margin-right: -5px;
+    border-radius: 5px;
     border: 1px solid #d9d9d9;
     box-sizing: border-box;
     width: 230px; }
@@ -27,3 +31,24 @@
   width: 90%; }
   .rangeslider-horizontal .rangeslider__fill {
     background-color: #009AFF !important; }
+
+@media (max-width: 48em) {
+  .PayOrReimburseArbitrableTx {
+    text-align: left;
+    width: 100%; }
+    .PayOrReimburseArbitrableTx-yes {
+      display: inline-block;
+      width: 100%; }
+    .PayOrReimburseArbitrableTx-no {
+      display: inline-block;
+      margin: 1em 0 2em 0;
+      width: 100%; }
+    .PayOrReimburseArbitrableTx-pay:before {
+      top: 29px;
+      left: 11px; }
+    .PayOrReimburseArbitrableTx-pay-field {
+      width: 100%; }
+    .PayOrReimburseArbitrableTx-pay-Button {
+      position: relative;
+      top: -40px;
+      float: right; } }

@@ -7,6 +7,7 @@ import Button from '../../components/button'
 import { ReactComponent as Arrow } from '../../assets/arrow.svg'
 import { shortUrl } from '../../utils/short-url'
 import dateToUTC from '../../utils/date-to-utc'
+import { shortAddress } from '../../utils/short-address'
 
 import './resume-arbitrable-tx.css'
 
@@ -21,7 +22,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title'>Title</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty'>{arbitrabletx.otherParty}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{arbitrabletx.otherPartyAddress}</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{shortAddress(arbitrabletx.otherPartyAddress)}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Terminal Date and Time (UTC)</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout'>
             {title === 'Summary' ? (

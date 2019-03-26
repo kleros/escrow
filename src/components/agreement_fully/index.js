@@ -48,11 +48,11 @@ const AgreementFully = ({
         onClose={() => setModal(!open)} 
         center
         classNames={{
-          modal: 'Attachment-modal',
+          modal: 'AgreementFully-modal',
         }}
       >
-        <h2 className='Attachment-modal-title' style={{textAlign: 'center'}}>Propose Settlement or Raise Dispute</h2>
-        <p style={{textAlign: 'center', color: '#4a4a4a', fontSize: '14px', paddingBottom: '2em'}}>
+        <h2 className='AgreementFully-modal-title'>Propose Settlement or Raise Dispute</h2>
+        <p className='AgreementFully-modal-description'>
           Propose a settlement by choosing the escrow amount percentage to send to the other party.
           <br />If this is declined, the counter party can raise a dispute.
         </p>
@@ -63,30 +63,33 @@ const AgreementFully = ({
           value={percent}
           onChange={setAmountByPercent}
         />
-        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>
+        <p className='AgreementFully-modal-offer'>
           You are offering <span style={{color: '#009aff'}}>{percent.toFixed()}%</span>.
         </p>
-        <div style={{textAlign: 'center'}}>
-        <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
-          {({isSubmitting}) => (
-            <Form style={{display: 'inline-block'}}>
-              <Button type='submit' disabled={isSubmitting} style={{width: '240px'}}>
-                {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Raise a dispute
-              </Button>
-            </Form>
-          )}
-        </Formik>
-        <span style={{padding: '1em'}}>&nbsp;</span>
-        <PayOrReimburseArbitrableTx
-          payOrReimburse={payOrReimburse}
-          payOrReimburseFn={payOrReimburseFn}
-          amount={amount}
-          amountMax={arbitrabletx.data.amount}
-          id={arbitrabletx.data.id}
-          onChangeAmount={setPercentByAmount}
-        />
+        <div className='AgreementFully-modal-buttons'>
+          <div className='AgreementFully-modal-buttons-raise-dispute'>
+            <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
+              {({isSubmitting}) => (
+                <Form style={{display: 'inline-block'}}>
+                  <Button type='submit' disabled={isSubmitting} className='AgreementFully-modal-buttons-raise-dispute-button'>
+                    {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Raise a dispute
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </div>
+          <div className='AgreementFully-modal-buttons-pay-reimburse'>
+            <PayOrReimburseArbitrableTx
+              payOrReimburse={payOrReimburse}
+              payOrReimburseFn={payOrReimburseFn}
+              amount={amount}
+              amountMax={arbitrabletx.data.amount}
+              id={arbitrabletx.data.id}
+              onChangeAmount={setPercentByAmount}
+            />
+          </div>
         </div>
-        <p style={{fontStyle: 'italic', color: '#4a4a4a', fontSize: '12px', padding: '3em 0 1em 2em'}}>Raise dispute: you will need to pay the arbitration fee of {arbitrabletx.data.arbitrationCost}ETH.</p>
+        <p className='AgreementFully-modal-dispute-description'>Raise dispute: you will need to pay the arbitration fee of {arbitrabletx.data.arbitrationCost}ETH.</p>
       </Modal>
       <div className='AgreementFully-message'>
         <p>

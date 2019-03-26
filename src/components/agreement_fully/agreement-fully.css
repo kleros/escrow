@@ -2,6 +2,37 @@
   background: linear-gradient(52.79deg, #1e075f 29.65%, #4004a3 76.51%);
   color: #fff;
   text-align: center; }
+  .AgreementFully-modal {
+    min-width: 50vw; }
+    .AgreementFully-modal-title {
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: bold;
+      padding: 24px 0 1em 0; }
+    .AgreementFully-modal-description {
+      text-align: center;
+      color: #4a4a4a;
+      font-size: 14px;
+      padding-bottom: 2em; }
+    .AgreementFully-modal-offer {
+      font-style: italic;
+      color: #4a4a4a;
+      font-size: 12px;
+      padding: 3em 0 1em 2em; }
+    .AgreementFully-modal-buttons {
+      text-align: center; }
+      .AgreementFully-modal-buttons-raise-dispute {
+        display: inline-block; }
+        .AgreementFully-modal-buttons-raise-dispute-button {
+          width: 240px; }
+      .AgreementFully-modal-buttons-pay-reimburse {
+        display: inline-block;
+        padding-left: 1em; }
+    .AgreementFully-modal-dispute-description {
+      font-style: italic;
+      color: #4a4a4a;
+      font-size: 12px;
+      padding: 3em 0 1em 2em; }
   .AgreementFully-message {
     text-align: center;
     background-image: url(../../assets/ellipsis.svg);
@@ -21,24 +52,22 @@
     background: #1e075f;
     font-size: 14px; }
 
-.PayOrReimburseArbitrableTx-yes {
-  width: 220px; }
-
-.PayOrReimburseArbitrableTx-no {
-  margin-left: 3em;
-  width: 220px; }
-
 @media (max-width: 48em) {
+  .AgreementFully-modal-buttons {
+    width: 100%; }
+    .AgreementFully-modal-buttons-raise-dispute {
+      display: block;
+      margin: 2em 0 0 0; }
+      .AgreementFully-modal-buttons-raise-dispute form {
+        width: 100%; }
+      .AgreementFully-modal-buttons-raise-dispute-button {
+        width: 100%; }
+    .AgreementFully-modal-buttons-pay-reimburse {
+      display: block;
+      margin: 2em 0 0 0;
+      width: 100%;
+      padding: 0; }
+  .AgreementFully-modal-dispute-description {
+    padding: 0 0 1em 2em; }
   .AgreementFully-message {
-    padding: 0 2em; }
-  .PayOrReimburseArbitrableTx {
-    width: 100%;
-    text-align: center; }
-    .PayOrReimburseArbitrableTx-yes {
-      display: inline-block;
-      width: 90%; }
-    .PayOrReimburseArbitrableTx-no {
-      display: inline-block;
-      margin-left: 0;
-      margin: 1em 0 2em 0;
-      width: 90%; } }
+    padding: 0 2em; } }

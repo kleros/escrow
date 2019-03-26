@@ -3,6 +3,47 @@
   color: #fff;
   text-align: center;
 
+  &-modal {
+    min-width: 50vw;
+    &-title {
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: bold;
+      padding: 24px 0 1em 0;
+    }
+    &-description {
+      text-align: center;
+      color: #4a4a4a; 
+      font-size: 14px;
+      padding-bottom: 2em;
+    }
+    &-offer {
+      font-style: italic;
+      color: #4a4a4a; 
+      font-size: 12px;
+      padding: 3em 0 1em 2em;
+    }
+    &-buttons {
+      text-align: center;
+      &-raise-dispute {
+        display: inline-block;
+        &-button {
+          width: 240px;
+        }
+      }
+      &-pay-reimburse {
+        display: inline-block;
+        padding-left: 1em;
+      }
+    }
+    &-dispute-description {
+      font-style: italic;
+      color: #4a4a4a;
+      font-size: 12px;
+      padding: 3em 0 1em 2em;
+    }
+  }
+
   &-message {
     text-align: center;
     background-image: url(../../assets/ellipsis.svg);
@@ -28,34 +69,34 @@
   }
 }
 
-.PayOrReimburseArbitrableTx {
-  &-yes {
-    width: 220px;
-  }
-  &-no {
-    margin-left: 3em;
-    width: 220px;
-  }
-}
-
 @media (max-width: 48em) {
   .AgreementFully {
+    &-modal {
+      &-buttons {
+        width: 100%;
+        &-raise-dispute {
+          display: block;
+          margin: 2em 0 0 0;
+          form {
+            width: 100%;
+          }
+          &-button {
+            width: 100%;
+          }
+        }
+        &-pay-reimburse {
+          display: block;
+          margin: 2em 0 0 0;
+          width: 100%;
+          padding: 0;
+        }
+      }
+      &-dispute-description {
+        padding: 0 0 1em 2em;
+      }
+    }
     &-message {
       padding: 0 2em;
-    }
-  }
-  .PayOrReimburseArbitrableTx {
-    width: 100%;
-    text-align: center;
-    &-yes {
-      display: inline-block;
-      width: 90%;
-    }
-    &-no {
-      display: inline-block;
-      margin-left: 0;
-      margin: 1em 0 2em 0;
-      width: 90%;
     }
   }
 }
