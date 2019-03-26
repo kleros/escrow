@@ -110,12 +110,12 @@ const AgreementFully = ({
         <span style={{padding: '3em'}}>&nbsp;</span>
         <Button onClick={() => setModal(!open)} disabled={arbitrabletx.data.party === 'none'} style={{width: '220px'}}>No</Button>
       </div>
-      <div className='AgreementFully-footer' style={{fontSize: '14px', paddingTop: '1em'}}>
+      <div className='AgreementFully-footer'>
         {
           arbitrabletx.data.sender === accounts[0] && (
             <>
-              1. If you say yes, you'll pay the final amount  in full.
-              <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+              1. If you say yes, you'll pay the final amount in full.
+              <br />2. If you say no, you will be directed to a settlement screen where you can propose a partial offer to the other party.
               <br /><br />Timeout to execute the arbitrable payment transaction <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
             </>
           )
@@ -123,8 +123,8 @@ const AgreementFully = ({
         {
           arbitrabletx.data.receiver === accounts[0] && (
             <>
-              1. If you say yes, you'll reimburse the final amount  in full.
-              <br />2. If you say no, you will be directly to a settlement screen where you can propose a partial offer to the other party.
+              1. If you say yes, you'll reimburse the final amount in full.
+              <br />2. If you say no, you will be directed to a settlement screen where you can propose a partial offer to the other party.
               <br /><br />Timeout to execute the arbitrable payment <Countdown date={arbitrabletx.data.lastInteraction * 1000 + arbitrabletx.data.timeoutPayment * 1000} />.
             </>
           )
