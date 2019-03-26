@@ -2,7 +2,6 @@
   background: linear-gradient(52.79deg, #1e075f 29.65%, #4004a3 76.51%);
   color: #fff;
 
-  
   &-message {
     text-align: center;
     font-size: 1.4em;
@@ -66,5 +65,18 @@
     text-align: right;
     padding-top: 2em;
     padding-right: 15%;
+  }
+}
+
+@media (max-width: 48em) {
+  .NewEvidenceArbitrableTx {
+    &-footer {
+      padding-right: 0;
+      padding-top: 2em;
+      text-align: center;
+      .Button {
+        width: 70%;
+      }
+    }
   }
 }

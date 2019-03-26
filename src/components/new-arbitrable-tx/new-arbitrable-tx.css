@@ -124,7 +124,19 @@ span.error {
   .NewArbitrableTx {
     border: none;
     box-shadow: none;
-    padding-top: 0; }
+    padding: 0 20px 10px 20px; }
+  .FormNewArbitrableTx-help-title {
+    display: none; }
+  .FormNewArbitrableTx-help-receiver {
+    display: none; }
+  .FormNewArbitrableTx-help-timeout {
+    display: none; }
+  .FormNewArbitrableTx-help-amount {
+    display: none; }
+  .FormNewArbitrableTx-help-file {
+    display: none; }
+  .FormNewArbitrableTx-template-description-wrapper {
+    display: none; }
   .FormNewArbitrableTx-submit {
     text-align: center !important; }
     .FormNewArbitrableTx-submit button {

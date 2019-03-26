@@ -216,9 +216,27 @@ span.error {
   .NewArbitrableTx {
     border: none;
     box-shadow: none;
-    padding-top: 0;
+    padding: 0 20px 10px 20px;
   }
   .FormNewArbitrableTx {
+    &-help-title {
+      display: none;
+    }
+    &-help-receiver {
+      display: none;
+    }
+    &-help-timeout {
+      display: none;
+    }
+    &-help-amount {
+      display: none;
+    }
+    &-help-file {
+      display: none;
+    }
+    &-template-description-wrapper {
+      display: none;
+    }
     &-submit {
       text-align: center !important;
       button {
