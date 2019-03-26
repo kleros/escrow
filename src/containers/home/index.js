@@ -8,6 +8,7 @@ import * as walletActions from '../../actions/wallet'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as walletSelectors from '../../reducers/wallet'
 import ArbitrableTxCards from '../../components/arbitrable-tx-cards'
+import RequiresMetaMaskPage from '../requires-meta-mask-page'
 
 import './home.css'
 
@@ -56,7 +57,7 @@ class Home extends PureComponent {
               />
             )
           }
-          failedLoading='There was an error fetching the arbitrable transactions. Make sure you are connected to the right Ethereum network.'
+          failedLoading={<RequiresMetaMaskPage />}
         />
       </div>
     )

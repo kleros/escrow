@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { getNetwork } from '../../bootstrap/dapp-api'
-
 import metaMaskLogo from '../../assets/meta-mask-logo.png'
 import './requires-meta-mask-page.css'
 
@@ -39,10 +37,6 @@ const RequiresMetamaskPage = ({
               Please ensure Metamask is set to the{' '}
               <strong>Main</strong> ethereum network
             </p>
-            <small>
-              Metamask is currently set to the {getNetwork}{' '}
-              ethereum network
-            </small>
           </>
         )}
       </div>
