@@ -100,15 +100,14 @@ const AgreementFully = ({
         </p>
         <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)}>
           {({isSubmitting}) => (
-            <Form className={'PayOrReimburseArbitrableTx'}>
-              <Button type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'} style={{width: '220px'}}>
+            <Form className='PayOrReimburseArbitrableTx'>
+              <Button className='PayOrReimburseArbitrableTx-yes' type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'}>
                 {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Yes
               </Button>
             </Form>
           )}
         </Formik>
-        <span style={{padding: '3em'}}>&nbsp;</span>
-        <Button onClick={() => setModal(!open)} disabled={arbitrabletx.data.party === 'none'} style={{width: '220px'}}>No</Button>
+        <Button className='PayOrReimburseArbitrableTx-no' onClick={() => setModal(!open)} disabled={arbitrabletx.data.party === 'none'}>No</Button>
       </div>
       <div className='AgreementFully-footer'>
         {

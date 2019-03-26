@@ -27,3 +27,35 @@
     font-size: 14px;
   }
 }
+
+.PayOrReimburseArbitrableTx {
+  &-yes {
+    width: 220px;
+  }
+  &-no {
+    margin-left: 3em;
+    width: 220px;
+  }
+}
+
+@media (max-width: 48em) {
+  .AgreementFully {
+    &-message {
+      padding: 0 2em;
+    }
+  }
+  .PayOrReimburseArbitrableTx {
+    width: 100%;
+    text-align: center;
+    &-yes {
+      display: inline-block;
+      width: 90%;
+    }
+    &-no {
+      display: inline-block;
+      margin-left: 0;
+      margin: 1em 0 2em 0;
+      width: 90%;
+    }
+  }
+}
