@@ -207,7 +207,7 @@ export default (
                                 </Button>
                                 {isSubmitting && (
                                   <div style={{padding: '2em 0'}}>
-                                    If the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} className='reload' style={{color: '#009aff'}}>click here to reload the page</span>.
+                                    If the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} style={{color: '#009aff'}}>click here to reload the page</span>.
                                   </div>
                                 )}
                               </Form>
@@ -235,7 +235,7 @@ export default (
                                 </Button>
                                 {isSubmitting && (
                                   <div style={{padding: '2em 0'}}>
-                                    If the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} className='reload' style={{color: '#009aff'}}>click here to reload the page</span>.
+                                    If the page is not automatically updated after the transaction mining, <span className='reload' onClick={e => window.location.reload()} style={{color: '#009aff'}}>click here to reload the page</span>.
                                   </div>
                                 )}
                               </Form>

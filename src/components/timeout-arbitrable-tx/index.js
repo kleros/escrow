@@ -7,7 +7,7 @@ import { ClipLoader } from 'react-spinners'
 import Button from '../button'
 
 const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
-  <React.Fragment>
+  <>
     <div style={{color: 'red', fontWeight: 'bold', fontSize: '0.9em'}}>Timeout</div>
     <div style={{color: 'red', fontWeight: 'bold', fontSize: '1.2em', paddingBottom: '10px'}}><Countdown date={time} /></div>
     <Formik onSubmit={() => timeout(arbitrable, id)}>
@@ -19,7 +19,7 @@ const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
         </Form>
       )}
     </Formik>
-  </React.Fragment>
+  </>
 )
 
 TimeoutArbitrableTx.propTypes = {

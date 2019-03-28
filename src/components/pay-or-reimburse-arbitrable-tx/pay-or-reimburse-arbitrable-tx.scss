@@ -40,7 +40,6 @@
 
 @media (max-width: 48em) {
   .PayOrReimburseArbitrableTx {
-    text-align: left;
     width: 100%;
     &-yes {
       display: inline-block;
@@ -62,6 +61,10 @@
       position: relative;
       top: -40px;
       float: right;
+    }
+    .Button {
+      width: 90%;
+      margin-bottom: 20px;
     }
   }
 }
