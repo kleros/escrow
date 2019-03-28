@@ -38,6 +38,7 @@ Identicon.propTypes = {
 
 Identicon.defaultProps = {
   // React Blockies
+  address: '',
   size: 8,
   scale: 5,
 

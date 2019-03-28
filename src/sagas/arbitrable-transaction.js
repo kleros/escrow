@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import Archon from '@kleros/archon'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
@@ -193,35 +193,30 @@ function* fetchArbitrabletxs() {
 
   let arbitrableTransactions = []
 
-  let arbitrableTransaction
-
   for (let arbitrableAddress of arbitrableAddresses) {
+    multipleArbitrableTransactionEth = new web3.eth.Contract(
+      multipleArbitrableTransaction.abi,
+      arbitrableAddress
+    )
     for (let arbitrableTransactionId of arbitrableAddressToArbitrableTransactionIds[arbitrableAddress]) {
-      multipleArbitrableTransactionEth = new web3.eth.Contract(
-        multipleArbitrableTransaction.abi,
-        arbitrableAddress
-      )
-
-      arbitrableTransaction = yield call(
-          multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
-      )
-
-      let metaEvidence
       try {
-        // Use arbitrableTransactionId as metaEvidenceID
-        metaEvidence = yield call(
-          archon.arbitrable.getMetaEvidence,
-          arbitrableAddress,
-          arbitrableTransactionId
-        )
+        const [arbitrableTransaction, metaEvidence] = yield all([
+          call(
+            multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
+          ),
+          call(
+            archon.arbitrable.getMetaEvidence,
+            arbitrableAddress,
+            arbitrableTransactionId // Use arbitrableTransactionId as metaEvidenceID
+          )
+        ])
 
-        arbitrableTransaction.arbitrableAddress = arbitrableAddress
+        arbitrableTransaction.arbitrableAddress = arbitrableAddress || '0x0000000000000000000000000000000000000000'
         arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
-        arbitrableTransaction.id = arbitrableTransactionId
-        arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver'
-        arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
-        arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
-        arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
+        arbitrableTransaction.id = arbitrableTransactionId || 0
+        arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : accounts[0] === arbitrableTransaction.receiver ? 'receiver' : '...'
+        arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : accounts[0] === arbitrableTransaction.sender ? 'receiver' : '...'
+        arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction}) || ''
 
         arbitrableTransactions.push(arbitrableTransaction)
       } catch (err) {
@@ -243,13 +238,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
-  let arbitrableTransaction = {}
   let ruling = null
-  let disputeStatus = null
-  let metaEvidenceArchon = {
-    metaEvidenceJSON: {}
-  }
-  let arbitrationCost = 0
 
   // force convert to string
   const transactionId = id.toString()
@@ -259,65 +248,61 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     arbitrable
   )
 
-  arbitrableTransaction = yield call(
-    multipleArbitrableTransactionEth.methods.transactions(transactionId).call
+  const network = yield call(getNetwork)
+  const archon = new Archon(
+    `https://${network.toLowerCase()}.infura.io`,
+    'https://ipfs.kleros.io'
+  )
+
+  const [arbitrableTransaction, metaEvidenceArchon, arbitrationCost] = yield all(
+    [
+      call(
+        multipleArbitrableTransactionEth.methods.transactions(transactionId).call
+      ),
+      call(
+        archon.arbitrable.getMetaEvidence,
+        arbitrable,
+        id
+      ),
+      call(
+        arbitratorEth.methods.arbitrationCost(ARBITRATOR_EXTRADATA).call
+      )
+    ]
+  )
+
+  const  disputeStatus = yield call(
+    arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
   )
 
   arbitrableTransaction.id = id
   arbitrableTransaction.evidences = null
-
   arbitrableTransaction.amount = web3.utils.fromWei(arbitrableTransaction.amount.toString(), 'ether')
+  arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
+  arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.sender ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
 
-  try {
-    const network = yield call(getNetwork)
-    const archon = new Archon(
-      `https://${network.toLowerCase()}.infura.io`,
-      'https://ipfs.kleros.io'
-    )
+  if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
+    arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
 
-    metaEvidenceArchon = yield call(
-      archon.arbitrable.getMetaEvidence,
+  // NOTE: assuming disputeID is not equal to 0
+  if (arbitrableTransaction.disputeId) {
+    const metaEvidenceArchonEvidences = yield call(
+      archon.arbitrable.getEvidence,
       arbitrable,
-      transactionId
+      ARBITRATOR_ADDRESS,
+      id
     )
 
-    if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
-      arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
-
-    // NOTE: assuming disputeID is not equal to 0
-    if (arbitrableTransaction.disputeId) {
-      const metaEvidenceArchonEvidences = yield call(
-        archon.arbitrable.getEvidence,
-        arbitrable,
-        ARBITRATOR_ADDRESS,
-        arbitrableTransaction.id
-      )
-
-      if (metaEvidenceArchonEvidences.length > 0)
-        arbitrableTransaction.evidences = metaEvidenceArchonEvidences
-    }
-
-    arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
-    arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.sender ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
-
-    disputeStatus = yield call(
-      arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
-    )
-
-    arbitrationCost = yield call(
-      arbitratorEth.methods.arbitrationCost(ARBITRATOR_EXTRADATA).call
-    )
-
-    if (
-      disputeStatus.toString() === disputeConstants.SOLVED.toString() 
-      || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
-    )
-      ruling = yield call(
-        arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
-      )
-  } catch (err) {
-    console.log(err)
+    if (metaEvidenceArchonEvidences.length > 0)
+      arbitrableTransaction.evidences = metaEvidenceArchonEvidences
   }
+
+  if (
+    disputeStatus.toString() === disputeConstants.SOLVED.toString() 
+    || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
+  )
+    ruling = yield call(
+      arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
+    )
 
   return {
     arbitrableAddress: arbitrable,
