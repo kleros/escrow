@@ -57,7 +57,7 @@ class Home extends PureComponent {
               />
             )
           }
-          failedLoading={<RequiresMetaMaskPage />}
+          failedLoading={<RequiresMetaMaskPage needsUnlock={false}  />}
         />
       </div>
     )

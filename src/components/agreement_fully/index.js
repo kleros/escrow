@@ -68,7 +68,7 @@ const AgreementFully = ({
         </p>
         <div className='AgreementFully-modal-buttons'>
           <div className='AgreementFully-modal-buttons-raise-dispute'>
-            <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
+            <Formik onSubmit={() => createDispute(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
               {({isSubmitting}) => (
                 <Form style={{display: 'inline-block'}}>
                   <Button type='submit' disabled={isSubmitting} className='AgreementFully-modal-buttons-raise-dispute-button'>
@@ -80,6 +80,7 @@ const AgreementFully = ({
           </div>
           <div className='AgreementFully-modal-buttons-pay-reimburse'>
             <PayOrReimburseArbitrableTx
+              arbitrable={arbitrabletx.data.arbitrableAddress}
               payOrReimburse={payOrReimburse}
               payOrReimburseFn={payOrReimburseFn}
               amount={amount}
@@ -101,7 +102,8 @@ const AgreementFully = ({
             )
           }
         </p>
-        <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.id, arbitrabletx.data.amount)}>
+
+        <Formik onSubmit={() => payOrReimburseFn(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id, arbitrabletx.data.amount)}>
           {({isSubmitting}) => (
             <Form className='PayOrReimburseArbitrableTx'>
               <Button className='PayOrReimburseArbitrableTx-yes' type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'}>

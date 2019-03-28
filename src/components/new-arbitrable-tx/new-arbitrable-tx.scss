@@ -16,6 +16,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "labelArbitrableAddresses labelArbitrableAddresses"
+      "inputArbitrableAddresses inputArbitrableAddresses"
+      "errorArbitrableAddresses helpArbitrableAddresses"
       "labelTitle labelTitle"
       "inputTitle inputTitle"
       "errorTitle helpTitle"
@@ -35,6 +38,22 @@
       "inputDescription inputDescription"
       "errorDescription helpDescription"
       "submit submit";
+
+    &-label-arbitrableAddresses {
+      grid-area: labelArbitrableAddresses;
+    }
+
+    &-input-arbitrableAddresses {
+      grid-area: inputArbitrableAddresses;
+    }
+
+    &-error-arbitrableAddresses {
+      grid-area: errorArbitrableAddresses;
+    }
+
+    &-help-arbitrableAddresses {
+      grid-area: helpArbitrableAddresses;
+    }
 
     &-label-title {
       grid-area: labelTitle;
@@ -129,6 +148,15 @@
         display: inline-block;
         width: 50%;
         text-align: left;
+      }
+    }
+
+    &-template-arbitrableAddresses-wrapper {
+      grid-area: inputArbitrableAddresses;
+      padding-bottom: 10px;
+      &-content {
+        color: #4004a3;
+        width: 100%;
       }
     }
 

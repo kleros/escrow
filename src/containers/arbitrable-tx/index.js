@@ -35,8 +35,8 @@ class ArbitrableTx extends PureComponent {
       window.scrollTo(0, 0)
     })
 
-    const { fetchArbitrabletx, arbitrableTxId } = this.props
-    fetchArbitrabletx(arbitrableTxId)
+    const { fetchArbitrabletx, contract, arbitrableTxId } = this.props
+    fetchArbitrabletx(contract, arbitrableTxId)
   }
 
   static getDerivedStateFromProps(props, state) {

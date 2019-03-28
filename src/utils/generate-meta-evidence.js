@@ -1,4 +1,5 @@
 export default ({
+  arbitrableAddress,
   sender,
   receiver,
   title,
@@ -13,6 +14,7 @@ export default ({
   {
     category: 'Escrow',
     subCategory,
+    arbitrableAddress,
     title,
     description,
     fileURI,

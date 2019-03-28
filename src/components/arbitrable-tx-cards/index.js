@@ -22,8 +22,8 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
       arbitrabletxs.length > 0 ? (
         <div className='ArbitrableTxCards-cards'>
           {
-            arbitrabletxs.map(arbitrabletx => (
-              <section className='ArbitrableTxCards-cards-section' key={arbitrabletx.id} onClick={() => navigate(arbitrabletx.id)}>
+            arbitrabletxs.map((arbitrabletx, index) => (
+              <section className='ArbitrableTxCards-cards-section' key={index} onClick={() => navigate(`contract/${arbitrabletx.arbitrableAddress}/transaction/${arbitrabletx.id}`)}>
                 <div className='ArbitrableTxCards-cards-section-header'>
                   <Identicon scale={3} round={true} address={arbitrabletx[arbitrabletx.otherParty]} />
                   <div className='ArbitrableTxCards-cards-section-header-address'>{shortAddress(arbitrabletx[arbitrabletx.otherParty])}</div>

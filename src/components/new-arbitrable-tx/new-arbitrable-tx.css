@@ -12,7 +12,15 @@
     padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelReceiver labelReceiver" "inputReceiver inputReceiver" "errorReceiver helpReceiver" "labelTimeout labelTimeout" "inputTimeout inputTimeout" "errorTimeout helpTimeout" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
+    grid-template-areas: "labelArbitrableAddresses labelArbitrableAddresses" "inputArbitrableAddresses inputArbitrableAddresses" "errorArbitrableAddresses helpArbitrableAddresses" "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelReceiver labelReceiver" "inputReceiver inputReceiver" "errorReceiver helpReceiver" "labelTimeout labelTimeout" "inputTimeout inputTimeout" "errorTimeout helpTimeout" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
+    .NewArbitrableTx .FormNewArbitrableTx-label-arbitrableAddresses {
+      grid-area: labelArbitrableAddresses; }
+    .NewArbitrableTx .FormNewArbitrableTx-input-arbitrableAddresses {
+      grid-area: inputArbitrableAddresses; }
+    .NewArbitrableTx .FormNewArbitrableTx-error-arbitrableAddresses {
+      grid-area: errorArbitrableAddresses; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-arbitrableAddresses {
+      grid-area: helpArbitrableAddresses; }
     .NewArbitrableTx .FormNewArbitrableTx-label-title {
       grid-area: labelTitle; }
     .NewArbitrableTx .FormNewArbitrableTx-input-title {
@@ -64,6 +72,12 @@
         display: inline-block;
         width: 50%;
         text-align: left; }
+    .NewArbitrableTx .FormNewArbitrableTx-template-arbitrableAddresses-wrapper {
+      grid-area: inputArbitrableAddresses;
+      padding-bottom: 10px; }
+      .NewArbitrableTx .FormNewArbitrableTx-template-arbitrableAddresses-wrapper-content {
+        color: #4004a3;
+        width: 100%; }
     .NewArbitrableTx .FormNewArbitrableTx-input-description {
       grid-area: inputDescription;
       margin-top: 1em; }

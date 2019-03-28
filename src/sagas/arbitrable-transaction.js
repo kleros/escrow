@@ -1,13 +1,15 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import Archon from '@kleros/archon'
+import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 
 import {
   web3,
-  multipleArbitrableTransactionEth,
   arbitratorEth,
   getNetwork,
-  ARBITRABLE_ADDRESS,
+  ARBITRABLE_FREELANCING_ADDRESS,
+  ARBITRABLE_BOUNTY_ADDRESS,
+  ARBITRABLE_OTHER_ADDRESS,
   ARBITRATOR_ADDRESS,
   ARBITRATOR_EXTRADATA
 } from '../bootstrap/dapp-api'
@@ -48,6 +50,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
+      arbitrableAddress: arbitrabletxForm.arbitrableAddress,
       sender: accounts[0],
       receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
@@ -59,6 +62,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
     })
   } else {
     metaEvidence = createMetaEvidence({
+      arbitrableAddress: arbitrabletxForm.arbitrableAddress,
       sender: accounts[0],
       receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
@@ -105,6 +109,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
   return yield put(action(arbitrabletxActions.arbitrabletx.RESUMEFORM,
     {
       arbitrabletxResumeForm: {
+        arbitrableAddress: metaEvidenceDecoded.arbitrableAddress,
         title: metaEvidenceDecoded.title,
         description: metaEvidenceDecoded.description,
         receiver: parties['Party B'],
@@ -127,6 +132,11 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
 function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFSHash } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrabletxReceived.arbitrableAddress
+  )
+
   const arbitrableTransactionCount = yield call(
     multipleArbitrableTransactionEth.methods.getCountTransactions().call
   )
@@ -144,7 +154,7 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
   )
 
   if (txHash)
-    navigate(`/${arbitrableTransactionCount}`)
+    navigate(`/contract/${arbitrabletxReceived.arbitrableAddress}/transaction/${arbitrableTransactionCount}`)
 
   return {}
 }
@@ -163,41 +173,61 @@ function* fetchArbitrabletxs() {
     'https://ipfs.kleros.io'
   )
 
-  const arbitrableTransactionIds = yield call(
-    multipleArbitrableTransactionEth.methods.getTransactionIDsByAddress(
-      accounts[0]
-    ).call
-  )
+  let multipleArbitrableTransactionEth = {}
+  let arbitrableAddressToArbitrableTransactionIds = []
+  const arbitrableAddresses = [
+    ARBITRABLE_FREELANCING_ADDRESS
+  ]
+
+  for (let arbitrableAddress of arbitrableAddresses) {
+    multipleArbitrableTransactionEth = new web3.eth.Contract(
+      multipleArbitrableTransaction.abi,
+      arbitrableAddress
+    )
+    arbitrableAddressToArbitrableTransactionIds[arbitrableAddress] = yield call(
+      multipleArbitrableTransactionEth.methods.getTransactionIDsByAddress(
+        accounts[0]
+      ).call
+    )
+  }
 
   let arbitrableTransactions = []
 
   let arbitrableTransaction
 
-  for (let arbitrableTransactionId of arbitrableTransactionIds) {
-    arbitrableTransaction = yield call(
-        multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
-    )
-
-    let metaEvidence
-    try {
-      // Use arbitrableTransactionId as metaEvidenceID
-      metaEvidence = yield call(
-        archon.arbitrable.getMetaEvidence,
-        ARBITRABLE_ADDRESS,
-        arbitrableTransactionId
+  for (let arbitrableAddress of arbitrableAddresses) {
+    for (let arbitrableTransactionId of arbitrableAddressToArbitrableTransactionIds[arbitrableAddress]) {
+      multipleArbitrableTransactionEth = new web3.eth.Contract(
+        multipleArbitrableTransaction.abi,
+        arbitrableAddress
       )
 
-      arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
-      arbitrableTransaction.id = arbitrableTransactionId
-      arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver'
-      arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
-      arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
-      arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
+      arbitrableTransaction = yield call(
+          multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
+      )
 
-      arbitrableTransactions.push(arbitrableTransaction)
-    } catch (err) {
-      console.error(err)
-      continue
+      let metaEvidence
+      try {
+        // Use arbitrableTransactionId as metaEvidenceID
+        metaEvidence = yield call(
+          archon.arbitrable.getMetaEvidence,
+          arbitrableAddress,
+          arbitrableTransactionId
+        )
+
+        arbitrableTransaction.arbitrableAddress = arbitrableAddress
+        arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
+        arbitrableTransaction.id = arbitrableTransactionId
+        arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : 'receiver'
+        arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : 'receiver'
+        arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
+        arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
+
+        arbitrableTransactions.push(arbitrableTransaction)
+      } catch (err) {
+        console.error(err)
+        continue
+      }
     }
   }
 
@@ -206,9 +236,9 @@ function* fetchArbitrabletxs() {
 
 /**
  * Fetches arbitrable transaction details.
- * @param {object} { payload: id } - The id of the arbitrable transaction to fetch details for.
+ * @param {object} { payload: arbitrable, id } - The id of the arbitrable transaction to fetch details for.
  */
-function* fetchArbitrabletx({ payload: { id } }) {
+function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
@@ -223,6 +253,11 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
   // force convert to string
   const transactionId = id.toString()
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(transactionId).call
@@ -242,7 +277,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
     metaEvidenceArchon = yield call(
       archon.arbitrable.getMetaEvidence,
-      ARBITRABLE_ADDRESS,
+      arbitrable,
       transactionId
     )
 
@@ -253,7 +288,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
     if (arbitrableTransaction.disputeId) {
       const metaEvidenceArchonEvidences = yield call(
         archon.arbitrable.getEvidence,
-        ARBITRABLE_ADDRESS,
+        arbitrable,
         ARBITRATOR_ADDRESS,
         arbitrableTransaction.id
       )
@@ -285,6 +320,7 @@ function* fetchArbitrabletx({ payload: { id } }) {
   }
 
   return {
+    arbitrableAddress: arbitrable,
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
     arbitrationCost: web3.utils.fromWei(arbitrationCost.toString(), 'ether'),
@@ -298,10 +334,15 @@ function* fetchArbitrabletx({ payload: { id } }) {
 
 /**
  * Pay the party B. To be called when the good is delivered or the service rendered.
- * @param {object} { payload: id, amount } - The id of the arbitrableTx and the amount of the transaction.
+ * @param {object} { payload: arbitrable, id, amount } - The id of the arbitrableTx and the amount of the transaction.
  */
-function* createPayOrReimburse({ payload: { id, amount } }) {
+function* createPayOrReimburse({ payload: { arbitrable, id, amount } }) {
   const accounts = yield call(web3.eth.getAccounts)
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -335,10 +376,15 @@ function* createPayOrReimburse({ payload: { id, amount } }) {
 
 /**
  * Transfer the transaction's amount to the sender if the timeout has passed.
- * @param {object} { payload: id } - The id of the arbitrableTx.
+ * @param {object} { payload: arbitrable, id } - The id of the arbitrableTx.
  */
-function* executeTransaction({ payload: { id } }) {
+function* executeTransaction({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   yield call(
     multipleArbitrableTransactionEth.methods.executeTransaction(
@@ -355,10 +401,15 @@ function* executeTransaction({ payload: { id } }) {
 
 /**
  * Raises dispute.
- * @param {object} { payload: id } - The id of the arbitrable transaction.
+ * @param {object} { payload: arbitrable, id } - The id of the arbitrable transaction.
  */
-function* createDispute({ payload: { id } }) {
+function* createDispute({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -394,10 +445,15 @@ function* createDispute({ payload: { id } }) {
 
 /**
  * Raises an appeal.
- * @param {object} { payload: id } - The id of the arbitrable transaction.
+ * @param {object} { payload: arbitrable, id } - The id of the arbitrable transaction.
  */
-function* createAppeal({ payload: { id } }) {
+function* createAppeal({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -422,11 +478,16 @@ function* createAppeal({ payload: { id } }) {
 
 /**
  * Call if a party fails to pay the fee.
- * @param {object} { payload: id } - The arbitrabl transaction id of the contract.
+ * @param {object} { payload: arbitrable, id } - The arbitrabl transaction id of the contract.
  */
-function* createTimeout({ type, payload: { id } }) {
+function* createTimeout({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -458,9 +519,9 @@ function* createTimeout({ type, payload: { id } }) {
 
 /**
  * Send evidence
- * @param {object} { type, payload: evidenceReceived,  } - Evidence.
+ * @param {object} { payload: evidenceReceived, arbitrable, arbitrableTransactionId } - Evidence.
  */
-function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransactionId } }) {
+function* createEvidence({ payload: { evidenceReceived, arbitrable, arbitrableTransactionId } }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -499,6 +560,11 @@ function* createEvidence({ type, payload: { evidenceReceived, arbitrableTransact
     enc.encode(JSON.stringify(evidence)) // encode to bytes
   )
   ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
+
+  const multipleArbitrableTransactionEth = new web3.eth.Contract(
+    multipleArbitrableTransaction.abi,
+    arbitrable
+  )
 
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.submitEvidence(

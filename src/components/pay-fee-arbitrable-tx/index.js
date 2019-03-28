@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 import './pay-fee-arbitrable-tx.css'
 
-const PayFeeArbitrableTx = ({ id, payFee }) => (
+const PayFeeArbitrableTx = ({ arbitrable, id, payFee }) => (
   <div>
-    <button type="submit" style={{float: 'right'}} onClick={() => payFee(id)}>
+    <button type="submit" style={{float: 'right'}} onClick={() => payFee(arbitrable, id)}>
       Raise a dispute
     </button>
   </div>
@@ -20,6 +20,7 @@ PayFeeArbitrableTx.propTypes = {
 
 PayFeeArbitrableTx.defaultProps = {
   // State
+  arbitrable: '',
   id: '',
   payFee: v => v
   // TODO

@@ -25,7 +25,7 @@ const Main = ({ children }) => (
     <header className='header'>
       <Kleros className='logo' onClick={() => navigate('/')} style={{position: 'relative', top: '10px', left: '20px'}} />
       <input className='menu-btn' type='checkbox' id='menu-btn' />
-      <label className='menu-icon' for='menu-btn'><span class='navicon'></span></label>
+      <label className='menu-icon' htmlFor='menu-btn'><span className='navicon'></span></label>
       <ul className='menu'>
         <li onClick={() => navigate('notifications')}>
           <Envelope style={{height: '15px'}} />
@@ -56,7 +56,7 @@ const App = ({store}) => (
             <Home path="/" />
             <New path="new" />
             <Resume path="resume/:metaEvidenceIPFSHash" />
-            <ArbitrableTx path="/:arbitrableTxId" />
+            <ArbitrableTx path="contract/:contract/transaction/:arbitrableTxId" />
             <Notifications path="notifications" />
             <NotFound default />
           </Main>

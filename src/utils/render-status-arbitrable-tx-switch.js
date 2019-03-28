@@ -58,7 +58,7 @@ export default (
                       arbitrabletx={arbitrabletx.data}
                       title={<React.Fragment>Resume - Execute Payment</React.Fragment>}
                     >
-                      <Formik onSubmit={() => createExecuteTx(arbitrabletx.data.id)}>
+                      <Formik onSubmit={() => createExecuteTx(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
                         {({isSubmitting}) => (
                           <Form className={'PayOrReimburseArbitrableTx'}>
                             <Button type='submit' disabled={isSubmitting}>
@@ -109,6 +109,7 @@ export default (
           title={<><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the receiver</>}
         >
           <TimeoutArbitrableTx
+            arbitrable={arbitrabletx.data.arbitrableAddress}
             id={arbitrabletx.data.id}
             timeout={createTimeout}
             time={time(arbitrabletx)}
@@ -135,10 +136,11 @@ export default (
             title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the sender</React.Fragment>}
           >
             <TimeoutArbitrableTx
-                id={arbitrabletx.data.id}
-                timeout={createTimeout}
-                time={time(arbitrabletx)}
-                name={'Execute Payment'}
+              arbitrable={arbitrabletx.data.arbitrableAddress}
+              id={arbitrabletx.data.id}
+              timeout={createTimeout}
+              time={time(arbitrabletx)}
+              name={'Execute Payment'}
             />
           </ResumeArbitrableTx>
         </React.Fragment>
@@ -150,6 +152,7 @@ export default (
           title={<React.Fragment>Dispute Ongoing</React.Fragment>}
           footer={
             <NewEvidenceArbitrableTx
+              arbitrable={arbitrabletx.data.arbitrableAddress}
               id={arbitrabletx.data.id}
               submitEvidence={createEvidence}
             />
@@ -167,7 +170,7 @@ export default (
                     'none' !== arbitrabletx.data.party && arbitrabletx.data.ruling === '0' && (
                       <>
                         <p>Jurors refused to vote.</p>
-                        <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                        <Formik onSubmit={() => createAppeal(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
                           {({isSubmitting}) => (
                             <Form className={'PayOrReimburseArbitrableTx'}>
                               <Button type='submit' disabled={isSubmitting}>
@@ -196,7 +199,7 @@ export default (
                       ) : (
                         <>
                           <p>You <b>lost</b> the dispute.</p>
-                          <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                          <Formik onSubmit={() => createAppeal(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
                             {({isSubmitting}) => (
                               <Form className={'PayOrReimburseArbitrableTx'}>
                                 <Button type='submit' disabled={isSubmitting}>
@@ -224,7 +227,7 @@ export default (
                       ) : (
                         <>
                           <p>You <b>lost</b> the dispute.</p>
-                          <Formik onSubmit={() => createAppeal(arbitrabletx.data.id)}>
+                          <Formik onSubmit={() => createAppeal(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
                             {({isSubmitting}) => (
                               <Form className={'PayOrReimburseArbitrableTx'}>
                                 <Button type='submit' disabled={isSubmitting}>
@@ -312,7 +315,7 @@ const MessageArbitrationFee = ({arbitrabletx, createDispute}) => (
           In order to not forfeit the dispute <b style={{fontWeight: 'bold'}}>pay the arbitration fee</b>. 
           <br />You will be refunded the fee if you win the dispute.
         </p>
-        <Formik onSubmit={() => createDispute(arbitrabletx.data.id)}>
+        <Formik onSubmit={() => createDispute(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
           {({isSubmitting}) => (
             <Form className={'PayOrReimburseArbitrableTx'}>
               <Button type='submit' disabled={isSubmitting || arbitrabletx.data.party === 'none'}>

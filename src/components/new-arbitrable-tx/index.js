@@ -7,6 +7,11 @@ import Web3 from 'web3'
 import Textarea from 'react-textarea-autosize'
 import { ClipLoader } from 'react-spinners'
 
+import {
+  ARBITRABLE_FREELANCING_ADDRESS,
+  ARBITRABLE_BOUNTY_ADDRESS,
+  ARBITRABLE_OTHER_ADDRESS
+} from '../../bootstrap/dapp-api'
 import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
 import templates from '../../constants/templates'
@@ -29,11 +34,16 @@ const customStyles = {
   }
 }
 
+const arbitrableAddresses = [
+  {value: ARBITRABLE_FREELANCING_ADDRESS, label: 'Freelancing'}
+]
+
 const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
   <div className='NewArbitrableTx'>
     <h1 className='NewArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />New Transaction</h1>
     <Formik
       initialValues={{
+        arbitrableAddress: '',
         title: '',
         receiver: '',
         timeout: 0,
@@ -44,6 +54,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
       validate = {values => {
         {/* TODO use Yup */}
         let errors = {}
+        if (!values.arbitrableAddress)
+          errors.arbitrableAddress = 'Type of escrow Required'
         if (!values.title)
           errors.title = 'Title Required'
         if (values.title.length > 55)
@@ -77,6 +89,25 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
     >
       {({ errors, setFieldValue, touched, isSubmitting, values, handleChange }) => (
         <Form className='FormNewArbitrableTx'>
+          <label htmlFor='title' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-arbitrableAddresses'>Escrow Type</label>
+          <div className='FormNewArbitrableTx-template-arbitrableAddresses-wrapper'>
+            <Field
+              render={({ form }) => (
+                <Select
+                  className='FormNewArbitrableTx-template-arbitrableAddresses-wrapper-content'
+                  classNamePrefix='select'
+                  isClearable={false}
+                  isSearchable={true}
+                  name='arbitrableAddress'
+                  options={arbitrableAddresses}
+                  styles={customStyles}
+                  onChange={e => form.setFieldValue('arbitrableAddress', e.value)}
+                />
+              )}
+            />
+          </div>
+          <ErrorMessage name='arbitrableAddress' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-arbitrableAddresses' />
+          <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-arbitrableAddresses'>Eg. Freelancing</div>
           <label htmlFor='title' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-title'>Title</label>
           <Field name='title' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-title' placeholder='Title' />
           <ErrorMessage name='title' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-title' />

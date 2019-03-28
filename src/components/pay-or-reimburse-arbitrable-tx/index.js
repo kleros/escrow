@@ -7,7 +7,7 @@ import Button from '../button'
 
 import './pay-or-reimburse-arbitrable-tx.css'
 
-const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, amountMax, payOrReimburseFn, onChangeAmount }) => {
+const PayOrReimburseArbitrableTx = ({ payOrReimburse, arbitrable, id, amount, amountMax, payOrReimburseFn, onChangeAmount }) => {
   return (
   <Formik
     initialValues={{id, amount, amountMax}}
@@ -25,7 +25,7 @@ const PayOrReimburseArbitrableTx = ({ payOrReimburse, id, amount, amountMax, pay
         errors.amount = 'Number Required'
       return errors
     }}
-    onSubmit={() => payOrReimburseFn(id, amount.toString())}
+    onSubmit={() => payOrReimburseFn(arbitrable, id, amount.toString())}
   >
     {({isSubmitting}) => (
       <>

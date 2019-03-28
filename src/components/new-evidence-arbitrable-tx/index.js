@@ -7,7 +7,7 @@ import Button from '../button'
 
 import './new-evidence-arbitrable-tx.css'
 
-const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
+const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
   <div className='NewEvidenceArbitrableTx'>
     <div className='NewEvidenceArbitrableTx-message'><p>Create Evidence</p></div>
     <Formik
@@ -23,7 +23,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, id }) => (
           errors.file = 'The maximum size of the file is 5Mo.'
         return errors
       }}
-      onSubmit={evidence => submitEvidence(evidence, id)}
+      onSubmit={evidence => submitEvidence(evidence, arbitrable, id)}
     >
       {({ isSubmitting, setFieldValue, errors, values }) => (
         <Form>
