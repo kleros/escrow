@@ -216,7 +216,8 @@ function* fetchArbitrabletxs() {
         arbitrableTransaction.id = arbitrableTransactionId || 0
         arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : accounts[0] === arbitrableTransaction.receiver ? 'receiver' : '...'
         arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : accounts[0] === arbitrableTransaction.sender ? 'receiver' : '...'
-        arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction}) || ''
+        arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
+        arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
 
         arbitrableTransactions.push(arbitrableTransaction)
       } catch (err) {
