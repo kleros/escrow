@@ -132,13 +132,13 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
           />
           <ErrorMessage name='timeout' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-timeout' />
           <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-timeout'>
-            After this deadline the counter party can execute the arbitrable payment.
+            After this timeout, the receiver can execute the arbitrable payment.
           </div>
           <label htmlFor='amount' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-amount'>Amount (ETH)</label>
           <Field name='amount' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-amount' placeholder='Amount' />
           <ErrorMessage name='amount' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-amount' />
           <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-amount'>
-            Enter the amount of money that will be sent to the escrow as payment 
+            Enter the amount of ETH that will be sent to the escrow as payment
             for the receiver. 
             <br />Funds will stay in the escrow until the transaction 
             is completed.
