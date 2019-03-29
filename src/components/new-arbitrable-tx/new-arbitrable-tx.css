@@ -94,9 +94,13 @@
       border-radius: 3px;
       padding: 0.5em 0.8em;
       margin-bottom: 0.5em;
-      font-size: 1.1em;
+      font-size: 18px;
       box-sizing: border-box;
-      font-weight: 500; }
+      font-weight: 400;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+      .NewArbitrableTx .FormNewArbitrableTx-input::placeholder {
+        font-size: 18px;
+        font-weight: 400; }
     .NewArbitrableTx .FormNewArbitrableTx-error {
       color: red;
       font-size: 0.9em; }
@@ -109,12 +113,22 @@
       border-radius: 3px;
       padding: 0 1em;
       font-size: 1em;
-      font-family: Roboto;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       padding: 0.7em 1em; }
     .NewArbitrableTx .FormNewArbitrableTx-submit {
       grid-area: submit;
       padding-top: 2em;
       text-align: right; }
+
+.select__control {
+  border: 1px solid #d9d9d9 !important; }
+
+.select__placeholder {
+  font-size: 18px !important;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  padding-left: 4px; }
 
 .react-datepicker-wrapper {
   display: block !important; }

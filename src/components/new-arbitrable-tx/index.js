@@ -89,7 +89,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
     >
       {({ errors, setFieldValue, touched, isSubmitting, values, handleChange }) => (
         <Form className='FormNewArbitrableTx'>
-          <label htmlFor='title' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-arbitrableAddresses'>Escrow Type</label>
+          <label htmlFor='arbitrableAddress' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-arbitrableAddresses'>Escrow Type</label>
           <div className='FormNewArbitrableTx-template-arbitrableAddresses-wrapper'>
             <Field
               render={({ form }) => (
@@ -101,6 +101,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
                   name='arbitrableAddress'
                   options={arbitrableAddresses}
                   styles={customStyles}
+                  placeholder='Escrow Type'
                   onChange={e => form.setFieldValue('arbitrableAddress', e.value)}
                 />
               )}
