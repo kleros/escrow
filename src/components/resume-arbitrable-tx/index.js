@@ -23,7 +23,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty'>{arbitrabletx.otherParty}</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{shortAddress(arbitrabletx.otherPartyAddress)}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Terminal Date and Time (UTC)</div>
+          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Timeout Date and Time (UTC)</div>
           <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout'>
             {title === 'Summary' ? (
               <>{dateToUTC(new Date(new Date().getTime() + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</>

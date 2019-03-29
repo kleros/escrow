@@ -13,9 +13,9 @@
     font-size: 0.9em;
     padding: 1.3em 0 1em 0; }
   .EmailForm-label {
-    font-size: 1em;
+    font-size: 14px;
     color: #4a4a4a;
-    padding: 0.5em 0; }
+    padding: 17px 0; }
   .EmailForm-input {
     border: 1px solid #d9d9d9;
     border-radius: 3px;
@@ -28,8 +28,8 @@
     font-weight: 500; }
   .EmailForm-error {
     color: red;
-    font-size: 0.9em;
-    padding-top: 1em; }
+    font-size: 14px;
+    padding-top: 17px 0; }
   .EmailForm-title-b {
     font-weight: bold;
     padding: 0.5em 0; }

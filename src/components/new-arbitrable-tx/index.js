@@ -138,8 +138,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
           <Field name='amount' className='FormNewArbitrableTx-input FormNewArbitrableTx-input-amount' placeholder='Amount' />
           <ErrorMessage name='amount' component='div' className='FormNewArbitrableTx-error FormNewArbitrableTx-error-amount' />
           <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-amount'>
-            Enter the amount of ETH that will be sent to the escrow as payment
-            for the receiver. 
+            ETH amount that will be sent to the escrow as payment for the receiver. 
             <br />Funds will stay in the escrow until the transaction 
             is completed.
           </div>
@@ -160,7 +159,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
             Upload the files that will be used as evidence in case there is a dispute. 
             <br />If you need to add more than one file, zip them.
           </div>
-          <label htmlFor='description' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-description'>Description (optional)</label>
+          <label htmlFor='description' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-description'>Contract Description (optional)</label>
           <div className='FormNewArbitrableTx-template-description-wrapper'>
             <Field
               render={({ form }) => (

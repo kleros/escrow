@@ -86,7 +86,7 @@
     .NewArbitrableTx .FormNewArbitrableTx-help-description {
       grid-area: helpDescription; }
     .NewArbitrableTx .FormNewArbitrableTx-label {
-      font-size: 1em;
+      font-size: 14px;
       color: #4a4a4a;
       padding: 0.5em 0; }
     .NewArbitrableTx .FormNewArbitrableTx-input {

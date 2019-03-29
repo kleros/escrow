@@ -43,17 +43,19 @@
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
-        padding: 0.5em 1em 0.5em 0.7em;
+        padding: 6px 20px 4px 14px;
         border-bottom: 1px solid #ebebeb;
         font-size: 1.2em;
-        line-height: 25px;
+        line-height: 26px;
         font-weight: 400;
         &-address {
+          font-size: 15px;
           color: #4a4a4a;
-          padding-left: 0.7em;
+          padding-left: 9px;
         }
         &-party {
           flex: 1;
+          font-size: 15px;
           text-align: right;
           display: inline-block;
           color: #4004a3;
@@ -64,34 +66,37 @@
       }
 
       &-h2 {
-        font-size: 1.2em;
-        margin: 1em;
-        padding-bottom: 1em;
+        font-size: 18px;
+        margin: 12px 32px;
+        padding-bottom: 14px;
         border-bottom: 1px solid #ebebeb;
-        font-weight: 500;
+        font-weight: 400;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
       }
 
       &-description {
+        color: #4A4A4A;
+        font-size: 14px;
         flex-grow: 1;
         &-p {
-          @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: white);
-          margin: 0 1.15em 1em 1.15em;
+          @include multiLineEllipsis($lineHeight: 18px, $lineCount: 5, $bgColor: white);
+          margin: 0 32px 10px 32px;
         }
       }
 
       &-footer {
         background: #f8f8f8;
-        line-height: 3em;
+        line-height: 45px;
+        font-size: 15px;
 
         &-completed {
           color: #009aff;
           font-weight: 500;
         }
         &-completed:before {
-          padding: 0 0.5em 0 1.4em;
+          padding: 0 0.5em 0 32px;
           position: relative;
           content: url(../../assets/icon-success-blue.svg);
         }
@@ -100,17 +105,17 @@
           font-weight: 500;
         }
         &-waiting:before {
-          padding: 0 0.5em 0 1.4em;
+          padding: 0 0.5em 0 32px;
           position: relative;
           content: url(../../assets/time.svg);
-          top: 2px;
+          top: 1px;
         }
         &-make-payment {
           color: #37d500;
           font-weight: 500;
         }
         &-make-payment:before {
-          padding: 0 0.5em 0 1.4em;
+          padding: 0 0.5em 0 32px;
           position: relative;
           content: url(../../assets/make-payment.svg);
         }
@@ -119,7 +124,7 @@
           font-weight: 500;
         }
         &-settlement-in-progress:before {
-          padding: 0 0.5em 0 1.4em;
+          padding: 0 0.5em 0 32px;
           position: relative;
           content: url(../../assets/settlement-in-progress.svg);
         }
@@ -128,8 +133,9 @@
           font-weight: 500;
         }
         &-dispute:before {
-          padding: 0 0.5em 0 1.4em;
+          padding: 0 0.5em 0 32px;
           position: relative;
+          top: 1px;
           content: url(../../assets/icon-dispute-red.svg);
         }
       }
@@ -155,7 +161,8 @@
   }
 
   &-h1 {
-    font-size: 1.1em;
+    color: #4A4A4A;
+    font-size: 16px;
     padding: 1.6em 0;
   }
 
