@@ -67,9 +67,9 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
         if (values.receiver.toLowerCase() === accounts[0].toLowerCase())
           errors.receiver = 'The address must be different than your wallet address.'
         if (!values.timeout)
-          errors.timeout = 'Terminal Date Required'
+          errors.timeout = 'Timeout Date Required'
         if (values.timeout < dateToUTC(new Date()))
-          errors.timeout = 'Terminal Date must higher than now.'
+          errors.timeout = 'Timeout Date must higher than now.'
         if (!values.amount)
           errors.amount = 'Amount Required'
         if (values.amount <= 0)
@@ -118,11 +118,11 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
           <div className='FormNewArbitrableTx-help FormNewArbitrableTx-help-receiver'>
             Enter the ETH address of the counterparty to this agreement.
           </div>
-          <label htmlFor='timeout' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-timeout'>Terminal Date and Time (UTC)</label>
+          <label htmlFor='timeout' className='FormNewArbitrableTx-label FormNewArbitrableTx-label-timeout'>Timeout Date and Time (UTC)</label>
           <Datepicker
             name='timeout'
             className='FormNewArbitrableTx-input-timeout'
-            placeholder='Terminal Date and Time'
+            placeholder='Timeout Date and Time'
             showTimeSelect
             timeFormat="HH:mm"
             timeIntervals={30}
