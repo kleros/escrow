@@ -43,8 +43,9 @@
       grid-area: contentFile; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-description {
       grid-area: nameDescription;
-      padding: 1em 2em 1em 2em;
+      padding: 20px 32px 16px;
       color: #4a4a4a;
+      font-size: 14px;
       background: #f8f8f8;
       border: 1px solid #d9d9d9;
       border-bottom: 0;
@@ -73,7 +74,7 @@
         transition-property: transform; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-description {
       grid-area: contentDescription;
-      padding: 0 2em 1em 2em;
+      padding: 0 32px 16px;
       color: #4a4a4a;
       background: #f8f8f8;
       border: 1px solid #d9d9d9;
@@ -82,14 +83,13 @@
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
       margin-bottom: 1em;
-      white-space: pre-line;
-      min-height: 3em;
-      line-height: 1.2em; }
+      white-space: pre-line; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short {
+        font-size: 14px;
         overflow: hidden;
         position: relative;
-        line-height: 1.2em;
-        max-height: 12em;
+        line-height: 14px;
+        max-height: 140px;
         margin-right: -1em;
         padding-right: 1em; }
         .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short:before {

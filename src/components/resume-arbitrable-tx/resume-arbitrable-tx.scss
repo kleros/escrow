@@ -106,8 +106,9 @@
 
     &-name-description {
       grid-area: nameDescription;
-      padding: 1em 2em 1em 2em;
+      padding: 20px 32px 16px;
       color: #4a4a4a;
+      font-size: 14px;
       background: #f8f8f8;
       border: 1px solid #d9d9d9;
       border-bottom: 0;
@@ -145,7 +146,7 @@
 
     &-content-description {
       grid-area: contentDescription;
-      padding: 0 2em 1em 2em;
+      padding: 0 32px 16px;
       color: #4a4a4a;
       background: #f8f8f8;
       border: 1px solid #d9d9d9;
@@ -155,10 +156,9 @@
       border-bottom-right-radius: 3px;
       margin-bottom: 1em;
       white-space: pre-line;
-      min-height: 3em;
-      line-height: 1.2em;
       &-p-short {
-        @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 10);
+        font-size: 14px;
+        @include multiLineEllipsis($lineHeight: 14px, $lineCount: 10);
       }
     }
 

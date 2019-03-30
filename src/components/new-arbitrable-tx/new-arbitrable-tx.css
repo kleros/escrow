@@ -90,6 +90,7 @@
       color: #4a4a4a;
       padding: 0.5em 0; }
     .NewArbitrableTx .FormNewArbitrableTx-input {
+      color: #4A4A4A;
       border: 1px solid #d9d9d9;
       border-radius: 3px;
       padding: 0.5em 0.8em;
@@ -99,6 +100,7 @@
       font-weight: 400;
       font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
       .NewArbitrableTx .FormNewArbitrableTx-input::placeholder {
+        color: #4A4A4A;
         font-size: 18px;
         font-weight: 400; }
     .NewArbitrableTx .FormNewArbitrableTx-error {
@@ -109,6 +111,8 @@
       font-size: 0.9em;
       text-align: right; }
     .NewArbitrableTx .FormNewArbitrableTx-textarea {
+      font-size: 14px;
+      color: #4A4A4A;
       border: 1px solid #d9d9d9;
       border-radius: 3px;
       padding: 0 1em;
@@ -126,9 +130,15 @@
 .select__placeholder {
   font-size: 18px !important;
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-  color: #757575 !important;
+  color: #4A4A4A !important;
   font-weight: 400 !important;
   padding-left: 4px; }
+
+.select__single-value {
+  font-size: 18px;
+  color: #4A4A4A !important;
+  line-height: 20px;
+  padding-left: 5px; }
 
 .react-datepicker-wrapper {
   display: block !important; }
@@ -136,14 +146,17 @@
 .react-datepicker__input-container {
   display: block !important; }
   .react-datepicker__input-container input {
+    color: #4A4A4A;
     width: 100%;
     border: 1px solid #d9d9d9;
     border-radius: 3px;
     padding: 0.5em 0.8em;
     margin-bottom: 0.5em;
-    font-size: 1.1em;
+    font-size: 18px;
     box-sizing: border-box;
-    font-weight: 500; }
+    font-weight: 400; }
+    .react-datepicker__input-container input::placeholder {
+      color: #4A4A4A; }
 
 span.error {
   display: none; }
