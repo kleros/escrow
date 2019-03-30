@@ -1,0 +1,295 @@
+.NewInvoiceArbitrableTx {
+  border: 1px solid #ccc;
+  box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
+  border-radius: 3px;
+  padding: 10px 80px 70px 80px;
+
+  &-h1 {
+    color: #4004A3;
+    font-size: 18px;
+    border-bottom: 1px solid #efefef;
+    line-height: 3em;
+  }
+
+  .FormNewInvoiceArbitrableTx {
+    padding: 1.3em 0 1em 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "labelArbitrableAddresses labelArbitrableAddresses"
+      "inputArbitrableAddresses inputArbitrableAddresses"
+      "errorArbitrableAddresses helpArbitrableAddresses"
+      "labelTitle labelTitle"
+      "inputTitle inputTitle"
+      "errorTitle helpTitle"
+      "labelReceiver labelReceiver"
+      "inputReceiver inputReceiver"
+      "errorReceiver helpReceiver"
+      "labelTimeout labelTimeout"
+      "inputTimeout inputTimeout"
+      "errorTimeout helpTimeout"
+      "labelAmount labelAmount"
+      "inputAmount inputAmount"
+      "errorAmount helpAmount"
+      "labelFile labelFile"
+      "inputFile inputFile"
+      "errorFile helpFile"
+      "labelDescription templateDescription"
+      "inputDescription inputDescription"
+      "errorDescription helpDescription"
+      "submit submit";
+
+    &-label-arbitrableAddresses {
+      grid-area: labelArbitrableAddresses;
+    }
+
+    &-input-arbitrableAddresses {
+      grid-area: inputArbitrableAddresses;
+    }
+
+    &-error-arbitrableAddresses {
+      grid-area: errorArbitrableAddresses;
+    }
+
+    &-help-arbitrableAddresses {
+      grid-area: helpArbitrableAddresses;
+    }
+
+    &-label-title {
+      grid-area: labelTitle;
+    }
+
+    &-input-title {
+      grid-area: inputTitle;
+    }
+
+    &-error-title {
+      grid-area: errorTitle;
+    }
+
+    &-help-title {
+      grid-area: helpTitle;
+    }
+
+    &-label-receiver {
+      grid-area: labelReceiver;
+    }
+
+    &-input-receiver {
+      grid-area: inputReceiver;
+    }
+
+    &-error-receiver {
+      grid-area: errorReceiver;
+    }
+
+    &-help-receiver {
+      grid-area: helpReceiver;
+    }
+
+    &-label-timeout {
+      grid-area: labelTimeout;
+    }
+
+    &-input-timeout {
+      grid-area: inputTimeout;
+    }
+
+    &-error-timeout {
+      grid-area: errorTimeout;
+    }
+
+    &-help-timeout {
+      grid-area: helpTimeout;
+    }
+
+    &-label-amount {
+      grid-area: labelAmount;
+    }
+
+    &-input-amount {
+      grid-area: inputAmount;
+    }
+
+    &-error-amount {
+      grid-area: errorAmount;
+    }
+
+    &-help-amount {
+      grid-area: helpAmount;
+    }
+
+    &-label-file {
+      grid-area: labelFile;
+    }
+
+    &-input-file {
+      grid-area: inputFile;
+    }
+
+    &-error-file {
+      grid-area: errorFile;
+    }
+
+    &-help-file {
+      grid-area: helpFile;
+      margin-bottom: 2em;
+    }
+
+    &-label-description {
+      grid-area: labelDescription;
+    }
+
+    &-template-description-wrapper {
+      grid-area: templateDescription;
+      text-align: right;
+      &-content {
+        color: #4004a3;
+        display: inline-block;
+        width: 50%;
+        text-align: left;
+      }
+    }
+
+    &-template-arbitrableAddresses-wrapper {
+      grid-area: inputArbitrableAddresses;
+      padding-bottom: 10px;
+      &-content {
+        color: #4004a3;
+        width: 100%;
+      }
+    }
+
+    &-input-description {
+      grid-area: inputDescription;
+      margin-top: 1em;
+    }
+
+    &-error-description {
+      grid-area: errorDescription;
+    }
+
+    &-help-description {
+      grid-area: helpDescription;
+    }
+
+    &-label {
+      font-size: 14px;
+      color: #4a4a4a;
+      padding: 0.5em 0;
+
+    }
+
+    &-input {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0.5em 0.8em;
+      margin-bottom: 0.5em;
+      font-size: 18px;
+      box-sizing: border-box;
+      font-weight: 400;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      &::placeholder {
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+
+    &-error {
+      color: red;
+      font-size: 0.9em;
+    }
+
+    &-help {
+      font-style: italic;
+      font-size: 0.9em;
+      text-align: right;
+    }
+
+    &-textarea {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0 1em;
+      font-size: 1em;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      padding: 0.7em 1em;
+    }
+
+    &-submit {
+      grid-area: submit;
+      padding-top: 2em;
+      text-align: right;
+    }
+  }
+}
+
+.select__control {
+  border: 1px solid #d9d9d9 !important;
+}
+
+.select__placeholder {
+  font-size: 18px !important;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  padding-left: 4px;
+}
+
+.react-datepicker-wrapper {
+  display: block !important;
+}
+
+.react-datepicker__input-container {
+  display: block !important;
+  input {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    padding: 0.5em 0.8em;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    font-weight: 500;
+  }
+}
+
+span.error {
+  display: none;
+}
+
+@media (max-width: 48em) {
+  .NewInvoiceArbitrableTx {
+    border: none;
+    box-shadow: none;
+    padding: 0 20px 10px 20px;
+  }
+  .FormNewInvoiceArbitrableTx {
+    &-help-title {
+      display: none;
+    }
+    &-help-receiver {
+      display: none;
+    }
+    &-help-timeout {
+      display: none;
+    }
+    &-help-amount {
+      display: none;
+    }
+    &-help-file {
+      display: none;
+    }
+    &-template-description-wrapper {
+      display: none;
+    }
+    &-submit {
+      text-align: center !important;
+      button {
+        float: none;
+        display: inline;
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ import * as walletActions from '../../../actions/wallet'
 import * as walletSelectors from '../../../reducers/wallet'
 import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
 import NewArbitrableTx from '../../../components/new-arbitrable-tx'
+import NewInvoiceArbitrableTx from '../../../components/new-invoice-arbitrable-tx'
 
 import './new.css'
 
@@ -29,14 +30,27 @@ class New extends PureComponent {
   }
 
   render() {
-    const { formArbitrabletx, balance, accounts } = this.props
+    const { formArbitrabletx, balance, accounts, type } = this.props
 
     return (
-      <NewArbitrableTx
-        formArbitrabletx={formArbitrabletx}
-        balance={balance}
-        accounts={accounts.data}
-      />
+      <>
+        {
+          type === 'invoice' ? (
+            <NewInvoiceArbitrableTx
+              formArbitrabletx={formArbitrabletx}
+              balance={balance}
+              accounts={accounts.data}
+            />
+          ) : (
+            <NewArbitrableTx
+              formArbitrabletx={formArbitrabletx}
+              balance={balance}
+              accounts={accounts.data}
+            />
+          )
+        }
+
+      </>
     )
   }
 }

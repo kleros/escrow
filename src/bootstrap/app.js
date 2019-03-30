@@ -30,7 +30,13 @@ const Main = ({ children }) => (
         <li onClick={() => navigate('/notifications')}>
           <Envelope style={{height: '15px'}} />
         </li>
-        <li onClick={() => navigate('/new')}>
+        <li onClick={() => navigate('/new/invoice')}>
+          <span className='btn-new btn-new-invoice'>
+            <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
+            New Invoice
+          </span>
+        </li>
+        <li onClick={() => navigate('/new/transaction')}>
           <span className='btn-new'>
             <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
             New Transaction
@@ -54,10 +60,10 @@ const App = ({store}) => (
         <Router>
           <Main path="/">
             <Home path="/" />
-            <New path="/new" />
-            <Resume path="/resume/:metaEvidenceIPFSHash" />
+            <New path="/new/:type" />
             <ArbitrableTx path="/contract/:contract/transaction/:arbitrableTxId" />
             <Notifications path="/notifications" />
+            <Resume path="/:type/:metaEvidenceIPFSHash" />
             <NotFound default />
           </Main>
         </Router>

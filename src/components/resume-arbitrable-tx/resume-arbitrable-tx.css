@@ -14,7 +14,7 @@
     padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-areas: "nameTitle nameTitle nameTitle" "contentTitle contentTitle contentTitle" "nameOtherParty nameOtherParty nameOtherParty" "contentOtherParty contentOtherParty contentOtherParty" "nameTimeout nameAmount nameAmount" "contentTimeout contentAmount contentAmount" "nameFile nameFile nameFile" "contentFile contentFile contentFile" "nameDescription nameDescription nameAllDescription" "contentDescription contentDescription contentDescription" "nameShare nameShare nameShare" "linkShare linkShare submit"; }
+    grid-template-areas: "nameTitle nameTitle nameTitle" "contentTitle contentTitle contentTitle" "nameOtherParty nameCategory nameCategory" "contentOtherParty contentCategory contentCategory" "nameTimeout nameAmount nameAmount" "contentTimeout contentAmount contentAmount" "nameFile nameFile nameFile" "contentFile contentFile contentFile" "nameDescription nameDescription nameAllDescription" "contentDescription contentDescription contentDescription" "nameShare nameShare nameShare" "submit submit submit"; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-title {
       grid-area: nameTitle; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-title {
@@ -22,8 +22,13 @@
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty {
       grid-area: nameOtherParty;
       text-transform: capitalize; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-name-category {
+      grid-area: nameCategory;
+      text-transform: capitalize; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty {
       grid-area: contentOtherParty; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-content-category {
+      grid-area: contentCategory; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout {
       grid-area: nameTimeout; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout {
@@ -104,7 +109,9 @@
     .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
       grid-area: linkShare; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url {
+        margin-left: 20px;
         display: inline-block;
+        text-align: left;
         border: 1px solid #d9d9d9;
         box-sizing: border-box;
         border-radius: 3px;
@@ -132,11 +139,14 @@
     padding-top: 0; }
     .ResumeArbitrableTx-ContentNewArbitrableTx {
       grid-template-columns: 1fr 1fr;
-      grid-template-areas: "nameTitle nameTitle" "contentTitle contentTitle" "nameOtherParty nameOtherParty" "contentOtherParty contentOtherParty" "nameAmount nameAmount" "contentAmount contentAmount" "nameTimeout nameTimeout" "contentTimeout contentTimeout" "nameFile nameFile" "contentFile contentFile" "nameDescription nameAllDescription" "contentDescription contentDescription" "submit submit"; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
-        display: none; }
+      grid-template-areas: "nameTitle nameTitle" "contentTitle contentTitle" "nameOtherParty nameOtherParty" "contentOtherParty contentOtherParty" "nameCategory nameCategory" "contentCategory contentCategory" "nameAmount nameAmount" "contentAmount contentAmount" "nameTimeout nameTimeout" "contentTimeout contentTimeout" "nameFile nameFile" "contentFile contentFile" "nameDescription nameAllDescription" "contentDescription contentDescription" "submit submit"; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
+        color: red;
+        text-align: center; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url {
         display: none; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-email {
+        display: none !important; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-submit .PayOrReimburseArbitrableTx {
         width: 100%; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-submit button {

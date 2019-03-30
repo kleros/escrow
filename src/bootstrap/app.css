@@ -9,6 +9,8 @@
   padding: 13px 24px 13px 14px;
   border-radius: 3px;
   color: #fff; }
+  .btn-new-invoice {
+    margin-right: -20px; }
 
 .header {
   position: fixed;

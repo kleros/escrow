@@ -3,7 +3,6 @@ import { BeatLoader } from 'react-spinners'
 import { Formik, Form } from 'formik'
 import { ClipLoader } from 'react-spinners'
 
-import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
 import * as disputeConstants from '../constants/dispute'
 import TimeoutArbitrableTx from '../components/timeout-arbitrable-tx'
@@ -303,7 +302,7 @@ export default (
   }
 }
 
-const time = arbitrabletx => ((Number(arbitrabletx.data.lastInteraction) + Number(FEE_TIMEOUT)) * 1000)
+const time = arbitrabletx => ((Number(arbitrabletx.data.lastInteraction) + Number(arbitrabletx.data.feeTimeout)) * 1000)
 
 const isFeePaid = arbitrabletx => arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 

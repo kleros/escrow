@@ -1,5 +1,4 @@
 import Web3 from 'web3'
-import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
@@ -34,28 +33,12 @@ const getNetwork = async () => new Promise((resolve, reject) => {
   .catch((err) => reject(err))
 })
 
-const ARBITRABLE_ADDRESS =
-  process.env[`REACT_APP_${env}_ARBITRABLE_ADDRESS`]
-const ARBITRABLE_FREELANCING_ADDRESS =
-  process.env[`REACT_APP_${env}_ARBITRABLE_FREELANCING_ADDRESS`]
-const ARBITRABLE_BOUNTY_ADDRESS =
-  process.env[`REACT_APP_${env}_ARBITRABLE_BOUNTY_ADDRESS`]
-const ARBITRABLE_OTHER_ADDRESS =
-  process.env[`REACT_APP_${env}_ARBITRABLE_OTHER_ADDRESS`]
+const ARBITRABLE_ADDRESSES =
+  JSON.parse(process.env[`REACT_APP_${env}_ARBITRABLE_ADDRESSES`])
 const ARBITRATOR_ADDRESS =
   process.env[`REACT_APP_${env}_ARBITRATOR_ADDRESS`]
-const FEE_TIMEOUT =
-  process.env[`REACT_APP_${env}_FEE_TIMEOUT`]
-const ARBITRATOR_EXTRADATA =
-  process.env[`REACT_APP_ARBITRATOR_EXTRADATA`]
 const PATCH_USER_SETTINGS_URL =
   process.env[`REACT_APP_${env}_PATCH_USER_SETTINGS_URL`]
-
-const multipleArbitrableTransactionEth = new web3.eth.Contract(
-  multipleArbitrableTransaction.abi,
-  ARBITRABLE_ADDRESS
-)
-
 
 const arbitratorEth = new web3.eth.Contract(
   arbitrator.abi,
@@ -68,18 +51,12 @@ const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
 
 export {
   web3,
-  ARBITRABLE_ADDRESS,
-  ARBITRABLE_FREELANCING_ADDRESS,
-  ARBITRABLE_BOUNTY_ADDRESS,
-  ARBITRABLE_OTHER_ADDRESS,
+  ARBITRABLE_ADDRESSES,
   ARBITRATOR_ADDRESS,
-  FEE_TIMEOUT,
-  ARBITRATOR_EXTRADATA,
   PATCH_USER_SETTINGS_URL,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp,
-  multipleArbitrableTransactionEth,
   arbitratorEth,
   getNetwork
 }
@@ -87,20 +64,16 @@ export {
 setTimeout(
   () =>
     console.log(
-      'Arbitrable Address: ',
-      ARBITRABLE_ADDRESS,
+      'Arbitrable Addresses: ',
+      ARBITRABLE_ADDRESSES,
       'Arbitrator Address: ',
       ARBITRATOR_ADDRESS,
-      'Payment timeout: ',
-      FEE_TIMEOUT,
       'URL to save email notification: ',
       PATCH_USER_SETTINGS_URL,
       'Web3: ',
       window.web3,
       'ARBITRATOR INTERFACE',
       arbitrator,
-      'ARBITRBLE CONTRACT',
-      multipleArbitrableTransactionEth
     ),
   1000
 )

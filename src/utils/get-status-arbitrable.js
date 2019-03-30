@@ -1,4 +1,3 @@
-import { FEE_TIMEOUT } from '../bootstrap/dapp-api'
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
 import * as statusArbitrableTxConstants from '../constants/status-arbitrable-tx'
 
@@ -44,6 +43,6 @@ export default ({
   }
 }
 
-const timeout = arbitrabletx => ((Number(arbitrabletx.lastInteraction) + Number(FEE_TIMEOUT)) * 1000) - Date.now() > 0
+const timeout = arbitrabletx => ((Number(arbitrabletx.lastInteraction) + Number(arbitrabletx.feeTimeout)) * 1000) - Date.now() > 0
 
 const isFeePaid = arbitrabletx => arbitrabletx[`${arbitrabletx.party}Fee`] > 0 // FIXME: Must equal to the arbitration cost

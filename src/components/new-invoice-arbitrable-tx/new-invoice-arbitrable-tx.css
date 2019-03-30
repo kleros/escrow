@@ -1,0 +1,174 @@
+.NewInvoiceArbitrableTx {
+  border: 1px solid #ccc;
+  box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
+  border-radius: 3px;
+  padding: 10px 80px 70px 80px; }
+  .NewInvoiceArbitrableTx-h1 {
+    color: #4004A3;
+    font-size: 18px;
+    border-bottom: 1px solid #efefef;
+    line-height: 3em; }
+  .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx {
+    padding: 1.3em 0 1em 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "labelArbitrableAddresses labelArbitrableAddresses" "inputArbitrableAddresses inputArbitrableAddresses" "errorArbitrableAddresses helpArbitrableAddresses" "labelTitle labelTitle" "inputTitle inputTitle" "errorTitle helpTitle" "labelReceiver labelReceiver" "inputReceiver inputReceiver" "errorReceiver helpReceiver" "labelTimeout labelTimeout" "inputTimeout inputTimeout" "errorTimeout helpTimeout" "labelAmount labelAmount" "inputAmount inputAmount" "errorAmount helpAmount" "labelFile labelFile" "inputFile inputFile" "errorFile helpFile" "labelDescription templateDescription" "inputDescription inputDescription" "errorDescription helpDescription" "submit submit"; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-arbitrableAddresses {
+      grid-area: labelArbitrableAddresses; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-arbitrableAddresses {
+      grid-area: inputArbitrableAddresses; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-arbitrableAddresses {
+      grid-area: errorArbitrableAddresses; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-arbitrableAddresses {
+      grid-area: helpArbitrableAddresses; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-title {
+      grid-area: labelTitle; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-title {
+      grid-area: inputTitle; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-title {
+      grid-area: errorTitle; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-title {
+      grid-area: helpTitle; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-receiver {
+      grid-area: labelReceiver; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-receiver {
+      grid-area: inputReceiver; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-receiver {
+      grid-area: errorReceiver; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-receiver {
+      grid-area: helpReceiver; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-timeout {
+      grid-area: labelTimeout; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-timeout {
+      grid-area: inputTimeout; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-timeout {
+      grid-area: errorTimeout; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-timeout {
+      grid-area: helpTimeout; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-amount {
+      grid-area: labelAmount; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-amount {
+      grid-area: inputAmount; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-amount {
+      grid-area: errorAmount; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-amount {
+      grid-area: helpAmount; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-file {
+      grid-area: labelFile; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-file {
+      grid-area: inputFile; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-file {
+      grid-area: errorFile; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-file {
+      grid-area: helpFile;
+      margin-bottom: 2em; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label-description {
+      grid-area: labelDescription; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-template-description-wrapper {
+      grid-area: templateDescription;
+      text-align: right; }
+      .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-template-description-wrapper-content {
+        color: #4004a3;
+        display: inline-block;
+        width: 50%;
+        text-align: left; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-template-arbitrableAddresses-wrapper {
+      grid-area: inputArbitrableAddresses;
+      padding-bottom: 10px; }
+      .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-template-arbitrableAddresses-wrapper-content {
+        color: #4004a3;
+        width: 100%; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-description {
+      grid-area: inputDescription;
+      margin-top: 1em; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-description {
+      grid-area: errorDescription; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-description {
+      grid-area: helpDescription; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-label {
+      font-size: 14px;
+      color: #4a4a4a;
+      padding: 0.5em 0; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0.5em 0.8em;
+      margin-bottom: 0.5em;
+      font-size: 18px;
+      box-sizing: border-box;
+      font-weight: 400;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+      .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input::placeholder {
+        font-size: 18px;
+        font-weight: 400; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error {
+      color: red;
+      font-size: 0.9em; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help {
+      font-style: italic;
+      font-size: 0.9em;
+      text-align: right; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-textarea {
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      padding: 0 1em;
+      font-size: 1em;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      padding: 0.7em 1em; }
+    .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-submit {
+      grid-area: submit;
+      padding-top: 2em;
+      text-align: right; }
+
+.select__control {
+  border: 1px solid #d9d9d9 !important; }
+
+.select__placeholder {
+  font-size: 18px !important;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  color: #757575 !important;
+  font-weight: 400 !important;
+  padding-left: 4px; }
+
+.react-datepicker-wrapper {
+  display: block !important; }
+
+.react-datepicker__input-container {
+  display: block !important; }
+  .react-datepicker__input-container input {
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+    padding: 0.5em 0.8em;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+    box-sizing: border-box;
+    font-weight: 500; }
+
+span.error {
+  display: none; }
+
+@media (max-width: 48em) {
+  .NewInvoiceArbitrableTx {
+    border: none;
+    box-shadow: none;
+    padding: 0 20px 10px 20px; }
+  .FormNewInvoiceArbitrableTx-help-title {
+    display: none; }
+  .FormNewInvoiceArbitrableTx-help-receiver {
+    display: none; }
+  .FormNewInvoiceArbitrableTx-help-timeout {
+    display: none; }
+  .FormNewInvoiceArbitrableTx-help-amount {
+    display: none; }
+  .FormNewInvoiceArbitrableTx-help-file {
+    display: none; }
+  .FormNewInvoiceArbitrableTx-template-description-wrapper {
+    display: none; }
+  .FormNewInvoiceArbitrableTx-submit {
+    text-align: center !important; }
+    .FormNewInvoiceArbitrableTx-submit button {
+      float: none;
+      display: inline;
+      margin: 0 auto;
+      width: 100%; } }
