@@ -83,7 +83,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => (
                   className='FormNewInvoiceArbitrableTx-template-arbitrableAddresses-wrapper-content'
                   classNamePrefix='select'
                   isClearable={false}
-                  isSearchable={true}
+                  isSearchable={false}
                   name='arbitrableContractEnv'
                   options={[...ARBITRABLE_ADDRESSES.map(contractEnv => ({value: contractEnv, label: contractEnv.type}))]}
                   styles={customStyles}
