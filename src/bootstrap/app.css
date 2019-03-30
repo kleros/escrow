@@ -9,8 +9,6 @@
   padding: 13px 24px 13px 14px;
   border-radius: 3px;
   color: #fff; }
-  .btn-new-invoice {
-    margin-right: -20px; }
 
 .header {
   position: fixed;
@@ -41,6 +39,8 @@
   clear: both;
   max-height: 0;
   transition: max-height .2s ease-out; }
+  .header .menu li:last-child {
+    margin-bottom: 10px; }
 
 /* menu icon */
 .header .menu-icon {
@@ -108,8 +108,12 @@
     clear: none;
     float: right;
     max-height: none; }
+    .header .menu li:last-child {
+      margin-bottom: 0px; }
   .header .menu-icon {
-    display: none; } }
+    display: none; }
+  .btn-new-invoice {
+    margin-right: -20px; } }
 
 @media (min-width: 1200px) {
   .App main {
