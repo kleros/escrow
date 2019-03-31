@@ -8,8 +8,7 @@
   [context.develop.environment]
   NODE_VERSION = "11.0.0"
   REACT_APP_DEV_ARBITRATOR_ADDRESS = "0x3de2c4d7151f0476f458a48b70fd98a50d01ecc6"
-  REACT_APP_DEV_ARBITRABLE_ADDRESS = "0xab3fd973dd8f829859f931dd85873effed70ac42"
-  REACT_APP_DEV_ARBITRABLE_FREELANCING_ADDRESS= "0xab3fd973dd8f829859f931dd85873effed70ac42"
+  REACT_APP_DEV_ARBITRABLE_ADDRESSES = '[{"address": "0xab3fd973dd8f829859f931dd85873effed70ac42", "type": "Freelancing"}, {"address": "0x6fff1ece0b8b594eace41d58021d848148092f98", "type": "Bounty"}]'
   REACT_APP_PROD_PATCH_USER_SETTINGS_URL = "https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/user-settings"
   REACT_APP_DEV_IPFS_PROVIDER = ""
   YARN_FLAGS = "--no-ignore-optional"
@@ -19,8 +18,7 @@
   [context.production.environment]
   NODE_VERSION = "11.0.0"
   REACT_APP_PROD_ARBITRATOR_ADDRESS = "0x3de2c4d7151f0476f458a48b70fd98a50d01ecc6"
-  REACT_APP_PROD_ARBITRABLE_ADDRESS = "0xab3fd973dd8f829859f931dd85873effed70ac42"
-  REACT_APP_DEV_ARBITRABLE_FREELANCING_ADDRESS= "0xab3fd973dd8f829859f931dd85873effed70ac42"
+  REACT_APP_DEV_ARBITRABLE_ADDRESSES = '[{"address": "0xab3fd973dd8f829859f931dd85873effed70ac42", "type": "Freelancing"}, {"address": "0x6fff1ece0b8b594eace41d58021d848148092f98", "type": "Bounty"}]'
   REACT_APP_PROD_PATCH_USER_SETTINGS_URL = "https://hgyxlve79a.execute-api.us-east-2.amazonaws.com/production/user-settings"
   REACT_APP_PROD_IPFS_PROVIDER = ""
   YARN_FLAGS = "--no-ignore-optional"
