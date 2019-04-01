@@ -30,7 +30,7 @@ const Main = ({ children }) => (
         <li onClick={() => navigate('/notifications')}>
           <Envelope style={{height: '15px'}} />
         </li>
-        <li onClick={() => navigate('/new/invoice')}>
+        <li className='menu-invoice' onClick={() => navigate('/new/invoice')}>
           <span className='btn-new btn-new-invoice'>
             <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
             New Invoice

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { Formik, Field, ErrorMessage } from 'formik'
 import { Form, Datepicker } from 'react-formik-ui';
 import Select from 'react-select'
-import Web3 from 'web3'
 import Textarea from 'react-textarea-autosize'
 import { ClipLoader } from 'react-spinners'
 
 import {
+  web3,
   ARBITRABLE_ADDRESSES
 } from '../../bootstrap/dapp-api'
 import Button from '../button'
@@ -59,7 +59,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
             errors.title = 'Number of characters for the title allowed is exceeded. The maximum is 55 characters.'
           if (!values.receiver)
             errors.receiver = 'Receiver Address Required'
-          if (!Web3.utils.isAddress(values.receiver))
+          if (!web3.utils.isAddress(values.receiver))
             errors.receiver = 'Valid Address Required'
           if (values.receiver.toLowerCase() === accounts[0].toLowerCase())
             errors.receiver = 'The address must be different than your wallet address.'

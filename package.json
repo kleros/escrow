@@ -39,7 +39,7 @@
     "redux-saga": "^0.16.2",
     "redux-unhandled-action": "^1.3.0",
     "sass-loader": "^7.1.0",
-    "web3": "^1.0.0-beta.36",
+    "web3": "1.0.0-beta.33",
     "yup": "^0.26.6"
   },
   "scripts": {

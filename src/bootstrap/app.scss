@@ -50,6 +50,9 @@
   clear: both;
   max-height: 0;
   transition: max-height .2s ease-out;
+  &-invoice {
+    width: 300px;
+  }
   li {
     &:last-child {
       margin-bottom: 10px;
@@ -142,6 +145,10 @@
     clear: none;
     float: right;
     max-height: none;
+    &-invoice {
+      width: 190px;
+      margin: 0 -30px 0 -20px;
+    }
     li {
       &:last-child {
         margin-bottom: 0px;
@@ -152,9 +159,7 @@
     display: none;
   }
   .btn-new {
-    &-invoice {
-      margin-right: -20px;
-    }
+
   }
 }
 
