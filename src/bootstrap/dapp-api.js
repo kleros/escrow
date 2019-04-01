@@ -17,18 +17,18 @@ const getNetwork = async () => new Promise((resolve, reject) => {
   web3.eth.net
   .getId()
   .then(networkID => {
-  switch (networkID) {
-      case 1:
-      resolve('MAINNET')
-      case 3:
-       resolve('ROPSTEN')
-      case 4:
-       resolve('RINKEBY')
-      case 42:
-       resolve('KOVAN')
-      default:
-       resolve(null)
-  }
+    switch (networkID) {
+        case 1:
+        resolve('MAINNET')
+        case 3:
+        resolve('ROPSTEN')
+        case 4:
+        resolve('RINKEBY')
+        case 42:
+        resolve('KOVAN')
+        default:
+        resolve(null)
+    }
   })
   .catch((err) => reject(err))
 })

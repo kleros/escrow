@@ -42,7 +42,7 @@ const RequiresMetamaskPage = ({
       </div>
     </div>
     <div className="RequiresMetamaskPage-FAQ">
-      <p>Still have questions? Don't worry, we're here to help!</p>
+      <p style={{color: '#fff'}}>Still have questions? Don't worry, we're here to help!</p>
       <div className="RequiresMetamaskPage-support">
         <a
           className="RequiresMetamaskPage-support-a"
