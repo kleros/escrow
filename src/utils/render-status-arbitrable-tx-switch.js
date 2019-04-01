@@ -14,7 +14,6 @@ import AgreementFully from '../components/agreement_fully'
 import Button from '../components/button'
 import { ReactComponent as Dispute } from '../assets/dispute.svg'
 import { ReactComponent as Time } from '../assets/time.svg'
-import { className } from 'postcss-selector-parser';
 
 export default (
   accounts, 
@@ -35,7 +34,7 @@ export default (
             arbitrabletx.data.amount === '0' ? (
               <ResumeArbitrableTx
                 arbitrabletx={arbitrabletx.data}
-                title={<React.Fragment>Transaction completed</React.Fragment>}
+                title={<>Transaction Completed</>}
                 footer={
                   <SuccessArbitrableTx
                     message={<p>Transaction completed <b>with success</b>.</p>}
@@ -55,7 +54,7 @@ export default (
                   accounts[0] === arbitrabletx.data.sender && Date.now() - arbitrabletx.data.lastInteraction * 1000 >= arbitrabletx.data.timeoutPayment * 1000 ? (
                     <ResumeArbitrableTx
                       arbitrabletx={arbitrabletx.data}
-                      title={<React.Fragment>Resume - Execute Payment</React.Fragment>}
+                      title={<>Resume - Execute Payment</>}
                     >
                       <Formik onSubmit={() => createExecuteTx(arbitrabletx.data.arbitrableAddress, arbitrabletx.data.id)}>
                         {({isSubmitting}) => (
@@ -70,7 +69,7 @@ export default (
                   ) : (
                     <ResumeArbitrableTx
                       arbitrabletx={arbitrabletx.data}
-                      title={<React.Fragment>Transaction Ongoing</React.Fragment>}
+                      title={<>Transaction Details</>}
                       footer={
                         <AgreementFully
                           payOrReimburse={payOrReimburse}
@@ -105,7 +104,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<><Time style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the receiver</>}
+          title={<>Waiting the arbitration fee from the receiver</>}
         >
           <TimeoutArbitrableTx
             arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -120,7 +119,7 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</React.Fragment>}
+          title={<><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</>}
           footer={
             <MessageArbitrationFee 
               arbitrabletx={arbitrabletx}
@@ -129,10 +128,10 @@ export default (
           }
         />
       ) : (
-        <React.Fragment>
+        <>
           <ResumeArbitrableTx
             arbitrabletx={arbitrabletx.data}
-            title={<React.Fragment><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />Waiting the arbitration fee from the sender</React.Fragment>}
+            title={<>Waiting the arbitration fee from the sender</>}
           >
             <TimeoutArbitrableTx
               arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -142,13 +141,13 @@ export default (
               name={'Execute Payment'}
             />
           </ResumeArbitrableTx>
-        </React.Fragment>
+        </>
       )
     case arbitrableTxConstants.DISPUTE_CREATED:
       return arbitrabletx.data.disputeStatus === disputeConstants.WAITING.toString() ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Dispute Ongoing</React.Fragment>}
+          title={<>Dispute Ongoing</>}
           footer={
             <NewEvidenceArbitrableTx
               arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -160,7 +159,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Dispute Ongoing</React.Fragment>}
+          title={<>Dispute Ongoing</>}
           footer={
             <DisputeArbitrableTx
               message={
@@ -261,7 +260,7 @@ export default (
       return arbitrabletx.data.ruling === null ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Transaction completed</React.Fragment>}
+          title={<>Transaction completed</>}
           footer={
             <SuccessArbitrableTx
               message={<p>Transaction completed <b>with success</b>.</p>}
@@ -272,7 +271,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<React.Fragment>Resume</React.Fragment>}
+          title={<>Resume</>}
           footer={
             <DisputeArbitrableTx
               message={

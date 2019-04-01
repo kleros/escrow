@@ -9,7 +9,6 @@ import { ClipLoader } from 'react-spinners'
 import {
   ARBITRABLE_ADDRESSES
 } from '../../bootstrap/dapp-api'
-import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
 import templates from '../../constants/templates'
 import dateToUTC from '../../utils/date-to-utc'
@@ -37,7 +36,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
   })
   return (
     <div className='NewInvoiceArbitrableTx'>
-      <h1 className='NewInvoiceArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />New Invoice</h1>
+      <h1 className='NewInvoiceArbitrableTx-h1'>New Invoice</h1>
       <Formik
         initialValues={{
           arbitrableContractEnv: '',

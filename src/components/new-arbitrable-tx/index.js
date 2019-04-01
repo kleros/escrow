@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Field, ErrorMessage } from 'formik'
 import { Form, Datepicker } from 'react-formik-ui';
@@ -10,7 +10,6 @@ import { ClipLoader } from 'react-spinners'
 import {
   ARBITRABLE_ADDRESSES
 } from '../../bootstrap/dapp-api'
-import { ReactComponent as Plus } from '../../assets/plus-purple.svg'
 import Button from '../button'
 import templates from '../../constants/templates'
 import dateToUTC from '../../utils/date-to-utc'
@@ -38,7 +37,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
   })
   return (
     <div className='NewArbitrableTx'>
-      <h1 className='NewArbitrableTx-h1'><Plus style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />New Transaction</h1>
+      <h1 className='NewArbitrableTx-h1'>New Transaction</h1>
       <Formik
         initialValues={{
           arbitrableContractEnv: '',

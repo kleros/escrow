@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { ClipLoader } from 'react-spinners'
 
 import Button from '../button'
-import { ReactComponent as Bell } from '../../assets/bell.svg'
 
 import './email-form.css'
 
@@ -41,7 +40,7 @@ const Checkbox = ({
 
 const EmailForm = ({updateEmail, msg, settingsAcc}) => (
   <div className='EmailForm'>
-    <h1 className='NewArbitrableTx-h1'><Bell style={{width: '20px', height: '35px', position: 'relative', top: '11px', paddingRight: '8px'}} />Email Notifications</h1>
+    <h1 className='NewArbitrableTx-h1'>Email Notifications</h1>
     <p className='EmailForm-msg'>
       {msg}
     </p>
@@ -82,7 +81,7 @@ const EmailForm = ({updateEmail, msg, settingsAcc}) => (
         updateEmail({settings})
       }}
     >
-      {({ isSubmitting, touched, errors }) => (
+      {({ isSubmitting, touched, errors, values }) => (
         <Form className='EmailForm-Form'>
             <div className='EmailForm-title-b'>I wish to be notified when:</div>
             <Field
@@ -104,7 +103,8 @@ const EmailForm = ({updateEmail, msg, settingsAcc}) => (
               label="When a ruling is given."
             />
             <Field name='email' placeholder='Email' className='EmailForm-input' />
-            <Button type='submit' disabled={!touched.email || isSubmitting || Object.entries(errors).length > 0}>
+            {touched.email = true}
+            <Button type='submit' disabled={values.email === '' || isSubmitting || Object.entries(errors).length > 0}>
               {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}} ><ClipLoader size={20} color={'#fff'} /></span>} Enable Notifications
             </Button>
             <ErrorMessage name='email' component='div' className='EmailForm-error'/>

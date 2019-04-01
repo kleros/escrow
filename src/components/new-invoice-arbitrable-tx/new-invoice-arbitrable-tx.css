@@ -2,12 +2,14 @@
   border: 1px solid #ccc;
   box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.5);
   border-radius: 3px;
-  padding: 10px 80px 70px 80px; }
+  padding: 40px 80px 70px 80px; }
   .NewInvoiceArbitrableTx-h1 {
     color: #4004A3;
-    font-size: 18px;
-    border-bottom: 1px solid #efefef;
-    line-height: 3em; }
+    font-size: 24px;
+    border-bottom: 1px solid #4004A3;
+    font-weight: 500;
+    padding-bottom: 22px;
+    margin-bottom: 22px; }
   .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx {
     padding: 1.3em 0 1em 0;
     display: grid;
