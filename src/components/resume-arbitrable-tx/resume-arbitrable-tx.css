@@ -140,7 +140,12 @@
   .ResumeArbitrableTx {
     border: none;
     box-shadow: none;
-    padding-top: 0; }
+    padding: 0 15px 10px 15px;
+    margin: 0 4px; }
+    .ResumeArbitrableTx-h1 {
+      text-align: center;
+      font-size: 1.1em;
+      padding: 2em 0 1.5em 0; }
     .ResumeArbitrableTx-ContentNewArbitrableTx {
       grid-template-columns: 1fr 1fr;
       grid-template-areas: "nameTitle nameTitle" "contentTitle contentTitle" "nameOtherParty nameOtherParty" "contentOtherParty contentOtherParty" "nameCategory nameCategory" "contentCategory contentCategory" "nameAmount nameAmount" "contentAmount contentAmount" "nameTimeout nameTimeout" "contentTimeout contentTimeout" "nameFile nameFile" "contentFile contentFile" "nameDescription nameAllDescription" "contentDescription contentDescription" "submit submit"; }

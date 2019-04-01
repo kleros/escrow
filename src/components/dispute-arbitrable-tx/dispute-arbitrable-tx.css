@@ -15,3 +15,9 @@
   .DisputeArbitrableTx-footer {
     background: #1e075f;
     min-height: 70px; }
+
+@media (max-width: 48em) {
+  .DisputeArbitrableTx {
+    margin: 0 4px; }
+    .DisputeArbitrableTx-message {
+      padding: 0 1em; } }

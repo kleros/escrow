@@ -5,7 +5,8 @@
     text-align: center;
     font-size: 1.4em;
     line-height: 1.4em;
-    padding: 2em 0 1em 0; }
+    padding: 2em 1em 1em 1em;
+    margin: 0 4px; }
   .NewEvidenceArbitrableTx-form {
     width: 70%;
     margin: 0 auto;
@@ -50,9 +51,11 @@
     padding-right: 15%; }
 
 @media (max-width: 48em) {
-  .NewEvidenceArbitrableTx-footer {
-    padding-right: 0;
-    padding-top: 2em;
-    text-align: center; }
-    .NewEvidenceArbitrableTx-footer .Button {
-      width: 70%; } }
+  .NewEvidenceArbitrableTx {
+    margin: 0 4px; }
+    .NewEvidenceArbitrableTx-footer {
+      padding-right: 0;
+      padding-top: 2em;
+      text-align: center; }
+      .NewEvidenceArbitrableTx-footer .Button {
+        width: 70%; } }

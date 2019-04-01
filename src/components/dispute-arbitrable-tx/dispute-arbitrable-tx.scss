@@ -21,3 +21,12 @@
     min-height: 70px;
   }
 }
+
+@media (max-width: 48em) {
+  .DisputeArbitrableTx {
+    margin: 0 4px;
+    &-message {
+      padding: 0 1em;
+    }
+  }
+}

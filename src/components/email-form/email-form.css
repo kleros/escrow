@@ -37,3 +37,18 @@
 
 .Checkbox {
   margin: 1em 1em 2em 0; }
+
+/* 48em = 768px */
+@media (max-width: 48em) {
+  .EmailForm {
+    padding: 0 15px 10px 15px;
+    margin: 0 4px; }
+    .EmailForm-h1 {
+      text-align: center;
+      font-size: 1.1em;
+      padding: 0 0 1.5em 0; }
+    .EmailForm-input {
+      width: 100%; }
+    .EmailForm .Button {
+      margin-top: 1em;
+      width: 100%; } }

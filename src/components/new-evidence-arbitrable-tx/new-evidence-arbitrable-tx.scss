@@ -6,7 +6,8 @@
     text-align: center;
     font-size: 1.4em;
     line-height: 1.4em;
-    padding: 2em 0 1em 0;
+    padding: 2em 1em 1em 1em;
+    margin: 0 4px;
   }
 
   &-form {
@@ -70,6 +71,7 @@
 
 @media (max-width: 48em) {
   .NewEvidenceArbitrableTx {
+    margin: 0 4px;
     &-footer {
       padding-right: 0;
       padding-top: 2em;

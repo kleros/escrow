@@ -11,9 +11,14 @@
     .SuccessArbitrableTx-message p {
       font-size: 1.4em;
       line-height: 1.4em;
-      padding: 2em 0 1em 0; }
+      margin: 0 4px;
+      padding: 2em 1em 1em 1em; }
   .SuccessArbitrableTx-footer {
     padding: 30px 50px;
     text-align: left;
     background: #1e075f;
     font-size: 14px; }
+
+@media (max-width: 48em) {
+  .SuccessArbitrableTx {
+    margin: 0 4px; } }

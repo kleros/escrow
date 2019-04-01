@@ -54,21 +54,23 @@
     line-height: 18px; }
 
 @media (max-width: 48em) {
-  .AgreementFully-modal-buttons {
-    width: 100%; }
-    .AgreementFully-modal-buttons-raise-dispute {
-      display: block;
-      margin: 2em 0 0 0; }
-      .AgreementFully-modal-buttons-raise-dispute form {
-        width: 100%; }
-      .AgreementFully-modal-buttons-raise-dispute-button {
-        width: 100%; }
-    .AgreementFully-modal-buttons-pay-reimburse {
-      display: block;
-      margin: 2em 0 0 0;
-      width: 100%;
-      padding: 0; }
-  .AgreementFully-modal-dispute-description {
-    padding: 0 0 1em 2em; }
-  .AgreementFully-message {
-    padding: 0 2em; } }
+  .AgreementFully {
+    margin: 0 4px; }
+    .AgreementFully-modal-buttons {
+      width: 100%; }
+      .AgreementFully-modal-buttons-raise-dispute {
+        display: block;
+        margin: 2em 0 0 0; }
+        .AgreementFully-modal-buttons-raise-dispute form {
+          width: 100%; }
+        .AgreementFully-modal-buttons-raise-dispute-button {
+          width: 100%; }
+      .AgreementFully-modal-buttons-pay-reimburse {
+        display: block;
+        margin: 2em 0 0 0;
+        width: 100%;
+        padding: 0; }
+    .AgreementFully-modal-dispute-description {
+      padding: 0 0 1em 2em; }
+    .AgreementFully-message {
+      padding: 2em 1em 1em 1em; } }

@@ -132,7 +132,12 @@ span.error {
   .NewInvoiceArbitrableTx {
     border: none;
     box-shadow: none;
-    padding: 0 20px 10px 20px; }
+    padding: 0 15px 10px 15px;
+    margin: 0 4px; }
+    .NewInvoiceArbitrableTx-h1 {
+      text-align: center;
+      font-size: 1.1em;
+      padding: 2em 0 1.5em 0; }
   .FormNewInvoiceArbitrableTx-help-title {
     display: none; }
   .FormNewInvoiceArbitrableTx-help-receiver {

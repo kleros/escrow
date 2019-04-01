@@ -72,6 +72,7 @@
 
 @media (max-width: 48em) {
   .AgreementFully {
+    margin: 0 4px;
     &-modal {
       &-buttons {
         width: 100%;
@@ -97,7 +98,7 @@
       }
     }
     &-message {
-      padding: 0 2em;
+      padding: 2em 1em 1em 1em;
     }
   }
 }
