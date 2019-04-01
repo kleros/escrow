@@ -28,16 +28,16 @@
   &-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 2em;
+    grid-gap: 42px;
     grid-auto-rows: 250px;
 
     &-section {
       display: flex;
       flex-direction: column;
       border-radius: 3px;
-      border: #ccc solid 1px;
       overflow: hidden;
       color: #4a4a4a;
+      background: #fff;
 
       &-header {
         display: flex;
@@ -161,9 +161,10 @@
   }
 
   &-h1 {
-    color: #4A4A4A;
-    font-size: 16px;
+    color: #fff;
+    font-size: 18px;
     padding: 1.6em 0;
+    font-weight: 500;
   }
 
   &-new {

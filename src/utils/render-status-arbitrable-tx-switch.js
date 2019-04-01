@@ -1,7 +1,6 @@
 import React from 'react'
-import { BeatLoader } from 'react-spinners'
+import { BeatLoader, ClipLoader } from 'react-spinners'
 import { Formik, Form } from 'formik'
-import { ClipLoader } from 'react-spinners'
 
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
 import * as disputeConstants from '../constants/dispute'
@@ -93,7 +92,7 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</>}
+          title={<>The receiver has raised a dispute</>}
           footer={
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
@@ -119,7 +118,7 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<><Dispute style={{width: '26px', height: '35px', position: 'relative', top: '12px', paddingRight: '8px'}} />The receiver has raised a dispute</>}
+          title={<>The receiver has raised a dispute</>}
           footer={
             <MessageArbitrationFee 
               arbitrabletx={arbitrabletx}
@@ -297,7 +296,7 @@ export default (
         />
       )
     default:
-      return <BeatLoader className='loader' color={'gray'} />
+      return <BeatLoader className='loader' color={'#fff'} />
   }
 }
 

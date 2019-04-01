@@ -68,7 +68,7 @@ class ArbitrableTx extends PureComponent {
       <RenderIf
         resource={arbitrabletx}
         loading={
-          <BeatLoader className='loader' color={'gray'} />
+          <BeatLoader className='loader' color={'#fff'} />
         }
         done={
           arbitrabletx.data && (
@@ -90,7 +90,7 @@ class ArbitrableTx extends PureComponent {
           )
         }
         failedLoading={
-          <BeatLoader className='loader' color={'gray'} />
+          <BeatLoader className='loader' color={'#fff'} />
         }
       />
     )

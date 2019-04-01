@@ -46,7 +46,7 @@ class Home extends PureComponent {
         <RenderIf
           resource={arbitrabletxs}
           loading={
-            <BeatLoader className='loader' color={'gray'} />
+            <BeatLoader className='loader' color={'#fff'} />
           }
           done={
             arbitrabletxs.data && (
@@ -57,7 +57,7 @@ class Home extends PureComponent {
               />
             )
           }
-          failedLoading={<RequiresMetaMaskPage needsUnlock={false}  />}
+          failedLoading={<RequiresMetaMaskPage needsUnlock={false} />}
         />
       </div>
     )

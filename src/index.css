@@ -25,7 +25,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
+	line-height: 1em;
 	padding-bottom: 3em;
 }
 ol, ul {
@@ -46,7 +46,9 @@ table {
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
+	background: linear-gradient(253.09deg, #1E075F 16.9%, #4D00B4 69.8%);
+	min-height: 100vh;
 }
 *, *:before, *:after {
 	box-sizing: inherit;

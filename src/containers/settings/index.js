@@ -18,10 +18,10 @@ const Settings = ({
     <RenderIf
       resource={settings}
       loading={
-        <BeatLoader className='loader' color={'gray'} />
+        <BeatLoader className='loader' color={'#fff'} />
       }
       updating={
-        <BeatLoader className='loader' color={'gray'} />
+        <BeatLoader className='loader' color={'#fff'} />
       }
       done={
         settings.data && (
