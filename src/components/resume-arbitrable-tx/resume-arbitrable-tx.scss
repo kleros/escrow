@@ -1,5 +1,5 @@
 /* mixin for multiline */
-@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: #f8f8f8){
+@mixin multiLineEllipsis($lineHeight: 14px, $lineCount: 1, $bgColor: #f8f8f8){
   overflow: hidden;
   position: relative;
   line-height: $lineHeight;
@@ -131,7 +131,6 @@
       text-align: right;
       padding-right: 2em;
       padding-top: 0.5em;
-
       &-show-all {
         transition-duration: 0.8s;
         transition-property: transform;
@@ -160,6 +159,10 @@
       &-p-short {
         font-size: 14px;
         @include multiLineEllipsis($lineHeight: 14px, $lineCount: 10);
+      }
+      p.false {
+        font-size: 14px;
+        line-height: 14px;
       }
     }
 

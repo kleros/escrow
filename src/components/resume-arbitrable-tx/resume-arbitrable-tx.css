@@ -105,6 +105,9 @@
           width: 1em;
           height: 1.2em;
           background: #f8f8f8; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-content-description p.false {
+        font-size: 14px;
+        line-height: 14px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
       grid-area: nameShare; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
