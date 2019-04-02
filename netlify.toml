@@ -25,6 +25,6 @@
 # Branch Athena context.
 [context.athena-escrow]
   [context.athena-escrow.environment]
-  REACT_APP_PROD_ARBITRATOR_ADDRESS = "0x8847c0947a613c3de443f73351c3815ad0d37f98"
-  REACT_APP_PROD_ARBITRABLE_FREELANCING_ADDRESS= "0xab3fd973dd8f829859f931dd85873effed70ac42"
+  REACT_APP_PROD_ARBITRATOR_ADDRESS = "0x60b2abfdfad9c0873242f59f2a8c32a3cc682f80"
+  REACT_APP_PROD_ARBITRABLE_FREELANCING_ADDRESS= "0xA5253eDD7246eeDDB41f63eD1a27daf8A5b7496B"
   REACT_APP_PROD_PATCH_USER_SETTINGS_URL = "https://8aoprv935h.execute-api.us-east-2.amazonaws.com/staging/user-settings"
