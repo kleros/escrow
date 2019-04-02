@@ -27,7 +27,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
                 <div className='ArbitrableTxCards-cards-section-header'>
                   <Identicon scale={3} round={true} address={arbitrabletx[arbitrabletx.otherParty] && arbitrabletx[arbitrabletx.otherParty]} />
                   <div className='ArbitrableTxCards-cards-section-header-address'>{shortAddress(arbitrabletx[arbitrabletx.otherParty])}</div>
-                  <div className='ArbitrableTxCards-cards-section-header-party'>{arbitrabletx.party}</div>
+                  <div className='ArbitrableTxCards-cards-section-header-party'>{arbitrabletx.otherParty}</div>
                 </div>
                 <div className='ArbitrableTxCards-cards-section-h2'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.title}</div>
                 <div className='ArbitrableTxCards-cards-section-description'><p className='ArbitrableTxCards-cards-section-description-p'>{arbitrabletx.metaEvidence && arbitrabletx.metaEvidence.description}</p></div>
