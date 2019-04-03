@@ -139,10 +139,6 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
     arbitrabletxReceived.arbitrableAddress
   )
 
-  const arbitrableTransactionCount = yield call(
-    multipleArbitrableTransactionEth.methods.getCountTransactions().call
-  )
-
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.createTransaction(
       arbitrabletxReceived.timeout.toString(),
@@ -155,9 +151,8 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
     }
   )
 
-  // FIXME: returns the bad id if a transaction is mined before. To fix this, use the event of the transaction
   if (txHash)
-    navigate(`/contract/${arbitrabletxReceived.arbitrableAddress}/transaction/${arbitrableTransactionCount}`)
+    navigate(`/contract/${arbitrabletxReceived.arbitrableAddress}/transaction/${txHash.events.MetaEvidence.returnValues[0]}`)
 
   return {}
 }
