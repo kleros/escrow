@@ -25,8 +25,8 @@ export default ({
       descriptions: ['Select to return funds to Party A', 'Select to release funds to Party B'],
     },
     aliases: {
-      [sender]: 'Party A',
-      [receiver]: 'Party B'
+      [sender]: 'Sender',
+      [receiver]: 'Receiver'
     },
     sender,
     receiver,
