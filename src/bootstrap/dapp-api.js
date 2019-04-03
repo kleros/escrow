@@ -38,7 +38,8 @@ const getNetwork = async () => new Promise((resolve, reject) => {
 })
 
 const ARBITRABLE_ADDRESSES = [
-  {"address": process.env[`REACT_APP_${env}_ARBITRABLE_FREELANCING_ADDRESS`], "type": "Freelancing"}
+  {"address": process.env[`REACT_APP_${env}_ARBITRABLE_ECOMMERCE_ADDRESS`], "type": "E-Commerce"},
+  {"address": process.env[`REACT_APP_${env}_ARBITRABLE_TRANSPORT_ADDRESS`], "type": "Transport"}
 ]
 const ARBITRATOR_ADDRESS =
   process.env[`REACT_APP_${env}_ARBITRATOR_ADDRESS`]
