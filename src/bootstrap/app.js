@@ -11,7 +11,8 @@ import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
 import Notifications from '../containers/settings'
 import { ReactComponent as Kleros } from '../assets/kleros.svg'
-import { ReactComponent as Plus } from '../assets/plus.svg'
+import { ReactComponent as Invoice } from '../assets/invoice.svg'
+import { ReactComponent as Transaction } from '../assets/transaction.svg'
 import { ReactComponent as Envelope } from '../assets/envelope.svg'
 
 import './app.css'
@@ -28,17 +29,17 @@ const Main = ({ children }) => (
       <label className='menu-icon' htmlFor='menu-btn'><span className='navicon'></span></label>
       <ul className='menu'>
         <li onClick={() => navigate('/notifications')}>
-          <Envelope style={{height: '15px'}} />
+          <Envelope style={{position: 'relative', top: '12px', height: '15px'}} />
         </li>
         <li className='menu-invoice' onClick={() => navigate('/new/invoice')}>
           <span className='btn-new btn-new-invoice'>
-            <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
+            <Invoice style={{position: 'relative', top: '7px', height: '24px', marginRight: '18px'}} />
             New Invoice
           </span>
         </li>
-        <li onClick={() => navigate('/new/transaction')}>
+        <li className='menu-transaction' onClick={() => navigate('/new/transaction')}>
           <span className='btn-new'>
-            <Plus style={{position: 'relative', top: '1px', height: '15px', marginRight: '10px'}} />
+            <Transaction style={{position: 'relative', top: '7px', height: '24px', marginRight: '10px'}} />
             New Transaction
           </span>
         </li>

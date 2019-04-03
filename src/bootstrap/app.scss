@@ -9,10 +9,19 @@
 /* header */
 
 .btn-new {
+  display: inline-block;
+  width: 209px;
+  text-align: left;
   background: #009aff;
-  padding: 13px 24px 13px 14px;
+  border: 1px solid #009aff;
+  padding-left: 20px;
   border-radius: 3px;
   color: #fff;
+  margin-right: 0px;
+  &-invoice {
+    background: transparent;
+    border: 1px solid #fff;
+  }
 }
 
 .header {
@@ -25,7 +34,6 @@
 .header ul {
   list-style: none;
   overflow: hidden;
-  padding-right: 30px;
 }
 
 .header li {
@@ -56,6 +64,7 @@
     margin-left: 0px;
   }
   li {
+    line-height: 40px;
     &:last-child {
       margin-bottom: 10px;
     }
@@ -136,10 +145,12 @@
       padding: 100px 2em 0 2em;
     }
   }
+  .header ul {
+    padding-right: 30px;
+  }
   .header li {
     float: left;
     text-align: left;
-    line-height: 60px;
     padding: 0;
   }
 
@@ -148,9 +159,12 @@
     float: right;
     max-height: none;
     &-invoice {
-      width: 190px;
-      margin-right: -24px;
+      margin-right: 20px;
       margin-left: 30px;
+      padding: 10px 0;
+    }
+    &-transaction {
+      padding: 10px 0;
     }
     li {
       &:last-child {
@@ -160,9 +174,6 @@
   }
   .header .menu-icon {
     display: none;
-  }
-  .btn-new {
-
   }
 }
 

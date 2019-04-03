@@ -44,6 +44,7 @@
       grid-area: contentFile; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-description {
       grid-area: nameDescription;
+      margin-top: 40px;
       padding: 20px 32px 16px;
       color: #4a4a4a;
       font-size: 14px;
@@ -55,6 +56,7 @@
       border-top-left-radius: 3px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description {
       grid-area: nameAllDescription;
+      margin-top: 40px;
       color: #4a4a4a;
       background: #f8f8f8;
       border: 1px solid #d9d9d9;

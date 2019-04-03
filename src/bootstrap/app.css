@@ -5,10 +5,18 @@
 /* TODO: switch the code to sass */
 /* header */
 .btn-new {
+  display: inline-block;
+  width: 209px;
+  text-align: left;
   background: #009aff;
-  padding: 13px 24px 13px 14px;
+  border: 1px solid #009aff;
+  padding-left: 20px;
   border-radius: 3px;
-  color: #fff; }
+  color: #fff;
+  margin-right: 0px; }
+  .btn-new-invoice {
+    background: transparent;
+    border: 1px solid #fff; }
 
 .header {
   position: fixed;
@@ -18,8 +26,7 @@
 
 .header ul {
   list-style: none;
-  overflow: hidden;
-  padding-right: 30px; }
+  overflow: hidden; }
 
 .header li {
   padding: 20px;
@@ -43,8 +50,10 @@
   .header .menu-invoice {
     margin-right: 0px;
     margin-left: 0px; }
-  .header .menu li:last-child {
-    margin-bottom: 10px; }
+  .header .menu li {
+    line-height: 40px; }
+    .header .menu li:last-child {
+      margin-bottom: 10px; }
 
 /* menu icon */
 .header .menu-icon {
@@ -103,19 +112,22 @@
 @media (min-width: 48em) {
   .App main {
     padding: 100px 2em 0 2em; }
+  .header ul {
+    padding-right: 30px; }
   .header li {
     float: left;
     text-align: left;
-    line-height: 60px;
     padding: 0; }
   .header .menu {
     clear: none;
     float: right;
     max-height: none; }
     .header .menu-invoice {
-      width: 190px;
-      margin-right: -24px;
-      margin-left: 30px; }
+      margin-right: 20px;
+      margin-left: 30px;
+      padding: 10px 0; }
+    .header .menu-transaction {
+      padding: 10px 0; }
     .header .menu li:last-child {
       margin-bottom: 0px; }
   .header .menu-icon {
