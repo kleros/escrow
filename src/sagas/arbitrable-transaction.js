@@ -1,12 +1,11 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
-import Archon from '@kleros/archon'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 
 import {
   web3,
+  archon,
   arbitratorEth,
-  getNetwork,
   ARBITRABLE_ADDRESSES,
   ARBITRATOR_ADDRESS
 } from '../bootstrap/dapp-api'
@@ -170,12 +169,6 @@ function* fetchArbitrabletxs() {
   if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
-  // initialize Archon
-  const network = yield call(getNetwork)
-  const archon = new Archon(
-    `https://${network.toLowerCase()}.infura.io`,
-    'https://ipfs.kleros.io'
-  )
 
   let multipleArbitrableTransactionEth = {}
   let arbitrableTransactionIds = []
@@ -244,12 +237,6 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
     multipleArbitrableTransaction.abi,
     arbitrable
-  )
-
-  const network = yield call(getNetwork)
-  const archon = new Archon(
-    `https://${network.toLowerCase()}.infura.io`,
-    'https://ipfs.kleros.io'
   )
 
   const arbitratorExtraData = yield call(

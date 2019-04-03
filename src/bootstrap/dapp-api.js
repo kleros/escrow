@@ -1,8 +1,12 @@
 import Web3 from 'web3'
+import Archon from '@kleros/archon'
 import arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 const ETHEREUM_PROVIDER = process.env[`REACT_APP_${env}_ETHEREUM_PROVIDER`]
+const requiredNetwork = process.env[`REACT_APP_${env}_NETWORK`]
+const WS_PROVIDER = process.env[`REACT_APP_${env}_WS_PROVIDER`]
+const HTTP_PROVIDER = process.env[`REACT_APP_${env}_HTTP_PROVIDER`]
 
 let web3
 if (process.env.NODE_ENV === 'test')
@@ -46,6 +50,8 @@ const arbitratorEth = new web3.eth.Contract(
   ARBITRATOR_ADDRESS // need to follow the arbitrator standard ERC 792
 )
 
+const archon = new Archon(HTTP_PROVIDER, 'https://ipfs.kleros.io')
+
 const ETHAddressRegExpCaptureGroup = '(0x[a-fA-F0-9]{40})'
 const ETHAddressRegExp = /0x[a-fA-F0-9]{40}/
 const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
@@ -54,6 +60,7 @@ export {
   web3,
   ARBITRABLE_ADDRESSES,
   ARBITRATOR_ADDRESS,
+  archon,
   PATCH_USER_SETTINGS_URL,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
