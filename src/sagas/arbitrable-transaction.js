@@ -107,6 +107,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
 
   const parties = Object.assign({}, ...Object.entries(metaEvidenceDecoded.aliases).map(([a,b]) => ({ [b]: a })))
 
+  console.log(parties)
+
   return yield put(action(arbitrabletxActions.arbitrabletx.RESUMEFORM,
     {
       arbitrabletxResumeForm: {
@@ -114,9 +116,9 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         subCategory: metaEvidenceDecoded.subCategory,
         title: metaEvidenceDecoded.title,
         description: metaEvidenceDecoded.description,
-        receiver: parties['Receiver'],
+        receiver: parties['receiver'],
         otherParty: 'Receiver',
-        otherPartyAddress: parties['Receiver'],
+        otherPartyAddress: parties['receiver'],
         amount: metaEvidenceDecoded.amount,
         timeout: metaEvidenceDecoded.timeout,
         file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
