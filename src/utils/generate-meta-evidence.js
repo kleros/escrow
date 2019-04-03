@@ -21,12 +21,12 @@ export default ({
     fileHash,
     question: 'Which party abided by terms of the contract?',
     rulingOptions: {
-      titles: ['Vote for Party A', 'Vote for Party B'],
-      descriptions: ['Select to return funds to Party A', 'Select to release funds to Party B'],
+      titles: ['Vote for the Sender', 'Vote for the Receiver'],
+      descriptions: ['Select to return funds to the Sender', 'Select to release funds to the Receiver'],
     },
     aliases: {
-      [sender]: 'Sender',
-      [receiver]: 'Receiver'
+      [sender]: 'sender',
+      [receiver]: 'receiver'
     },
     sender,
     receiver,
