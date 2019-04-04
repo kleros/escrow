@@ -2,11 +2,7 @@ import Web3 from 'web3'
 import Archon from '@kleros/archon'
 import arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
-const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
-const ETHEREUM_PROVIDER = process.env[`REACT_APP_${env}_ETHEREUM_PROVIDER`]
-const requiredNetwork = process.env[`REACT_APP_${env}_NETWORK`]
-const WS_PROVIDER = process.env[`REACT_APP_${env}_WS_PROVIDER`]
-const HTTP_PROVIDER = process.env[`REACT_APP_${env}_HTTP_PROVIDER`]
+let env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 
 let web3
 if (process.env.NODE_ENV === 'test')
@@ -15,6 +11,9 @@ else if (window.ethereum) web3 = new Web3(window.ethereum)
 else if (window.web3 && window.web3.currentProvider)
   web3 = new Web3(window.web3.currentProvider)
 else web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER))
+
+let onlyInfura
+if (!web3) onlyInfura = true
 
 const getNetwork = async () => new Promise((resolve, reject) => {
   web3.eth &&
@@ -34,8 +33,14 @@ const getNetwork = async () => new Promise((resolve, reject) => {
         resolve(null)
     }
   })
+  .then(() => {env = getNetwork === 1 ? 'PROD' : 'DEV'})
   .catch((err) => reject(err))
 })
+
+const ETHEREUM_PROVIDER = process.env[`REACT_APP_${env}_ETHEREUM_PROVIDER`]
+const requiredNetwork = process.env[`REACT_APP_${env}_NETWORK`]
+const WS_PROVIDER = process.env[`REACT_APP_${env}_WS_PROVIDER`]
+const HTTP_PROVIDER = process.env[`REACT_APP_${env}_HTTP_PROVIDER`]
 
 const ARBITRABLE_ADDRESSES = [
   {"address": process.env[`REACT_APP_${env}_ARBITRABLE_NOTECHNICAL_ADDRESS`], "type": "General Service"}
