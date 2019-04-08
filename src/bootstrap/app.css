@@ -13,10 +13,12 @@ body {
   text-align: left;
   background: #009aff;
   border: 1px solid #009aff;
-  padding-left: 20px;
+  padding-left: 15px;
   border-radius: 3px;
   color: #fff;
-  margin-right: 0px; }
+  margin-right: 0px;
+  font-size: 14px;
+  height: 40px; }
   .btn-new-invoice {
     background: transparent;
     border: 1px solid #fff; }
