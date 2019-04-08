@@ -1,9 +1,9 @@
 /* mixin for multiline */
-@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white) {
   overflow: hidden;
   position: relative;
   line-height: $lineHeight;
-  max-height: $lineHeight * $lineCount; 
+  max-height: $lineHeight * $lineCount;
   text-align: justify;
   margin-right: -1em;
   padding-right: 1em;
@@ -77,11 +77,15 @@
       }
 
       &-description {
-        color: #4A4A4A;
+        color: #4a4a4a;
         font-size: 14px;
         flex-grow: 1;
         &-p {
-          @include multiLineEllipsis($lineHeight: 18px, $lineCount: 5, $bgColor: white);
+          @include multiLineEllipsis(
+            $lineHeight: 18px,
+            $lineCount: 5,
+            $bgColor: white
+          );
           margin: 0 32px 10px 32px;
         }
       }
@@ -141,16 +145,33 @@
       }
 
       &-new {
-        position: relative;
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
         display: flex; /* contexte sur le parent */
-        background: #f8f8f8;
-        color: #009aff;
+        font-size: 24px;
+        position: relative;
+
         &-content {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          font-weight: 500;
           position: absolute;
-          top: 50%; /* poussé de la moitié de hauteur du référent */
-          transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
-          width: 100%;
           text-align: center;
+          top: 40px; /* poussé de la moitié de hauteur du référent */
+          width: 100%;
+
+          &-plus {
+            align-items: center;
+            background: #9013fe;
+            border-radius: 38px;
+            bottom: 77px;
+            display: flex;
+            height: 76px;
+            justify-content: center;
+            margin-top: 42px;
+            width: 76px;
+          }
         }
       }
     }

@@ -43,7 +43,7 @@
       white-space: nowrap;
       overflow: hidden; }
     .ArbitrableTxCards-cards-section-description {
-      color: #4A4A4A;
+      color: #4a4a4a;
       font-size: 14px;
       flex-grow: 1; }
       .ArbitrableTxCards-cards-section-description-p {
@@ -110,19 +110,32 @@
         top: 1px;
         content: url(../../assets/icon-dispute-red.svg); }
     .ArbitrableTxCards-cards-section-new {
-      position: relative;
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
       display: flex;
       /* contexte sur le parent */
-      background: #f8f8f8;
-      color: #009aff; }
+      font-size: 24px;
+      position: relative; }
       .ArbitrableTxCards-cards-section-new-content {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        font-weight: 500;
         position: absolute;
-        top: 50%;
+        text-align: center;
+        top: 40px;
         /* poussé de la moitié de hauteur du référent */
-        transform: translateY(-50%);
-        /* tiré de la moitié de sa propre hauteur */
-        width: 100%;
-        text-align: center; }
+        width: 100%; }
+        .ArbitrableTxCards-cards-section-new-content-plus {
+          align-items: center;
+          background: #9013fe;
+          border-radius: 38px;
+          bottom: 77px;
+          display: flex;
+          height: 76px;
+          justify-content: center;
+          margin-top: 42px;
+          width: 76px; }
   .ArbitrableTxCards-cards section:hover {
     cursor: pointer; }
 
