@@ -17,46 +17,73 @@ import { ReactComponent as Envelope } from '../assets/envelope.svg'
 
 import './app.css'
 
-const NotFound = () => (
-  <div>Sorry, nothing here.</div>
-)
+const NotFound = () => <div>Sorry, nothing here.</div>
 
 const Main = ({ children }) => (
-  <div className='App'>
-    <header className='header'>
-      <Kleros className='logo' onClick={() => navigate('/')} style={{position: 'relative', top: '10px', left: '20px'}} />
-      <input className='menu-btn' type='checkbox' id='menu-btn' />
-      <label className='menu-icon' htmlFor='menu-btn'><span className='navicon'></span></label>
-      <ul className='menu'>
+  <div className="App">
+    <header className="header">
+      <Kleros
+        className="logo"
+        onClick={() => navigate('/')}
+        style={{
+          position: 'relative',
+          top: '8px',
+          left: '20px',
+          width: 'auto',
+          height: '46px'
+        }}
+      />
+      <input className="menu-btn" type="checkbox" id="menu-btn" />
+      <label className="menu-icon" htmlFor="menu-btn">
+        <span className="navicon" />
+      </label>
+      <ul className="menu">
         <li onClick={() => navigate('/notifications')}>
-          <Envelope style={{position: 'relative', top: '12px', height: '15px'}} />
+          <Envelope
+            style={{ position: 'relative', top: '12px', height: '15px' }}
+          />
         </li>
-        <li className='menu-invoice' onClick={() => navigate('/new/invoice')}>
-          <span className='btn-new btn-new-invoice'>
-            <Invoice style={{position: 'relative', top: '7px', height: '24px', marginRight: '18px'}} />
+        <li className="menu-invoice" onClick={() => navigate('/new/invoice')}>
+          <span className="btn-new btn-new-invoice">
+            <Invoice
+              style={{
+                position: 'relative',
+                top: '7px',
+                height: '24px',
+                marginRight: '18px'
+              }}
+            />
             New Invoice
           </span>
         </li>
-        <li className='menu-transaction' onClick={() => navigate('/new/transaction')}>
-          <span className='btn-new'>
-            <Transaction style={{position: 'relative', top: '7px', height: '24px', marginRight: '10px'}} />
+        <li
+          className="menu-transaction"
+          onClick={() => navigate('/new/transaction')}
+        >
+          <span className="btn-new">
+            <Transaction
+              style={{
+                position: 'relative',
+                top: '7px',
+                height: '24px',
+                marginRight: '10px'
+              }}
+            />
             New Transaction
           </span>
         </li>
       </ul>
     </header>
-    <main>
-      {children}
-    </main>
+    <main>{children}</main>
   </div>
 )
 
-const App = ({store}) => (
+const App = ({ store }) => (
   <Provider store={store}>
     <Initializer>
       <>
         <Helmet>
-          <title>Escrow - Blockchain service - Kleros</title>
+          <title>Kleros · Escrow</title>
         </Helmet>
         <Router>
           <Main path="/">
