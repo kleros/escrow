@@ -1,7 +1,7 @@
 .NewArbitrableTx {
   background: #fff;
   border-radius: 3px;
-  padding: 40px 80px 70px 80px;
+  padding: 40px 80px;
 
   &-h1 {
     color: #4004a3;
@@ -199,7 +199,7 @@
     }
 
     &-error {
-      color: red;
+      color: #ff0303;
       font-size: 0.9em;
     }
 

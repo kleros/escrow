@@ -29,7 +29,7 @@
     border-radius: 3px;
     font-weight: 500; }
   .EmailForm-error {
-    color: red;
+    color: #ff0303;
     font-size: 14px;
     margin-top: 6px; }
   .EmailForm-title-b {

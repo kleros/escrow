@@ -1,7 +1,7 @@
 .NewInvoiceArbitrableTx {
   background: #fff;
   border-radius: 3px;
-  padding: 40px 80px 70px 80px; }
+  padding: 40px 80px; }
   .NewInvoiceArbitrableTx-h1 {
     color: #4004a3;
     font-size: 24px;
@@ -105,7 +105,7 @@
         font-size: 18px;
         font-weight: 400; }
     .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error {
-      color: red;
+      color: #ff0303;
       font-size: 0.9em; }
     .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help {
       color: #4a4a4a;

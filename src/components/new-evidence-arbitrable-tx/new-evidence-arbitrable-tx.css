@@ -13,7 +13,7 @@
     margin-bottom: 2em;
     display: grid;
     grid-gap: 16px;
-    grid-template-areas: "name" "textarea" "file"; }
+    grid-template-areas: 'name' 'textarea' 'file'; }
     .NewEvidenceArbitrableTx-form p {
       text-align: center;
       min-height: 190px;
@@ -41,7 +41,7 @@
       .NewEvidenceArbitrableTx-form-textarea::placeholder {
         color: #fff; }
     .NewEvidenceArbitrableTx-form .error {
-      color: red;
+      color: #ff0303;
       font-size: 0.9em; }
   .NewEvidenceArbitrableTx-footer {
     background: #1e075f;

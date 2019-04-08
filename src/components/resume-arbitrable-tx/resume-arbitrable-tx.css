@@ -146,7 +146,7 @@
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'nameTitle nameTitle' 'contentTitle contentTitle' 'nameOtherParty nameOtherParty' 'contentOtherParty contentOtherParty' 'nameCategory nameCategory' 'contentCategory contentCategory' 'nameAmount nameAmount' 'contentAmount contentAmount' 'nameTimeout nameTimeout' 'contentTimeout contentTimeout' 'nameFile nameFile' 'contentFile contentFile' 'nameDescription nameAllDescription' 'contentDescription contentDescription' 'submit submit'; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
-        color: red;
+        color: #ff0303;
         text-align: center; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url {
         display: none; }
