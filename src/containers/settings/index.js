@@ -10,51 +10,32 @@ import EmailForm from '../../components/email-form'
 
 import './settings.css'
 
-const Settings = ({
-  settings,
-  updateEmail,
-}) => (
+const Settings = ({ settings, updateEmail }) => (
   <div className="Settings">
     <RenderIf
       resource={settings}
-      loading={
-        <BeatLoader className='loader' color={'#fff'} />
-      }
-      updating={
-        <BeatLoader className='loader' color={'#fff'} />
-      }
+      loading={<BeatLoader className="loader" color={'#fff'} />}
+      updating={<BeatLoader className="loader" color={'#fff'} />}
       done={
         settings.data && (
           <EmailForm
             updateEmail={updateEmail}
-            msg={
-              `Save an email to be notified whenever you have a dispute,
-              an appeal or when the arbitrator give a ruling for your
-              arbitrable transaction.`
-            }
+            msg="I wish to be notified when:"
             settingsAcc={settings}
           />
         )
       }
       failedLoading={
-          <EmailForm
-            updateEmail={updateEmail}
-            msg={
-              `Save an email to be notified whenever you have a dispute,
-              an appeal or when the arbitrator give a ruling for your
-              arbitrable transaction.`
-            }
-            settingsAcc={settings}
-          />
+        <EmailForm
+          updateEmail={updateEmail}
+          msg="I wish to be notified when:"
+          settingsAcc={settings}
+        />
       }
       failedUpdating={
         <EmailForm
           updateEmail={updateEmail}
-          msg={
-            `Save an email to be notified whenever you have a dispute,
-            an appeal or when the arbitrator give a ruling for your
-            arbitrable transaction.`
-          }
+          msg="I wish to be notified when:"
           settingsAcc={settings}
         />
       }
@@ -67,7 +48,7 @@ Settings.propTypes = {
   settings: walletSelectors.settingsShape.isRequired,
 
   // Action Dispatchers
-  updateEmail: PropTypes.func.isRequired,
+  updateEmail: PropTypes.func.isRequired
 }
 
 export default connect(

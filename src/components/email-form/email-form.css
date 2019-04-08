@@ -1,21 +1,22 @@
 .EmailForm {
   background: #fff;
   border-radius: 3px;
-  padding: 40px 80px 70px 80px; }
+  padding: 40px 80px; }
   .EmailForm-h1 {
     grid-area: h1;
     color: #4004a3;
     font-size: 24px;
-    border-bottom: 1px solid #4004A3;
+    border-bottom: 1px solid #4004a3;
     font-weight: 500;
     padding-bottom: 22px;
     margin-bottom: 22px; }
   .EmailForm-msg {
-    font-size: 16px;
-    padding: 1.3em 0 1em 0; }
-  .EmailForm-label {
-    font-size: 14px;
     color: #4a4a4a;
+    font-size: 16px;
+    padding: 0 0 20px; }
+  .EmailForm label {
+    color: #4a4a4a;
+    font-size: 14px;
     padding: 17px 0; }
   .EmailForm-input {
     border: 1px solid #d9d9d9;
