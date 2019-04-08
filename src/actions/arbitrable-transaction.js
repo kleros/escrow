@@ -77,7 +77,10 @@ export const formArbitrabletx = arbitrabletxForm => ({
   payload: { arbitrabletxForm }
 })
 
-export const createArbitrabletx = (arbitrabletxReceived, metaEvidenceIPFSHash) => ({
+export const createArbitrabletx = (
+  arbitrabletxReceived,
+  metaEvidenceIPFSHash
+) => ({
   type: arbitrabletx.CREATE,
   payload: { arbitrabletxReceived, metaEvidenceIPFSHash }
 })
@@ -118,7 +121,11 @@ export const createTimeout = (arbitrable, id) => ({
 })
 
 // Evidence
-export const createEvidence = (evidenceReceived, arbitrable, arbitrableTransactionId) => ({
+export const createEvidence = (
+  evidenceReceived,
+  arbitrable,
+  arbitrableTransactionId
+) => ({
   type: evidence.CREATE,
   payload: { evidenceReceived, arbitrable, arbitrableTransactionId }
 })

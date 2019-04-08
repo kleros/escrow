@@ -33,10 +33,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
   let metaEvidence = null
 
   if (arbitrabletxForm.file) {
-    const data = yield call(
-      readFile,
-      arbitrabletxForm.file.dataURL
-    )
+    const data = yield call(readFile, arbitrabletxForm.file.dataURL)
     // Upload the meta-evidence then return an ipfs hash
     const fileIpfsHash = yield call(
       ipfsPublish,
@@ -82,8 +79,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
   if (arbitrabletxForm.type === 'invoice')
     navigate(`/invoice/${ipfsHashMetaEvidenceObj[1].hash}`)
-  else
-    navigate(`/transaction/${ipfsHashMetaEvidenceObj[1].hash}`)
+  else navigate(`/transaction/${ipfsHashMetaEvidenceObj[1].hash}`)
 
   return arbitrabletxForm
 }
@@ -98,19 +94,19 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   // Fetch the meta-evidence
-  const metaEvidence = yield call(
-    getMetaEvidence.getFile,
-    metaEvidenceIPFSHash
-  )
+  const metaEvidence = yield call(getMetaEvidence.getFile, metaEvidenceIPFSHash)
 
   const metaEvidenceDecoded = JSON.parse(JSON.stringify(metaEvidence))
 
-  const parties = Object.assign({}, ...Object.entries(metaEvidenceDecoded.aliases).map(([a,b]) => ({ [b]: a })))
+  const parties = Object.assign(
+    {},
+    ...Object.entries(metaEvidenceDecoded.aliases).map(([a, b]) => ({ [b]: a }))
+  )
 
   console.log(parties)
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.RESUMEFORM,
-    {
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.RESUMEFORM, {
       arbitrabletxResumeForm: {
         arbitrableAddress: metaEvidenceDecoded.arbitrableAddress,
         subCategory: metaEvidenceDecoded.subCategory,
@@ -121,19 +117,23 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         otherPartyAddress: parties['receiver'],
         amount: metaEvidenceDecoded.amount,
         timeout: metaEvidenceDecoded.timeout,
-        file: metaEvidenceDecoded.fileURI ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}` : null,
+        file: metaEvidenceDecoded.fileURI
+          ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
+          : null,
         arbitrator: metaEvidenceDecoded.arbitrator,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
       }
-    }
-  ))
+    })
+  )
 }
 
 /**
  * Creates a new arbitrableTx.
  * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
  */
-function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFSHash } }) {
+function* createArbitrabletx({
+  payload: { arbitrabletxReceived, metaEvidenceIPFSHash }
+}) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
@@ -154,7 +154,11 @@ function* createArbitrabletx({ payload: { arbitrabletxReceived, metaEvidenceIPFS
   )
 
   if (txHash)
-    navigate(`/contract/${arbitrabletxReceived.arbitrableAddress}/transaction/${txHash.events.MetaEvidence.returnValues[0]}`)
+    navigate(
+      `/contract/${arbitrabletxReceived.arbitrableAddress}/transaction/${
+        txHash.events.MetaEvidence.returnValues[0]
+      }`
+    )
 
   return {}
 }
@@ -183,9 +187,15 @@ function* fetchArbitrabletxs() {
     )
     for (let arbitrableTransactionId of arbitrableTransactionIds) {
       try {
-        const [arbitrableTransaction, arbitratorExtraData, metaEvidence] = yield all([
+        const [
+          arbitrableTransaction,
+          arbitratorExtraData,
+          metaEvidence
+        ] = yield all([
           call(
-            multipleArbitrableTransactionEth.methods.transactions(arbitrableTransactionId).call
+            multipleArbitrableTransactionEth.methods.transactions(
+              arbitrableTransactionId
+            ).call
           ),
           call(
             multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
@@ -197,13 +207,30 @@ function* fetchArbitrabletxs() {
           )
         ])
 
-        arbitrableTransaction.arbitrableAddress = arbitrableContract.address || '0x0000000000000000000000000000000000000000'
+        arbitrableTransaction.arbitrableAddress =
+          arbitrableContract.address ||
+          '0x0000000000000000000000000000000000000000'
         arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
         arbitrableTransaction.id = arbitrableTransactionId || 0
-        arbitrableTransaction.party = accounts[0] === arbitrableTransaction.sender ? 'sender' : accounts[0] === arbitrableTransaction.receiver ? 'receiver' : '...'
-        arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.receiver ? 'sender' : accounts[0] === arbitrableTransaction.sender ? 'receiver' : '...'
-        arbitrableTransaction.originalAmount = web3.utils.toWei(metaEvidence.metaEvidenceJSON.amount, 'ether').toString()
-        arbitrableTransaction.detailsStatus = getStatusArbitrable({accounts, arbitrabletx: arbitrableTransaction})
+        arbitrableTransaction.party =
+          accounts[0] === arbitrableTransaction.sender
+            ? 'sender'
+            : accounts[0] === arbitrableTransaction.receiver
+            ? 'receiver'
+            : '...'
+        arbitrableTransaction.otherParty =
+          accounts[0] === arbitrableTransaction.receiver
+            ? 'sender'
+            : accounts[0] === arbitrableTransaction.sender
+            ? 'receiver'
+            : '...'
+        arbitrableTransaction.originalAmount = web3.utils
+          .toWei(metaEvidence.metaEvidenceJSON.amount, 'ether')
+          .toString()
+        arbitrableTransaction.detailsStatus = getStatusArbitrable({
+          accounts,
+          arbitrabletx: arbitrableTransaction
+        })
         arbitrableTransaction.arbitratorExtraData = arbitratorExtraData
 
         arbitrableTransactions.push(arbitrableTransaction)
@@ -240,37 +267,41 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
   )
 
-  const [arbitrableTransaction, feeTimeout, metaEvidenceArchon, arbitrationCost] = yield all(
-    [
-      call(
-        multipleArbitrableTransactionEth.methods.transactions(transactionId).call
-      ),
-      call(
-        multipleArbitrableTransactionEth.methods.feeTimeout().call
-      ),
-      call(
-        archon.arbitrable.getMetaEvidence,
-        arbitrable,
-        id
-      ),
-      call(
-        arbitratorEth.methods.arbitrationCost(arbitratorExtraData).call
-      )
-    ]
-  )
+  const [
+    arbitrableTransaction,
+    feeTimeout,
+    metaEvidenceArchon,
+    arbitrationCost
+  ] = yield all([
+    call(
+      multipleArbitrableTransactionEth.methods.transactions(transactionId).call
+    ),
+    call(multipleArbitrableTransactionEth.methods.feeTimeout().call),
+    call(archon.arbitrable.getMetaEvidence, arbitrable, id),
+    call(arbitratorEth.methods.arbitrationCost(arbitratorExtraData).call)
+  ])
 
-  const  disputeStatus = yield call(
+  const disputeStatus = yield call(
     arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
   )
 
   arbitrableTransaction.id = id
   arbitrableTransaction.evidences = null
-  arbitrableTransaction.amount = web3.utils.fromWei(arbitrableTransaction.amount.toString(), 'ether')
-  arbitrableTransaction.otherParty = accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
-  arbitrableTransaction.otherPartyAddress = accounts[0] === arbitrableTransaction.sender ?  arbitrableTransaction.receiver :  arbitrableTransaction.sender
+  arbitrableTransaction.amount = web3.utils.fromWei(
+    arbitrableTransaction.amount.toString(),
+    'ether'
+  )
+  arbitrableTransaction.otherParty =
+    accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
+  arbitrableTransaction.otherPartyAddress =
+    accounts[0] === arbitrableTransaction.sender
+      ? arbitrableTransaction.receiver
+      : arbitrableTransaction.sender
 
   if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
-    arbitrableTransaction.file = `https://ipfs.kleros.io${metaEvidenceArchon.metaEvidenceJSON.fileURI}`
+    arbitrableTransaction.file = `https://ipfs.kleros.io${
+      metaEvidenceArchon.metaEvidenceJSON.fileURI
+    }`
 
   // NOTE: assuming disputeID is not equal to 0
   if (arbitrableTransaction.disputeId) {
@@ -286,8 +317,8 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   }
 
   if (
-    disputeStatus.toString() === disputeConstants.SOLVED.toString() 
-    || disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
+    disputeStatus.toString() === disputeConstants.SOLVED.toString() ||
+    disputeStatus.toString() === disputeConstants.APPEALABLE.toString()
   )
     ruling = yield call(
       arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
@@ -301,7 +332,12 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     arbitrationCost: web3.utils.fromWei(arbitrationCost.toString(), 'ether'),
     originalAmount: metaEvidenceArchon.metaEvidenceJSON.amount,
     disputeStatus,
-    party: accounts[0] === arbitrableTransaction.sender ? 'sender' : accounts[0] === arbitrableTransaction.receiver ? 'receiver' : 'none',
+    party:
+      accounts[0] === arbitrableTransaction.sender
+        ? 'sender'
+        : accounts[0] === arbitrableTransaction.receiver
+        ? 'receiver'
+        : 'none',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
   }
@@ -346,7 +382,9 @@ function* createPayOrReimburse({ payload: { arbitrable, id, amount } }) {
       }
     )
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id }))
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id })
+  )
 }
 
 /**
@@ -362,16 +400,16 @@ function* executeTransaction({ payload: { arbitrable, id } }) {
   )
 
   yield call(
-    multipleArbitrableTransactionEth.methods.executeTransaction(
-      id
-    ).send,
+    multipleArbitrableTransactionEth.methods.executeTransaction(id).send,
     {
       from: accounts[0],
       value: 0
     }
   )
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id }))
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id })
+  )
 }
 
 /**
@@ -396,9 +434,8 @@ function* createDispute({ payload: { arbitrable, id } }) {
 
   if (accounts[0] === arbitrableTransaction.receiver)
     yield call(
-      multipleArbitrableTransactionEth.methods.payArbitrationFeeByReceiver(
-        id
-      ).send,
+      multipleArbitrableTransactionEth.methods.payArbitrationFeeByReceiver(id)
+        .send,
       {
         from: accounts[0],
         value: arbitrationCost - arbitrableTransaction.receiverFee
@@ -406,16 +443,17 @@ function* createDispute({ payload: { arbitrable, id } }) {
     )
   if (accounts[0] === arbitrableTransaction.sender)
     yield call(
-      multipleArbitrableTransactionEth.methods.payArbitrationFeeBySender(
-        id
-      ).send,
+      multipleArbitrableTransactionEth.methods.payArbitrationFeeBySender(id)
+        .send,
       {
         from: accounts[0],
         value: arbitrationCost - arbitrableTransaction.senderFee
       }
     )
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id }))
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id })
+  )
 }
 
 /**
@@ -435,20 +473,18 @@ function* createAppeal({ payload: { arbitrable, id } }) {
   )
 
   const appealCost = yield call(
-    arbitratorEth.methods.appealCost(arbitrableTransaction.disputeId, '0x00').call
+    arbitratorEth.methods.appealCost(arbitrableTransaction.disputeId, '0x00')
+      .call
   )
 
-  yield call(
-    multipleArbitrableTransactionEth.methods.appeal(
-      id
-    ).send,
-    {
-      from: accounts[0],
-      value: appealCost
-    }
-  )
+  yield call(multipleArbitrableTransactionEth.methods.appeal(id).send, {
+    from: accounts[0],
+    value: appealCost
+  })
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id }))
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id })
+  )
 }
 
 /**
@@ -470,9 +506,7 @@ function* createTimeout({ payload: { arbitrable, id } }) {
 
   if (accounts[0] === arbitrableTransaction.receiver)
     yield call(
-      multipleArbitrableTransactionEth.methods.timeOutByReceiver(
-        id
-      ).send,
+      multipleArbitrableTransactionEth.methods.timeOutByReceiver(id).send,
       {
         from: accounts[0],
         value: 0
@@ -480,23 +514,25 @@ function* createTimeout({ payload: { arbitrable, id } }) {
     )
   else
     yield call(
-      multipleArbitrableTransactionEth.methods.timeOutBySender(
-        id
-      ).send,
+      multipleArbitrableTransactionEth.methods.timeOutBySender(id).send,
       {
         from: accounts[0],
         value: 0
       }
     )
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id }))
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id })
+  )
 }
 
 /**
  * Send evidence
  * @param {object} { payload: evidenceReceived, arbitrable, arbitrableTransactionId } - Evidence.
  */
-function* createEvidence({ payload: { evidenceReceived, arbitrable, arbitrableTransactionId } }) {
+function* createEvidence({
+  payload: { evidenceReceived, arbitrable, arbitrableTransactionId }
+}) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -504,10 +540,7 @@ function* createEvidence({ payload: { evidenceReceived, arbitrable, arbitrableTr
   let fileURI = ''
 
   if (evidenceReceived.file) {
-    const data = yield call(
-      readFile,
-      evidenceReceived.file.dataURL
-    )
+    const data = yield call(readFile, evidenceReceived.file.dataURL)
 
     // Upload the meta-evidence then return an ipfs hash
     const fileIpfsHash = yield call(
@@ -534,7 +567,8 @@ function* createEvidence({ payload: { evidenceReceived, arbitrable, arbitrableTr
     'evidence.json',
     enc.encode(JSON.stringify(evidence)) // encode to bytes
   )
-  ipfsHashMetaEvidence = ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
+  ipfsHashMetaEvidence =
+    ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
     multipleArbitrableTransaction.abi,
@@ -552,10 +586,14 @@ function* createEvidence({ payload: { evidenceReceived, arbitrable, arbitrableTr
     }
   )
 
-  if (txHash)
-    navigate(evidenceReceived.arbitrableTransactionId)
+  if (txHash) navigate(evidenceReceived.arbitrableTransactionId)
 
-  return yield put(action(arbitrabletxActions.arbitrabletx.FETCH, { arbitrable, id: arbitrableTransactionId }))
+  return yield put(
+    action(arbitrabletxActions.arbitrabletx.FETCH, {
+      arbitrable,
+      id: arbitrableTransactionId
+    })
+  )
 }
 
 /**

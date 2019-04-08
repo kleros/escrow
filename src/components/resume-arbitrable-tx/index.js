@@ -13,40 +13,89 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
   const [showAllDescription, setShowAllDescription] = useState(true)
   return (
     <>
-      <div className='ResumeArbitrableTx'>
-        <h1 className='ResumeArbitrableTx-h1'>{title}</h1>
-        <div className='ResumeArbitrableTx-ContentNewArbitrableTx'>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title'>Title</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title'>{arbitrabletx.title}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty'>{arbitrabletx.otherParty}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty'>{shortAddress(arbitrabletx.otherPartyAddress)}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-category'>Escrow Type</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-category'>{arbitrabletx.subCategory}</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout'>Timeout Date and Time (UTC)</div>
-          <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout'>
-            {(title === 'Invoice Summary' || title === 'Transaction Summary') ? (
-              <>{dateToUTC(new Date(new Date().getTime() + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</>
+      <div className="ResumeArbitrableTx">
+        <h1 className="ResumeArbitrableTx-h1">{title}</h1>
+        <div className="ResumeArbitrableTx-ContentNewArbitrableTx">
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title">
+            Title
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-title">
+            {arbitrabletx.title}
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty">
+            {arbitrabletx.otherParty}
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty">
+            {shortAddress(arbitrabletx.otherPartyAddress)}
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-category">
+            Escrow Type
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-category">
+            {arbitrabletx.subCategory}
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout">
+            Timeout Date and Time (UTC)
+          </div>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout">
+            {title === 'Invoice Summary' || title === 'Transaction Summary' ? (
+              <>
+                {dateToUTC(
+                  new Date(new Date().getTime() + arbitrabletx.timeout * 1000)
+                )
+                  .toString()
+                  .replace(/GMT.+/g, '')
+                  .slice(0, -4)}
+              </>
             ) : (
-              <>{dateToUTC(new Date(arbitrabletx.lastInteraction * 1000 + arbitrabletx.timeout * 1000)).toString().replace(/GMT.+/g,'').slice(0, -4)}</>
+              <>
+                {dateToUTC(
+                  new Date(
+                    arbitrabletx.lastInteraction * 1000 +
+                      arbitrabletx.timeout * 1000
+                  )
+                )
+                  .toString()
+                  .replace(/GMT.+/g, '')
+                  .slice(0, -4)}
+              </>
             )}
           </div>
           {arbitrabletx.amount > 0 ? (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Amount</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.amount} ETH</div>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
+                Amount
+              </div>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount">
+                {arbitrabletx.amount} ETH
+              </div>
             </>
           ) : (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount'>Original Amount</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount'>{arbitrabletx.originalAmount} ETH</div>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
+                Original Amount
+              </div>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount">
+                {arbitrabletx.originalAmount} ETH
+              </div>
             </>
           )}
 
           {arbitrabletx.file && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-file'>Agreement Documents</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-file' style={{border: '0'}}>
-                <a href={arbitrabletx.file} alt='Agreement Documents' target='_blank' rel='noopener noreferrer'>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-file">
+                Agreement Documents
+              </div>
+              <div
+                className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-file"
+                style={{ border: '0' }}
+              >
+                <a
+                  href={arbitrabletx.file}
+                  alt="Agreement Documents"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <PrimaryDocument />
                 </a>
               </div>
@@ -55,30 +104,54 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
 
           {arbitrabletx.description && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name-description'>Description</div>
-              <div className={`ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description`} onClick={() => setShowAllDescription(!showAllDescription)}><Arrow className={`${showAllDescription ? 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all' : 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all'}`} onClick={() => setShowAllDescription(!showAllDescription)} /></div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-description'><p className={`${showAllDescription && 'ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short'}`}>{arbitrabletx.description}</p></div>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name-description">
+                Description
+              </div>
+              <div
+                className={`ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description`}
+                onClick={() => setShowAllDescription(!showAllDescription)}
+              >
+                <Arrow
+                  className={`${
+                    showAllDescription
+                      ? 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all'
+                      : 'ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all'
+                  }`}
+                  onClick={() => setShowAllDescription(!showAllDescription)}
+                />
+              </div>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-description">
+                <p
+                  className={`${showAllDescription &&
+                    'ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short'}`}
+                >
+                  {arbitrabletx.description}
+                </p>
+              </div>
             </>
           )}
 
           {arbitrabletx.evidences && (
             <>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-name'>Evidences</div>
-              <div className='ResumeArbitrableTx-ContentNewArbitrableTx-content' style={{border: '0'}}>
-                {
-                  arbitrabletx.evidences.map((evidence, index) => (
-                    <Attachment
-                      URI={evidence.evidenceJSON.fileURI}
-                      title={evidence.evidenceJSON.name}
-                      description={evidence.evidenceJSON.description}
-                      key={index}
-                    />
-                  ))
-                }
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name">
+                Evidences
+              </div>
+              <div
+                className="ResumeArbitrableTx-ContentNewArbitrableTx-content"
+                style={{ border: '0' }}
+              >
+                {arbitrabletx.evidences.map((evidence, index) => (
+                  <Attachment
+                    URI={evidence.evidenceJSON.fileURI}
+                    title={evidence.evidenceJSON.name}
+                    description={evidence.evidenceJSON.description}
+                    key={index}
+                  />
+                ))}
               </div>
             </>
           )}
-          <div className= 'ResumeArbitrableTx-ContentNewArbitrableTx-submit'>
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-submit">
             {children}
           </div>
         </div>

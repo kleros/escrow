@@ -11,20 +11,20 @@ const { store } = configureStore()
 export default store
 
 const render = Component => {
-    ReactDOM.render(
-      <Component
-        key={process.env.NODE_ENV === 'development' ? Math.random() : undefined}
-        store={store}
-      />,
-      document.getElementById('root')
-    )
-  }
+  ReactDOM.render(
+    <Component
+      key={process.env.NODE_ENV === 'development' ? Math.random() : undefined}
+      store={store}
+    />,
+    document.getElementById('root')
+  )
+}
 render(App)
 
 if (module.hot) {
-    module.hot.accept('./bootstrap/app', () => {
-      render(App)
-    })
-  }
+  module.hot.accept('./bootstrap/app', () => {
+    render(App)
+  })
+}
 
-  serviceWorker.register()
+serviceWorker.register()

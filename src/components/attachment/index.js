@@ -23,8 +23,14 @@ const Attachment = ({ URI, title, description }) => {
   else if (isVideo(URI)) Component = Video
   else Component = Link
   return (
-    <div className='Attachment'>
-      <ReactTooltip html={true} place="bottom" type="dark" effect="solid" data-multiline={true} />
+    <div className="Attachment">
+      <ReactTooltip
+        html={true}
+        place="bottom"
+        type="dark"
+        effect="solid"
+        data-multiline={true}
+      />
       {URI.split('.').pop() !== '' ? (
         <a
           href={URI.replace(/^\/ipfs\//, 'https://ipfs.kleros.io/ipfs/')}
@@ -32,22 +38,28 @@ const Attachment = ({ URI, title, description }) => {
           target="_blank"
           className="Attachment"
         >
-          <Component data-tip={`<h2 class='Attachment-title'>${title}</h2><p class='Attachment-description'>${description}</p>`} />
+          <Component
+            data-tip={`<h2 class='Attachment-title'>${title}</h2><p class='Attachment-description'>${description}</p>`}
+          />
         </a>
       ) : (
         <>
-          <Component className='Attachment-component-link' onClick={() => setModal(!open)} data-tip={`<h2 class='Attachment-title'>${title}</h2><p class='Attachment-description'>${description}</p>`} />
-          <Modal 
-            open={open} 
-            onClose={() => setModal(!open)} 
+          <Component
+            className="Attachment-component-link"
+            onClick={() => setModal(!open)}
+            data-tip={`<h2 class='Attachment-title'>${title}</h2><p class='Attachment-description'>${description}</p>`}
+          />
+          <Modal
+            open={open}
+            onClose={() => setModal(!open)}
             center
             classNames={{
-              modal: 'Attachment-modal',
+              modal: 'Attachment-modal'
             }}
           >
-            <h2 className='Attachment-modal-title'>{title}</h2>
+            <h2 className="Attachment-modal-title">{title}</h2>
             <Linkify>
-              <p className='Attachment-modal-description'>{description}</p>
+              <p className="Attachment-modal-description">{description}</p>
             </Linkify>
           </Modal>
         </>

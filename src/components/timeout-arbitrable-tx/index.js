@@ -8,13 +8,41 @@ import Button from '../button'
 
 const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
   <>
-    <div style={{color: 'red', fontWeight: 'bold', fontSize: '0.9em'}}>Timeout</div>
-    <div style={{color: 'red', fontWeight: 'bold', fontSize: '1.2em', paddingBottom: '10px'}}><Countdown date={time} /></div>
+    <div style={{ color: 'red', fontWeight: 'bold', fontSize: '0.9em' }}>
+      Timeout
+    </div>
+    <div
+      style={{
+        color: 'red',
+        fontWeight: 'bold',
+        fontSize: '1.2em',
+        paddingBottom: '10px'
+      }}
+    >
+      <Countdown date={time} />
+    </div>
     <Formik onSubmit={() => timeout(arbitrable, id)}>
-      {({isSubmitting}) => (
+      {({ isSubmitting }) => (
         <Form className={'PayOrReimburseArbitrableTx'}>
-          <Button type='submit' disabled={isSubmitting || time - Date.now() > 0}>
-            <>{isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} {name}</>
+          <Button
+            type="submit"
+            disabled={isSubmitting || time - Date.now() > 0}
+          >
+            <>
+              {isSubmitting && (
+                <span
+                  style={{
+                    position: 'relative',
+                    top: '4px',
+                    lineHeight: '40px',
+                    paddingRight: '4px'
+                  }}
+                >
+                  <ClipLoader size={20} color={'#fff'} />
+                </span>
+              )}{' '}
+              {name}
+            </>
           </Button>
         </Form>
       )}

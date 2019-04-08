@@ -32,7 +32,6 @@ export function* fetchBalance() {
   return web3.utils.fromWei(balance, 'ether')
 }
 
-
 /**
  * Updates the current wallet settings.
  * @param {{ type: string, payload: ?object, meta: ?object }} action - The action object.
@@ -62,7 +61,8 @@ function* updateEmail({ payload: { settings } }) {
     email: attributes.email.S,
     disputeEmailNotification: attributes.escrowNotificationSettingDispute.BOOL,
     appealEmailNotification: attributes.escrowNotificationSettingAppeal.BOOL,
-    rulingGivenEmailNotification: attributes.escrowNotificationSettingRulingGiven.BOOL
+    rulingGivenEmailNotification:
+      attributes.escrowNotificationSettingRulingGiven.BOOL
   }
 }
 

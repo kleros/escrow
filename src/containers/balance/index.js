@@ -38,9 +38,7 @@ class Balance extends PureComponent {
             loading="Loading balance..."
             done={
               balance.data && (
-                <span>
-                  You have {balance.data.toString()} ETH. :)
-                </span>
+                <span>You have {balance.data.toString()} ETH. :)</span>
               )
             }
             failedLoading={

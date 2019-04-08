@@ -29,8 +29,8 @@ export default createReducer({
   balance: balanceInitialState,
   settings: {
     ...settingsInitialState,
-    data: { 
-      email: '', 
+    data: {
+      email: '',
       disputeEmailNotification: false,
       appealEmailNotification: false,
       rulingGivenEmailNotification: false

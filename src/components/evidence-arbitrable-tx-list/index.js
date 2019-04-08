@@ -9,26 +9,24 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
  * @returns {*}
  */
 const EvidenceArbitrableTxList = ({ evidenceArbitrabletxs }) => (
-  <div className=''>
+  <div className="">
     {
       <div>
-        {
-          evidenceArbitrabletxs.map((evidence, i) => (
-            <span key={i}>
-              <a 
-                href={evidence.fileURI} 
-                target='_blank' 
-                rel='noopener noreferrer' 
-                className='test class'
-              >
-                <div>
-                  <p>Name: {evidence.id}</p>
-                  <p>Description: {evidence.description}</p>
-                </div>
-              </a>
-            </span>
-          ))
-        }
+        {evidenceArbitrabletxs.map((evidence, i) => (
+          <span key={i}>
+            <a
+              href={evidence.fileURI}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="test class"
+            >
+              <div>
+                <p>Name: {evidence.id}</p>
+                <p>Description: {evidence.description}</p>
+              </div>
+            </a>
+          </span>
+        ))}
       </div>
     }
   </div>

@@ -4,22 +4,22 @@ import PropTypes from 'prop-types'
 import './dispute-arbitrable-tx.css'
 
 const DisputeArbitrableTx = ({ message, children, footer }) => (
-  <div className='DisputeArbitrableTx'>
-    <div className='DisputeArbitrableTx-message'>{message}</div>
+  <div className="DisputeArbitrableTx">
+    <div className="DisputeArbitrableTx-message">{message}</div>
     {children}
-    <div className='DisputeArbitrableTx-footer'>{footer}</div>
+    <div className="DisputeArbitrableTx-footer">{footer}</div>
   </div>
 )
 
 DisputeArbitrableTx.propTypes = {
   // State
-  message: PropTypes.object,
+  message: PropTypes.object
   // TODO
 }
 
 DisputeArbitrableTx.defaultProps = {
   // State
-  message: {},
+  message: {}
   // TODO
 }
 

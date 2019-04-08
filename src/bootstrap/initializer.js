@@ -35,16 +35,10 @@ class Initializer extends PureComponent {
     return (
       <RenderIf
         resource={accounts}
-        loading={
-          <PulseLoader className='loader' color={'#fff'} />
-        }
+        loading={<PulseLoader className="loader" color={'#fff'} />}
         done={children}
-        failedLoading={<RequiresMetaMaskPage 
-          needsUnlock={Boolean(web3.eth)} 
-        />}
-        extraValues={[
-          accounts.data && (accounts.data[0] || null)
-        ]}
+        failedLoading={<RequiresMetaMaskPage needsUnlock={Boolean(web3.eth)} />}
+        extraValues={[accounts.data && (accounts.data[0] || null)]}
         extraFailedValues={[!web3.eth]}
       />
     )

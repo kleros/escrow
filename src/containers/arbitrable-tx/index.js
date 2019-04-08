@@ -46,7 +46,8 @@ class ArbitrableTx extends PureComponent {
         return {
           ...state,
           arbitrabletx,
-          payOrReimburse: arbitrabletx.data.sender === accounts.data[0] ? 'Pay' : 'Reimburse'
+          payOrReimburse:
+            arbitrabletx.data.sender === accounts.data[0] ? 'Pay' : 'Reimburse'
         }
       }
     return null
@@ -67,31 +68,25 @@ class ArbitrableTx extends PureComponent {
     return (
       <RenderIf
         resource={arbitrabletx}
-        loading={
-          <BeatLoader className='loader' color={'#fff'} />
-        }
+        loading={<BeatLoader className="loader" color={'#fff'} />}
         done={
           arbitrabletx.data && (
             <>
-              {
-                renderStatusArbitrableTxSwitch(
-                  accounts.data,
-                  arbitrabletx,
-                  payOrReimburse,
-                  createPayOrReimburse,
-                  createExecuteTx,
-                  createDispute,
-                  createTimeout,
-                  createEvidence,
-                  createAppeal
-                )
-              }
+              {renderStatusArbitrableTxSwitch(
+                accounts.data,
+                arbitrabletx,
+                payOrReimburse,
+                createPayOrReimburse,
+                createExecuteTx,
+                createDispute,
+                createTimeout,
+                createEvidence,
+                createAppeal
+              )}
             </>
           )
         }
-        failedLoading={
-          <BeatLoader className='loader' color={'#fff'} />
-        }
+        failedLoading={<BeatLoader className="loader" color={'#fff'} />}
       />
     )
   }

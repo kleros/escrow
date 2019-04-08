@@ -42,12 +42,10 @@ class Home extends PureComponent {
     const { arbitrabletx, accounts, arbitrabletxs } = this.props
 
     return (
-      <div className='Home'>
+      <div className="Home">
         <RenderIf
           resource={arbitrabletxs}
-          loading={
-            <BeatLoader className='loader' color={'#fff'} />
-          }
+          loading={<BeatLoader className="loader" color={'#fff'} />}
           done={
             arbitrabletxs.data && (
               <ArbitrableTxCards

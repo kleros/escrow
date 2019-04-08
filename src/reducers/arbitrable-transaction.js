@@ -28,7 +28,9 @@ export const _arbitrabletxShape = PropTypes.shape({
   partyB: PropTypes.string,
   _id: PropTypes.string
 })
-export const _arbitrabletxsShape = PropTypes.arrayOf(_arbitrabletxShape.isRequired)
+export const _arbitrabletxsShape = PropTypes.arrayOf(
+  _arbitrabletxShape.isRequired
+)
 
 export const _evidenceShape = PropTypes.string
 
@@ -37,14 +39,14 @@ const {
   shape: arbitrabletxsShape,
   initialState: arbitrabletxsInitialState
 } = createResource(_arbitrabletxShape)
-const { shape: arbitrabletxShape, initialState: arbitrabletxInitialState } = createResource(
-    _arbitrabletxShape,
-  { withCreate: true }
-)
-const { shape: evidenceShape, initialState: evidenceInitialState } = createResource(
-  _evidenceShape,
-  { withCreate: true }
-)
+const {
+  shape: arbitrabletxShape,
+  initialState: arbitrabletxInitialState
+} = createResource(_arbitrabletxShape, { withCreate: true })
+const {
+  shape: evidenceShape,
+  initialState: evidenceInitialState
+} = createResource(_evidenceShape, { withCreate: true })
 
 export { arbitrabletxFormShape, arbitrabletxsShape, arbitrabletxShape }
 
@@ -58,11 +60,17 @@ export default createReducer(
     arbitrabletxResumeForm: {}
   },
   {
-    [arbitrabletxActions.arbitrabletx.FORM]: (state, { payload: { arbitrabletxForm } }) => ({
+    [arbitrabletxActions.arbitrabletx.FORM]: (
+      state,
+      { payload: { arbitrabletxForm } }
+    ) => ({
       ...state,
       arbitrabletxForm
     }),
-    [arbitrabletxActions.arbitrabletx.RESUMEFORM]: (state, { payload: { arbitrabletxResumeForm } }) => ({
+    [arbitrabletxActions.arbitrabletx.RESUMEFORM]: (
+      state,
+      { payload: { arbitrabletxResumeForm } }
+    ) => ({
       ...state,
       arbitrabletxResumeForm
     })

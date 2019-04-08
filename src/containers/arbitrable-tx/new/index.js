@@ -34,22 +34,19 @@ class New extends PureComponent {
 
     return (
       <>
-        {
-          type === 'invoice' ? (
-            <NewInvoiceArbitrableTx
-              formArbitrabletx={formArbitrabletx}
-              balance={balance}
-              accounts={accounts.data}
-            />
-          ) : (
-            <NewArbitrableTx
-              formArbitrabletx={formArbitrabletx}
-              balance={balance}
-              accounts={accounts.data}
-            />
-          )
-        }
-
+        {type === 'invoice' ? (
+          <NewInvoiceArbitrableTx
+            formArbitrabletx={formArbitrabletx}
+            balance={balance}
+            accounts={accounts.data}
+          />
+        ) : (
+          <NewArbitrableTx
+            formArbitrabletx={formArbitrabletx}
+            balance={balance}
+            accounts={accounts.data}
+          />
+        )}
       </>
     )
   }
