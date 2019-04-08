@@ -46,7 +46,7 @@
 .header .menu {
   clear: both;
   max-height: 0;
-  transition: max-height .2s ease-out; }
+  transition: max-height 0.2s ease-out; }
   .header .menu-invoice {
     margin-right: 0px;
     margin-left: 0px; }
@@ -69,7 +69,7 @@
   display: block;
   height: 2px;
   position: relative;
-  transition: background .2s ease-out;
+  transition: background 0.2s ease-out;
   width: 18px; }
 
 .header .menu-icon .navicon:before,
@@ -79,7 +79,7 @@
   display: block;
   height: 100%;
   position: absolute;
-  transition: all .2s ease-out;
+  transition: all 0.2s ease-out;
   width: 100%; }
 
 .header .menu-icon .navicon:before {
@@ -136,3 +136,41 @@
 @media (min-width: 1200px) {
   .App main {
     width: 1200px; } }
+
+input[type='file'] {
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 3px;
+  color: transparent !important;
+  margin-bottom: 7px;
+  padding: 0 !important;
+  width: 100%; }
+
+input[type='file']::-webkit-file-upload-button {
+  visibility: hidden; }
+
+input[type='file']::before {
+  background: #009aff;
+  border-radius: 3px;
+  color: white;
+  content: 'Select a File';
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  padding: 10px 18px;
+  -webkit-user-select: none;
+  white-space: nowrap; }
+
+input[type='file']:active {
+  outline: 0; }
+
+.FileInput {
+  position: relative; }
+  .FileInput-filename {
+    color: #4a4a4a;
+    left: 17px;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%); }

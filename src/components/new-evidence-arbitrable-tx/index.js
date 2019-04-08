@@ -8,17 +8,23 @@ import Button from '../button'
 import './new-evidence-arbitrable-tx.css'
 
 const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
-  <div className='NewEvidenceArbitrableTx'>
-    <div className='NewEvidenceArbitrableTx-message'><p>Create Evidence</p></div>
+  <div className="NewEvidenceArbitrableTx">
+    <div className="NewEvidenceArbitrableTx-message">
+      <p>Create Evidence</p>
+    </div>
     <Formik
-      initialValues={{name: '', description: '', file: ''}}
-      validate = {values => {
-        {/* TODO use Yup */}
+      initialValues={{ name: '', description: '', file: '' }}
+      validate={values => {
+        {
+          /* TODO use Yup */
+        }
         let errors = {}
         if (values.name.length > 55)
-          errors.name = 'Number of characters for the name allowed is exceeded. The maximum is 55 characters.'
+          errors.name =
+            'Number of characters for the name allowed is exceeded. The maximum is 55 characters.'
         if (values.description.length > 255)
-          errors.description = 'The maximum numbers of the characters for the description is 255 characters.'
+          errors.description =
+            'The maximum numbers of the characters for the description is 255 characters.'
         if (values.file.size > 5000000)
           errors.file = 'The maximum size of the file is 5Mo.'
         return errors
@@ -27,28 +33,72 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
     >
       {({ isSubmitting, setFieldValue, errors, values }) => (
         <Form>
-          <div className='NewEvidenceArbitrableTx-form'>
-            <Field className='NewEvidenceArbitrableTx-form-input' name='name' placeholder='Name' />
-            <ErrorMessage name='name' component='div' className='error' />
+          <div className="NewEvidenceArbitrableTx-form">
+            <Field
+              className="NewEvidenceArbitrableTx-form-input"
+              name="name"
+              placeholder="Name"
+            />
+            <ErrorMessage name="name" component="div" className="error" />
 
-            <Field className='NewEvidenceArbitrableTx-form-textarea' component='textarea' name='description'>Description</Field>
-            <ErrorMessage name='description' component='div' className='error' />
+            <Field
+              className="NewEvidenceArbitrableTx-form-textarea"
+              component="textarea"
+              name="description"
+            >
+              Description
+            </Field>
+            <ErrorMessage
+              name="description"
+              component="div"
+              className="error"
+            />
 
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}
-            <input className='NewEvidenceArbitrableTx-form-file' id='file' name='file' type='file' onChange={e => {
-                const file = e.currentTarget.files[0]
-                return setFieldValue('file', {
-                  dataURL: window.URL.createObjectURL(e.currentTarget.files[0]),
-                  name: file.name
-                })
-              }
-            } />
-            {errors.file && <div className='error'>{errors.file}</div>}
+            <div className="NewEvidenceArbitrableTx-form-file FileInput">
+              <input
+                id="file"
+                name="file"
+                type="file"
+                onChange={e => {
+                  const file = e.currentTarget.files[0]
+                  return setFieldValue('file', {
+                    dataURL: window.URL.createObjectURL(
+                      e.currentTarget.files[0]
+                    ),
+                    name: file.name
+                  })
+                }}
+              />
+              <div className="FileInput-filename">
+                {values.file ? values.file.name : 'filename...'}
+              </div>
+            </div>
+            {errors.file && <div className="error">{errors.file}</div>}
           </div>
-          <div className='NewEvidenceArbitrableTx-footer'>
-            <Button type='submit' disabled={isSubmitting || values.name.length === 0 || Object.entries(errors).length > 0}>
-              {isSubmitting && <span style={{position: 'relative', top: '4px', lineHeight: '40px', paddingRight: '4px'}}><ClipLoader size={20} color={'#fff'} /></span>} Submit Evidence
+          <div className="NewEvidenceArbitrableTx-footer">
+            <Button
+              type="submit"
+              disabled={
+                isSubmitting ||
+                values.name.length === 0 ||
+                Object.entries(errors).length > 0
+              }
+            >
+              {isSubmitting && (
+                <span
+                  style={{
+                    position: 'relative',
+                    top: '4px',
+                    lineHeight: '40px',
+                    paddingRight: '4px'
+                  }}
+                >
+                  <ClipLoader size={20} color={'#fff'} />
+                </span>
+              )}{' '}
+              Submit Evidence
             </Button>
           </div>
         </Form>
