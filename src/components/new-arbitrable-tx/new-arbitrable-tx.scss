@@ -4,9 +4,9 @@
   padding: 40px 80px 70px 80px;
 
   &-h1 {
-    color: #4004A3;
+    color: #4004a3;
     font-size: 24px;
-    border-bottom: 1px solid #4004A3;
+    border-bottom: 1px solid #4004a3;
     font-weight: 500;
     padding-bottom: 22px;
     margin-bottom: 22px;
@@ -17,28 +17,28 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "labelArbitrableAddresses labelArbitrableAddresses"
-      "inputArbitrableAddresses inputArbitrableAddresses"
-      "errorArbitrableAddresses helpArbitrableAddresses"
-      "labelTitle labelTitle"
-      "inputTitle inputTitle"
-      "errorTitle helpTitle"
-      "labelReceiver labelReceiver"
-      "inputReceiver inputReceiver"
-      "errorReceiver helpReceiver"
-      "labelTimeout labelTimeout"
-      "inputTimeout inputTimeout"
-      "errorTimeout helpTimeout"
-      "labelAmount labelAmount"
-      "inputAmount inputAmount"
-      "errorAmount helpAmount"
-      "labelFile labelFile"
-      "inputFile inputFile"
-      "errorFile helpFile"
-      "labelDescription templateDescription"
-      "inputDescription inputDescription"
-      "errorDescription helpDescription"
-      "submit submit";
+      'labelArbitrableAddresses labelArbitrableAddresses'
+      'inputArbitrableAddresses inputArbitrableAddresses'
+      'errorArbitrableAddresses helpArbitrableAddresses'
+      'labelTitle labelTitle'
+      'inputTitle inputTitle'
+      'errorTitle helpTitle'
+      'labelReceiver labelReceiver'
+      'inputReceiver inputReceiver'
+      'errorReceiver helpReceiver'
+      'labelTimeout labelTimeout'
+      'inputTimeout inputTimeout'
+      'errorTimeout helpTimeout'
+      'labelAmount labelAmount'
+      'inputAmount inputAmount'
+      'errorAmount helpAmount'
+      'labelFile labelFile'
+      'inputFile inputFile'
+      'errorFile helpFile'
+      'labelDescription templateDescription'
+      'inputDescription inputDescription'
+      'errorDescription helpDescription'
+      'submit submit';
 
     &-label-arbitrableAddresses {
       grid-area: labelArbitrableAddresses;
@@ -177,22 +177,22 @@
     &-label {
       font-size: 14px;
       color: #4a4a4a;
-      padding: 0.5em 0;
-
+      padding: 7px 0;
     }
 
     &-input {
-      color: #4A4A4A;
+      color: #4a4a4a;
       border: 1px solid #d9d9d9;
       border-radius: 3px;
       padding: 0.5em 0.8em;
-      margin-bottom: 0.5em;
+      margin-bottom: 7px;
       font-size: 18px;
       box-sizing: border-box;
       font-weight: 400;
-      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
       &::placeholder {
-        color: #4A4A4A;
+        color: #4a4a4a;
         font-size: 18px;
         font-weight: 400;
       }
@@ -204,19 +204,21 @@
     }
 
     &-help {
+      color: #4a4a4a;
       font-style: italic;
-      font-size: 0.9em;
+      font-size: 12px;
       text-align: right;
     }
 
     &-textarea {
       font-size: 14px;
-      color: #4A4A4A;
+      color: #4a4a4a;
       border: 1px solid #d9d9d9;
       border-radius: 3px;
       padding: 0 1em;
       font-size: 1em;
-      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+        'Helvetica Neue', sans-serif;
       padding: 0.7em 1em;
     }
 
@@ -234,15 +236,16 @@
 
 .select__placeholder {
   font-size: 18px !important;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
-  color: #4A4A4A !important;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+    sans-serif !important;
+  color: #4a4a4a !important;
   font-weight: 400 !important;
   padding-left: 4px;
 }
 
 .select__single-value {
   font-size: 18px;
-  color: #4A4A4A !important;
+  color: #4a4a4a !important;
   line-height: 20px;
   padding-left: 5px;
 }
@@ -254,7 +257,7 @@
 .react-datepicker__input-container {
   display: block !important;
   input {
-    color: #4A4A4A;
+    color: #4a4a4a;
     width: 100%;
     border: 1px solid #d9d9d9;
     border-radius: 3px;
@@ -264,7 +267,7 @@
     box-sizing: border-box;
     font-weight: 400;
     &::placeholder {
-      color: #4A4A4A;
+      color: #4a4a4a;
     }
   }
 }
