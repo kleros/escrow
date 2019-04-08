@@ -33,38 +33,6 @@
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_disputeID",
-        "type": "uint256"
-      },
-      {
-        "name": "_ruling",
-        "type": "uint256"
-      }
-    ],
-    "name": "rule",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      }
-    ],
-    "name": "timeOutByReceiver",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [],
     "name": "arbitrator",
@@ -76,48 +44,6 @@
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      }
-    ],
-    "name": "payArbitrationFeeByReceiver",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      }
-    ],
-    "name": "payArbitrationFeeBySender",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      }
-    ],
-    "name": "appeal",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -174,38 +100,6 @@
   {
     "constant": true,
     "inputs": [],
-    "name": "getCountTransactions",
-    "outputs": [
-      {
-        "name": "countTransactions",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      },
-      {
-        "name": "_evidence",
-        "type": "string"
-      }
-    ],
-    "name": "submitEvidence",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
     "name": "feeTimeout",
     "outputs": [
       {
@@ -215,116 +109,6 @@
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_timeoutPayment",
-        "type": "uint256"
-      },
-      {
-        "name": "_receiver",
-        "type": "address"
-      },
-      {
-        "name": "_metaEvidence",
-        "type": "string"
-      }
-    ],
-    "name": "createTransaction",
-    "outputs": [
-      {
-        "name": "transactionID",
-        "type": "uint256"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      }
-    ],
-    "name": "executeTransaction",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      },
-      {
-        "name": "_amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "pay",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      }
-    ],
-    "name": "timeOutBySender",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_address",
-        "type": "address"
-      }
-    ],
-    "name": "getTransactionIDsByAddress",
-    "outputs": [
-      {
-        "name": "transactionIDs",
-        "type": "uint256[]"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_transactionID",
-        "type": "uint256"
-      },
-      {
-        "name": "_amountReimbursed",
-        "type": "uint256"
-      }
-    ],
-    "name": "reimburse",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -361,6 +145,28 @@
       }
     ],
     "name": "MetaEvidence",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "_transactionID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "_party",
+        "type": "address"
+      }
+    ],
+    "name": "Payment",
     "type": "event"
   },
   {
@@ -455,5 +261,221 @@
     ],
     "name": "Ruling",
     "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_timeoutPayment",
+        "type": "uint256"
+      },
+      {
+        "name": "_receiver",
+        "type": "address"
+      },
+      {
+        "name": "_metaEvidence",
+        "type": "string"
+      }
+    ],
+    "name": "createTransaction",
+    "outputs": [
+      {
+        "name": "transactionID",
+        "type": "uint256"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "pay",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      },
+      {
+        "name": "_amountReimbursed",
+        "type": "uint256"
+      }
+    ],
+    "name": "reimburse",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      }
+    ],
+    "name": "executeTransaction",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      }
+    ],
+    "name": "timeOutBySender",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      }
+    ],
+    "name": "timeOutByReceiver",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      }
+    ],
+    "name": "payArbitrationFeeBySender",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      }
+    ],
+    "name": "payArbitrationFeeByReceiver",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      },
+      {
+        "name": "_evidence",
+        "type": "string"
+      }
+    ],
+    "name": "submitEvidence",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transactionID",
+        "type": "uint256"
+      }
+    ],
+    "name": "appeal",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_disputeID",
+        "type": "uint256"
+      },
+      {
+        "name": "_ruling",
+        "type": "uint256"
+      }
+    ],
+    "name": "rule",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getCountTransactions",
+    "outputs": [
+      {
+        "name": "countTransactions",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_address",
+        "type": "address"
+      }
+    ],
+    "name": "getTransactionIDsByAddress",
+    "outputs": [
+      {
+        "name": "transactionIDs",
+        "type": "uint256[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   }
 ]
