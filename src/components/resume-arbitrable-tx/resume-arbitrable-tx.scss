@@ -1,24 +1,14 @@
 /* mixin for multiline */
-@mixin multiLineEllipsis($lineHeight: 14px, $lineCount: 1, $bgColor: #f8f8f8){
-  overflow: hidden;
-  position: relative;
+@mixin multiLineEllipsis($lineHeight: 14px, $lineCount: 1, $bgColor: #f8f8f8) {
   line-height: $lineHeight;
   max-height: $lineHeight * $lineCount;
   margin-right: -1em;
   padding-right: 1em;
   &:before {
     content: '...';
+    bottom: 0.5em;
     position: absolute;
-    right: 0;
-    bottom: 0;
-  }
-  &:after {
-    content: '';
-    position: absolute;
-    right: 0;
-    width: 1em;
-    height: 1.2em;
-    background: $bgColor;
+    right: 2em;
   }
 }
 
@@ -26,34 +16,34 @@
   background: #fff;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  padding: 40px 80px 70px 80px;
+  padding: 40px 80px;
 
   &-h1 {
-    color: #4004A3;
+    color: #4004a3;
     font-size: 24px;
-    border-bottom: 1px solid #4004A3;
+    border-bottom: 1px solid #4004a3;
     font-weight: 500;
     padding-bottom: 22px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
 
   &-ContentNewArbitrableTx {
-    padding: 1.3em 0 1em 0;
+    padding: 0 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-template-areas:
-      "nameTitle nameTitle nameTitle"
-      "contentTitle contentTitle contentTitle"
-      "nameOtherParty nameCategory nameCategory"
-      "contentOtherParty contentCategory contentCategory"
-      "nameTimeout nameAmount nameAmount"
-      "contentTimeout contentAmount contentAmount"
-      "nameFile nameFile nameFile"
-      "contentFile contentFile contentFile"
-      "nameDescription nameDescription nameAllDescription"
-      "contentDescription contentDescription contentDescription"
-      "nameShare nameShare nameShare"
-      "submit submit submit";
+      'nameTitle nameTitle nameTitle'
+      'contentTitle contentTitle contentTitle'
+      'nameOtherParty nameCategory nameCategory'
+      'contentOtherParty contentCategory contentCategory'
+      'nameTimeout nameAmount nameAmount'
+      'contentTimeout contentAmount contentAmount'
+      'nameFile nameFile nameFile'
+      'contentFile contentFile contentFile'
+      'nameDescription nameDescription nameAllDescription'
+      'contentDescription contentDescription contentDescription'
+      'nameShare nameShare nameShare'
+      'submit submit submit';
 
     &-name-title {
       grid-area: nameTitle;
@@ -142,7 +132,6 @@
         transform: rotate(180deg);
         transition-duration: 0.8s;
         transition-property: transform;
-
       }
     }
 
@@ -157,11 +146,16 @@
       border-bottom-left-radius: 3px;
       border-bottom-right-radius: 3px;
       margin-bottom: 1em;
+      position: relative;
       white-space: pre-line;
+
       &-p-short {
         font-size: 14px;
+        overflow: scroll;
+
         @include multiLineEllipsis($lineHeight: 14px, $lineCount: 10);
       }
+
       p.false {
         font-size: 14px;
         line-height: 14px;
@@ -196,14 +190,15 @@
     }
 
     &-name {
-      font-size: 0.8em;
       color: #4a4a4a;
-      padding: 0.8em 0 0.6em 0;
+      font-size: 14px;
+      font-weight: 300;
+      margin: 24px 0 7px;
     }
 
     &-content {
-      font-size: 1em;
-      padding-bottom: 1em;
+      color: #4a4a4a;
+      font-size: 18px;
     }
   }
 }
@@ -222,26 +217,26 @@
     &-ContentNewArbitrableTx {
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
-        "nameTitle nameTitle"
-        "contentTitle contentTitle"
-        "nameOtherParty nameOtherParty"
-        "contentOtherParty contentOtherParty"
-        "nameCategory nameCategory"
-        "contentCategory contentCategory"
-        "nameAmount nameAmount"
-        "contentAmount contentAmount"
-        "nameTimeout nameTimeout"
-        "contentTimeout contentTimeout"
-        "nameFile nameFile"
-        "contentFile contentFile"
-        "nameDescription nameAllDescription"
-        "contentDescription contentDescription"
-        "submit submit";
+        'nameTitle nameTitle'
+        'contentTitle contentTitle'
+        'nameOtherParty nameOtherParty'
+        'contentOtherParty contentOtherParty'
+        'nameCategory nameCategory'
+        'contentCategory contentCategory'
+        'nameAmount nameAmount'
+        'contentAmount contentAmount'
+        'nameTimeout nameTimeout'
+        'contentTimeout contentTimeout'
+        'nameFile nameFile'
+        'contentFile contentFile'
+        'nameDescription nameAllDescription'
+        'contentDescription contentDescription'
+        'submit submit';
 
-        &-link-share {
-          color: red;
-          text-align: center;
-        }
+      &-link-share {
+        color: red;
+        text-align: center;
+      }
 
       &-link-share-url {
         display: none;
