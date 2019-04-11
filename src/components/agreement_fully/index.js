@@ -53,11 +53,11 @@ const AgreementFully = ({
         }}
       >
         <h2 className="AgreementFully-modal-title">
-          Propose Settlement or Raise Dispute
+          Waive Part of the Payment or Raise a Dispute
         </h2>
         <p className="AgreementFully-modal-description">
-          Propose a settlement by choosing the escrow amount percentage to send
-          to the other party.
+          Propose a settlement by waiving a percentage of the payment to the
+          other party.
           <br />
           If this is declined, the counter party can raise a dispute.
         </p>
@@ -191,7 +191,7 @@ const AgreementFully = ({
             1. If you say yes, you'll pay the final amount in full.
             <br />
             2. If you say no, you will be directed to a settlement screen where
-            you can propose a partial offer to the other party.
+            you can waive part of the payment to the other party.
             <br />
             <br />
             Timeout to execute the arbitrable payment transaction{' '}
@@ -209,7 +209,7 @@ const AgreementFully = ({
             1. If you say yes, you'll reimburse the final amount in full.
             <br />
             2. If you say no, you will be directed to a settlement screen where
-            you can propose a partial offer to the other party.
+            you can waive part of the payment to the other party.
             <br />
             <br />
             Timeout to execute the arbitrable payment{' '}
