@@ -20,7 +20,7 @@ export default ({
   fileHash,
   question: 'Which party abided by terms of the contract?',
   rulingOptions: {
-    titles: ['Vote for the Sender', 'Vote for the Receiver'],
+    titles: ['Refund Sender', 'Pay Receiver'],
     descriptions: [
       'Select to return funds to the Sender',
       'Select to release funds to the Receiver'
@@ -30,6 +30,7 @@ export default ({
     [sender]: 'sender',
     [receiver]: 'receiver'
   },
+  evidenceDisplayInterfaceURI: '/ipfs/Qmbz8oKpSdxdN79EHwpUTfyKJf1cjddnePoD4w6kiw8n7g/index.html',
   sender,
   receiver,
   amount,
