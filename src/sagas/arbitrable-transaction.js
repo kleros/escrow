@@ -428,8 +428,12 @@ function* createDispute({ payload: { arbitrable, id } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
+  const extraData = yield call(
+    multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
+  )
+
   const arbitrationCost = yield call(
-    arbitratorEth.methods.arbitrationCost('0x00').call
+    arbitratorEth.methods.arbitrationCost(extraData).call
   )
 
   if (accounts[0] === arbitrableTransaction.receiver)
