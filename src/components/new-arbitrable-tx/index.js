@@ -250,7 +250,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                 }}
               />
               <div className="FileInput-filename">
-                {values.file ? values.file.name : 'filename...'}
+                {values.file ? values.file.name : '-- Upload --'}
               </div>
             </div>
             {errors.file && (

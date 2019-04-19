@@ -8,6 +8,7 @@ import { ReactComponent as Document } from '../../assets/primary-document.svg'
 import { ReactComponent as Image } from '../../assets/image.svg'
 import { ReactComponent as Link } from '../../assets/link.svg'
 import { ReactComponent as Video } from '../../assets/video.svg'
+import escapeString from '../../utils/escape-strings'
 
 import isImage from 'is-image'
 import isTextPath from 'is-text-path'
@@ -39,7 +40,7 @@ const Attachment = ({ URI, title, description }) => {
           className="Attachment"
         >
           <Component
-            data-tip={`<h2 class='Attachment-title'>${title}</h2><p class='Attachment-description'>${description}</p>`}
+            data-tip={`<h2 class='Attachment-title'>${escapeString(title)}</h2><p class='Attachment-description'>${escapeString(description)}</p>`}
           />
         </a>
       ) : (
@@ -47,7 +48,7 @@ const Attachment = ({ URI, title, description }) => {
           <Component
             className="Attachment-component-link"
             onClick={() => setModal(!open)}
-            data-tip={`<h2 class='Attachment-title'>${title}</h2><p class='Attachment-description'>${description}</p>`}
+            data-tip={`<h2 class='Attachment-title'>${escapeString(title)}</h2><p class='Attachment-description'>${escapeString(description)}</p>`}
           />
           <Modal
             open={open}
