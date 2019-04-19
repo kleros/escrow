@@ -23,8 +23,8 @@ const AgreementFully = ({
   accounts
 }) => {
   const [open, setModal] = useState(false)
-  const [percent, setPercent] = useState(50) // set Percent
-  const [amount, setAmount] = useState(0.5 * arbitrabletx.data.amount) // set Percent
+  const [percent, setPercent] = useState(0) // set Percent
+  const [amount, setAmount] = useState(0) // set Percent
   const setPercentByAmount = amount => {
     if (amount <= arbitrabletx.data.amount) {
       setAmount(amount)
@@ -53,13 +53,13 @@ const AgreementFully = ({
         }}
       >
         <h2 className="AgreementFully-modal-title">
-          Waive Part of the Payment or Raise a Dispute
+          Waive Part of the Payment
         </h2>
         <p className="AgreementFully-modal-description">
-          Propose a settlement by waiving a percentage of the payment to the
+          Propose a settlement by giving a percentage of the payment to the
           other party.
           <br />
-          If this is declined, the counter party can raise a dispute.
+          A dispute can still be raised over the remaining balance.
         </p>
         <Slider
           min={0}
@@ -73,6 +73,28 @@ const AgreementFully = ({
           <span style={{ color: '#009aff' }}>{percent.toFixed()}%</span>.
         </p>
         <div className="AgreementFully-modal-buttons">
+          <div className="AgreementFully-modal-buttons-pay-reimburse">
+            <PayOrReimburseArbitrableTx
+              arbitrable={arbitrabletx.data.arbitrableAddress}
+              payOrReimburse={payOrReimburse}
+              payOrReimburseFn={payOrReimburseFn}
+              amount={amount}
+              amountMax={arbitrabletx.data.amount}
+              id={arbitrabletx.data.id}
+              onChangeAmount={setPercentByAmount}
+            />
+          </div>
+        </div>
+        <div className="divider" />
+        <div style={{textAlign: "center"}}>
+          <h2 className="AgreementFully-modal-title">
+            Raise a Dispute
+          </h2>
+          <p className="AgreementFully-modal-description">
+            By raising a dispute you are petitioning for the full remaining balance.
+            <br />
+            The dispute will be evaluated by the Kleros jurors.
+          </p>
           <div className="AgreementFully-modal-buttons-raise-dispute">
             <Formik
               onSubmit={() =>
@@ -106,95 +128,87 @@ const AgreementFully = ({
                 </Form>
               )}
             </Formik>
-          </div>
-          <div className="AgreementFully-modal-buttons-pay-reimburse">
-            <PayOrReimburseArbitrableTx
-              arbitrable={arbitrabletx.data.arbitrableAddress}
-              payOrReimburse={payOrReimburse}
-              payOrReimburseFn={payOrReimburseFn}
-              amount={amount}
-              amountMax={arbitrabletx.data.amount}
-              id={arbitrabletx.data.id}
-              onChangeAmount={setPercentByAmount}
-            />
+            <p className="AgreementFully-modal-dispute-description">
+              You will need to pay the arbitration fee of{' '}
+              {arbitrabletx.data.arbitrationCost}ETH. This fee is refunded if you win the dispute.
+            </p>
           </div>
         </div>
-        <p className="AgreementFully-modal-dispute-description">
-          Raise dispute: you will need to pay the arbitration fee of{' '}
-          {arbitrabletx.data.arbitrationCost}ETH.
-        </p>
       </Modal>
-      <div className="AgreementFully-message">
-        <p>
-          {arbitrabletx.data.sender === accounts[0] ? (
-            <>
-              Did the other party{' '}
-              <b>
-                fully comply with the{' '}
-                {arbitrabletx.data.amount === arbitrabletx.data.originalAmount
-                  ? 'agreement'
-                  : 'settlement'}
-              </b>
-              ?
-            </>
-          ) : (
-            <>
-              Do you want to <b>fully reimburse</b> the sender?
-            </>
-          )}
-        </p>
+      { arbitrabletx.data.party !== 'none' ? (
+        <div className="AgreementFully-message">
+          <p>
+            {arbitrabletx.data.sender === accounts[0] ? (
+              <>
+                Did the other party{' '}
+                <b>
+                  fully comply with the{' '}
+                  {arbitrabletx.data.amount === arbitrabletx.data.originalAmount
+                    ? 'agreement'
+                    : 'settlement'}
+                </b>
+                ?
+              </>
+            ) : (
+              <>
+                Do you want to <b>fully reimburse</b> the sender?
+              </>
+            )}
+          </p>
 
-        <Formik
-          onSubmit={() =>
-            payOrReimburseFn(
-              arbitrabletx.data.arbitrableAddress,
-              arbitrabletx.data.id,
-              arbitrabletx.data.amount
-            )
-          }
-        >
-          {({ isSubmitting }) => (
-            <Form className="PayOrReimburseArbitrableTx">
-              <Button
-                className="PayOrReimburseArbitrableTx-yes"
-                type="submit"
-                disabled={isSubmitting || arbitrabletx.data.party === 'none'}
-              >
-                {isSubmitting && (
-                  <span
-                    style={{
-                      position: 'relative',
-                      top: '4px',
-                      lineHeight: '40px',
-                      paddingRight: '4px'
-                    }}
-                  >
-                    <ClipLoader size={20} color={'#fff'} />
-                  </span>
-                )}{' '}
-                Yes
-              </Button>
-            </Form>
-          )}
-        </Formik>
-        <Button
-          className="PayOrReimburseArbitrableTx-no"
-          onClick={() => setModal(!open)}
-          disabled={arbitrabletx.data.party === 'none'}
-        >
-          No
-        </Button>
-      </div>
+          <Formik
+            onSubmit={() =>
+              payOrReimburseFn(
+                arbitrabletx.data.arbitrableAddress,
+                arbitrabletx.data.id,
+                arbitrabletx.data.amount
+              )
+            }
+          >
+            {({ isSubmitting }) => (
+              <Form className="PayOrReimburseArbitrableTx">
+                <Button
+                  className="PayOrReimburseArbitrableTx-yes"
+                  type="submit"
+                  disabled={isSubmitting || arbitrabletx.data.party === 'none'}
+                >
+                  {isSubmitting && (
+                    <span
+                      style={{
+                        position: 'relative',
+                        top: '4px',
+                        lineHeight: '40px',
+                        paddingRight: '4px'
+                      }}
+                    >
+                      <ClipLoader size={20} color={'#fff'} />
+                    </span>
+                  )}{' '}
+                  Yes
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <Button
+            className="PayOrReimburseArbitrableTx-no"
+            onClick={() => setModal(!open)}
+            disabled={arbitrabletx.data.party === 'none'}
+          >
+            No
+          </Button>
+        </div>
+      ) : ''}
+
       <div className="AgreementFully-footer">
         {arbitrabletx.data.sender === accounts[0] && (
           <>
-            1. If you say yes, you'll pay the final amount in full.
+            1. If you select Yes, you'll pay the remaining amount in full.
             <br />
-            2. If you say no, you will be directed to a settlement screen where
-            you can waive part of the payment to the other party.
+            2. If you select No, you will be directed to a settlement screen where
+            you can waive part of the payment to the other party or raise a dispute.
             <br />
             <br />
-            Timeout to execute the arbitrable payment transaction{' '}
+            Timeout to release of the funds{' '}
             <Countdown
               date={
                 arbitrabletx.data.lastInteraction * 1000 +
@@ -206,10 +220,10 @@ const AgreementFully = ({
         )}
         {arbitrabletx.data.receiver === accounts[0] && (
           <>
-            1. If you say yes, you'll reimburse the final amount in full.
+            1. If you select Yes, you'll reimburse the remaining amount in full.
             <br />
-            2. If you say no, you will be directed to a settlement screen where
-            you can waive part of the payment to the other party.
+            2. If you select No, you will be directed to a settlement screen where
+            you can waive part of the payment to the other party or raise a dispute.
             <br />
             <br />
             Timeout to execute the arbitrable payment{' '}
@@ -221,11 +235,6 @@ const AgreementFully = ({
             />
             .
           </>
-        )}
-        {arbitrabletx.data.party === 'none' && (
-          <span style={{ color: 'red' }}>
-            You Ethereum address does not match with this transaction.
-          </span>
         )}
       </div>
     </div>

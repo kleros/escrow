@@ -102,7 +102,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="arbitrableContractEnv"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-arbitrableAddresses"
             >
-              Escrow Type
+              Escrow Type*
             </label>
             <div className="FormNewArbitrableTx-template-arbitrableAddresses-wrapper">
               <Field
@@ -120,7 +120,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                       }))
                     ]}
                     styles={customStyles}
-                    placeholder="Escrow Type"
+                    placeholder="-- Select --"
                     onChange={e =>
                       form.setFieldValue('arbitrableContractEnv', e.value)
                     }
@@ -140,12 +140,11 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="title"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-title"
             >
-              Title
+              Title*
             </label>
             <Field
               name="title"
               className="FormNewArbitrableTx-input FormNewArbitrableTx-input-title"
-              placeholder="Title"
             />
             <ErrorMessage
               name="title"
@@ -159,12 +158,11 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="receiver"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-receiver"
             >
-              Receiver
+              Receivers ETH Address*
             </label>
             <Field
               name="receiver"
               className="FormNewArbitrableTx-input FormNewArbitrableTx-input-receiver"
-              placeholder="Receiver address of the arbitrable payment"
             />
             <ErrorMessage
               name="receiver"
@@ -178,12 +176,12 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="timeout"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-timeout"
             >
-              Timeout Date and Time (UTC)
+              Timeout Date and Time (UTC)*
             </label>
             <Datepicker
               name="timeout"
               className="FormNewArbitrableTx-input-timeout"
-              placeholder="Timeout Date and Time"
+              placeholder="-- Select --"
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={30}
@@ -204,12 +202,11 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="amount"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-amount"
             >
-              Amount (ETH)
+              Amount (ETH)*
             </label>
             <Field
               name="amount"
               className="FormNewArbitrableTx-input FormNewArbitrableTx-input-amount"
-              placeholder="Amount"
             />
             <ErrorMessage
               name="amount"
@@ -262,8 +259,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               </div>
             )}
             <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-file">
-              Upload the files that will be used as evidence in case there is a
-              dispute.
+              Upload a contract or document that specifies the terms of agreement of this payment.
               <br />
               If you need to add more than one file, zip them.
             </div>

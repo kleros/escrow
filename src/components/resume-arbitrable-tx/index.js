@@ -133,15 +133,15 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
 
           {arbitrabletx.evidences && (
             <>
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name">
-                Evidences
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-evidence-name">
+                Evidence
               </div>
               <div
-                className="ResumeArbitrableTx-ContentNewArbitrableTx-content"
-                style={{ border: '0' }}
+                className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container"
               >
                 {arbitrabletx.evidences.map((evidence, index) => (
                   <Attachment
+                    className={'ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container-item'}
                     URI={evidence.evidenceJSON.fileURI}
                     title={evidence.evidenceJSON.name}
                     description={evidence.evidenceJSON.description}

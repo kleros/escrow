@@ -142,7 +142,7 @@ const EmailForm = ({ updateEmail, msg, settingsAcc }) => (
                   fontSize: '0.9em'
                 }}
               >
-                Settings notifications saved.
+                Notification settings saved.
               </div>
             )}
           </div>
