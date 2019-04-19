@@ -220,21 +220,6 @@ export default (
                                 )}{' '}
                                 Appeal the decision
                               </Button>
-                              {isSubmitting && (
-                                <div style={{ padding: '2em 0' }}>
-                                  If the page is not automatically updated after
-                                  the transaction mining,{' '}
-                                  <span
-                                    className="reload"
-                                    onClick={e => window.location.reload()}
-                                    className="reload"
-                                    style={{ color: '#009aff' }}
-                                  >
-                                    click here to reload the page
-                                  </span>
-                                  .
-                                </div>
-                              )}
                             </Form>
                           )}
                         </Formik>
@@ -288,20 +273,6 @@ export default (
                                     )}{' '}
                                     Appeal the decision
                                   </Button>
-                                  {isSubmitting && (
-                                    <div style={{ padding: '2em 0' }}>
-                                      If the page is not automatically updated
-                                      after the transaction mining,{' '}
-                                      <span
-                                        className="reload"
-                                        onClick={e => window.location.reload()}
-                                        style={{ color: '#009aff' }}
-                                      >
-                                        click here to reload the page
-                                      </span>
-                                      .
-                                    </div>
-                                  )}
                                 </Form>
                               )}
                             </Formik>
@@ -357,20 +328,6 @@ export default (
                                     )}{' '}
                                     Appeal the decision
                                   </Button>
-                                  {isSubmitting && (
-                                    <div style={{ padding: '2em 0' }}>
-                                      If the page is not automatically updated
-                                      after the transaction mining,{' '}
-                                      <span
-                                        className="reload"
-                                        onClick={e => window.location.reload()}
-                                        style={{ color: '#009aff' }}
-                                      >
-                                        click here to reload the page
-                                      </span>
-                                      .
-                                    </div>
-                                  )}
                                 </Form>
                               )}
                             </Formik>
@@ -425,11 +382,8 @@ export default (
           footer={
             <DisputeArbitrableTx
               message={
-                arbitrabletx.data.party !== 'none' ? (
+                arbitrabletx.data.party !== 'none' && arbitrabletx.data.ruling !== '0' ? (
                   <>
-                    {arbitrabletx.data.ruling === '0' && (
-                      <p>Jurors refused to vote</p>
-                    )}
                     {arbitrabletx.data.ruling === '1' &&
                     accounts[0] === arbitrabletx.data.sender ? (
                       <p>
@@ -447,10 +401,10 @@ export default (
                       <p>Jurors refused to vote.</p>
                     )}
                     {arbitrabletx.data.ruling === '1' && (
-                      <p>Sender wins the dispute.</p>
+                      <p>Sender won the dispute.</p>
                     )}
                     {arbitrabletx.data.ruling === '2' && (
-                      <p>Receiver wins the dispute.</p>
+                      <p>Receiver won the dispute.</p>
                     )}
                   </>
                 )
@@ -510,21 +464,6 @@ const MessageArbitrationFee = ({ arbitrabletx, createDispute }) => (
                 )}
                 Raise a dispute
               </Button>
-              {isSubmitting && (
-                <div style={{ padding: '2em 0' }}>
-                  If the page is not automatically updated after the transaction
-                  mining,{' '}
-                  <span
-                    className="reload"
-                    onClick={e => window.location.reload()}
-                    className="reload"
-                    style={{ color: '#009aff' }}
-                  >
-                    click here to reload the page
-                  </span>
-                  .
-                </div>
-              )}
             </Form>
           )}
         </Formik>

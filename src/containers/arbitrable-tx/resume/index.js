@@ -43,30 +43,33 @@ class Resume extends PureComponent {
     return (
       <>
         {arbitrabletxForm.amount !== undefined && type === 'invoice' && (
-          <ResumeArbitrableTx
-            arbitrabletx={arbitrabletxForm}
-            title={'Invoice Summary'}
-          >
-            <div className="ResumeArbitrableTx-ContentNewArbitrableTx-link-share">
-              <a
-                href={`
-                      mailto:alice%40example.com
-                      ?subject=Invoice ${encodeURIComponent(
-                        arbitrabletxForm.title
-                      )}
-                      &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(
-                        arbitrabletxForm.title
-                      )}%20invoice: ${shareLink}.%0A%0ABest%2C%0A
-                    `}
-              >
-                <Button
-                  style={{ border: '1px solid #009aff' }}
-                  className="ResumeArbitrableTx-ContentNewArbitrableTx-link-share-email"
+          <div>
+            <ResumeArbitrableTx
+              arbitrabletx={arbitrabletxForm}
+              title={'Invoice Summary'}
+            />
+            <div className="link-share" style={{textAlign: "left"}}>
+              <div className="link-share-email">
+                <a
+                  href={`
+                        mailto:alice%40example.com
+                        ?subject=Invoice ${encodeURIComponent(
+                          arbitrabletxForm.title
+                        )}
+                        &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(
+                          arbitrabletxForm.title
+                        )}%20invoice: ${shareLink}.%0A%0ABest%2C%0A
+                      `}
                 >
-                  Send Invoice by Email
-                </Button>
-              </a>
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url">
+                  <Button
+                    style={{ border: '1px solid #009aff' }}
+                    className="link-share-email-button"
+                  >
+                    Send Invoice by Email
+                  </Button>
+                </a>
+              </div>
+              <div className="link-share-url">
                 {`/transaction/${metaEvidenceIPFSHash.substring(0, 11)}...`}
               </div>
               {/*
@@ -82,17 +85,17 @@ class Resume extends PureComponent {
                         this.setState({ copied: true })
                     }}
                   >
-                    Copy Transaction Link
+                    Copy Invoice Link
                   </Button>
                 ) : (
                   <Button
                     style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
                   >
-                    Transaction Link Copied
+                    Invoice Link Copied
                   </Button>
                 ))}
             </div>
-          </ResumeArbitrableTx>
+          </div>
         )}
         {arbitrabletxForm.amount !== undefined && type === 'transaction' && (
           <ResumeArbitrableTx

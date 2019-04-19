@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 /**
  * Evidence Display List Component
- * @param evidenceArbitrabletxs - list of arbitrable transaction evidences
+ * @param evidenceArbitrabletxs - list of arbitrable transaction evidence
  * @returns {*}
  */
 const EvidenceArbitrableTxList = ({ evidenceArbitrabletxs }) => (

@@ -99,7 +99,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="arbitrableContractEnv"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-arbitrableAddresses"
             >
-              Escrow Type
+              Escrow Type*
             </label>
             <div className="FormNewInvoiceArbitrableTx-template-arbitrableAddresses-wrapper">
               <Field
@@ -117,7 +117,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                       }))
                     ]}
                     styles={customStyles}
-                    placeholder="Escrow Type"
+                    placeholder="-- Select --"
                     onChange={e =>
                       form.setFieldValue('arbitrableContractEnv', e.value)
                     }
@@ -137,12 +137,11 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="title"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-title"
             >
-              Title
+              Title*
             </label>
             <Field
               name="title"
               className="FormNewInvoiceArbitrableTx-input FormNewInvoiceArbitrableTx-input-title"
-              placeholder="Title"
             />
             <ErrorMessage
               name="title"
@@ -159,12 +158,12 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="timeout"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-timeout"
             >
-              Timeout Date and Time (UTC)
+              Timeout Date and Time (UTC)*
             </label>
             <Datepicker
               name="timeout"
               className="FormNewInvoiceArbitrableTx-input-timeout"
-              placeholder="Timeout Date and Time"
+              placeholder="-- Select --"
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={30}
@@ -185,12 +184,11 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="amount"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-amount"
             >
-              Amount (ETH)
+              Amount (ETH)*
             </label>
             <Field
               name="amount"
               className="FormNewInvoiceArbitrableTx-input FormNewInvoiceArbitrableTx-input-amount"
-              placeholder="Amount"
             />
             <ErrorMessage
               name="amount"

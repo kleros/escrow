@@ -43,6 +43,8 @@
       'nameDescription nameDescription nameAllDescription'
       'contentDescription contentDescription contentDescription'
       'nameShare nameShare nameShare'
+      'nameEvidence nameEvidence nameEvidence'
+      'contentEvidence contentEvidence contentEvidence'
       'submit submit submit';
 
     &-name-title {
@@ -162,26 +164,19 @@
       }
     }
 
-    &-name-share {
-      grid-area: nameShare;
+    &-evidence-name {
+      grid-area: nameEvidence;
     }
 
-    &-link-share {
-      grid-area: linkShare;
-      &-url {
-        margin-left: 20px;
+    &-evidence-container {
+      grid-area: contentEvidence;
+      &-item {
         display: inline-block;
-        text-align: left;
-        border: 1px solid #d9d9d9;
-        box-sizing: border-box;
-        border-radius: 3px;
-        border-right: none;
-        padding-left: 0.8em;
-        line-height: 40px;
-        width: 250px;
-        user-select: none;
-        color: #4a4a4a;
       }
+    }
+
+    &-name-share {
+      grid-area: nameShare;
     }
 
     &-submit {
@@ -238,7 +233,7 @@
         text-align: center;
       }
 
-      &-link-share-url {
+      &-link-share-link {
         display: none;
       }
 

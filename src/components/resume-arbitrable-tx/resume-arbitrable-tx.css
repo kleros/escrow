@@ -15,7 +15,7 @@
     padding: 0 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-areas: 'nameTitle nameTitle nameTitle' 'contentTitle contentTitle contentTitle' 'nameOtherParty nameCategory nameCategory' 'contentOtherParty contentCategory contentCategory' 'nameTimeout nameAmount nameAmount' 'contentTimeout contentAmount contentAmount' 'nameFile nameFile nameFile' 'contentFile contentFile contentFile' 'nameDescription nameDescription nameAllDescription' 'contentDescription contentDescription contentDescription' 'nameShare nameShare nameShare' 'submit submit submit'; }
+    grid-template-areas: 'nameTitle nameTitle nameTitle' 'contentTitle contentTitle contentTitle' 'nameOtherParty nameCategory nameCategory' 'contentOtherParty contentCategory contentCategory' 'nameTimeout nameAmount nameAmount' 'contentTimeout contentAmount contentAmount' 'nameFile nameFile nameFile' 'contentFile contentFile contentFile' 'nameDescription nameDescription nameAllDescription' 'contentDescription contentDescription contentDescription' 'nameShare nameShare nameShare' 'nameEvidence nameEvidence nameEvidence' 'contentEvidence contentEvidence contentEvidence' 'submit submit submit'; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-title {
       grid-area: nameTitle; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-title {
@@ -103,23 +103,14 @@
       .ResumeArbitrableTx-ContentNewArbitrableTx-content-description p.false {
         font-size: 14px;
         line-height: 14px; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-name {
+      grid-area: nameEvidence; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container {
+      grid-area: contentEvidence; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container-item {
+        display: inline-block; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-share {
       grid-area: nameShare; }
-    .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
-      grid-area: linkShare; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url {
-        margin-left: 20px;
-        display: inline-block;
-        text-align: left;
-        border: 1px solid #d9d9d9;
-        box-sizing: border-box;
-        border-radius: 3px;
-        border-right: none;
-        padding-left: 0.8em;
-        line-height: 40px;
-        width: 250px;
-        user-select: none;
-        color: #4a4a4a; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-submit {
       grid-area: submit;
       text-align: right; }
@@ -148,7 +139,7 @@
       .ResumeArbitrableTx-ContentNewArbitrableTx-link-share {
         color: #ff0303;
         text-align: center; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-url {
+      .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-link {
         display: none; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-link-share-email {
         display: none !important; }
