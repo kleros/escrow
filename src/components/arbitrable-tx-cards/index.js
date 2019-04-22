@@ -133,7 +133,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.APPEALABLE_WINNER && (
                 <div className="ArbitrableTxCards-cards-section-footer-waiting">
-                  Wait if the other party do an appeal
+                  Waiting for an appeal
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
