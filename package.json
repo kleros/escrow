@@ -1,5 +1,5 @@
 {
-  "name": "@kleros/ethcrow",
+  "name": "@kleros/escrow",
   "version": "0.0.1",
   "private": true,
   "dependencies": {

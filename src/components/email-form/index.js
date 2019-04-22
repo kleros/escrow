@@ -50,9 +50,6 @@ const EmailForm = ({ updateEmail, msg, settingsAcc }) => (
         rulingGiven: settingsAcc.data.rulingGivenEmailNotification
       }}
       validate={values => {
-        {
-          /* TODO use Yup */
-        }
         let errors = {}
         if (!values.email) errors.email = 'Email Required'
         if (

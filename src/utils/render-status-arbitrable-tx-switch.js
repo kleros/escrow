@@ -11,8 +11,6 @@ import DisputeArbitrableTx from '../components/dispute-arbitrable-tx'
 import SuccessArbitrableTx from '../components/success-arbitrable-tx'
 import AgreementFully from '../components/agreement_fully'
 import Button from '../components/button'
-import { ReactComponent as Dispute } from '../assets/dispute.svg'
-import { ReactComponent as Time } from '../assets/time.svg'
 
 export default (
   accounts,

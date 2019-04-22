@@ -31,7 +31,7 @@ const customStyles = {
   }
 }
 
-const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
+const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
   requestAnimationFrame(() => {
     window.scrollTo(0, 0)
   })
@@ -70,6 +70,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
             errors.file = 'The file is too big. The maximum size is 5MB.'
           return errors
         }}
+        // eslint-disable-next-line react/jsx-no-bind
         onSubmit={values =>
           formArbitrabletx({
             ...values,
@@ -198,7 +199,6 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
             {/* and store only the path on the file in the redux state */}
             <label
               htmlFor="file"
-              className="file"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-file"
             >
               Agreement Documents (optional)

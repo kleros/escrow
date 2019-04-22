@@ -48,7 +48,12 @@ const {
   initialState: evidenceInitialState
 } = createResource(_evidenceShape, { withCreate: true })
 
-export { arbitrabletxFormShape, arbitrabletxsShape, arbitrabletxShape }
+export {
+  arbitrabletxFormShape,
+  arbitrabletxsShape,
+  arbitrabletxShape,
+  evidenceShape
+}
 
 // Reducer
 export default createReducer(

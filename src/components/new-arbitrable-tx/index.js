@@ -221,7 +221,6 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
             {/* and store only the path on the file in the redux state */}
             <label
               htmlFor="file"
-              className="file"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-file"
             >
               Agreement Documents (optional)

@@ -14,21 +14,20 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
     </div>
     <Formik
       initialValues={{ name: '', description: '', file: '' }}
+      // eslint-disable-next-line react/jsx-no-bind
       validate={values => {
-        {
-          /* TODO use Yup */
-        }
-        let errors = {}
+        const errors = {}
         if (values.name.length > 55)
           errors.name =
-            'Number of characters for the name allowed is exceeded. The maximum is 55 characters.'
+            'The name is too long. The maximum length is 55 characters.'
         if (values.description.length > 255)
           errors.description =
-            'The maximum numbers of the characters for the description is 255 characters.'
+            'The description is too long. The maximum length is 255 characters.'
         if (values.file.size > 5000000)
-          errors.file = 'The maximum size of the file is 5Mo.'
+          errors.file = 'The file is too big. The maximum size is 5MB.'
         return errors
       }}
+      // eslint-disable-next-line react/jsx-no-bind
       onSubmit={evidence => submitEvidence(evidence, arbitrable, id)}
     >
       {({ isSubmitting, setFieldValue, errors, values }) => (
@@ -61,6 +60,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
                 id="file"
                 name="file"
                 type="file"
+                // eslint-disable-next-line react/jsx-no-bind
                 onChange={e => {
                   const file = e.currentTarget.files[0]
                   return setFieldValue('file', {
@@ -92,7 +92,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
                     position: 'relative',
                     top: '4px',
                     lineHeight: '40px',
-                    paddingRight: '4px'
+                    paddingRight: '4px' // stylelint-disable-line declaration-block-trailing-semicolon
                   }}
                 >
                   <ClipLoader size={20} color={'#fff'} />
@@ -108,8 +108,10 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
 )
 
 NewEvidenceArbitrableTx.propTypes = {
-  // State
-  formArbitrabletx: PropTypes.func
+  submitEvidence: PropTypes.func.isRequired,
+  formArbitrabletx: PropTypes.shape({}),
+  arbitrable: PropTypes.shape({}).isRequired,
+  id: PropTypes.string.isRequired
 }
 
 NewEvidenceArbitrableTx.defaultProps = {
