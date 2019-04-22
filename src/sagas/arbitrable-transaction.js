@@ -476,8 +476,12 @@ function* createAppeal({ payload: { arbitrable, id } }) {
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
 
+  const arbitratorExtraData = yield call(
+    multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
+  )
+
   const appealCost = yield call(
-    arbitratorEth.methods.appealCost(arbitrableTransaction.disputeId, '0x00')
+    arbitratorEth.methods.appealCost(arbitrableTransaction.disputeId, arbitratorExtraData)
       .call
   )
 
