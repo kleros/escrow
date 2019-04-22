@@ -49,37 +49,36 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
           file: '',
           description: ''
         }}
+        // eslint-disable-next-line react/jsx-no-bind
         validate={values => {
-          {
-            /* TODO use Yup */
-          }
-          let errors = {}
+          const errors = {}
           if (!values.arbitrableContractEnv)
-            errors.arbitrableContractEnv = 'Type of escrow Required'
-          if (!values.title) errors.title = 'Title Required'
+            errors.arbitrableContractEnv = 'Escrow Type Required.'
+          if (!values.title) errors.title = 'Title Required.'
           if (values.title.length > 55)
             errors.title =
-              'Number of characters for the title allowed is exceeded. The maximum is 55 characters.'
-          if (!values.receiver) errors.receiver = 'Receiver Address Required'
+              'The title is too long. The maximum length is 55 characters.'
+          if (!values.receiver)
+            errors.receiver = "Receiver's ETH Address Required"
           if (!web3.utils.isAddress(values.receiver))
-            errors.receiver = 'Valid Address Required'
+            errors.receiver = "Receiver's ETH Address must be valid."
           if (values.receiver.toLowerCase() === accounts[0].toLowerCase())
-            errors.receiver =
-              'The address must be different than your wallet address.'
-          if (!values.timeout) errors.timeout = 'Timeout Date Required'
+            errors.receiver = 'You cannot send a transaction to yourself.'
+          if (!values.timeout)
+            errors.timeout = 'Timeout Date and Time Required.'
           if (values.timeout < dateToUTC(new Date()))
-            errors.timeout = 'Timeout Date must higher than now.'
-          if (!values.amount) errors.amount = 'Amount Required'
-          if (values.amount <= 0) errors.amount = 'Amount must be positive.'
-          if (isNaN(values.amount)) errors.amount = 'Number Required'
+            errors.timeout = 'Timeout Date and Time cannot be in the past.'
+          if (!values.amount) errors.amount = 'Amount Required.'
+          if (values.amount <= 0) errors.amount = 'Amount must be more than 0.'
+          if (isNaN(values.amount)) errors.amount = 'Number Required.'
           if (values.amount > balance.data)
-            errors.amount = 'Amount must equal of lower than your ETH balance.'
+            errors.amount =
+              'Amount must be equal to or lower than your ETH balance.'
           if (values.description.length > 1000000)
             errors.description =
-              'The maximum numbers of the characters for the description is 1,000,000 characters.'
+              'The description is too long. The maximum length is 1,000,000 characters.'
           if (values.file.size > 5000000)
-            errors.file = 'The maximum size of the file is 5Mo.'
-
+            errors.file = 'The file is too big. The maximum size is 5MB.'
           return errors
         }}
         onSubmit={values =>
@@ -259,7 +258,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               </div>
             )}
             <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-file">
-              Upload a contract or document that specifies the terms of agreement of this payment.
+              Upload a contract or document that specifies the terms of
+              agreement of this payment.
               <br />
               If you need to add more than one file, zip them.
             </div>
