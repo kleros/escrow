@@ -14,17 +14,19 @@ body {
 /* header */
 
 .btn-new {
-  display: inline-block;
-  width: 209px;
-  text-align: left;
   background: #009aff;
   border: 1px solid #009aff;
-  padding-left: 15px;
   border-radius: 3px;
   color: #fff;
-  margin-right: 0px;
+  display: inline-block;
   font-size: 14px;
   height: 40px;
+  line-height: 14px;
+  margin-right: 0;
+  padding-left: 15px;
+  text-align: left;
+  width: 209px;
+
   &-invoice {
     background: transparent;
     border: 1px solid #fff;
