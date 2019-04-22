@@ -79,7 +79,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
   if (arbitrabletxForm.type === 'invoice')
     navigate(`/invoice/${ipfsHashMetaEvidenceObj[1].hash}`)
-  else navigate(`/transaction/${ipfsHashMetaEvidenceObj[1].hash}`)
+  else navigate(`/payment/${ipfsHashMetaEvidenceObj[1].hash}`)
 
   return arbitrabletxForm
 }
@@ -155,7 +155,7 @@ function* createArbitrabletx({
 
   if (txHash)
     navigate(
-      `/contract/${arbitrabletxReceived.arbitrableAddress}/transaction/${
+      `/contract/${arbitrabletxReceived.arbitrableAddress}/payment/${
         txHash.events.MetaEvidence.returnValues[0]
       }`
     )
@@ -481,8 +481,10 @@ function* createAppeal({ payload: { arbitrable, id } }) {
   )
 
   const appealCost = yield call(
-    arbitratorEth.methods.appealCost(arbitrableTransaction.disputeId, arbitratorExtraData)
-      .call
+    arbitratorEth.methods.appealCost(
+      arbitrableTransaction.disputeId,
+      arbitratorExtraData
+    ).call
   )
 
   yield call(multipleArbitrableTransactionEth.methods.appeal(id).send, {

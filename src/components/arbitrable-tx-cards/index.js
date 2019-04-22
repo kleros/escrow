@@ -17,7 +17,7 @@ import './arbitrable-tx-cards.css'
  */
 const ArbitrableTxCards = ({ arbitrabletxs }) => (
   <div className="ArbitrableTxCards">
-    <h1 className="ArbitrableTxCards-h1">My Transactions</h1>
+    <h1 className="ArbitrableTxCards-h1">My Payments</h1>
     {arbitrabletxs.length > 0 ? (
       <div className="ArbitrableTxCards-cards">
         {arbitrabletxs.map((arbitrabletx, index) => (
@@ -26,7 +26,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
             key={index}
             onClick={() =>
               navigate(
-                `contract/${arbitrabletx.arbitrableAddress}/transaction/${
+                `contract/${arbitrabletx.arbitrableAddress}/payment/${
                   arbitrabletx.id
                 }`
               )
@@ -61,13 +61,13 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.ONGOING_TRANSACTION && (
                 <div className="ArbitrableTxCards-cards-section-footer-waiting">
-                  Transaction in Progress
+                  Payment in Progress
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.TRANSACTION_COMPLETED && (
                 <div className="ArbitrableTxCards-cards-section-footer-completed">
-                  Transaction Complete
+                  Payment Complete
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
@@ -150,10 +150,10 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
       <div className="ArbitrableTxCards-cards">
         <section
           className="ArbitrableTxCards-cards-section ArbitrableTxCards-cards-section-new"
-          onClick={() => navigate('/new/transaction')}
+          onClick={() => navigate('/new/payment')}
         >
           <div className="ArbitrableTxCards-cards-section-new-content">
-            <div>Create New Transaction</div>
+            <div>Create New Payment</div>
             <div className="ArbitrableTxCards-cards-section-new-content-plus">
               <FontAwesomeIcon icon={faPlus} size="1x" />
             </div>

@@ -38,7 +38,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             Timeout Date and Time (UTC)
           </div>
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout">
-            {title === 'Invoice Summary' || title === 'Transaction Summary' ? (
+            {title === 'Invoice Summary' || title === 'Payment Summary' ? (
               <>
                 {dateToUTC(
                   new Date(new Date().getTime() + arbitrabletx.timeout * 1000)
@@ -136,12 +136,12 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-evidence-name">
                 Evidence
               </div>
-              <div
-                className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container"
-              >
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container">
                 {arbitrabletx.evidences.map((evidence, index) => (
                   <Attachment
-                    className={'ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container-item'}
+                    className={
+                      'ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container-item'
+                    }
                     URI={evidence.evidenceJSON.fileURI}
                     title={evidence.evidenceJSON.name}
                     description={evidence.evidenceJSON.description}

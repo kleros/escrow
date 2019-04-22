@@ -38,7 +38,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
   })
   return (
     <div className="NewArbitrableTx">
-      <h1 className="NewArbitrableTx-h1">New Transaction</h1>
+      <h1 className="NewArbitrableTx-h1">New Payment</h1>
       <Formik
         initialValues={{
           arbitrableContractEnv: '',
@@ -330,7 +330,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                     <ClipLoader size={20} color={'white'} />
                   </span>
                 )}{' '}
-                Save Transaction
+                Save Payment
               </Button>
             </div>
           </Form>

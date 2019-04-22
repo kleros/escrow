@@ -38,7 +38,7 @@ class Resume extends PureComponent {
     } = this.props
     const { copied } = this.state
 
-    const shareLink = `https://escrow.kleros.io/transaction/${metaEvidenceIPFSHash}`
+    const shareLink = `https://escrow.kleros.io/payment/${metaEvidenceIPFSHash}`
 
     return (
       <>
@@ -46,9 +46,9 @@ class Resume extends PureComponent {
           <div>
             <ResumeArbitrableTx
               arbitrabletx={arbitrabletxForm}
-              title={'Invoice Summary'}
+              title={'Invoice Details'}
             />
-            <div className="link-share" style={{textAlign: "left"}}>
+            <div className="link-share" style={{ textAlign: 'left' }}>
               <div className="link-share-email">
                 <a
                   href={`
@@ -70,7 +70,7 @@ class Resume extends PureComponent {
                 </a>
               </div>
               <div className="link-share-url">
-                {`/transaction/${metaEvidenceIPFSHash.substring(0, 11)}...`}
+                {`/payment/${metaEvidenceIPFSHash.substring(0, 11)}...`}
               </div>
               {/*
                     Logical shortcut for only displaying the
@@ -97,10 +97,10 @@ class Resume extends PureComponent {
             </div>
           </div>
         )}
-        {arbitrabletxForm.amount !== undefined && type === 'transaction' && (
+        {arbitrabletxForm.amount !== undefined && type === 'payment' && (
           <ResumeArbitrableTx
             arbitrabletx={arbitrabletxForm}
-            title={'Transaction Summary'}
+            title={'Payment Details'}
           >
             <Formik
               onSubmit={() =>
@@ -126,7 +126,7 @@ class Resume extends PureComponent {
                         <ClipLoader size={20} color={'#fff'} />
                       </span>
                     )}{' '}
-                    Submit Transaction
+                    Submit Payment
                   </Button>
                 </Form>
               )}

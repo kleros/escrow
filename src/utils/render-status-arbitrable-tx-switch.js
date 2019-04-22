@@ -32,12 +32,12 @@ export default (
           {arbitrabletx.data.amount === '0' ? (
             <ResumeArbitrableTx
               arbitrabletx={arbitrabletx.data}
-              title={<>Transaction Completed</>}
+              title={<>Payment Completed</>}
               footer={
                 <SuccessArbitrableTx
                   message={
                     <p>
-                      Transaction completed <b>with success</b>.
+                      Payment completed <b>with success</b>.
                     </p>
                   }
                   footer={
@@ -97,7 +97,7 @@ export default (
               ) : (
                 <ResumeArbitrableTx
                   arbitrabletx={arbitrabletx.data}
-                  title={<>Transaction Details</>}
+                  title={<>Payment Details</>}
                   footer={
                     <AgreementFully
                       payOrReimburse={payOrReimburse}
@@ -358,12 +358,12 @@ export default (
       return arbitrabletx.data.ruling === null ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Transaction completed</>}
+          title={<>Payment Completed</>}
           footer={
             <SuccessArbitrableTx
               message={
                 <p>
-                  Transaction completed <b>with success</b>.
+                  Payment completed <b>with success</b>.
                 </p>
               }
               footer={
@@ -382,7 +382,8 @@ export default (
           footer={
             <DisputeArbitrableTx
               message={
-                arbitrabletx.data.party !== 'none' && arbitrabletx.data.ruling !== '0' ? (
+                arbitrabletx.data.party !== 'none' &&
+                arbitrabletx.data.ruling !== '0' ? (
                   <>
                     {arbitrabletx.data.ruling === '1' &&
                     accounts[0] === arbitrabletx.data.sender ? (

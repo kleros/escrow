@@ -58,7 +58,7 @@ const Main = ({ children }) => (
         </li>
         <li
           className="menu-transaction"
-          onClick={() => navigate('/new/transaction')}
+          onClick={() => navigate('/new/payment')}
         >
           <span className="btn-new">
             <Transaction
@@ -69,7 +69,7 @@ const Main = ({ children }) => (
                 marginRight: '10px'
               }}
             />
-            New Transaction
+            New Payment
           </span>
         </li>
       </ul>
@@ -89,7 +89,7 @@ const App = ({ store }) => (
           <Main path="/">
             <Home path="/" />
             <New path="/new/:type" />
-            <ArbitrableTx path="/contract/:contract/transaction/:arbitrableTxId" />
+            <ArbitrableTx path="/contract/:contract/payment/:arbitrableTxId" />
             <Notifications path="/notifications" />
             <Resume path="/:type/:metaEvidenceIPFSHash" />
             <NotFound default />
