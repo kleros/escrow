@@ -4,7 +4,6 @@ import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import Attachment from '../../components/attachment'
 import { ReactComponent as Arrow } from '../../assets/arrow.svg'
-import dateToUTC from '../../utils/date-to-utc'
 import { shortAddress } from '../../utils/short-address'
 
 import './resume-arbitrable-tx.css'
@@ -40,20 +39,15 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout">
             {title === 'Invoice Summary' || title === 'Payment Summary' ? (
               <>
-                {dateToUTC(
-                  new Date(new Date().getTime() + arbitrabletx.timeout * 1000)
-                )
+                {new Date(Date.now() + arbitrabletx.timeout * 1000)
                   .toString()
                   .replace(/GMT.+/g, '')
                   .slice(0, -4)}
               </>
             ) : (
               <>
-                {dateToUTC(
-                  new Date(
-                    arbitrabletx.lastInteraction * 1000 +
-                      arbitrabletx.timeout * 1000
-                  )
+                {new Date(
+                  (arbitrabletx.lastInteraction + arbitrabletx.timeout) * 1000
                 )
                   .toString()
                   .replace(/GMT.+/g, '')

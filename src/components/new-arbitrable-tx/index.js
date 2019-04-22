@@ -9,7 +9,6 @@ import { ClipLoader } from 'react-spinners'
 import { web3, ARBITRABLE_ADDRESSES } from '../../bootstrap/dapp-api'
 import Button from '../button'
 import templates from '../../constants/templates'
-import dateToUTC from '../../utils/date-to-utc'
 
 import './new-arbitrable-tx.css'
 
@@ -66,7 +65,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
             errors.receiver = 'You cannot send a transaction to yourself.'
           if (!values.timeout)
             errors.timeout = 'Timeout Date and Time Required.'
-          if (values.timeout < dateToUTC(new Date()))
+          if (values.timeout <= new Date())
             errors.timeout = 'Timeout Date and Time cannot be in the past.'
           if (!values.amount) errors.amount = 'Amount Required.'
           if (values.amount <= 0) errors.amount = 'Amount must be more than 0.'
@@ -84,7 +83,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
         onSubmit={values =>
           formArbitrabletx({
             ...values,
-            timeout: Math.round((values.timeout - dateToUTC(new Date())) / 1000)
+            timeout: Math.round((values.timeout - new Date()) / 1000)
           })
         }
       >
@@ -157,7 +156,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="receiver"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-receiver"
             >
-              Receivers ETH Address*
+              Receiver's ETH Address*
             </label>
             <Field
               name="receiver"
@@ -186,7 +185,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               timeIntervals={30}
               dateFormat="dd.MM.yyyy hh:mm aa"
               timeCaption="time"
-              minDate={dateToUTC(new Date())}
+              minDate={new Date()}
             />
             <ErrorMessage
               name="timeout"

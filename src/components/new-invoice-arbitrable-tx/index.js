@@ -9,7 +9,6 @@ import { ClipLoader } from 'react-spinners'
 import { ARBITRABLE_ADDRESSES } from '../../bootstrap/dapp-api'
 import Button from '../button'
 import templates from '../../constants/templates'
-import dateToUTC from '../../utils/date-to-utc'
 
 import './new-invoice-arbitrable-tx.css'
 
@@ -59,7 +58,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               'The title is too long. The maximum length is 55 characters.'
           if (!values.timeout)
             errors.timeout = 'Timeout Date and Time Required.'
-          if (values.timeout < dateToUTC(new Date()))
+          if (values.timeout <= new Date())
             errors.timeout = 'Timeout Date and Time cannot be in the past.'
           if (!values.amount) errors.amount = 'Amount Required.'
           if (values.amount <= 0) errors.amount = 'Amount must be more than 0.'
@@ -75,9 +74,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
           formArbitrabletx({
             ...values,
             receiver: accounts[0],
-            timeout: Math.round(
-              (values.timeout - dateToUTC(new Date())) / 1000
-            ),
+            timeout: Math.round((values.timeout - new Date()) / 1000),
             type: 'invoice'
           })
         }
@@ -165,7 +162,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               timeIntervals={30}
               dateFormat="dd.MM.yyyy hh:mm aa"
               timeCaption="time"
-              minDate={dateToUTC(new Date())}
+              minDate={new Date()}
             />
             <ErrorMessage
               name="timeout"
