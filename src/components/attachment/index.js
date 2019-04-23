@@ -19,7 +19,7 @@ import './attachment.css'
 const Attachment = ({ URI, title, description }) => {
   const [open, setModal] = useState(false)
   let Component
-  if (isTextPath(URI)) Component = Document
+  if (isTextPath(URI) || !URI) Component = Document
   else if (isImage(URI)) Component = Image
   else if (isVideo(URI)) Component = Video
   else Component = Link
@@ -40,7 +40,11 @@ const Attachment = ({ URI, title, description }) => {
           className="Attachment"
         >
           <Component
-            data-tip={`<h2 class='Attachment-title'>${escapeString(title)}</h2><p class='Attachment-description'>${escapeString(description)}</p>`}
+            data-tip={`<h2 class='Attachment-title'>${escapeString(
+              title
+            )}</h2><p class='Attachment-description'>${escapeString(
+              description
+            )}</p>`}
           />
         </a>
       ) : (
@@ -48,7 +52,11 @@ const Attachment = ({ URI, title, description }) => {
           <Component
             className="Attachment-component-link"
             onClick={() => setModal(!open)}
-            data-tip={`<h2 class='Attachment-title'>${escapeString(title)}</h2><p class='Attachment-description'>${escapeString(description)}</p>`}
+            data-tip={`<h2 class='Attachment-title'>${escapeString(
+              title
+            )}</h2><p class='Attachment-description'>${escapeString(
+              description
+            )}</p>`}
           />
           <Modal
             open={open}

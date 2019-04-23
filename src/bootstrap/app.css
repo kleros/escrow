@@ -144,7 +144,6 @@ body {
     width: 1200px; } }
 
 input[type='file'] {
-  border: 1px solid #d9d9d9 !important;
   border-radius: 3px;
   color: transparent !important;
   margin-bottom: 7px;
@@ -156,7 +155,7 @@ input[type='file']::-webkit-file-upload-button {
 
 input[type='file']::before {
   background: #009aff;
-  border-radius: 3px;
+  border-radius: 0 3px 3px 0;
   color: white;
   content: 'Select a File';
   cursor: pointer;
@@ -174,6 +173,8 @@ input[type='file']:active {
 
 .FileInput {
   position: relative; }
+  .FileInput input {
+    background: white; }
   .FileInput-filename {
     color: #4a4a4a;
     font-size: 18px;

@@ -10,7 +10,7 @@ import './new-evidence-arbitrable-tx.css'
 const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
   <div className="NewEvidenceArbitrableTx">
     <div className="NewEvidenceArbitrableTx-message">
-      <p>Create Evidence</p>
+      <p>Submit Evidence</p>
     </div>
     <Formik
       initialValues={{ name: '', description: '', file: '' }}
@@ -44,6 +44,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
               className="NewEvidenceArbitrableTx-form-textarea"
               component="textarea"
               name="description"
+              placeholder="Description."
             >
               Description
             </Field>
@@ -72,7 +73,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
                 }}
               />
               <div className="FileInput-filename">
-                {values.file ? values.file.name : 'filename...'}
+                {values.file ? values.file.name : '-- Upload --'}
               </div>
             </div>
             {errors.file && <div className="error">{errors.file}</div>}

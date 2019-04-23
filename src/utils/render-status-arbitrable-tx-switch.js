@@ -105,7 +105,7 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>The receiver has raised a dispute</>}
+          title={<>A Dispute Is Being Raised</>}
           footer={
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
@@ -116,7 +116,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Waiting the arbitration fee from the receiver</>}
+          title={<>Waiting for Receiver to Pay Fees</>}
         >
           <TimeoutArbitrableTx
             arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -131,7 +131,7 @@ export default (
       return !isFeePaid(arbitrabletx) ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>The receiver has raised a dispute</>}
+          title={<>A Dispute Is Being Raised</>}
           footer={
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
@@ -143,7 +143,7 @@ export default (
         <>
           <ResumeArbitrableTx
             arbitrabletx={arbitrabletx.data}
-            title={<>Waiting the arbitration fee from the sender</>}
+            title={<>Waiting for Sender to Pay Fees</>}
           >
             <TimeoutArbitrableTx
               arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -418,10 +418,10 @@ const MessageArbitrationFee = ({ arbitrabletx, createDispute }) => (
     message={
       <>
         <p>
-          In order to not forfeit the dispute{' '}
+          In order to not forfeit the dispute,{' '}
           <b style={{ fontWeight: 'bold' }}>pay the arbitration fee</b>.
           <br />
-          You will be refunded the fee if you win the dispute.
+          It will be refunded if you win the dispute.
         </p>
         <Formik
           onSubmit={() =>
@@ -449,14 +449,14 @@ const MessageArbitrationFee = ({ arbitrabletx, createDispute }) => (
                     <ClipLoader size={20} color={'#fff'} />
                   </span>
                 )}
-                Raise a Dispute
+                Pay Fee
               </Button>
             </Form>
           )}
         </Formik>
         {arbitrabletx.data.party === 'none' && (
           <div style={{ margin: '1em', color: 'red' }}>
-            You Ethereum address does not match with this transaction.
+            Your ETH address is not a party in this payment.
           </div>
         )}
       </>
