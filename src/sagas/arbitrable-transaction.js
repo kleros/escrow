@@ -180,65 +180,63 @@ function* fetchArbitrabletxs() {
       multipleArbitrableTransaction.abi,
       arbitrableContract.address
     )
-    arbitrableTransactionIds = yield call(
-      multipleArbitrableTransactionEth.methods.getTransactionIDsByAddress(
-        accounts[0]
-      ).call
-    )
-    for (let arbitrableTransactionId of arbitrableTransactionIds) {
-      try {
-        const [
-          arbitrableTransaction,
-          arbitratorExtraData,
-          metaEvidence
-        ] = yield all([
-          call(
-            multipleArbitrableTransactionEth.methods.transactions(
-              arbitrableTransactionId
-            ).call
-          ),
-          call(
-            multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
-          ),
-          call(
-            archon.arbitrable.getMetaEvidence,
-            arbitrableContract.address,
-            arbitrableTransactionId // Use arbitrableTransactionId as metaEvidenceID
-          )
-        ])
+    const [arbitrableTransactionIds, arbitratorExtraData] = yield all([
+      call(
+        multipleArbitrableTransactionEth.methods.getTransactionIDsByAddress(
+          accounts[0]
+        ).call
+      ),
+      call(multipleArbitrableTransactionEth.methods.arbitratorExtraData().call)
+    ])
+    yield all(
+      // eslint-disable-next-line no-loop-func
+      arbitrableTransactionIds.map(arbitrableTransactionId =>
+        call(async () => {
+          try {
+            const [arbitrableTransaction, metaEvidence] = await Promise.all([
+              multipleArbitrableTransactionEth.methods
+                .transactions(arbitrableTransactionId)
+                .call(),
+              archon.arbitrable.getMetaEvidence(
+                arbitrableContract.address,
+                arbitrableTransactionId // Use arbitrableTransactionId as metaEvidenceID
+              )
+            ])
 
-        arbitrableTransaction.arbitrableAddress =
-          arbitrableContract.address ||
-          '0x0000000000000000000000000000000000000000'
-        arbitrableTransaction.metaEvidence = metaEvidence.metaEvidenceJSON || {}
-        arbitrableTransaction.id = arbitrableTransactionId || 0
-        arbitrableTransaction.party =
-          accounts[0] === arbitrableTransaction.sender
-            ? 'sender'
-            : accounts[0] === arbitrableTransaction.receiver
-            ? 'receiver'
-            : '...'
-        arbitrableTransaction.otherParty =
-          accounts[0] === arbitrableTransaction.receiver
-            ? 'sender'
-            : accounts[0] === arbitrableTransaction.sender
-            ? 'receiver'
-            : '...'
-        arbitrableTransaction.originalAmount = web3.utils
-          .toWei(metaEvidence.metaEvidenceJSON.amount, 'ether')
-          .toString()
-        arbitrableTransaction.detailsStatus = getStatusArbitrable({
-          accounts,
-          arbitrabletx: arbitrableTransaction
+            arbitrableTransaction.arbitrableAddress =
+              arbitrableContract.address ||
+              '0x0000000000000000000000000000000000000000'
+            arbitrableTransaction.metaEvidence =
+              metaEvidence.metaEvidenceJSON || {}
+            arbitrableTransaction.id = arbitrableTransactionId || 0
+            arbitrableTransaction.party =
+              accounts[0] === arbitrableTransaction.sender
+                ? 'sender'
+                : accounts[0] === arbitrableTransaction.receiver
+                ? 'receiver'
+                : '...'
+            arbitrableTransaction.otherParty =
+              accounts[0] === arbitrableTransaction.receiver
+                ? 'sender'
+                : accounts[0] === arbitrableTransaction.sender
+                ? 'receiver'
+                : '...'
+            arbitrableTransaction.originalAmount = web3.utils
+              .toWei(metaEvidence.metaEvidenceJSON.amount, 'ether')
+              .toString()
+            arbitrableTransaction.detailsStatus = getStatusArbitrable({
+              accounts,
+              arbitrabletx: arbitrableTransaction
+            })
+            arbitrableTransaction.arbitratorExtraData = arbitratorExtraData
+
+            arbitrableTransactions.push(arbitrableTransaction)
+          } catch (err) {
+            console.error(err)
+          }
         })
-        arbitrableTransaction.arbitratorExtraData = arbitratorExtraData
-
-        arbitrableTransactions.push(arbitrableTransaction)
-      } catch (err) {
-        console.error(err)
-        continue
-      }
-    }
+      )
+    )
   }
 
   return arbitrableTransactions.reverse()
