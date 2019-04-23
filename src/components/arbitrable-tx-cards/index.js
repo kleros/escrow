@@ -67,7 +67,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.TRANSACTION_COMPLETED && (
                 <div className="ArbitrableTxCards-cards-section-footer-completed">
-                  Payment Complete
+                  Payment Completed
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
@@ -97,43 +97,43 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.HAS_TO_PAY_RECEIVER && (
                 <div className="ArbitrableTxCards-cards-section-footer-make-payment">
-                  Receiver has to pay
+                  Receiver Has to Pay
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.HAS_TO_PAY_SENDER && (
                 <div className="ArbitrableTxCards-cards-section-footer-make-payment">
-                  Sender has to pay
+                  Sender Has to Pay
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.TIMEOUT_SENDER && (
                 <div className="ArbitrableTxCards-cards-section-footer-waiting">
-                  Time left for Receiver to respond
+                  Time Left for Receiver to Respond
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.TIMEOUT_RECEIVER && (
                 <div className="ArbitrableTxCards-cards-section-footer-waiting">
-                  Time left for Sender to respond
+                  Time Left for Sender to Respond
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.ONGOING_DISPUTE && (
                 <div className="ArbitrableTxCards-cards-section-footer-dispute">
-                  Ongoing dispute
+                  Ongoing Dispute
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.APPEALABLE_LOOSER && (
                 <div className="ArbitrableTxCards-cards-section-footer-dispute">
-                  Appeal possible
+                  Appeal Possible
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.APPEALABLE_WINNER && (
                 <div className="ArbitrableTxCards-cards-section-footer-waiting">
-                  Waiting for an appeal
+                  Waiting for an Appeal
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
