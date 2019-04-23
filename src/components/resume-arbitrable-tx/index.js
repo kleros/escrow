@@ -34,7 +34,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             {arbitrabletx.subCategory}
           </div>
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout">
-            Timeout Date and Time (UTC)
+            Timeout Date and Time (Local Time)
           </div>
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout">
             {title === 'Invoice Details' || title === 'Payment Details' ? (

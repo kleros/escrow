@@ -49,7 +49,7 @@ export default (
                 arbitrabletx.data.timeoutPayment * 1000 ? (
                 <ResumeArbitrableTx
                   arbitrabletx={arbitrabletx.data}
-                  title={<>Resume - Execute Payment</>}
+                  title={<>Payment Details</>}
                 >
                   <Formik
                     onSubmit={() =>
@@ -363,7 +363,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Resume</>}
+          title={<>Payment Details</>}
           footer={
             <DisputeArbitrableTx
               message={
@@ -383,8 +383,9 @@ export default (
                   </>
                 ) : (
                   <>
+                    {console.log(arbitrabletx)}
                     {arbitrabletx.data.ruling === '0' && (
-                      <p>Jurors refused to vote.</p>
+                      <p>Jurors refused to vote or payment timed out.</p>
                     )}
                     {arbitrabletx.data.ruling === '1' && (
                       <p>Sender won the dispute.</p>

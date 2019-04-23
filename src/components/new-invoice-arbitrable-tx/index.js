@@ -152,7 +152,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
               htmlFor="timeout"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-timeout"
             >
-              Timeout Date and Time (UTC)*
+              Timeout Date and Time (Local Time)*
             </label>
             <Datepicker
               name="timeout"

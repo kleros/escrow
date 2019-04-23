@@ -174,7 +174,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="timeout"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-timeout"
             >
-              Timeout Date and Time (UTC)*
+              Timeout Date and Time (Local Time)*
             </label>
             <Datepicker
               name="timeout"
