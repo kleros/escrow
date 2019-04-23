@@ -58,6 +58,7 @@ const NewEvidenceArbitrableTx = ({ submitEvidence, arbitrable, id }) => (
             {/* and store only the path on the file in the redux state */}
             <div className="NewEvidenceArbitrableTx-form-file FileInput">
               <input
+                className="FileInput-input--noBorder"
                 id="file"
                 name="file"
                 type="file"

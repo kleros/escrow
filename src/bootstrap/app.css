@@ -144,11 +144,14 @@ body {
     width: 1200px; } }
 
 input[type='file'] {
+  border: 1px solid #d9d9d9 !important;
   border-radius: 3px;
   color: transparent !important;
   margin-bottom: 7px;
   padding: 0 !important;
   width: 100%; }
+  input[type='file'].FileInput-input--noBorder {
+    border: none !important; }
 
 input[type='file']::-webkit-file-upload-button {
   visibility: hidden; }
