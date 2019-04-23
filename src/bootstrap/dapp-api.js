@@ -9,7 +9,7 @@ const ARBITRATOR_ADDRESS = process.env[`REACT_APP_${env}_ARBITRATOR_ADDRESS`]
 const ARBITRABLE_ADDRESSES = [
   {
     address: process.env[`REACT_APP_${env}_ARBITRABLE_NONTECHNICAL_ADDRESS`],
-    type: 'General Service'
+    type: 'General'
   }
 ]
 const PATCH_USER_SETTINGS_URL =
