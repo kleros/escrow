@@ -37,7 +37,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             Timeout Date and Time (UTC)
           </div>
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout">
-            {title === 'Invoice Summary' || title === 'Payment Summary' ? (
+            {title === 'Invoice Details' || title === 'Payment Details' ? (
               <>
                 {new Date(Date.now() + arbitrabletx.timeout * 1000)
                   .toString()
@@ -47,7 +47,9 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             ) : (
               <>
                 {new Date(
-                  (arbitrabletx.lastInteraction + arbitrabletx.timeout) * 1000
+                  (Number(arbitrabletx.lastInteraction) +
+                    Number(arbitrabletx.timeout)) *
+                    1000
                 )
                   .toString()
                   .replace(/GMT.+/g, '')

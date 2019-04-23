@@ -10,10 +10,11 @@
       font-weight: bold;
       padding: 24px 0 1em 0; }
     .AgreementFully-modal-description {
-      text-align: center;
       color: #4a4a4a;
       font-size: 14px;
-      padding-bottom: 2em; }
+      line-height: 22px;
+      padding-bottom: 2em;
+      text-align: center; }
     .AgreementFully-modal-offer {
       font-style: italic;
       color: #4a4a4a;

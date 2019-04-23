@@ -58,8 +58,7 @@ const AgreementFully = ({
         <p className="AgreementFully-modal-description">
           Propose a settlement by giving a percentage of the payment to the
           other party.
-          <br />
-          A dispute can still be raised over the remaining balance.
+          <br />A dispute can still be raised over the remaining balance.
         </p>
         <Slider
           min={0}
@@ -69,7 +68,7 @@ const AgreementFully = ({
           onChange={setAmountByPercent}
         />
         <p className="AgreementFully-modal-offer">
-          You are offering{' '}
+          You are waiving{' '}
           <span style={{ color: '#009aff' }}>{percent.toFixed()}%</span>.
         </p>
         <div className="AgreementFully-modal-buttons">
@@ -86,12 +85,11 @@ const AgreementFully = ({
           </div>
         </div>
         <div className="divider" />
-        <div style={{textAlign: "center"}}>
-          <h2 className="AgreementFully-modal-title">
-            Raise a Dispute
-          </h2>
+        <div style={{ textAlign: 'center' }}>
+          <h2 className="AgreementFully-modal-title">Raise a Dispute</h2>
           <p className="AgreementFully-modal-description">
-            By raising a dispute you are petitioning for the full remaining balance.
+            By raising a dispute you are petitioning for the full remaining
+            balance.
             <br />
             The dispute will be evaluated by the Kleros jurors.
           </p>
@@ -123,19 +121,20 @@ const AgreementFully = ({
                         <ClipLoader size={20} color={'#fff'} />
                       </span>
                     )}{' '}
-                    Raise a dispute
+                    Raise a Dispute
                   </Button>
                 </Form>
               )}
             </Formik>
             <p className="AgreementFully-modal-dispute-description">
               You will need to pay the arbitration fee of{' '}
-              {arbitrabletx.data.arbitrationCost}ETH. This fee is refunded if you win the dispute.
+              {arbitrabletx.data.arbitrationCost}ETH. This fee is refunded if
+              you win the dispute.
             </p>
           </div>
         </div>
       </Modal>
-      { arbitrabletx.data.party !== 'none' ? (
+      {arbitrabletx.data.party !== 'none' ? (
         <div className="AgreementFully-message">
           <p>
             {arbitrabletx.data.sender === accounts[0] ? (
@@ -197,18 +196,21 @@ const AgreementFully = ({
             No
           </Button>
         </div>
-      ) : ''}
+      ) : (
+        ''
+      )}
 
       <div className="AgreementFully-footer">
         {arbitrabletx.data.sender === accounts[0] && (
           <>
             1. If you select Yes, you'll pay the remaining amount in full.
             <br />
-            2. If you select No, you will be directed to a settlement screen where
-            you can waive part of the payment to the other party or raise a dispute.
+            2. If you select No, you will be directed to a settlement screen
+            where you can waive part of the payment to the other party or raise
+            a dispute.
             <br />
             <br />
-            Timeout to release of the funds{' '}
+            Payment times out in{' '}
             <Countdown
               date={
                 arbitrabletx.data.lastInteraction * 1000 +
@@ -222,11 +224,12 @@ const AgreementFully = ({
           <>
             1. If you select Yes, you'll reimburse the remaining amount in full.
             <br />
-            2. If you select No, you will be directed to a settlement screen where
-            you can waive part of the payment to the other party or raise a dispute.
+            2. If you select No, you will be directed to a settlement screen
+            where you can waive part of the payment to the other party or raise
+            a dispute.
             <br />
             <br />
-            Timeout to execute the arbitrable payment{' '}
+            Payment times out in{' '}
             <Countdown
               date={
                 arbitrabletx.data.lastInteraction * 1000 +

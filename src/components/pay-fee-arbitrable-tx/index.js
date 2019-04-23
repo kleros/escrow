@@ -10,7 +10,7 @@ const PayFeeArbitrableTx = ({ arbitrable, id, payFee }) => (
       style={{ float: 'right' }}
       onClick={() => payFee(arbitrable, id)}
     >
-      Raise a dispute
+      Raise a Dispute
     </button>
   </div>
 )

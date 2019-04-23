@@ -461,7 +461,7 @@ const MessageArbitrationFee = ({ arbitrabletx, createDispute }) => (
                     <ClipLoader size={20} color={'#fff'} />
                   </span>
                 )}
-                Raise a dispute
+                Raise a Dispute
               </Button>
             </Form>
           )}
