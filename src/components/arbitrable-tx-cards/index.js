@@ -45,7 +45,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
                 {shortAddress(arbitrabletx[arbitrabletx.otherParty])}
               </div>
               <div className="ArbitrableTxCards-cards-section-header-party">
-                {arbitrabletx.otherParty}
+                {arbitrabletx.otherParty === 'sender' ? 'receiver' : 'sender'}
               </div>
             </div>
             <div className="ArbitrableTxCards-cards-section-h2">
@@ -137,11 +137,15 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
                 </div>
               )}
               {arbitrabletx.detailsStatus ===
-                statusArbitrableTxConstants.DISPUTE_RESOLVED && (
+                statusArbitrableTxConstants.DISPUTE_RESOLVED && (arbitrabletx.disputeId === '0' ? (
+                <div className="ArbitrableTxCards-cards-section-footer-completed">
+                  Payment Complete
+                </div>
+              ) : (
                 <div className="ArbitrableTxCards-cards-section-footer-completed">
                   Dispute Resolved
                 </div>
-              )}
+              ))}
             </div>
           </section>
         ))}
