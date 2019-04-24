@@ -139,7 +139,7 @@ const ArbitrableTxCards = ({ arbitrabletxs }) => (
               {arbitrabletx.detailsStatus ===
                 statusArbitrableTxConstants.DISPUTE_RESOLVED && (arbitrabletx.disputeId === '0' ? (
                 <div className="ArbitrableTxCards-cards-section-footer-completed">
-                  Payment Complete
+                  Payment Completed
                 </div>
               ) : (
                 <div className="ArbitrableTxCards-cards-section-footer-completed">
