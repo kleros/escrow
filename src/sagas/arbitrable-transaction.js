@@ -103,8 +103,6 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
     ...Object.entries(metaEvidenceDecoded.aliases).map(([a, b]) => ({ [b]: a }))
   )
 
-  console.log(parties)
-
   return yield put(
     action(arbitrabletxActions.arbitrabletx.RESUMEFORM, {
       arbitrabletxResumeForm: {
@@ -172,7 +170,6 @@ function* fetchArbitrabletxs() {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let multipleArbitrableTransactionEth = {}
-  let arbitrableTransactionIds = []
   let arbitrableTransactions = []
 
   for (let arbitrableContract of ARBITRABLE_ADDRESSES) {

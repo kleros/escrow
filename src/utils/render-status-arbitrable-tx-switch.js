@@ -44,7 +44,7 @@ export default (
             />
           ) : (
             <>
-              {accounts[0] === arbitrabletx.data.sender &&
+              {(accounts[0] === arbitrabletx.data.sender || accounts[0] === arbitrabletx.data.receiver) &&
               Date.now() - arbitrabletx.data.lastInteraction * 1000 >=
                 arbitrabletx.data.timeoutPayment * 1000 ? (
                 <ResumeArbitrableTx
@@ -74,7 +74,7 @@ export default (
                               <ClipLoader size={20} color={'#fff'} />
                             </span>
                           )}{' '}
-                          Execute Payment
+                          {accounts[0] === arbitrabletx.data.sender ? 'Send' : 'Claim'} Payment
                         </Button>
                       </Form>
                     )}
@@ -383,10 +383,11 @@ export default (
                   </>
                 ) : (
                   <>
-                    {console.log(arbitrabletx)}
-                    {arbitrabletx.data.ruling === '0' && (
-                      <p>Jurors refused to vote or payment timed out.</p>
-                    )}
+                    {arbitrabletx.data.ruling === '0' && (arbitrabletx.data.disputeId !== "0" ? (
+                      <p>Juros refused to arbitrate.</p>
+                    ):(
+                      <p>Payment Completed</p>
+                    ))}
                     {arbitrabletx.data.ruling === '1' && (
                       <p>Sender won the dispute.</p>
                     )}
