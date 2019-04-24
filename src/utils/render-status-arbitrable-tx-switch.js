@@ -384,7 +384,7 @@ export default (
                 ) : (
                   <>
                     {arbitrabletx.data.ruling === '0' && (arbitrabletx.data.disputeId !== "0" ? (
-                      <p>Juros refused to arbitrate.</p>
+                      <p>Jurors refused to arbitrate.</p>
                     ):(
                       <p>Payment Completed</p>
                     ))}
