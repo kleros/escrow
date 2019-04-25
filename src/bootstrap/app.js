@@ -44,17 +44,6 @@ const Main = ({ children }) => (
           />
         </li>
         <li className="menu-invoice" onClick={() => navigate('/new/invoice')}>
-          <span className="btn-new btn-new-invoice">
-            <Invoice
-              style={{
-                position: 'relative',
-                top: '7px',
-                height: '24px',
-                marginRight: '18px'
-              }}
-            />
-            New Invoice
-          </span>
         </li>
         <li
           className="menu-transaction"

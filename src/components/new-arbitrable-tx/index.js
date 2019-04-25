@@ -61,8 +61,6 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
             errors.receiver = "Receiver's ETH Address Required"
           if (!web3.utils.isAddress(values.receiver))
             errors.receiver = "Receiver's ETH Address must be valid."
-          if (values.receiver.toLowerCase() === accounts[0].toLowerCase())
-            errors.receiver = 'You cannot send a transaction to yourself.'
           if (!values.timeout)
             errors.timeout = 'Timeout Date and Time Required.'
           if (values.timeout <= new Date())
