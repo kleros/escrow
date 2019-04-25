@@ -328,7 +328,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                     <ClipLoader size={20} color={'white'} />
                   </span>
                 )}{' '}
-                Save Payment
+                Next
               </Button>
             </div>
           </Form>

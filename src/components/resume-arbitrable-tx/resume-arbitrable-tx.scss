@@ -153,7 +153,7 @@
 
       &-p-short {
         font-size: 14px;
-        overflow: scroll;
+        overflow-y: scroll;
 
         @include multiLineEllipsis($lineHeight: 14px, $lineCount: 10);
       }

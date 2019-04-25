@@ -69,7 +69,7 @@ const AgreementFully = ({
         />
         <p className="AgreementFully-modal-offer">
           You are waiving{' '}
-          <span style={{ color: '#009aff' }}>{percent.toFixed()}%</span>.
+          <span style={{ color: '#009aff' }}>{percent.toFixed(6)}%</span>.
         </p>
         <div className="AgreementFully-modal-buttons">
           <div className="AgreementFully-modal-buttons-pay-reimburse">
@@ -128,7 +128,7 @@ const AgreementFully = ({
             </Formik>
             <p className="AgreementFully-modal-dispute-description">
               You will need to pay the arbitration fee of{' '}
-              {arbitrabletx.data.arbitrationCost}ETH. This fee is refunded if
+              {arbitrabletx.data.arbitrationCost} ETH. This fee is refunded if
               you win the dispute.
             </p>
           </div>

@@ -90,7 +90,7 @@
       white-space: pre-line; }
       .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short {
         font-size: 14px;
-        overflow: scroll;
+        overflow-y: scroll;
         line-height: 14px;
         max-height: 140px;
         margin-right: -1em;

@@ -44,7 +44,8 @@ export default (
             />
           ) : (
             <>
-              {(accounts[0] === arbitrabletx.data.sender || accounts[0] === arbitrabletx.data.receiver) &&
+              {(accounts[0] === arbitrabletx.data.sender ||
+                accounts[0] === arbitrabletx.data.receiver) &&
               Date.now() - arbitrabletx.data.lastInteraction * 1000 >=
                 arbitrabletx.data.timeoutPayment * 1000 ? (
                 <ResumeArbitrableTx
@@ -74,7 +75,10 @@ export default (
                               <ClipLoader size={20} color={'#fff'} />
                             </span>
                           )}{' '}
-                          {accounts[0] === arbitrabletx.data.sender ? 'Send' : 'Claim'} Payment
+                          {accounts[0] === arbitrabletx.data.sender
+                            ? 'Send'
+                            : 'Claim'}{' '}
+                          Payment
                         </Button>
                       </Form>
                     )}
@@ -116,14 +120,14 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Waiting for Receiver to Pay Fees</>}
+          title={<>Waiting for Receiver to Pay Arbitration Fees</>}
         >
           <TimeoutArbitrableTx
             arbitrable={arbitrabletx.data.arbitrableAddress}
             id={arbitrabletx.data.id}
             timeout={createTimeout}
             time={time(arbitrabletx)}
-            name={'Withdraw'}
+            name={'Withdraw Funds'}
           />
         </ResumeArbitrableTx>
       )
@@ -143,7 +147,7 @@ export default (
         <>
           <ResumeArbitrableTx
             arbitrabletx={arbitrabletx.data}
-            title={<>Waiting for Sender to Pay Fees</>}
+            title={<>Waiting for Sender to Pay Arbitration Fees</>}
           >
             <TimeoutArbitrableTx
               arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -383,11 +387,12 @@ export default (
                   </>
                 ) : (
                   <>
-                    {arbitrabletx.data.ruling === '0' && (arbitrabletx.data.disputeId !== "0" ? (
-                      <p>Jurors refused to arbitrate.</p>
-                    ):(
-                      <p>Payment Completed</p>
-                    ))}
+                    {arbitrabletx.data.ruling === '0' &&
+                      (arbitrabletx.data.disputeId !== '0' ? (
+                        <p>Jurors refused to arbitrate.</p>
+                      ) : (
+                        <p>Payment Completed</p>
+                      ))}
                     {arbitrabletx.data.ruling === '1' && (
                       <p>Sender won the dispute.</p>
                     )}

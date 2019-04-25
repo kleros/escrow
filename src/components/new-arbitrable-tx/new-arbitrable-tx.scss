@@ -164,6 +164,7 @@
     &-input-description {
       grid-area: inputDescription;
       margin-top: 1em;
+      max-width: 100%;
     }
 
     &-error-description {

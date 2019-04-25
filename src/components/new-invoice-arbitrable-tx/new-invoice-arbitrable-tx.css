@@ -81,7 +81,8 @@
         width: 100%; }
     .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-input-description {
       grid-area: inputDescription;
-      margin-top: 1em; }
+      margin-top: 1em;
+      max-width: 100%; }
     .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-error-description {
       grid-area: errorDescription; }
     .NewInvoiceArbitrableTx .FormNewInvoiceArbitrableTx-help-description {

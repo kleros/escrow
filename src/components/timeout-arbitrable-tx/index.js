@@ -9,7 +9,7 @@ import Button from '../button'
 const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
   <>
     <div style={{ color: 'red', fontWeight: 'bold', fontSize: '0.9em' }}>
-      Timeout
+      Time left to pay before the side that paid wins:
     </div>
     <div
       style={{

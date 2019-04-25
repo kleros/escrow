@@ -81,7 +81,8 @@
         width: 100%; }
     .NewArbitrableTx .FormNewArbitrableTx-input-description {
       grid-area: inputDescription;
-      margin-top: 1em; }
+      margin-top: 1em;
+      max-width: 100%; }
     .NewArbitrableTx .FormNewArbitrableTx-error-description {
       grid-area: errorDescription; }
     .NewArbitrableTx .FormNewArbitrableTx-help-description {
