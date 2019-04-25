@@ -43,8 +43,6 @@ const Main = ({ children }) => (
             style={{ position: 'relative', top: '12px', height: '15px' }}
           />
         </li>
-        <li className="menu-invoice" onClick={() => navigate('/new/invoice')}>
-        </li>
         <li
           className="menu-transaction"
           onClick={() => navigate('/new/payment')}
