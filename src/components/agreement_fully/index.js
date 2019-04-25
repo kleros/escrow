@@ -203,7 +203,7 @@ const AgreementFully = ({
       <div className="AgreementFully-footer">
         {arbitrabletx.data.sender === accounts[0] && (
           <>
-            1. If you select Yes, you'll pay the remaining amount in full.
+            1. If you select Yes, you'll pay the amount in full.
             <br />
             2. If you select No, you will be directed to a settlement screen
             where you can waive part of the payment to the other party or raise
