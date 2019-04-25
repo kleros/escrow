@@ -59,7 +59,8 @@ body {
   .header .menu li {
     line-height: 40px; }
     .header .menu li:last-child {
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      margin-left: 28px; }
 
 /* menu icon */
 .header .menu-icon {
