@@ -170,7 +170,7 @@ function* fetchArbitrabletxs() {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let multipleArbitrableTransactionEth = {}
-  let arbitrableTransactions = []
+  const arbitrableTransactions = []
 
   for (let arbitrableContract of ARBITRABLE_ADDRESSES) {
     multipleArbitrableTransactionEth = new web3.eth.Contract(
@@ -185,7 +185,7 @@ function* fetchArbitrabletxs() {
       ),
       call(multipleArbitrableTransactionEth.methods.arbitratorExtraData().call)
     ])
-    yield all(
+    const _arbitrableTransactions = yield all(
       // eslint-disable-next-line no-loop-func
       arbitrableTransactionIds.map(arbitrableTransactionId =>
         call(async () => {
@@ -227,13 +227,14 @@ function* fetchArbitrabletxs() {
             })
             arbitrableTransaction.arbitratorExtraData = arbitratorExtraData
 
-            arbitrableTransactions.push(arbitrableTransaction)
+            return arbitrableTransaction
           } catch (err) {
             console.error(err)
           }
         })
       )
     )
+    arbitrableTransactions.push(..._arbitrableTransactions.filter(t => t))
   }
 
   return arbitrableTransactions.reverse()
