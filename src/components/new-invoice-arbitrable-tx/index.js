@@ -171,8 +171,8 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
               className="FormNewInvoiceArbitrableTx-error FormNewInvoiceArbitrableTx-error-timeout"
             />
             <div className="FormNewInvoiceArbitrableTx-help FormNewInvoiceArbitrableTx-help-timeout">
-              After this timeout, the receiver can execute the arbitrable
-              payment.
+              If no disputes are raised before this deadline, the transaction
+              will be automatically processed.
             </div>
             <label
               htmlFor="amount"

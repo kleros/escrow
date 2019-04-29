@@ -191,8 +191,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               className="FormNewArbitrableTx-error FormNewArbitrableTx-error-timeout"
             />
             <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-timeout">
-              After this timeout, the receiver can execute the arbitrable
-              payment.
+              If no disputes are raised before this deadline, the transaction
+              will be automatically processed.
             </div>
             <label
               htmlFor="amount"
