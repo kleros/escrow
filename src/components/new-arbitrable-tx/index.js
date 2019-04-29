@@ -191,8 +191,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               className="FormNewArbitrableTx-error FormNewArbitrableTx-error-timeout"
             />
             <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-timeout">
-              If no disputes are raised before this deadline, the transaction
-              will be automatically processed.
+              If no disputes are raised before this deadline, the payment will
+              be automatically processed.
             </div>
             <label
               htmlFor="amount"
@@ -213,7 +213,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               ETH amount that will be sent to the escrow as payment for the
               receiver.
               <br />
-              Funds will stay in the escrow until the transaction is completed.
+              Funds will stay in the escrow until the payment is completed.
             </div>
             {/* hack Formik for file type */}
             {/* and store only the path on the file in the redux state */}

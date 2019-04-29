@@ -3,7 +3,7 @@ const templates = [
     value: 'cryptocurrency-transaction',
     label: 'Cryptocurrency Transaction',
     content:
-      '[Receiver] agrees to send [cryptoasset] to [Sender] before [due date].\n\nOnce [Receiver] receives [cryptoasset] they release funds to [Sender].'
+      "[Address] in [Blockchain] should receive [Cryptoasset Description] from the receiver before [Due Date (Note this is before and not the same as the payment's timeout.)]."
   }
 ]
 
