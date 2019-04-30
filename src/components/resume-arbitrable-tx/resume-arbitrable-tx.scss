@@ -36,8 +36,10 @@
       'contentTitle contentTitle contentTitle'
       'nameOtherParty nameCategory nameCategory'
       'contentOtherParty contentCategory contentCategory'
-      'nameTimeout nameAmount nameAmount'
-      'contentTimeout contentAmount contentAmount'
+      'nameTimeout nameTimeout nameTimeout'
+      'contentTimeout contentTimeout contentTimeout'
+      'nameAmount nameAmount nameAmount'
+      'amount amount amount'
       'nameFile nameFile nameFile'
       'contentFile contentFile contentFile'
       'nameDescription nameDescription nameAllDescription'
@@ -85,8 +87,10 @@
       grid-area: nameAmount;
     }
 
-    &-content-amount {
-      grid-area: contentAmount;
+    &-amount {
+      grid-area: amount;
+      width: 100%;
+      height: 280px;
     }
 
     &-name-file {

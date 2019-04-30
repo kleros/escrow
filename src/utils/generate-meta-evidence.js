@@ -30,7 +30,7 @@ export default ({
     [sender]: 'sender',
     [receiver]: 'receiver'
   },
-  evidenceDisplayInterfaceURI: '/ipfs/Qmbz8oKpSdxdN79EHwpUTfyKJf1cjddnePoD4w6kiw8n7g/index.html',
+  evidenceDisplayInterfaceURI: '/ipfs/QmefpKL4fmD84ZeAXaSJ7bHdkJiHVmydGTpAV6hk4ak57z/index.html',
   sender,
   receiver,
   amount,

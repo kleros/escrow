@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { ARBITRATOR_ADDRESS } from '../../bootstrap/dapp-api'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import Attachment from '../../components/attachment'
@@ -57,26 +58,23 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               </>
             )}
           </div>
-          {arbitrabletx.amount > 0 ? (
-            <>
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
-                Amount
-              </div>
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount">
-                {arbitrabletx.amount} ETH
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
-                Original Amount
-              </div>
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-amount">
-                {arbitrabletx.originalAmount} ETH
-              </div>
-            </>
-          )}
-
+          <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
+            Amount
+          </div>
+          {
+            <iframe
+              className="ResumeArbitrableTx-ContentNewArbitrableTx-amount"
+              frameBorder="0"
+              src={`https://ipfs.kleros.io/ipfs/QmUTZnMXfVdtDMyZTymvnJE1BmesJkpEdqTQoS2SEPkfyz/index.html?${encodeURIComponent(
+                JSON.stringify({
+                  arbitrableContractAddress: arbitrabletx.arbitrableAddress,
+                  arbitratorContractAddress: ARBITRATOR_ADDRESS,
+                  transactionID: arbitrabletx.id
+                })
+              )}`}
+              title="Amount Display"
+            />
+          }
           {arbitrabletx.file && (
             <>
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-file">
@@ -97,7 +95,6 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               </div>
             </>
           )}
-
           {arbitrabletx.description && (
             <>
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name-description">
