@@ -38,6 +38,7 @@
       'labelDescription templateDescription'
       'inputDescription inputDescription'
       'errorDescription helpDescription'
+      'errorTips helpTips'
       'submit submit';
 
     &-label-arbitrableAddresses {
@@ -70,6 +71,15 @@
 
     &-help-title {
       grid-area: helpTitle;
+    }
+
+    &-help-tips {
+      grid-area: helpTips;
+      margin-top: 7px;
+
+      &-tip {
+        margin-top: 3px;
+      }
     }
 
     &-label-receiver {

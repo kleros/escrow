@@ -276,7 +276,10 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                     name="templates"
                     options={templates}
                     styles={customStyles}
-                    onChange={e => form.setFieldValue('description', e.content)}
+                    onChange={e => {
+                      form.setFieldValue('description', e.content)
+                      form.setFieldValue('tips', e.tips)
+                    }}
                   />
                 )}
               />
@@ -296,6 +299,18 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
                 />
               )}
             />
+            {
+              values.tips && (
+                <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-tips">
+                  {values.tips.map(tip => (
+                      <div className="FormNewArbitrableTx-help-tips-tip">
+                        {tip}
+                      </div>
+                    )
+                  )}
+                </div>
+              )
+            }
             <ErrorMessage
               name="description"
               component="div"
