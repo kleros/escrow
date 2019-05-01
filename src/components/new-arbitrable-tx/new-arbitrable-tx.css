@@ -13,7 +13,7 @@
     padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'labelArbitrableAddresses labelArbitrableAddresses' 'inputArbitrableAddresses inputArbitrableAddresses' 'errorArbitrableAddresses helpArbitrableAddresses' 'labelTitle labelTitle' 'inputTitle inputTitle' 'errorTitle helpTitle' 'labelReceiver labelReceiver' 'inputReceiver inputReceiver' 'errorReceiver helpReceiver' 'labelTimeout labelTimeout' 'inputTimeout inputTimeout' 'errorTimeout helpTimeout' 'labelAmount labelAmount' 'inputAmount inputAmount' 'errorAmount helpAmount' 'labelFile labelFile' 'inputFile inputFile' 'errorFile helpFile' 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'submit submit'; }
+    grid-template-areas: 'labelArbitrableAddresses labelArbitrableAddresses' 'inputArbitrableAddresses inputArbitrableAddresses' 'errorArbitrableAddresses helpArbitrableAddresses' 'labelTitle labelTitle' 'inputTitle inputTitle' 'errorTitle helpTitle' 'labelReceiver labelReceiver' 'inputReceiver inputReceiver' 'errorReceiver helpReceiver' 'labelTimeout labelTimeout' 'inputTimeout inputTimeout' 'errorTimeout helpTimeout' 'labelAmount labelAmount' 'inputAmount inputAmount' 'errorAmount helpAmount' 'labelFile labelFile' 'inputFile inputFile' 'errorFile helpFile' 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'submit submit'; }
     .NewArbitrableTx .FormNewArbitrableTx-label-arbitrableAddresses {
       grid-area: labelArbitrableAddresses; }
     .NewArbitrableTx .FormNewArbitrableTx-input-arbitrableAddresses {
@@ -30,6 +30,11 @@
       grid-area: errorTitle; }
     .NewArbitrableTx .FormNewArbitrableTx-help-title {
       grid-area: helpTitle; }
+    .NewArbitrableTx .FormNewArbitrableTx-help-tips {
+      grid-area: helpTips;
+      margin-top: 7px; }
+      .NewArbitrableTx .FormNewArbitrableTx-help-tips-tip {
+        margin-top: 3px; }
     .NewArbitrableTx .FormNewArbitrableTx-label-receiver {
       grid-area: labelReceiver; }
     .NewArbitrableTx .FormNewArbitrableTx-input-receiver {
