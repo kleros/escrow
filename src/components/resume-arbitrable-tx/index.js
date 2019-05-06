@@ -61,7 +61,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
             Amount
           </div>
-          {
+          { arbitrabletx.id ? (
             <iframe
               className="ResumeArbitrableTx-ContentNewArbitrableTx-amount"
               frameBorder="0"
@@ -73,7 +73,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                 })
               )}`}
               title="Amount Display"
-            />
+            />) : arbitrabletx.amount
           }
           {arbitrabletx.file && (
             <>
