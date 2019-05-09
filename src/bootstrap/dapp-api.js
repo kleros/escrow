@@ -36,9 +36,8 @@ web3.eth.net.getId().then(networkID => {
 
 
   ARBITRABLE_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES`]
-  console.log(ARBITRABLE_ADDRESSES)
   ARBITRATOR_ADDRESS = _addresses[`${networkName}_ARBITRATOR_ADDRESS`]
-  console.log(1)
+
   arbitratorEth = new web3.eth.Contract(arbitrator.abi, ARBITRATOR_ADDRESS)
 })
 

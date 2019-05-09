@@ -234,11 +234,13 @@ function* fetchArbitrabletxs() {
         })
       )
     )
+
     arbitrableTransactions.push(..._arbitrableTransactions.filter(t => t))
   }
 
+  // Sort by lastInteraction. Most recently updated txs appear first
   return arbitrableTransactions.sort((a, b) => {
-    return a.id - b.id
+    return b.lastInteraction - a.lastInteraction
   })
 }
 
