@@ -9,7 +9,6 @@ import {
   ARBITRABLE_ADDRESSES
 } from '../bootstrap/dapp-api'
 
-console.log(ARBITRABLE_ADDRESSES)
 const templates = [
   {
     value: 'cryptocurrency-transaction',

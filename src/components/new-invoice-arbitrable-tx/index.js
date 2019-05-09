@@ -32,8 +32,8 @@ const customStyles = {
 }
 
 const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
-  const templates = []
-  
+  const templates = require('../../constants/templates').default
+
   requestAnimationFrame(() => {
     window.scrollTo(0, 0)
   })
@@ -42,18 +42,18 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
       <h1 className="NewInvoiceArbitrableTx-h1">New Invoice</h1>
       <Formik
         initialValues={{
-          arbitrableContractEnv: '',
+          arbitrableContractAddress: templates[0].address,
+          subCategory: templates[0].label,
           title: '',
           timeout: 0,
           amount: '',
           file: '',
-          description: ''
+          description: templates[0].description,
+          tips: templates[0].tips
         }}
         // eslint-disable-next-line react/jsx-no-bind
         validate={values => {
           const errors = {}
-          if (!values.arbitrableContractEnv)
-            errors.arbitrableContractEnv = 'Escrow Type Required.'
           if (!values.title) errors.title = 'Title Required.'
           if (values.title.length > 55)
             errors.title =
@@ -91,44 +91,6 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
           handleChange
         }) => (
           <Form className="FormNewInvoiceArbitrableTx">
-            <label
-              htmlFor="arbitrableContractEnv"
-              className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-arbitrableAddresses"
-            >
-              Escrow Type*
-            </label>
-            <div className="FormNewInvoiceArbitrableTx-template-arbitrableAddresses-wrapper">
-              <Field
-                render={({ form }) => (
-                  <Select
-                    className="FormNewInvoiceArbitrableTx-template-arbitrableAddresses-wrapper-content"
-                    classNamePrefix="select"
-                    isClearable={false}
-                    isSearchable={false}
-                    name="arbitrableContractEnv"
-                    options={[
-                      ...ARBITRABLE_ADDRESSES.map(contractEnv => ({
-                        value: contractEnv,
-                        label: contractEnv.type
-                      }))
-                    ]}
-                    styles={customStyles}
-                    placeholder="-- Select --"
-                    onChange={e =>
-                      form.setFieldValue('arbitrableContractEnv', e.value)
-                    }
-                  />
-                )}
-              />
-            </div>
-            <ErrorMessage
-              name="arbitrableContractEnv"
-              component="div"
-              className="FormNewInvoiceArbitrableTx-error FormNewInvoiceArbitrableTx-error-arbitrableAddresses"
-            />
-            <div className="FormNewInvoiceArbitrableTx-help FormNewInvoiceArbitrableTx-help-arbitrableAddresses">
-              Eg. Freelancing
-            </div>
             <label
               htmlFor="title"
               className="FormNewInvoiceArbitrableTx-label FormNewInvoiceArbitrableTx-label-title"
@@ -261,6 +223,8 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
                     onChange={e => {
                       form.setFieldValue('description', e.content)
                       form.setFieldValue('tips', e.tips)
+                      form.setFieldValue('arbitrableContractAddress', e.address)
+                      form.setFieldValue('subCategory', e.label)
                     }}
                   />
                 )}
