@@ -8,7 +8,7 @@ import { ClipLoader } from 'react-spinners'
 
 import { web3, ARBITRABLE_ADDRESSES } from '../../bootstrap/dapp-api'
 import Button from '../button'
-import templates from '../../constants/templates'
+// import templates from '../../constants/templates'
 
 import './new-arbitrable-tx.css'
 
@@ -32,6 +32,8 @@ const customStyles = {
 }
 
 const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
+  const templates = require('../../constants/templates').default
+
   requestAnimationFrame(() => {
     window.scrollTo(0, 0)
   })
@@ -40,19 +42,19 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
       <h1 className="NewArbitrableTx-h1">New Payment</h1>
       <Formik
         initialValues={{
-          arbitrableContractEnv: '',
+          arbitrableContractAddress: templates[0].address,
+          subCategory: templates[0].label,
           title: '',
           receiver: '',
           timeout: 0,
           amount: '',
           file: '',
-          description: ''
+          description: templates[0].content,
+          tips: templates[0].tips
         }}
         // eslint-disable-next-line react/jsx-no-bind
         validate={values => {
           const errors = {}
-          if (!values.arbitrableContractEnv)
-            errors.arbitrableContractEnv = 'Escrow Type Required.'
           if (!values.title) errors.title = 'Title Required.'
           if (values.title.length > 55)
             errors.title =
@@ -74,6 +76,9 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
           if (values.description.length > 1000000)
             errors.description =
               'The description is too long. The maximum length is 1,000,000 characters.'
+          if (values.description.length < 1)
+            errors.description =
+              'Description is required.'
           if (values.file.size > 5000000)
             errors.file = 'The file is too big. The maximum size is 5MB.'
           return errors
@@ -94,44 +99,6 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
           handleChange
         }) => (
           <Form className="FormNewArbitrableTx">
-            <label
-              htmlFor="arbitrableContractEnv"
-              className="FormNewArbitrableTx-label FormNewArbitrableTx-label-arbitrableAddresses"
-            >
-              Escrow Type*
-            </label>
-            <div className="FormNewArbitrableTx-template-arbitrableAddresses-wrapper">
-              <Field
-                render={({ form }) => (
-                  <Select
-                    className="FormNewArbitrableTx-template-arbitrableAddresses-wrapper-content"
-                    classNamePrefix="select"
-                    isClearable={false}
-                    isSearchable={false}
-                    name="arbitrableContractEnv"
-                    options={[
-                      ...ARBITRABLE_ADDRESSES.map(contractEnv => ({
-                        value: contractEnv,
-                        label: contractEnv.type
-                      }))
-                    ]}
-                    styles={customStyles}
-                    placeholder="-- Select --"
-                    onChange={e =>
-                      form.setFieldValue('arbitrableContractEnv', e.value)
-                    }
-                  />
-                )}
-              />
-            </div>
-            <ErrorMessage
-              name="arbitrableContractEnv"
-              component="div"
-              className="FormNewArbitrableTx-error FormNewArbitrableTx-error-arbitrableAddresses"
-            />
-            <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-arbitrableAddresses">
-              Eg. Freelancing
-            </div>
             <label
               htmlFor="title"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-title"
@@ -263,25 +230,29 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="description"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-description"
             >
-              Contract Description (optional)
+              Contract Description*
             </label>
             <div className="FormNewArbitrableTx-template-description-wrapper">
               <Field
                 render={({ form }) => (
-                  <Select
-                    className="FormNewArbitrableTx-template-description-wrapper-content"
-                    classNamePrefix="select"
-                    isClearable={false}
-                    isSearchable={true}
-                    name="templates"
-                    options={templates}
-                    styles={customStyles}
-                    onChange={e => {
-                      form.setFieldValue('description', e.content)
-                      form.setFieldValue('tips', e.tips)
-                    }}
-                  />
-                )}
+                    <Select
+                      className="FormNewArbitrableTx-template-description-wrapper-content"
+                      classNamePrefix="select"
+                      isClearable={false}
+                      isSearchable={true}
+                      name="templates"
+                      options={templates}
+                      defaultValue={templates[0]}
+                      styles={customStyles}
+                      onChange={e => {
+                        form.setFieldValue('description', e.content)
+                        form.setFieldValue('tips', e.tips)
+                        form.setFieldValue('arbitrableContractAddress', e.address)
+                        form.setFieldValue('subCategory', e.label)
+                      }}
+                    />
+                  )
+                }
               />
             </div>
             <Field

@@ -8,7 +8,7 @@ import { ClipLoader } from 'react-spinners'
 
 import { ARBITRABLE_ADDRESSES } from '../../bootstrap/dapp-api'
 import Button from '../button'
-import templates from '../../constants/templates'
+// import templates from '../../constants/templates'
 
 import './new-invoice-arbitrable-tx.css'
 
@@ -32,6 +32,8 @@ const customStyles = {
 }
 
 const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
+  const templates = []
+  
   requestAnimationFrame(() => {
     window.scrollTo(0, 0)
   })
