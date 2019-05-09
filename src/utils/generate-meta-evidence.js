@@ -20,6 +20,7 @@ export default ({
   fileHash,
   question: 'Which party abided by terms of the contract?',
   rulingOptions: {
+    type: 'single-select',
     titles: ['Refund Sender', 'Pay Receiver'],
     descriptions: [
       'Select to return funds to the Sender',

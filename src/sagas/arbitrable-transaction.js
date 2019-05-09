@@ -43,7 +43,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
-      arbitrableAddress: arbitrabletxForm.arbitrableContractEnv.address,
+      arbitrableAddress: arbitrabletxForm.arbitrableContractAddress,
       sender: accounts[0],
       receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
@@ -52,12 +52,12 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
       arbitrator: ARBITRATOR_ADDRESS,
-      subCategory: arbitrabletxForm.arbitrableContractEnv.type
+      subCategory: arbitrabletxForm.subCategory
     })
   } else {
     metaEvidence = createMetaEvidence({
-      arbitrableAddress: arbitrabletxForm.arbitrableContractEnv.address,
-      subCategory: arbitrabletxForm.arbitrableContractEnv.type,
+      arbitrableAddress: arbitrabletxForm.arbitrableContractAddress,
+      subCategory: arbitrabletxForm.subCategory,
       sender: accounts[0],
       receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
@@ -175,7 +175,7 @@ function* fetchArbitrabletxs() {
   for (let arbitrableContract of ARBITRABLE_ADDRESSES) {
     multipleArbitrableTransactionEth = new web3.eth.Contract(
       multipleArbitrableTransaction.abi,
-      arbitrableContract.address
+      arbitrableContract
     )
     const [arbitrableTransactionIds, arbitratorExtraData] = yield all([
       call(
@@ -195,13 +195,13 @@ function* fetchArbitrabletxs() {
                 .transactions(arbitrableTransactionId)
                 .call(),
               archon.arbitrable.getMetaEvidence(
-                arbitrableContract.address,
+                arbitrableContract,
                 arbitrableTransactionId // Use arbitrableTransactionId as metaEvidenceID
               )
             ])
 
             arbitrableTransaction.arbitrableAddress =
-              arbitrableContract.address ||
+              arbitrableContract ||
               '0x0000000000000000000000000000000000000000'
             arbitrableTransaction.metaEvidence =
               metaEvidence.metaEvidenceJSON || {}
@@ -234,10 +234,14 @@ function* fetchArbitrabletxs() {
         })
       )
     )
+
     arbitrableTransactions.push(..._arbitrableTransactions.filter(t => t))
   }
 
-  return arbitrableTransactions.reverse()
+  // Sort by lastInteraction. Most recently updated txs appear first
+  return arbitrableTransactions.sort((a, b) => {
+    return b.lastInteraction - a.lastInteraction
+  })
 }
 
 /**

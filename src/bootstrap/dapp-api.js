@@ -2,6 +2,8 @@ import Web3 from 'web3'
 import Archon from '@kleros/archon'
 import arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
+import * as _addresses from '../constants/addresses'
+
 const env = process.env.NODE_ENV === 'production' ? 'PROD' : 'DEV'
 const ETHEREUM_PROVIDER_URL =
   process.env[`REACT_APP_${env}_ETHEREUM_PROVIDER_URL`]
@@ -16,7 +18,7 @@ else if (window.web3 && window.web3.currentProvider)
   web3 = new Web3(window.web3.currentProvider)
 else web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER_URL))
 
-let ARBITRABLE_ADDRESSES
+let ARBITRABLE_ADDRESSES = []
 let ARBITRATOR_ADDRESS
 let arbitratorEth
 web3.eth.net.getId().then(networkID => {
@@ -32,16 +34,12 @@ web3.eth.net.getId().then(networkID => {
       break
   }
 
-  ARBITRABLE_ADDRESSES = [
-    {
-      address: process.env[`REACT_APP_${networkName}_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESS`],
-      type: 'General'
-    }
-  ]
-  ARBITRATOR_ADDRESS = process.env[`REACT_APP_${networkName}_ARBITRATOR_ADDRESS`]
+
+  ARBITRABLE_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES`]
+  ARBITRATOR_ADDRESS = _addresses[`${networkName}_ARBITRATOR_ADDRESS`]
+
   arbitratorEth = new web3.eth.Contract(arbitrator.abi, ARBITRATOR_ADDRESS)
 })
-
 
 const archon = new Archon(web3.currentProvider, 'https://ipfs.kleros.io')
 
