@@ -133,7 +133,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               className="FormNewArbitrableTx-error FormNewArbitrableTx-error-receiver"
             />
             <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-receiver">
-              Enter the ETH address of the counterparty to this agreement.
+              Enter the ETH address of the counterparty to this agreement. Make sure to use an address this party controls <span style={{fontWeight: 800}}>(Do not use an exchange address)</span>.
             </div>
             <label
               htmlFor="timeout"

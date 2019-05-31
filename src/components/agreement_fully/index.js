@@ -29,18 +29,11 @@ const AgreementFully = ({
   const setPercentByAmount = amount => {
     if (amount <= arbitrabletx.data.amount) {
       setAmount(amount)
-      setPercent((amount * 100) / arbitrabletx.data.amount)
+      setPercent((amount * 100) / arbitrabletx.data.originalAmount)
     } else {
       setAmount(arbitrabletx.data.amount)
-      setPercent(100)
+      setPercent((arbitrabletx.data.amount * 100) / arbitrabletx.data.originalAmount)
     }
-  }
-
-  const setAmountByPercent = percent => {
-    setPercent(percent)
-    setAmount(
-      1 * Number((percent / 100) * arbitrabletx.data.amount).toFixed(18)
-    )
   }
 
   return (
@@ -57,20 +50,11 @@ const AgreementFully = ({
           Waive Part of the Payment
         </h2>
         <p className="AgreementFully-modal-description">
-          Propose a settlement by giving a percentage of the payment to the
-          other party.
+          Propose a settlement by giving up part of the payment to the other party.
           <br />A dispute can still be raised over the remaining balance.
         </p>
-        <Slider
-          min={0}
-          max={100}
-          labels={{ 0: '0%', 100: '100%' }}
-          value={percent}
-          onChange={setAmountByPercent}
-        />
-        <p className="AgreementFully-modal-offer">
-          You are waiving{' '}
-          <span style={{ color: '#009aff' }}>{percent.toFixed(6)}%</span>.
+        <p className="AgreementFully-modal-description">
+          Current Payment Balance: {arbitrabletx.data.amount} ETH
         </p>
         <div className="AgreementFully-modal-buttons">
           <div className="AgreementFully-modal-buttons-pay-reimburse">
@@ -84,6 +68,10 @@ const AgreementFully = ({
               onChangeAmount={setPercentByAmount}
             />
           </div>
+          <p className="AgreementFully-modal-offer">
+            Remaining balance will be {' '}
+            <span style={{ color: '#009aff' }}>{(arbitrabletx.data.amount - amount).toFixed(2)} ETH</span>
+          </p>
         </div>
         <div className="divider" />
         <div style={{ textAlign: 'center' }}>
