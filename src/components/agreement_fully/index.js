@@ -26,13 +26,12 @@ const AgreementFully = ({
   const [open, setModal] = useState(false)
   const [percent, setPercent] = useState(0) // set Percent
   const [amount, setAmount] = useState(0) // set Percent
-  const setPercentByAmount = amount => {
+  const setAmountFromInput = amount => {
     if (amount <= arbitrabletx.data.amount) {
-      setAmount(amount)
-      setPercent((amount * 100) / arbitrabletx.data.originalAmount)
+      if (amount < 0) setAmount(0)
+      else setAmount(amount)
     } else {
       setAmount(arbitrabletx.data.amount)
-      setPercent((arbitrabletx.data.amount * 100) / arbitrabletx.data.originalAmount)
     }
   }
 
@@ -65,7 +64,7 @@ const AgreementFully = ({
               amount={amount}
               amountMax={arbitrabletx.data.amount}
               id={arbitrabletx.data.id}
-              onChangeAmount={setPercentByAmount}
+              onChangeAmount={setAmountFromInput}
             />
           </div>
           <p className="AgreementFully-modal-offer">
