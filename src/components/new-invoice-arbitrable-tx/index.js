@@ -110,7 +110,7 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
               Eg. Marketing Services Agreement with John
             </div>
             <div className="FormNewInvoiceArbitrableTx-help FormNewInvoiceArbitrableTx-help-receiver">
-              Enter the ETH address of the counterparty to this agreement.
+              Enter the ETH address of the counterparty to this agreement. Make sure to use an address this party controls (Do not use an exchange address).
             </div>
             <label
               htmlFor="timeout"
