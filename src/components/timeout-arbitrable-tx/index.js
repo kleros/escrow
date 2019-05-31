@@ -4,6 +4,7 @@ import Countdown from 'react-countdown-now'
 import { Formik, Form } from 'formik'
 import { ClipLoader } from 'react-spinners'
 
+import CountdownRenderer from '../countdown-renderer'
 import Button from '../button'
 
 const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
@@ -19,7 +20,10 @@ const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
         paddingBottom: '10px'
       }}
     >
-      <Countdown date={time} />
+      <Countdown
+        date={time}
+        renderer={CountdownRenderer}
+      />
     </div>
     <Formik onSubmit={() => timeout(arbitrable, id)}>
       {({ isSubmitting }) => (

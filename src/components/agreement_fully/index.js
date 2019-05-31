@@ -6,6 +6,7 @@ import Modal from 'react-responsive-modal'
 import Countdown from 'react-countdown-now'
 import { ClipLoader } from 'react-spinners'
 
+import CountdownRenderer from '../countdown-renderer'
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
 
 import Slider from 'react-rangeslider'
@@ -216,6 +217,7 @@ const AgreementFully = ({
                 arbitrabletx.data.lastInteraction * 1000 +
                 arbitrabletx.data.timeoutPayment * 1000
               }
+              renderer={CountdownRenderer}
             />
             .
           </>
@@ -235,6 +237,7 @@ const AgreementFully = ({
                 arbitrabletx.data.lastInteraction * 1000 +
                 arbitrabletx.data.timeoutPayment * 1000
               }
+              renderer={CountdownRenderer}
             />
             .
           </>
