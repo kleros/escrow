@@ -1,0 +1,23 @@
+.TokenSelectInput {
+  background: #009aff;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0.5em 0.8em;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  width: 90%;
+  margin-left: 15px;
+  cursor: pointer; }
+  .TokenSelectInput img {
+    display: inline-block;
+    height: 18px;
+    float: left; }
+  .TokenSelectInput .arrow {
+    display: inline-block;
+    float: right;
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg); }

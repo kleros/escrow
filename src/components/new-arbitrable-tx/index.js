@@ -8,7 +8,7 @@ import { ClipLoader } from 'react-spinners'
 
 import { web3 } from '../../bootstrap/dapp-api'
 import Button from '../button'
-// import templates from '../../constants/templates'
+import TokenSelectInput from '../token-select-input'
 
 import './new-arbitrable-tx.css'
 
@@ -31,7 +31,7 @@ const customStyles = {
   }
 }
 
-const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
+const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
   const templates = require('../../constants/templates').default
 
   requestAnimationFrame(() => {
@@ -165,20 +165,22 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance }) => {
               htmlFor="amount"
               className="FormNewArbitrableTx-label FormNewArbitrableTx-label-amount"
             >
-              Amount (ETH)*
+              Amount*
             </label>
             <Field
               name="amount"
               className="FormNewArbitrableTx-input FormNewArbitrableTx-input-amount"
             />
+          <div className="FormNewArbitrableTx-amount-select">
+            <TokenSelectInput tokens={tokens}/>
+          </div>
             <ErrorMessage
               name="amount"
               component="div"
               className="FormNewArbitrableTx-error FormNewArbitrableTx-error-amount"
             />
             <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-amount">
-              ETH amount that will be sent to the escrow as payment for the
-              receiver.
+              Amount of the asset that will be held in escrow.
               <br />
               Funds will stay in the escrow until the payment is completed.
             </div>

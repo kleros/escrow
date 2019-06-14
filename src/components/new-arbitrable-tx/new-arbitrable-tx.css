@@ -13,7 +13,7 @@
     padding: 1.3em 0 1em 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'labelArbitrableAddresses labelArbitrableAddresses' 'inputArbitrableAddresses inputArbitrableAddresses' 'errorArbitrableAddresses helpArbitrableAddresses' 'labelTitle labelTitle' 'inputTitle inputTitle' 'errorTitle helpTitle' 'labelReceiver labelReceiver' 'inputReceiver inputReceiver' 'errorReceiver helpReceiver' 'labelTimeout labelTimeout' 'inputTimeout inputTimeout' 'errorTimeout helpTimeout' 'labelAmount labelAmount' 'inputAmount inputAmount' 'errorAmount helpAmount' 'labelFile labelFile' 'inputFile inputFile' 'errorFile helpFile' 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'submit submit'; }
+    grid-template-areas: 'labelArbitrableAddresses labelArbitrableAddresses' 'inputArbitrableAddresses inputArbitrableAddresses' 'errorArbitrableAddresses helpArbitrableAddresses' 'labelTitle labelTitle' 'inputTitle inputTitle' 'errorTitle helpTitle' 'labelReceiver labelReceiver' 'inputReceiver inputReceiver' 'errorReceiver helpReceiver' 'labelTimeout labelTimeout' 'inputTimeout inputTimeout' 'errorTimeout helpTimeout' 'labelAmount labelAmount' 'inputAmount amountSelect' 'errorAmount helpAmount' 'labelFile labelFile' 'inputFile inputFile' 'errorFile helpFile' 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'submit submit'; }
     .NewArbitrableTx .FormNewArbitrableTx-label-arbitrableAddresses {
       grid-area: labelArbitrableAddresses; }
     .NewArbitrableTx .FormNewArbitrableTx-input-arbitrableAddresses {
@@ -55,6 +55,9 @@
       grid-area: labelAmount; }
     .NewArbitrableTx .FormNewArbitrableTx-input-amount {
       grid-area: inputAmount; }
+    .NewArbitrableTx .FormNewArbitrableTx-amount-select {
+      grid-area: amountSelect;
+      padding: 0; }
     .NewArbitrableTx .FormNewArbitrableTx-error-amount {
       grid-area: errorAmount; }
     .NewArbitrableTx .FormNewArbitrableTx-help-amount {

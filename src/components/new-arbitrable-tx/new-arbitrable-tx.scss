@@ -30,7 +30,7 @@
       'inputTimeout inputTimeout'
       'errorTimeout helpTimeout'
       'labelAmount labelAmount'
-      'inputAmount inputAmount'
+      'inputAmount amountSelect'
       'errorAmount helpAmount'
       'labelFile labelFile'
       'inputFile inputFile'
@@ -120,6 +120,11 @@
 
     &-input-amount {
       grid-area: inputAmount;
+    }
+
+    &-amount-select {
+      grid-area: amountSelect;
+      padding: 0;
     }
 
     &-error-amount {
