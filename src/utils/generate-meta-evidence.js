@@ -23,7 +23,8 @@ export default ({
   fileHash,
   amount,
   timeout,
-  subCategory
+  subCategory,
+  token,
 }) => ({
   ...{
     subCategory,
@@ -41,5 +42,5 @@ export default ({
   aliases: {
     [sender]: 'sender',
     [receiver]: 'receiver'
-  },
+  }
 })

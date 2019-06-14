@@ -6,6 +6,7 @@ import Modal from 'react-responsive-modal'
 
 import TokenSelectorBox from '../token-selector-box'
 import ethSymbol from '../../assets/eth.png'
+import warningSymbol from '../../assets/warning.png'
 
 import './token-select-input.css'
 
@@ -17,17 +18,22 @@ const eth = {
 }
 
 const TokenSelectInput = ({ tokens }) => {
-  if (!tokens) return null
-
   // Add ETH as the first option
-  if (tokens[0].name !== eth.name)
+  if (!tokens) tokens = []
+  if (!tokens[0] || tokens[0].name !== eth.name)
     tokens.unshift(eth)
 
   const [open, setModal] = useState(false)
   const [tokenIndex, setIndex] = useState(0)
 
-  const updateSelectedToken = (tokenIndex) => {
-    setIndex(tokenIndex)
+  const updateSelectedToken = (tokenIndex, newToken) => {
+    if (tokenIndex !== undefined)
+      setIndex(tokenIndex)
+
+    if (newToken) {
+      tokens.push(newToken)
+      setIndex(tokens.length - 1)
+    }
 
     setModal(!open)
   }
@@ -55,7 +61,7 @@ const TokenSelectInput = ({ tokens }) => {
               className='TokenSelectInput'
               onClick={() => setModal(!open)}
             >
-              <img src={tokens[tokenIndex].symbolURI} />
+              <img src={tokens[tokenIndex].symbolURI ? tokens[tokenIndex].symbolURI : warningSymbol} />
               {tokens[tokenIndex].ticker}
               <div className='arrow' />
             </div>

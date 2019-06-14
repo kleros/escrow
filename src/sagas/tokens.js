@@ -1,11 +1,11 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
+import Web3 from 'web3'
 import { navigate } from '@reach/router'
 import ArbitrableTokenList from '@kleros/kleros-interaction/build/contracts/ArbitrableTokenList.json'
 import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
 
 import * as tokensSelectors from '../reducers/tokens'
 import * as tokensActions from '../actions/tokens'
-import { web3 } from '../bootstrap/dapp-api'
 import { lessduxSaga } from '../utils/saga'
 import * as errorConstants from '../constants/error'
 
@@ -15,6 +15,9 @@ import * as errorConstants from '../constants/error'
  */
 export function* fetchTokens() {
   if (window.ethereum) yield call(window.ethereum.enable)
+
+  // Always use MainNet contracts
+  const web3 = new Web3(process.env.REACT_APP_PROD_ETHEREUM_PROVIDER_URL)
 
   const arbitrableTokenListInstance = new web3.eth.Contract(
     ArbitrableTokenList.abi,
