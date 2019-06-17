@@ -8,7 +8,6 @@ export default ({
   fileHash,
   amount,
   timeout,
-  arbitrator,
   subCategory
 }) => ({
   category: 'Escrow',
@@ -35,6 +34,5 @@ export default ({
   sender,
   receiver,
   amount,
-  timeout,
-  arbitrator
+  timeout
 })

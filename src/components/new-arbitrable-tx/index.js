@@ -6,7 +6,7 @@ import Select from 'react-select'
 import Textarea from 'react-textarea-autosize'
 import { ClipLoader } from 'react-spinners'
 
-import { web3, ARBITRABLE_ADDRESSES } from '../../bootstrap/dapp-api'
+import { web3 } from '../../bootstrap/dapp-api'
 import Button from '../button'
 // import templates from '../../constants/templates'
 

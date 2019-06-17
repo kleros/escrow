@@ -7,7 +7,7 @@ import { PulseLoader } from 'react-spinners'
 import * as walletSelectors from '../reducers/wallet'
 import * as walletActions from '../actions/wallet'
 import RequiresMetaMaskPage from '../containers/requires-meta-mask-page'
-import { ARBITRATOR_ADDRESS } from './dapp-api'
+import { ARBITRABLE_ADDRESSES } from './dapp-api'
 
 import { web3 } from './dapp-api'
 
@@ -33,7 +33,7 @@ class Initializer extends PureComponent {
 
   render() {
     const { accounts, children } = this.props
-    if (!ARBITRATOR_ADDRESS) return null // only render page once contract addresses have loaded
+    if (!ARBITRABLE_ADDRESSES[0]) return null // only render page once contract addresses have loaded
     return (
       <RenderIf
         resource={accounts}

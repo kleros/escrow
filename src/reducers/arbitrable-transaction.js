@@ -8,7 +8,6 @@ const arbitrabletxFormShape = PropTypes.shape({
   title: PropTypes.string,
   description: PropTypes.string,
   file: PropTypes.string,
-  arbitrator: PropTypes.string,
   sender: PropTypes.string,
   email: PropTypes.string,
   timeout: PropTypes.Number
@@ -16,7 +15,6 @@ const arbitrabletxFormShape = PropTypes.shape({
 
 export const _arbitrabletxShape = PropTypes.shape({
   address: PropTypes.string,
-  arbitrator: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
   disputeId: PropTypes.string,

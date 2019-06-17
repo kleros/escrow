@@ -1,13 +1,12 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
+import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 import {
   web3,
   archon,
-  arbitratorEth,
-  ARBITRABLE_ADDRESSES,
-  ARBITRATOR_ADDRESS
+  ARBITRABLE_ADDRESSES
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import * as errorConstants from '../constants/error'
@@ -51,7 +50,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
-      arbitrator: ARBITRATOR_ADDRESS,
       subCategory: arbitrabletxForm.subCategory
     })
   } else {
@@ -64,7 +62,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
-      arbitrator: ARBITRATOR_ADDRESS
     })
   }
 
@@ -103,6 +100,10 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
     ...Object.entries(metaEvidenceDecoded.aliases).map(([a, b]) => ({ [b]: a }))
   )
 
+  if (
+    ARBITRABLE_ADDRESSES.indexOf(metaEvidenceDecoded.arbitrableAddress) === -1
+  ) throw new Error('SECURITY ERROR: Arbitrable Contract is not a Kleros contract')
+
   return yield put(
     action(arbitrabletxActions.arbitrabletx.RESUMEFORM, {
       arbitrabletxResumeForm: {
@@ -118,7 +119,6 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         file: metaEvidenceDecoded.fileURI
           ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
           : null,
-        arbitrator: metaEvidenceDecoded.arbitrator,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
       }
     })
@@ -263,6 +263,15 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     arbitrable
   )
 
+  const arbitratorAddress = yield call(
+    multipleArbitrableTransactionEth.methods.arbitrator().call
+  )
+
+  const arbitratorEth = new web3.eth.Contract(
+    Arbitrator.abi,
+    arbitratorAddress
+  )
+
   const arbitratorExtraData = yield call(
     multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
   )
@@ -285,6 +294,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
   )
 
+  arbitrableTransaction.arbitratorAddress = arbitratorAddress
   arbitrableTransaction.id = id
   arbitrableTransaction.evidences = null
   arbitrableTransaction.amount = web3.utils.fromWei(
@@ -308,7 +318,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     const metaEvidenceArchonEvidences = yield call(
       archon.arbitrable.getEvidence,
       arbitrable,
-      ARBITRATOR_ADDRESS,
+      arbitratorAddress,
       id
     )
 
@@ -424,6 +434,15 @@ function* createDispute({ payload: { arbitrable, id } }) {
     arbitrable
   )
 
+  const arbitratorAddress = yield call(
+    multipleArbitrableTransactionEth.methods.arbitrator().call
+  )
+
+  const arbitratorEth = new web3.eth.Contract(
+    Arbitrator.abi,
+    arbitratorAddress
+  )
+
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
   )
@@ -470,6 +489,15 @@ function* createAppeal({ payload: { arbitrable, id } }) {
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
     multipleArbitrableTransaction.abi,
     arbitrable
+  )
+
+  const arbitratorAddress = yield call(
+    multipleArbitrableTransactionEth.methods.arbitrator().call
+  )
+
+  const arbitratorEth = new web3.eth.Contract(
+    Arbitrator.abi,
+    arbitratorAddress
   )
 
   const arbitrableTransaction = yield call(

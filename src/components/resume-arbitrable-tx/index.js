@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 
-import { ARBITRATOR_ADDRESS } from '../../bootstrap/dapp-api'
 import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import Attachment from '../../components/attachment'
 import { ReactComponent as Arrow } from '../../assets/arrow.svg'
-import { shortAddress } from '../../utils/short-address'
 
 import './resume-arbitrable-tx.css'
 
@@ -68,7 +66,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               src={`https://ipfs.kleros.io/ipfs/QmUTZnMXfVdtDMyZTymvnJE1BmesJkpEdqTQoS2SEPkfyz/index.html?${encodeURIComponent(
                 JSON.stringify({
                   arbitrableContractAddress: arbitrabletx.arbitrableAddress,
-                  arbitratorContractAddress: ARBITRATOR_ADDRESS,
+                  arbitratorContractAddress: arbitrabletx.arbitratorAddress,
                   transactionID: arbitrabletx.id
                 })
               )}`}
