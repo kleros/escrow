@@ -1,6 +1,5 @@
 import Web3 from 'web3'
 import Archon from '@kleros/archon'
-import arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 import * as _addresses from '../constants/addresses'
 
@@ -19,8 +18,6 @@ else if (window.web3 && window.web3.currentProvider)
 else web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER_URL))
 
 let ARBITRABLE_ADDRESSES = []
-let ARBITRATOR_ADDRESS
-let arbitratorEth
 web3.eth.net.getId().then(networkID => {
   let networkName
   switch (networkID) {
@@ -36,9 +33,6 @@ web3.eth.net.getId().then(networkID => {
 
 
   ARBITRABLE_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES`]
-  ARBITRATOR_ADDRESS = _addresses[`${networkName}_ARBITRATOR_ADDRESS`]
-
-  arbitratorEth = new web3.eth.Contract(arbitrator.abi, ARBITRATOR_ADDRESS)
 })
 
 const archon = new Archon(web3.currentProvider, 'https://ipfs.kleros.io')
@@ -48,12 +42,10 @@ const ETHAddressRegExp = /0x[a-fA-F0-9]{40}/
 const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
 
 export {
-  ARBITRATOR_ADDRESS,
   ARBITRABLE_ADDRESSES,
   PATCH_USER_SETTINGS_URL,
   web3,
   archon,
-  arbitratorEth,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp

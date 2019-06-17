@@ -9,10 +9,6 @@ import { ClipLoader } from 'react-spinners'
 import CountdownRenderer from '../countdown-renderer'
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
 
-import Slider from 'react-rangeslider'
-
-import 'react-rangeslider/lib/index.css'
-
 import './agreement-fully.css'
 
 const AgreementFully = ({
@@ -24,7 +20,6 @@ const AgreementFully = ({
   accounts
 }) => {
   const [open, setModal] = useState(false)
-  const [percent, setPercent] = useState(0) // set Percent
   const [amount, setAmount] = useState(0) // set Percent
   const setAmountFromInput = amount => {
     if (amount <= arbitrabletx.data.amount) {

@@ -11,7 +11,6 @@ import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
 import Notifications from '../containers/settings'
 import { ReactComponent as Kleros } from '../assets/kleros.svg'
-import { ReactComponent as Invoice } from '../assets/invoice.svg'
 import { ReactComponent as Transaction } from '../assets/transaction.svg'
 import { ReactComponent as Envelope } from '../assets/envelope.svg'
 
