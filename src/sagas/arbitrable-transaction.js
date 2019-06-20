@@ -16,6 +16,7 @@ import { lessduxSaga } from '../utils/saga'
 import readFile from '../utils/read-file'
 import createMetaEvidence from '../utils/generate-meta-evidence'
 import getStatusArbitrable from '../utils/get-status-arbitrable'
+import validateMetaEvidence from '../utils/validate-meta-evidence'
 
 import getMetaEvidence from './api/get-meta-evidence'
 import ipfsPublish from './api/ipfs-publish'
@@ -100,9 +101,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
     ...Object.entries(metaEvidenceDecoded.aliases).map(([a, b]) => ({ [b]: a }))
   )
 
-  if (
-    ARBITRABLE_ADDRESSES.indexOf(metaEvidenceDecoded.arbitrableAddress) === -1
-  ) throw new Error('SECURITY ERROR: Arbitrable Contract is not a Kleros contract')
+  if (!validateMetaEvidence(metaEvidenceDecoded))
+    throw new Error('SECURITY ERROR: MetaEvidence generated outside of Kleros')
 
   return yield put(
     action(arbitrabletxActions.arbitrabletx.RESUMEFORM, {
