@@ -2,6 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
+import Web3 from 'web3'
 
 import {
   web3,
@@ -9,6 +10,7 @@ import {
   ARBITRABLE_ADDRESSES
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
+import ERC20 from '../assets/abi/erc20.json'
 import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
 import { action } from '../utils/action'
@@ -31,6 +33,19 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let metaEvidence = null
+  const _web3Mainnet = new Web3(process.env.REACT_APP_PROD_ETHEREUM_PROVIDER_URL)
+
+  if (arbitrabletxForm.token.address && !arbitrabletxForm.token.decimals) {
+    try {
+      // Tokens are from MainNet
+      const erc20 = new _web3Mainnet.eth.Contract(
+        ERC20.abi,
+        arbitrabletxForm.token.address
+      )
+      // Fetch Decimals from Contract
+      arbitrabletxForm.token.decimals = yield call(erc20.methods.decimals().call)
+    } catch (err) {}
+  }
 
   if (arbitrabletxForm.file) {
     const data = yield call(readFile, arbitrabletxForm.file.dataURL)
@@ -51,7 +66,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
-      subCategory: arbitrabletxForm.subCategory
+      subCategory: arbitrabletxForm.subCategory,
+      token: arbitrabletxForm.token
     })
   } else {
     metaEvidence = createMetaEvidence({
@@ -63,6 +79,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
+      token: arbitrabletxForm.token
     })
   }
 
@@ -115,6 +132,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         otherParty: 'Receiver',
         otherPartyAddress: parties['receiver'],
         amount: metaEvidenceDecoded.amount,
+        token: metaEvidenceDecoded.token,
         timeout: metaEvidenceDecoded.timeout,
         file: metaEvidenceDecoded.fileURI
           ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`

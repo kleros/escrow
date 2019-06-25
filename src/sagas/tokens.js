@@ -1,6 +1,5 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { call, takeLatest } from 'redux-saga/effects'
 import Web3 from 'web3'
-import { navigate } from '@reach/router'
 import ArbitrableTokenList from '@kleros/kleros-interaction/build/contracts/ArbitrableTokenList.json'
 import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
 

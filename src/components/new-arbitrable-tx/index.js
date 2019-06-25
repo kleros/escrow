@@ -9,6 +9,7 @@ import { ClipLoader } from 'react-spinners'
 import { web3 } from '../../bootstrap/dapp-api'
 import Button from '../button'
 import TokenSelectInput from '../token-select-input'
+import ETH from '../../constants/eth'
 
 import './new-arbitrable-tx.css'
 
@@ -50,7 +51,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
           amount: '',
           file: '',
           description: templates[0].content,
-          tips: templates[0].tips
+          tips: templates[0].tips,
+          token: ETH
         }}
         // eslint-disable-next-line react/jsx-no-bind
         validate={values => {
@@ -70,9 +72,6 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
           if (!values.amount) errors.amount = 'Amount Required.'
           if (values.amount <= 0) errors.amount = 'Amount must be more than 0.'
           if (isNaN(values.amount)) errors.amount = 'Number Required.'
-          if (values.amount > balance.data)
-            errors.amount =
-              'Amount must be equal to or lower than your ETH balance.'
           if (values.description.length > 1000000)
             errors.description =
               'The description is too long. The maximum length is 1,000,000 characters.'
@@ -172,7 +171,11 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
               className="FormNewArbitrableTx-input FormNewArbitrableTx-input-amount"
             />
           <div className="FormNewArbitrableTx-amount-select">
-            <TokenSelectInput tokens={tokens}/>
+            <TokenSelectInput tokens={tokens} onSubmit={(token) => {
+                console.log(token)
+                setFieldValue('token', token)
+                console.log(values)
+              }} />
           </div>
             <ErrorMessage
               name="amount"

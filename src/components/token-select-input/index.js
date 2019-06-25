@@ -5,35 +5,31 @@ import Select from 'react-select'
 import Modal from 'react-responsive-modal'
 
 import TokenSelectorBox from '../token-selector-box'
-import ethSymbol from '../../assets/eth.png'
 import warningSymbol from '../../assets/warning.png'
+import ETH from '../../constants/eth'
 
 import './token-select-input.css'
 
-const eth = {
-  name: 'Ethereum',
-  ticker: 'ETH',
-  symbolURI: ethSymbol,
-  address: null
-}
-
-const TokenSelectInput = ({ tokens }) => {
+const TokenSelectInput = ({ tokens, onSubmit }) => {
   // Add ETH as the first option
   if (!tokens) tokens = []
-  if (!tokens[0] || tokens[0].name !== eth.name)
-    tokens.unshift(eth)
+  if (!tokens[0] || tokens[0].name !== ETH.name)
+    tokens.unshift(ETH)
 
   const [open, setModal] = useState(false)
   const [tokenIndex, setIndex] = useState(0)
 
   const updateSelectedToken = (tokenIndex, newToken) => {
-    if (tokenIndex !== undefined)
+    if (tokenIndex !== undefined) {
       setIndex(tokenIndex)
+    }
 
     if (newToken) {
       tokens.push(newToken)
       setIndex(tokens.length - 1)
     }
+
+    onSubmit(tokens[tokenIndex])
 
     setModal(!open)
   }
@@ -41,7 +37,7 @@ const TokenSelectInput = ({ tokens }) => {
   return (
     <Field
       name="token"
-      render={({ form }) => (
+      render={() => (
           <div>
             <Modal
               open={open}

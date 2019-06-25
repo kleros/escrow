@@ -71,7 +71,12 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                 })
               )}`}
               title="Amount Display"
-            />) : arbitrabletx.amount
+            />) : `${arbitrabletx.amount} ${arbitrabletx.token ? arbitrabletx.token.ticker : ''}`
+          }
+          {
+            !arbitrabletx.token.decimals ? (
+              <div>WARNING: We were not able to determine the decimals of this token. It is being assumed at 18, the amount of decimals in ETH. If this is incorrect, please re-create this transaction using a Custom Token with the correct decimal value.</div>
+            ) : ''
           }
           {arbitrabletx.file && (
             <>
