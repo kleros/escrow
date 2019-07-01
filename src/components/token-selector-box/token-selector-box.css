@@ -61,14 +61,16 @@
     cursor: pointer;
     border-top: 1px solid #D09CFF;
     height: 50px; }
-    .TokenSelectorBox .token-select .token-option img {
+    .TokenSelectorBox .token-select .token-option .tokenImg {
       display: inline-block;
-      float: left;
       padding-left: 25px;
-      height: 30px;
-      margin-top: 10px; }
+      width: 10%;
+      float: left; }
+      .TokenSelectorBox .token-select .token-option .tokenImg img {
+        height: 30px;
+        margin-top: 10px; }
     .TokenSelectorBox .token-select .token-option .name {
-      float: middle;
+      text-align: left;
       display: inline-block;
       padding: 15px 10px; }
     .TokenSelectorBox .token-select .token-option .ticker {

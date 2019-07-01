@@ -1,0 +1,41 @@
+.inputArea {
+  border: 1px solid #D09CFF;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: 100%;
+
+  &-header {
+    background: #F2E3FF;
+    height: 50px;
+
+    &-title {
+      float: left;
+      font-size: 18px;
+      font-weight: 500;
+      color: #4D00B4;
+      padding: 18px 55px 14px 55px;
+    }
+
+    &-button {
+      cursor: pointer;
+      float: right;
+      padding: 0px 0px 14px 55px;
+    }
+
+    &-up {
+      background:url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIRnC2nKLnT4or00Puy3rx7VQAAOw==) no-repeat center right;
+      margin-right: 55px;
+      margin-top: 20px;
+    }
+
+    &-down {
+      background:url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=) no-repeat center right;
+      margin-right: 55px;
+      margin-top: 12px;
+    }
+  }
+
+  &-body {
+    padding: 25px 55px;
+  }
+}

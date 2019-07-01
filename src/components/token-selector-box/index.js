@@ -42,7 +42,9 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit }) => {
             <div className="tokens-container">
               { filteredTokens.map((token, i) => (
                 <div className={`token-option ${tokens[selectedIndex].ticker === token.ticker ? 'selected' : ''}`} onClick={() => changeSelection(token.ticker)}>
-                  <img src={token.symbolURI ? token.symbolURI : warningSymbol} />
+                  <div className="tokenImg">
+                    <img src={token.symbolURI ? token.symbolURI : warningSymbol} />
+                  </div>
                   <div className="name">
                     {token.name}
                   </div>

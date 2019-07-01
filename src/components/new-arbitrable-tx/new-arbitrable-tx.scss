@@ -14,32 +14,31 @@
 
   .FormNewArbitrableTx {
     padding: 1.3em 0 1em 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'labelArbitrableAddresses labelArbitrableAddresses'
-      'inputArbitrableAddresses inputArbitrableAddresses'
-      'errorArbitrableAddresses helpArbitrableAddresses'
-      'labelTitle labelTitle'
-      'inputTitle inputTitle'
-      'errorTitle helpTitle'
-      'labelReceiver labelReceiver'
-      'inputReceiver inputReceiver'
-      'errorReceiver helpReceiver'
-      'labelTimeout labelTimeout'
-      'inputTimeout inputTimeout'
-      'errorTimeout helpTimeout'
-      'labelAmount labelAmount'
-      'inputAmount amountSelect'
-      'errorAmount helpAmount'
-      'labelFile labelFile'
-      'inputFile inputFile'
-      'errorFile helpFile'
-      'labelDescription templateDescription'
-      'inputDescription inputDescription'
-      'errorDescription helpDescription'
-      'errorTips helpTips'
-      'submit submit';
+
+    .FormNewArbitrableTx-PaymentDetails {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        'templateDescription templateDescription'
+        'labelArbitrableAddresses labelArbitrableAddresses'
+        'inputArbitrableAddresses inputArbitrableAddresses'
+        'errorArbitrableAddresses helpArbitrableAddresses'
+        'labelTitle labelTitle'
+        'inputTitle inputTitle'
+        'errorTitle helpTitle'
+        'labelReceiver labelReceiver'
+        'inputReceiver inputReceiver'
+        'errorReceiver helpReceiver'
+        'labelAmount labelAmount'
+        'inputAmount amountSelect'
+        'errorAmount helpAmount'
+        'labelTimeout labelTimeout'
+        'inputTimeout inputTimeout'
+        'errorTimeout helpTimeout'
+        'labelFile labelFile'
+        'inputFile inputFile'
+        'errorFile helpFile';
+    }
 
     &-label-arbitrableAddresses {
       grid-area: labelArbitrableAddresses;
@@ -158,13 +157,14 @@
 
     &-template-description-wrapper {
       grid-area: templateDescription;
-      text-align: right;
+      text-align: left;
       &-content {
         color: #4004a3;
         display: inline-block;
         width: 50%;
         text-align: left;
       }
+      margin-bottom: 25px;
     }
 
     &-template-arbitrableAddresses-wrapper {
@@ -225,6 +225,21 @@
       font-size: 12px;
       text-align: right;
     }
+  }
+
+  .FormNewArbitrableTx-Bottom {
+    background: #F2E3FF;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    'labelDescription templateDescription'
+    'inputDescription inputDescription'
+    'errorDescription helpDescription'
+    'errorTips helpTips'
+    'submit submit';
+    margin-top: 55px;
+    margin: 55px -80px -55px -80px;
+    padding: 43px 80px 43px 80px;
 
     &-textarea {
       font-size: 14px;
@@ -242,6 +257,16 @@
       grid-area: submit;
       padding-top: 2em;
       text-align: right;
+
+      button {
+        padding: 0 50px;
+      }
+    }
+
+    &-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #4D00B4;
     }
   }
 }
@@ -319,9 +344,6 @@ span.error {
       display: none;
     }
     &-help-file {
-      display: none;
-    }
-    &-template-description-wrapper {
       display: none;
     }
     &-submit {

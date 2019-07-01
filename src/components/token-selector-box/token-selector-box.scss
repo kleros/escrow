@@ -92,16 +92,20 @@
 
       height: 50px;
 
-      img {
+      .tokenImg {
         display: inline-block;
-        float: left;
         padding-left: 25px;
-        height: 30px;
-        margin-top: 10px;
+        width: 10%;
+        float: left;
+        img {
+
+          height: 30px;
+          margin-top: 10px;
+        }
       }
 
       .name {
-        float: middle;
+        text-align: left;
         display: inline-block;
         padding: 15px 10px;
       }
@@ -197,7 +201,7 @@
 
     .disabled {
       background: grey;
-      cursor: not-allowed; 
+      cursor: not-allowed;
     }
   }
 }

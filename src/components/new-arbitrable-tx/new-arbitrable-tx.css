@@ -10,10 +10,11 @@
     padding-bottom: 22px;
     margin-bottom: 22px; }
   .NewArbitrableTx .FormNewArbitrableTx {
-    padding: 1.3em 0 1em 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'labelArbitrableAddresses labelArbitrableAddresses' 'inputArbitrableAddresses inputArbitrableAddresses' 'errorArbitrableAddresses helpArbitrableAddresses' 'labelTitle labelTitle' 'inputTitle inputTitle' 'errorTitle helpTitle' 'labelReceiver labelReceiver' 'inputReceiver inputReceiver' 'errorReceiver helpReceiver' 'labelTimeout labelTimeout' 'inputTimeout inputTimeout' 'errorTimeout helpTimeout' 'labelAmount labelAmount' 'inputAmount amountSelect' 'errorAmount helpAmount' 'labelFile labelFile' 'inputFile inputFile' 'errorFile helpFile' 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'submit submit'; }
+    padding: 1.3em 0 1em 0; }
+    .NewArbitrableTx .FormNewArbitrableTx .FormNewArbitrableTx-PaymentDetails {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'templateDescription templateDescription' 'labelArbitrableAddresses labelArbitrableAddresses' 'inputArbitrableAddresses inputArbitrableAddresses' 'errorArbitrableAddresses helpArbitrableAddresses' 'labelTitle labelTitle' 'inputTitle inputTitle' 'errorTitle helpTitle' 'labelReceiver labelReceiver' 'inputReceiver inputReceiver' 'errorReceiver helpReceiver' 'labelAmount labelAmount' 'inputAmount amountSelect' 'errorAmount helpAmount' 'labelTimeout labelTimeout' 'inputTimeout inputTimeout' 'errorTimeout helpTimeout' 'labelFile labelFile' 'inputFile inputFile' 'errorFile helpFile'; }
     .NewArbitrableTx .FormNewArbitrableTx-label-arbitrableAddresses {
       grid-area: labelArbitrableAddresses; }
     .NewArbitrableTx .FormNewArbitrableTx-input-arbitrableAddresses {
@@ -75,7 +76,8 @@
       grid-area: labelDescription; }
     .NewArbitrableTx .FormNewArbitrableTx-template-description-wrapper {
       grid-area: templateDescription;
-      text-align: right; }
+      text-align: left;
+      margin-bottom: 25px; }
       .NewArbitrableTx .FormNewArbitrableTx-template-description-wrapper-content {
         color: #4004a3;
         display: inline-block;
@@ -121,7 +123,15 @@
       font-style: italic;
       font-size: 12px;
       text-align: right; }
-    .NewArbitrableTx .FormNewArbitrableTx-textarea {
+  .NewArbitrableTx .FormNewArbitrableTx-Bottom {
+    background: #F2E3FF;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'submit submit';
+    margin-top: 55px;
+    margin: 55px -80px -55px -80px;
+    padding: 43px 80px 43px 80px; }
+    .NewArbitrableTx .FormNewArbitrableTx-Bottom-textarea {
       font-size: 14px;
       color: #4a4a4a;
       border: 1px solid #d9d9d9;
@@ -130,10 +140,16 @@
       font-size: 1em;
       font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       padding: 0.7em 1em; }
-    .NewArbitrableTx .FormNewArbitrableTx-submit {
+    .NewArbitrableTx .FormNewArbitrableTx-Bottom-submit {
       grid-area: submit;
       padding-top: 2em;
       text-align: right; }
+      .NewArbitrableTx .FormNewArbitrableTx-Bottom-submit button {
+        padding: 0 50px; }
+    .NewArbitrableTx .FormNewArbitrableTx-Bottom-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #4D00B4; }
 
 .select__control {
   border: 1px solid #d9d9d9 !important; }
@@ -191,8 +207,6 @@ span.error {
   .FormNewArbitrableTx-help-amount {
     display: none; }
   .FormNewArbitrableTx-help-file {
-    display: none; }
-  .FormNewArbitrableTx-template-description-wrapper {
     display: none; }
   .FormNewArbitrableTx-submit {
     text-align: center !important; }
