@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -7,8 +7,8 @@ import * as tokensActions from '../../../actions/tokens'
 import * as walletSelectors from '../../../reducers/wallet'
 import * as tokensSelectors from '../../../reducers/tokens'
 import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
+import SelectArbitrableTxType from '../../../components/select-arbitrable-tx-type'
 import NewArbitrableTx from '../../../components/new-arbitrable-tx'
-import NewInvoiceArbitrableTx from '../../../components/new-invoice-arbitrable-tx'
 
 import './new.css'
 
@@ -24,38 +24,60 @@ class NewArbitrableTxContainer extends PureComponent {
     formArbitrabletx: PropTypes.func.isRequired
   }
 
+  state = {
+    template: null,
+    showInputs: false
+  }
+
   componentDidMount() {
     requestAnimationFrame(() => {
       window.scrollTo(0, 0)
     })
+
+    this.templates = require('../../../constants/templates').default
+    this.setState({template: this.templates[0]})
 
     const { fetchBalance, fetchTokens } = this.props
     fetchBalance()
     fetchTokens()
   }
 
+  submitTemplateType(template) {
+    this.setState(prevState => ({
+      template,
+      showInputs: true
+    }))
+  }
+
+  previousScreen() {
+    this.setState({showInputs: false})
+  }
+
   render() {
     const { formArbitrabletx, balance, accounts, type, tokens } = this.props
 
-    return (
-      <>
-        {type === 'invoice' ? (
-          <NewInvoiceArbitrableTx
-            formArbitrabletx={formArbitrabletx}
-            balance={balance}
-            accounts={accounts.data}
-            tokens={tokens.data}
+    if (this.state.showInputs)
+      return (
+        <NewArbitrableTx
+          formArbitrabletx={formArbitrabletx}
+          balance={balance}
+          accounts={accounts}
+          invoice={type === 'invoice'}
+          tokens={tokens.data}
+          template={this.state.template}
+          back={this.previousScreen.bind(this)}
+        />
+      )
+    else
+      return (
+        <>
+          <SelectArbitrableTxType
+            templates={this.templates}
+            selectedTemplate={this.state.template}
+            submit={this.submitTemplateType.bind(this)}
           />
-        ) : (
-          <NewArbitrableTx
-            formArbitrabletx={formArbitrabletx}
-            balance={balance}
-            accounts={accounts.data}
-            tokens={tokens.data}
-          />
-        )}
-      </>
-    )
+        </>
+      )
   }
 }
 

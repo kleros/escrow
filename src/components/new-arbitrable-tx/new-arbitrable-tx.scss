@@ -30,7 +30,7 @@
         'inputReceiver inputReceiver'
         'errorReceiver helpReceiver'
         'labelAmount labelAmount'
-        'inputAmount amountSelect'
+        'inputAmount inputAmount'
         'errorAmount helpAmount'
         'labelTimeout labelTimeout'
         'inputTimeout inputTimeout'
@@ -119,11 +119,15 @@
 
     &-input-amount {
       grid-area: inputAmount;
+
+      input {
+        width: 75%;
+      }
     }
 
     &-amount-select {
-      grid-area: amountSelect;
-      padding: 0;
+      display: inline-block;
+      width: 25%;
     }
 
     &-error-amount {

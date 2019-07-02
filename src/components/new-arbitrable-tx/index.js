@@ -11,6 +11,7 @@ import Button from '../button'
 import InputArea from '../input-area'
 import TokenSelectInput from '../token-select-input'
 import ETH from '../../constants/eth'
+import { substituteTextOptionalInputs } from '../../constants/templates'
 
 import './new-arbitrable-tx.css'
 
@@ -33,9 +34,7 @@ const customStyles = {
   }
 }
 
-const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
-  const templates = require('../../constants/templates').default
-
+const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, back }) => {
   requestAnimationFrame(() => {
     window.scrollTo(0, 0)
   })
@@ -44,15 +43,16 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
       <h1 className="NewArbitrableTx-h1">New Payment</h1>
         <Formik
           initialValues={{
-            arbitrableContractAddress: templates[0].address,
-            subCategory: templates[0].label,
+            arbitrableContractAddress: template.address,
+            subCategory: template.label,
             title: '',
             receiver: '',
             timeout: 0,
             amount: '',
             file: '',
-            description: templates[0].content,
-            tips: templates[0].tips,
+            description: template.content,
+            tips: template.tips,
+            inputSchema: template.inputSchema,
             token: ETH
           }}
           // eslint-disable-next-line react/jsx-no-bind
@@ -101,29 +101,6 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
             <Form className="FormNewArbitrableTx">
               <InputArea title={'Payment Info'} inputs={(
                     <div className="FormNewArbitrableTx-PaymentDetails">
-                      <div className="FormNewArbitrableTx-template-description-wrapper">
-                        <Field
-                          render={({ form }) => (
-                              <Select
-                                className="FormNewArbitrableTx-template-description-wrapper-content"
-                                classNamePrefix="select"
-                                isClearable={false}
-                                isSearchable={true}
-                                name="templates"
-                                options={templates}
-                                defaultValue={templates[0]}
-                                styles={customStyles}
-                                onChange={e => {
-                                  form.setFieldValue('description', e.content)
-                                  form.setFieldValue('tips', e.tips)
-                                  form.setFieldValue('arbitrableContractAddress', e.address)
-                                  form.setFieldValue('subCategory', e.label)
-                                }}
-                              />
-                            )
-                          }
-                        />
-                      </div>
                       <label
                         htmlFor="title"
                         className="FormNewArbitrableTx-label FormNewArbitrableTx-label-title"
@@ -166,17 +143,17 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
                       >
                         Amount*
                       </label>
-                      <Field
-                        name="amount"
-                        className="FormNewArbitrableTx-input FormNewArbitrableTx-input-amount"
-                      />
-                    <div className="FormNewArbitrableTx-amount-select">
-                      <TokenSelectInput tokens={tokens} onSubmit={(token) => {
-                          console.log(token)
-                          setFieldValue('token', token)
-                          console.log(values)
-                        }} />
-                    </div>
+                      <div className="FormNewArbitrableTx-input-amount">
+                        <Field
+                          name="amount"
+                          className="FormNewArbitrableTx-input"
+                        />
+                        <div className="FormNewArbitrableTx-amount-select">
+                          <TokenSelectInput tokens={tokens} onSubmit={(token) => {
+                              setFieldValue('token', token)
+                            }} />
+                        </div>
+                      </div>
                       <ErrorMessage
                         name="amount"
                         component="div"
@@ -259,6 +236,14 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens }) => {
                       </div>
                   </div>
               )} />
+              <InputArea className="FormNewArbitrableTx-PaymentDetails" title={`Extra Details | ${template.label}`} inputs={
+                  Object.keys(template.optionalInputs).map(inputKey => {
+                      return (
+                        <div>{inputKey}</div>
+                      )
+                    })
+                  }
+              />
               <div className="FormNewArbitrableTx-Bottom">
                 <label
                   htmlFor="description"

@@ -1,0 +1,60 @@
+.SelectArbitrableTxType {
+  background: #fff;
+  border-radius: 3px;
+  padding: 40px 80px;
+
+  &-logo {
+    img {
+      width: 100%;
+    }
+  }
+
+  &-header {
+    margin-top: 13px;
+    h2 {
+      color: #4D00B4;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 28px;
+      text-align: center;
+    }
+  }
+
+  &-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 42px;
+    margin-top: 40px;
+  }
+
+  &-description {
+    margin: 80px -80px -40px -80px;
+    padding: 0px 80px 40px 80px;
+    background: #F2E3FF;
+    text-align: center;
+    overflow: hidden;
+
+    &-label {
+      color: #4D00B4;
+      padding: 20px 20px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    &-body {
+      color: #4D00B4;
+      font-size: 14px;
+    }
+
+    &-next {
+      float: right;
+      width: 130px;
+      cursor: pointer;
+      margin-top: 60px;
+      text-align: center;
+      padding: 12px 0px;
+      background: #009AFF;
+      border-radius: 3px;
+      color: white;
+    }
+  }
+}
