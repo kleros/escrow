@@ -41,6 +41,9 @@ const templates = [
     logo: GeneralServiceLogo,
     logoWhite: GeneralServiceLogoWhite,
     label: 'General Service',
+    optionalInputs: {
+      'Contract Information': 'text'
+    },
     description: 'Define your own terms for any service.',
     content:
       '[Contract Information]',

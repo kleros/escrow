@@ -35,7 +35,12 @@ const SelectArbitrableTxType = ({ templates, selectedTemplate, submit }) => {
         </div>
         <div
           className="SelectArbitrableTxType-description-next"
-          onClick={() => submit(template)}
+          onClick={() => {
+            requestAnimationFrame(() => {
+              window.scrollTo(0, 0)
+            })
+            submit(template)
+          }}
         >
           Next
         </div>

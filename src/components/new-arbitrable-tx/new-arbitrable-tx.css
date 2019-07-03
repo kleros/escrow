@@ -103,6 +103,8 @@
       font-size: 14px;
       color: #4a4a4a;
       padding: 7px 0; }
+      .NewArbitrableTx .FormNewArbitrableTx-label-optional-checkbox {
+        margin-right: 10px; }
     .NewArbitrableTx .FormNewArbitrableTx-input {
       color: #4a4a4a;
       border: 1px solid #d9d9d9;
@@ -117,6 +119,10 @@
         color: #4a4a4a;
         font-size: 18px;
         font-weight: 400; }
+    .NewArbitrableTx .FormNewArbitrableTx-ExtraDetails-input {
+      width: 100%;
+      margin-top: 12px;
+      margin-bottom: 20px; }
     .NewArbitrableTx .FormNewArbitrableTx-error {
       color: #ff0303;
       font-size: 0.9em; }
