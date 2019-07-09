@@ -15,7 +15,7 @@
     padding: 0 0 1em 0;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-areas: 'nameTitle nameTitle nameTitle' 'contentTitle contentTitle contentTitle' 'nameOtherParty nameCategory nameCategory' 'contentOtherParty contentCategory contentCategory' 'nameTimeout nameTimeout nameTimeout' 'contentTimeout contentTimeout contentTimeout' 'nameAmount nameAmount nameAmount' 'amount amount amount' 'nameFile nameFile nameFile' 'contentFile contentFile contentFile' 'nameDescription nameDescription nameAllDescription' 'contentDescription contentDescription contentDescription' 'nameShare nameShare nameShare' 'nameEvidence nameEvidence nameEvidence' 'contentEvidence contentEvidence contentEvidence' 'submit submit submit'; }
+    grid-template-areas: 'nameTitle nameTitle nameTitle' 'contentTitle contentTitle contentTitle' 'nameOtherParty nameTimeout nameTimeout' 'contentOtherParty contentTimeout contentTimeout' 'nameCategory nameFile nameFile' 'contentCategory contentFile contentFile' 'nameAmount nameAmount nameAmount' 'amount amount amount' 'nameDescription nameDescription nameAllDescription' 'contentDescription contentDescription contentDescription' 'nameShare nameShare nameShare' 'nameEvidence nameEvidence nameEvidence' 'contentEvidence contentEvidence contentEvidence' 'submit submit submit'; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-title {
       grid-area: nameTitle; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-title {
@@ -37,6 +37,8 @@
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-amount {
       grid-area: nameAmount; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-amount {
+      grid-area: amount; }
+    .ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame {
       grid-area: amount;
       width: 100%;
       height: 280px; }
@@ -48,63 +50,21 @@
       grid-area: nameDescription;
       margin-top: 40px;
       padding: 20px 32px 16px;
-      color: #4a4a4a;
-      font-size: 14px;
-      background: #f8f8f8;
-      border: 1px solid #d9d9d9;
-      border-bottom: 0;
-      border-right: 0;
-      box-sizing: border-box;
-      border-top-left-radius: 3px; }
-    .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description {
-      grid-area: nameAllDescription;
-      margin-top: 40px;
-      color: #4a4a4a;
-      background: #f8f8f8;
-      border: 1px solid #d9d9d9;
-      border-bottom: 0;
-      border-left: 0;
-      box-sizing: border-box;
-      border-top-right-radius: 3px;
-      cursor: pointer;
-      text-align: right;
-      padding-right: 2em;
-      padding-top: 0.5em; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-show-all {
-        transition-duration: 0.8s;
-        transition-property: transform; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-name-all-description-not-show-all {
-        transform: rotate(180deg);
-        transition-duration: 0.8s;
-        transition-property: transform; }
+      color: #4D00B4;
+      font-size: 18px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-description {
       grid-area: contentDescription;
-      padding: 0 32px 16px;
-      color: #4a4a4a;
-      background: #f8f8f8;
-      border: 1px solid #d9d9d9;
-      border-top: 0;
+      padding: 32px 16px;
+      margin-top: 22px;
+      color: #4D00B4;
+      background: #F2E3FF;
+      border: 1px solid #D09CFF;
       box-sizing: border-box;
-      border-bottom-left-radius: 3px;
-      border-bottom-right-radius: 3px;
+      border-radius: 3px;
+      font-size: 14px;
       margin-bottom: 1em;
       position: relative;
       white-space: pre-line; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short {
-        font-size: 14px;
-        overflow-y: scroll;
-        line-height: 14px;
-        max-height: 140px;
-        margin-right: -1em;
-        padding-right: 1em; }
-        .ResumeArbitrableTx-ContentNewArbitrableTx-content-description-p-short:before {
-          content: '...';
-          bottom: 0.5em;
-          position: absolute;
-          right: 2em; }
-      .ResumeArbitrableTx-ContentNewArbitrableTx-content-description p.false {
-        font-size: 14px;
-        line-height: 14px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-name {
       grid-area: nameEvidence; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container {

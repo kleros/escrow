@@ -54,14 +54,4 @@ const templates = [
   },
 ]
 
-export const substituteTextOptionalInputs = (inputs, text) => {
-  for (let key of Object.keys(inputs)) {
-    if (inputs[key]) {
-      text = text.replace(`[${key}]`, inputs[key])
-    }
-  }
-
-  return text
-}
-
 export default templates

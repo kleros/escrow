@@ -2,20 +2,29 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Formik, Field, ErrorMessage } from 'formik'
 import { Form, Datepicker } from 'react-formik-ui'
+import DateInput from 'react-datepicker'
 import Select from 'react-select'
 import Textarea from 'react-textarea-autosize'
 import { ClipLoader } from 'react-spinners'
 
 import { web3 } from '../../bootstrap/dapp-api'
 import Button from '../button'
-import InputArea from '../input-area'
+import InputArea from '../details-area'
 import TokenSelectInput from '../token-select-input'
 import ETH from '../../constants/eth'
-import { substituteTextOptionalInputs } from '../../constants/templates'
+import MAX_TIMEOUT from '../../constants/timeout'
 
 import './new-arbitrable-tx.css'
 
-const MAX_TIMEOUT = new Date(8640000000000000)
+const substituteTextOptionalInputs = (inputs, text) => {
+  for (let key of Object.keys(inputs)) {
+    if (inputs[key]) {
+      text = text.replace(`[${key}]`, inputs[key])
+    }
+  }
+
+  return text
+}
 
 const customStyles = {
   option: (provided, state) => ({
@@ -36,10 +45,9 @@ const customStyles = {
   }
 }
 
-const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, back }) => {
+const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, invoice, back }) => {
   const [showAutomaticPayment, setShowAutomaticPayment] = useState(false)
   const [showFileUpload, setShowFileUpload] = useState(false)
-
   return (
     <div className="NewArbitrableTx">
       <h1 className="NewArbitrableTx-h1">New Payment</h1>
@@ -51,11 +59,11 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
             receiver: '',
             timeout: 0,
             amount: '',
+            invoice,
             file: '',
             description: template.content,
             tips: template.tips,
-            inputSchema: template.inputSchema,
-            substitutes: {},
+            extraData: {},
             token: ETH
           }}
           // eslint-disable-next-line react/jsx-no-bind
@@ -82,18 +90,23 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                 'Description is required.'
             if (showFileUpload && values.file.size > 5000000)
               errors.file = 'The file is too big. The maximum size is 5MB.'
+            for (let extraDetailsKeys of Object.keys(template.optionalInputs)) {
+              if (!values.extraData[extraDetailsKeys])
+                errors[extraDetailsKeys] = 'Field required'
+            }
             return errors
           }}
           onSubmit={values => {
             if (!showAutomaticPayment)
               values.timeout = MAX_TIMEOUT // Max Timeout
+            else
+              values.timeout = Math.round((values.timeout - new Date()) / 1000)
 
             if (!showFileUpload)
               values.file = ''
 
             return formArbitrabletx({
-              ...values,
-              timeout: Math.round((values.timeout - new Date()) / 1000)
+              ...values
             })
           }}
         >
@@ -267,19 +280,45 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                           <label
                             htmlFor={inputKey}
                             className="FormNewArbitrableTx-label"
-                          >{inputKey}</label>
+                          >{inputKey + '*'}</label>
+                          { template.optionalInputs[inputKey] === 'date' ? (
+                            <DateInput
+                              disabledKeyboardNavigation
+                              autoComplete="off"
+                              id={inputKey}
+                              name={inputKey}
+                              className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
+                              showTimeSelect
+                              timeFormat="HH:mm"
+                              timeIntervals={30}
+                              dateFormat="dd.MM.yyyy hh:mm aa"
+                              minDate={new Date()}
+                              onChange={(e) => {
+                                const _extraData = values.extraData
+                                _extraData[inputKey] = e
+                                setFieldValue('extraData', _extraData)
+                                setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
+                              }}
+                            />
+                        ) : (
                           <input
                             type={template.optionalInputs[inputKey]}
                             id={inputKey}
                             className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
                             onChange={(e) => {
-                              const _substitutes = values.substitutes
-                              _substitutes[inputKey] = e.target.value
-                              setFieldValue('substitutes', _substitutes)
-                              setFieldValue('description', substituteTextOptionalInputs(_substitutes, template.content))
+                              const _extraData = values.extraData
+                              _extraData[inputKey] = e.target.value
+                              setFieldValue('extraData', _extraData)
+                              setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
                             }}
                           />
-                        </>
+                        )}
+                        <ErrorMessage
+                          name={inputKey}
+                          component="div"
+                          className="FormNewArbitrableTx-error"
+                        />
+                      </>
                       )
                     })
                   }

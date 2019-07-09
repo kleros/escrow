@@ -34,14 +34,12 @@
     grid-template-areas:
       'nameTitle nameTitle nameTitle'
       'contentTitle contentTitle contentTitle'
-      'nameOtherParty nameCategory nameCategory'
-      'contentOtherParty contentCategory contentCategory'
-      'nameTimeout nameTimeout nameTimeout'
-      'contentTimeout contentTimeout contentTimeout'
+      'nameOtherParty nameTimeout nameTimeout'
+      'contentOtherParty contentTimeout contentTimeout'
+      'nameCategory nameFile nameFile'
+      'contentCategory contentFile contentFile'
       'nameAmount nameAmount nameAmount'
       'amount amount amount'
-      'nameFile nameFile nameFile'
-      'contentFile contentFile contentFile'
       'nameDescription nameDescription nameAllDescription'
       'contentDescription contentDescription contentDescription'
       'nameShare nameShare nameShare'
@@ -89,6 +87,10 @@
 
     &-amount {
       grid-area: amount;
+    }
+
+    &-amount-frame {
+      grid-area: amount;
       width: 100%;
       height: 280px;
     }
@@ -105,67 +107,23 @@
       grid-area: nameDescription;
       margin-top: 40px;
       padding: 20px 32px 16px;
-      color: #4a4a4a;
-      font-size: 14px;
-      background: #f8f8f8;
-      border: 1px solid #d9d9d9;
-      border-bottom: 0;
-      border-right: 0;
-      box-sizing: border-box;
-      border-top-left-radius: 3px;
-    }
-
-    &-name-all-description {
-      grid-area: nameAllDescription;
-      margin-top: 40px;
-      color: #4a4a4a;
-      background: #f8f8f8;
-      border: 1px solid #d9d9d9;
-      border-bottom: 0;
-      border-left: 0;
-      box-sizing: border-box;
-      border-top-right-radius: 3px;
-      cursor: pointer;
-      text-align: right;
-      padding-right: 2em;
-      padding-top: 0.5em;
-      &-show-all {
-        transition-duration: 0.8s;
-        transition-property: transform;
-      }
-
-      &-not-show-all {
-        transform: rotate(180deg);
-        transition-duration: 0.8s;
-        transition-property: transform;
-      }
+      color: #4D00B4;
+      font-size: 18px;
     }
 
     &-content-description {
       grid-area: contentDescription;
-      padding: 0 32px 16px;
-      color: #4a4a4a;
-      background: #f8f8f8;
-      border: 1px solid #d9d9d9;
-      border-top: 0;
+      padding: 32px 16px;
+      margin-top: 22px;
+      color: #4D00B4;
+      background: #F2E3FF;
+      border: 1px solid #D09CFF;
       box-sizing: border-box;
-      border-bottom-left-radius: 3px;
-      border-bottom-right-radius: 3px;
+      border-radius: 3px;
+      font-size: 14px;
       margin-bottom: 1em;
       position: relative;
       white-space: pre-line;
-
-      &-p-short {
-        font-size: 14px;
-        overflow-y: scroll;
-
-        @include multiLineEllipsis($lineHeight: 14px, $lineCount: 10);
-      }
-
-      p.false {
-        font-size: 14px;
-        line-height: 14px;
-      }
     }
 
     &-evidence-name {

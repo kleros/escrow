@@ -25,6 +25,7 @@ export default ({
   timeout,
   subCategory,
   token,
+  extraData
 }) => ({
   ...{
     subCategory,
@@ -36,7 +37,9 @@ export default ({
     sender,
     receiver,
     amount,
-    timeout
+    timeout,
+    token,
+    extraData
   },
   ...metaEvidenceTemplate,
   aliases: {

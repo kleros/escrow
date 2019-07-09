@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
-import './input-area.css'
+import './details-area.css'
 
-const InputArea = ({ title, inputs }) => {
+const DetailsArea = ({ title, inputs }) => {
   const [showInputs, setShowInputs] = useState(true)
 
   return (
@@ -24,4 +24,4 @@ const InputArea = ({ title, inputs }) => {
   )
 }
 
-export default InputArea
+export default DetailsArea

@@ -56,6 +56,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       data
     )
 
+    console.log(arbitrabletxForm)
+
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
       arbitrableAddress: arbitrabletxForm.arbitrableContractAddress,
@@ -67,7 +69,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
       subCategory: arbitrabletxForm.subCategory,
-      token: arbitrabletxForm.token
+      token: arbitrabletxForm.token,
+      extraData: arbitrabletxForm.extraData
     })
   } else {
     metaEvidence = createMetaEvidence({
@@ -79,7 +82,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       description: arbitrabletxForm.description,
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
-      token: arbitrabletxForm.token
+      token: arbitrabletxForm.token,
+      extraData: arbitrabletxForm.extraData
     })
   }
 
@@ -129,7 +133,6 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         title: metaEvidenceDecoded.title,
         description: metaEvidenceDecoded.description,
         receiver: parties['receiver'],
-        otherParty: 'Receiver',
         otherPartyAddress: parties['receiver'],
         amount: metaEvidenceDecoded.amount,
         token: metaEvidenceDecoded.token,
@@ -137,7 +140,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         file: metaEvidenceDecoded.fileURI
           ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
           : null,
-        shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`
+        shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`,
+        extraData: metaEvidenceDecoded.extraData
       }
     })
   )
