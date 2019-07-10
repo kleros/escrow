@@ -1144,10 +1144,10 @@
     openzeppelin-solidity "^1.12.0"
     solidity-bytes-utils "^0.0.5"
 
-"@kleros/kleros-interaction@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.8.0.tgz#8f971a90a10000b3755bb5ea29172e786c46a9d1"
-  integrity sha512-7i0etFS6d29jNEJEUl46UCfNLnjd7c9VcrEMYo1fUG9KuclU/k6hfE3FSSTXaBHB0VldlY61aUI1Z3sODYGiWw==
+"@kleros/kleros-interaction@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@kleros/kleros-interaction/-/kleros-interaction-0.9.1.tgz#3646eed164731ee26ec1ca75d8a57f8105560c25"
+  integrity sha512-/C0x/LcWsccKXidBqPzAXUCpsSBxNxXL8fXZhJ83Fq5+/vlRhiPs30NDNqzZUZN/WpU44Bcq7WdhmS+33wYe+w==
   dependencies:
     "@realitio/realitio-contracts" "^2.0.5"
     minimetoken "^0.2.0"

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import './details-area.css'
 
-const DetailsArea = ({ title, inputs }) => {
+const DetailsArea = ({ title, inputs, headerSpacing=false }) => {
   const [showInputs, setShowInputs] = useState(true)
 
   return (
@@ -18,7 +18,7 @@ const DetailsArea = ({ title, inputs }) => {
            onClick={() => setShowInputs(!showInputs)} />
       </div>
       {showInputs ? (
-        <div className='inputArea-body'>{inputs}</div>
+        <div className='inputArea-body' style={headerSpacing ? {marginTop: '25px'} : {}}>{inputs}</div>
       ) : ''}
     </div>
   )

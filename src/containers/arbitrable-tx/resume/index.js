@@ -34,7 +34,8 @@ class Resume extends PureComponent {
       createArbitrabletx,
       arbitrabletxForm,
       type,
-      metaEvidenceIPFSHash
+      metaEvidenceIPFSHash,
+      metaEvidence
     } = this.props
     const { copied } = this.state
 
@@ -42,62 +43,72 @@ class Resume extends PureComponent {
 
     return (
       <>
-        {arbitrabletxForm.amount !== undefined && type === 'invoice' && (
+        {arbitrabletxForm.amount !== undefined && arbitrabletxForm.invoice && (
           <div>
             <ResumeArbitrableTx
               arbitrabletx={arbitrabletxForm}
               title={'Invoice Details'}
             />
-            <div className="link-share" style={{ textAlign: 'left' }}>
-              <div className="link-share-email">
-                <a
-                  href={`
-                        mailto:alice%40example.com
-                        ?subject=Invoice ${encodeURIComponent(
-                          arbitrabletxForm.title
-                        )}
-                        &body=Hi%2C%0A%0AHere%20is%20the%20link%20to%20the%20${encodeURIComponent(
-                          arbitrabletxForm.title
-                        )}%20invoice: ${shareLink}.%0A%0ABest%2C%0A
-                      `}
+            <div className="additional-options">
+              <div className="buttons">
+                <div className="link-share" style={{ textAlign: 'left' }}>
+                  {/*
+                        Logical shortcut for only displaying the
+                        button if the copy command exists
+                      */
+                  document.queryCommandSupported('copy') &&
+                    (!copied ? (
+                      <Button
+                        style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
+                        onClick={() => {
+                          navigator.clipboard.writeText(shareLink) &&
+                            this.setState({ copied: true })
+                        }}
+                      >
+                        Copy Invoice Link
+                      </Button>
+                    ) : (
+                      <Button
+                        style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
+                      >
+                        Invoice Link Copied
+                      </Button>
+                    ))}
+                </div>
+                <Formik
+                  onSubmit={() =>
+                    createArbitrabletx(arbitrabletxForm, metaEvidenceIPFSHash)
+                  }
                 >
-                  <Button
-                    style={{ border: '1px solid #009aff' }}
-                    className="link-share-email-button"
-                  >
-                    Send Invoice by Email
-                  </Button>
-                </a>
+                  {({ isSubmitting }) => (
+                    <Form className={'PayOrReimburseArbitrableTx'}>
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        style={{ position: 'relative', top: '2px' }}
+                      >
+                        {isSubmitting && (
+                          <span
+                            style={{
+                              position: 'relative',
+                              top: '4px',
+                              lineHeight: '40px',
+                              paddingRight: '4px'
+                            }}
+                          >
+                            <ClipLoader size={20} color={'#fff'} />
+                          </span>
+                        )}{' '}
+                        Submit Payment
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
               </div>
-              <div className="link-share-url">
-                {`/payment/${metaEvidenceIPFSHash.substring(0, 11)}...`}
-              </div>
-              {/*
-                    Logical shortcut for only displaying the
-                    button if the copy command exists
-                  */
-              document.queryCommandSupported('copy') &&
-                (!copied ? (
-                  <Button
-                    style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
-                    onClick={() => {
-                      navigator.clipboard.writeText(shareLink) &&
-                        this.setState({ copied: true })
-                    }}
-                  >
-                    Copy Invoice Link
-                  </Button>
-                ) : (
-                  <Button
-                    style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
-                  >
-                    Invoice Link Copied
-                  </Button>
-                ))}
             </div>
           </div>
         )}
-        {arbitrabletxForm.amount !== undefined && type === 'payment' && (
+        {arbitrabletxForm.amount !== undefined && !arbitrabletxForm.invoice && (
           <ResumeArbitrableTx
             arbitrabletx={arbitrabletxForm}
             title={'Payment Details'}
@@ -109,7 +120,6 @@ class Resume extends PureComponent {
             >
               {({ isSubmitting }) => (
                 <Form className={'PayOrReimburseArbitrableTx'}>
-                  <div>Back</div>
                   <Button
                     type="submit"
                     disabled={isSubmitting}

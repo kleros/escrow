@@ -6,7 +6,8 @@ import {
 } from '../constants/addresses'
 
 import {
-  ARBITRABLE_ADDRESSES
+  ARBITRABLE_ADDRESSES,
+  ARBITRABLE_TOKEN_ADDRESSES
 } from '../bootstrap/dapp-api'
 
 
@@ -34,7 +35,10 @@ const templates = [
       (<div><span style={{fontWeight: 600}}>**</span> Replace [bracketed] information as seen in the example below:</div>),
       (<div>Bitcoin address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa should receive 0.1 BTC from the sender before Sun Apr 28 2019 23:31 UTC.</div>)
     ],
-    address: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
+    address: {
+      eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
+      token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
+    }
   },
   {
     value: 'general-transaction',
@@ -50,7 +54,10 @@ const templates = [
     tips: [
       (<div><span style={{fontWeight: 600}}>**</span> Replace [bracketed] information with your contract details. If a dispute is raised this will be resolved in the Kleros General Court</div>)
     ],
-    address: ARBITRABLE_ADDRESSES[GENERAL_MULTIPLE_ARBITRABLE_INDEX]
+    address: {
+      eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
+      token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
+    }
   },
 ]
 

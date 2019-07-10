@@ -119,7 +119,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
             handleChange
           }) => (
             <Form className="FormNewArbitrableTx">
-              <InputArea title={'Payment Info'} inputs={(
+              <InputArea title={'Payment Info'} headerSpacing={true} inputs={(
                     <div className="FormNewArbitrableTx-PaymentDetails">
                       <label
                         htmlFor="title"
@@ -273,7 +273,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                       ) : ''}
                   </div>
               )} />
-            <InputArea className="FormNewArbitrableTx-ExtraDetails" title={`Extra Details | ${template.label}`} inputs={
+            <InputArea className="FormNewArbitrableTx-ExtraDetails" headerSpacing={true} title={`Extra Details | ${template.label}`} inputs={
                   Object.keys(template.optionalInputs).map(inputKey => {
                       return (
                         <>

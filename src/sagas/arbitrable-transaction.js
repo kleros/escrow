@@ -1,6 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
+import multipleArbitrableTokenTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTokenTransaction.json'
 import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 import {
@@ -33,17 +34,22 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let metaEvidence = null
+  let arbitrableAddress = arbitrabletxForm.arbitrableContractAddress.eth
 
-  if (arbitrabletxForm.token.address && !arbitrabletxForm.token.decimals) {
-    try {
-      // Tokens are from MainNet
-      const erc20 = new web3.eth.Contract(
-        ERC20.abi,
-        arbitrabletxForm.token.address
-      )
-      // Fetch Decimals from Contract
-      arbitrabletxForm.token.decimals = yield call(erc20.methods.decimals().call)
-    } catch (err) {}
+  if (arbitrabletxForm.token.address) {
+    arbitrableAddress = arbitrabletxForm.arbitrableContractAddress.token
+
+    if (!arbitrabletxForm.token.decimals) {
+      try {
+        // Tokens are from MainNet
+        const erc20 = new web3.eth.Contract(
+          ERC20.abi,
+          arbitrabletxForm.token.address
+        )
+        // Fetch Decimals from Contract
+        arbitrabletxForm.token.decimals = yield call(erc20.methods.decimals().call)
+      } catch (err) {}
+    }
   }
 
   if (arbitrabletxForm.file) {
@@ -57,7 +63,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
-      arbitrableAddress: arbitrabletxForm.arbitrableContractAddress,
+      arbitrableAddress,
       sender: accounts[0],
       receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
@@ -67,11 +73,12 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       timeout: arbitrabletxForm.timeout,
       subCategory: arbitrabletxForm.subCategory,
       token: arbitrabletxForm.token,
-      extraData: arbitrabletxForm.extraData
+      extraData: arbitrabletxForm.extraData,
+      invoice: arbitrabletxForm.invoice
     })
   } else {
     metaEvidence = createMetaEvidence({
-      arbitrableAddress: arbitrabletxForm.arbitrableContractAddress,
+      arbitrableAddress,
       subCategory: arbitrabletxForm.subCategory,
       sender: accounts[0],
       receiver: arbitrabletxForm.receiver,
@@ -80,7 +87,8 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
       token: arbitrabletxForm.token,
-      extraData: arbitrabletxForm.extraData
+      extraData: arbitrabletxForm.extraData,
+      invoice: arbitrabletxForm.invoice
     })
   }
 
@@ -133,6 +141,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         otherPartyAddress: parties['receiver'],
         amount: metaEvidenceDecoded.amount,
         token: metaEvidenceDecoded.token || ETH,
+        invoice: metaEvidenceDecoded.invoice,
         timeout: metaEvidenceDecoded.timeout,
         file: metaEvidenceDecoded.fileURI
           ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
@@ -153,22 +162,44 @@ function* createArbitrabletx({
 }) {
   const accounts = yield call(web3.eth.getAccounts)
 
-  const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
-    arbitrabletxReceived.arbitrableAddress
-  )
+  let txHash
+  if (!arbitrabletxReceived.token || arbitrabletxReceived.token.ticker === 'ETH') {
+    const multipleArbitrableTransactionEth = new web3.eth.Contract(
+      multipleArbitrableTransaction.abi,
+      arbitrabletxReceived.arbitrableAddress
+    )
 
-  const txHash = yield call(
-    multipleArbitrableTransactionEth.methods.createTransaction(
-      arbitrabletxReceived.timeout.toString(),
-      arbitrabletxReceived.receiver,
-      `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
-    ).send,
-    {
-      from: accounts[0],
-      value: web3.utils.toWei(arbitrabletxReceived.amount, 'ether')
-    }
-  )
+    txHash = yield call(
+      multipleArbitrableTransactionEth.methods.createTransaction(
+        arbitrabletxReceived.timeout.toString(),
+        arbitrabletxReceived.receiver,
+        `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
+      ).send,
+      {
+        from: accounts[0],
+        value: web3.utils.toWei(arbitrabletxReceived.amount, 'ether')
+      }
+    )
+  }
+  else {
+    const multipleArbitrableTokenTransactionInstance = new web3.eth.Contract(
+      multipleArbitrableTokenTransaction.abi,
+      arbitrabletxReceived.arbitrableAddress
+    )
+
+    txHash = yield call(
+      multipleArbitrableTokenTransactionInstance.methods.createTransaction(
+        web3.utils.toWei(arbitrabletxReceived.amount, 'ether'),
+        arbitrabletxReceived.token.address,
+        arbitrabletxReceived.timeout.toString(),
+        arbitrabletxReceived.receiver,
+        `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
+      ).send,
+      {
+        from: accounts[0]
+      }
+    )
+  }
 
   if (txHash)
     navigate(

@@ -1,4 +1,4 @@
-import { ARBITRABLE_ADDRESSES } from '../bootstrap/dapp-api'
+import { ARBITRABLE_ADDRESSES, ARBITRABLE_TOKEN_ADDRESSES } from '../bootstrap/dapp-api'
 import _ from 'lodash'
 
 import { metaEvidenceTemplate } from './generate-meta-evidence'
@@ -21,7 +21,10 @@ const validateMetaEvidence = (_metaEvidence) => {
     }
   }
   // Arbitable contract is a Kleros contract
-  if (ARBITRABLE_ADDRESSES.indexOf(_metaEvidence.arbitrableAddress) === -1) {
+  if (
+    ARBITRABLE_ADDRESSES.indexOf(_metaEvidence.arbitrableAddress) === -1 &&
+    ARBITRABLE_TOKEN_ADDRESSES.indexOf(_metaEvidence.arbitrableAddress) === -1
+  ) {
     console.log(ARBITRABLE_ADDRESSES)
     console.log(_metaEvidence.arbitrableAddress)
     return false

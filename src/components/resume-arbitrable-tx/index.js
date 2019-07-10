@@ -18,6 +18,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
       <div className="ResumeArbitrableTx">
         <h1 className="ResumeArbitrableTx-h1">{title}</h1>
         <DetailsArea title={'Payment Info'} inputs={(
+        <>
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx">
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-title">
               Title
@@ -106,12 +107,13 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                 </div>
               )
             }
-            {
-              !arbitrabletx.token.decimals ? (
-                <div>WARNING: We were not able to determine the decimals of this token. It is being assumed at 18, the amount of decimals in ETH. If this is incorrect, please re-create this transaction using a Custom Token with the correct decimal value.</div>
-              ) : ''
-            }
           </div>
+          {
+            !arbitrabletx.token.decimals ? (
+              <div style={{fontSize: '14px', color: 'red'}}>WARNING: The decimal precision is being assumed at 18 places. We were unable to verify this from the smart contract. If this is incorrect, please re-create this transaction using a Custom Token with the correct decimal value.</div>
+            ) : ''
+          }
+        </>
         )}
         />
       <DetailsArea title={"Extra Details"} inputs={Object.keys(arbitrabletx.extraData).map(dataTitle => (

@@ -25,7 +25,8 @@ export default ({
   timeout,
   subCategory,
   token,
-  extraData
+  extraData,
+  invoice
 }) => ({
   ...{
     subCategory,
@@ -39,7 +40,8 @@ export default ({
     amount,
     timeout,
     token,
-    extraData
+    extraData,
+    invoice
   },
   ...metaEvidenceTemplate,
   aliases: {
