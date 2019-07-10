@@ -135,7 +135,7 @@
     background: #F2E3FF;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'submit submit';
+    grid-template-areas: 'labelDescription templateDescription' 'inputDescription inputDescription' 'errorDescription helpDescription' 'errorTips helpTips' 'text buttons';
     margin-top: 55px;
     margin: 55px -80px -55px -80px;
     padding: 43px 80px 43px 80px; }
@@ -148,12 +148,28 @@
       font-size: 1em;
       font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       padding: 0.7em 1em; }
-    .NewArbitrableTx .FormNewArbitrableTx-Bottom-submit {
-      grid-area: submit;
-      padding-top: 2em;
-      text-align: right; }
-      .NewArbitrableTx .FormNewArbitrableTx-Bottom-submit button {
-        padding: 0 50px; }
+    .NewArbitrableTx .FormNewArbitrableTx-Bottom-buttons {
+      grid-area: buttons; }
+      .NewArbitrableTx .FormNewArbitrableTx-Bottom-buttons span {
+        float: right; }
+      .NewArbitrableTx .FormNewArbitrableTx-Bottom-buttons-submit {
+        display: inline-block;
+        padding-top: 2em;
+        text-align: right; }
+        .NewArbitrableTx .FormNewArbitrableTx-Bottom-buttons-submit button {
+          padding: 0 50px; }
+      .NewArbitrableTx .FormNewArbitrableTx-Bottom-buttons-back {
+        background: white;
+        border: 1px solid #4D00B4;
+        border-radius: 3px;
+        color: #4D00B4;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 20px;
+        font-size: 14px;
+        padding-top: 2em;
+        text-align: right;
+        padding: 12px 30px; }
     .NewArbitrableTx .FormNewArbitrableTx-Bottom-title {
       font-size: 18px;
       font-weight: 500;

@@ -50,7 +50,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
   const [showFileUpload, setShowFileUpload] = useState(false)
   return (
     <div className="NewArbitrableTx">
-      <h1 className="NewArbitrableTx-h1">New Payment</h1>
+      <h1 className="NewArbitrableTx-h1">New {invoice ? 'Invoice' : 'Payment'}</h1>
         <Formik
           initialValues={{
             arbitrableContractAddress: template.address,
@@ -285,6 +285,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             <DateInput
                               disabledKeyboardNavigation
                               autoComplete="off"
+                              placeholder="--Select--"
+                              selected={values.extraData[inputKey]}
                               id={inputKey}
                               name={inputKey}
                               className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
@@ -359,33 +361,40 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                   component="div"
                   className="FormNewArbitrableTx-error FormNewArbitrableTx-error-description"
                 />
-                <div className="FormNewArbitrableTx-Bottom-submit">
-                    {(touched.description = true)}
-                    {(touched.file = true)}
-                    {values.amount > 0 ? (touched.amount = true) : null}
-                    <Button
-                      type="submit"
-                      disabled={
-                        touched.receiver === undefined ||
-                        touched.amount === undefined ||
-                        Object.entries(errors).length > 0 ||
-                        isSubmitting
-                      }
-                    >
-                      {isSubmitting && (
-                        <span
-                          style={{
-                            position: 'relative',
-                            top: '4px',
-                            lineHeight: '40px',
-                            paddingRight: '4px'
-                          }}
+                <div className="FormNewArbitrableTx-Bottom-buttons">
+                  <span>
+                    <div className="FormNewArbitrableTx-Bottom-buttons-back" onClick={back}>
+                      Return
+                    </div>
+                    <div className="FormNewArbitrableTx-Bottom-buttons-submit">
+                        {(touched.description = true)}
+                        {(touched.file = true)}
+                        {values.amount > 0 ? (touched.amount = true) : null}
+                        <Button
+                          type="submit"
+                          disabled={
+                            touched.receiver === undefined ||
+                            touched.amount === undefined ||
+                            Object.entries(errors).length > 0 ||
+                            isSubmitting
+                          }
                         >
-                          <ClipLoader size={20} color={'white'} />
-                        </span>
-                      )}{' '}
-                      Next
-                    </Button>
+                          {isSubmitting && (
+                            <span
+                              style={{
+                                position: 'relative',
+                                top: '4px',
+                                lineHeight: '40px',
+                                paddingRight: '4px'
+                              }}
+                            >
+                              <ClipLoader size={20} color={'white'} />
+                            </span>
+                          )}{' '}
+                          Next
+                        </Button>
+                      </div>
+                    </span>
                   </div>
                 </div>
             </Form>

@@ -109,6 +109,7 @@ class Resume extends PureComponent {
             >
               {({ isSubmitting }) => (
                 <Form className={'PayOrReimburseArbitrableTx'}>
+                  <div>Back</div>
                   <Button
                     type="submit"
                     disabled={isSubmitting}

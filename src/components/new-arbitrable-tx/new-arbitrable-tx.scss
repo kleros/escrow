@@ -250,7 +250,7 @@
     'inputDescription inputDescription'
     'errorDescription helpDescription'
     'errorTips helpTips'
-    'submit submit';
+    'text buttons';
     margin-top: 55px;
     margin: 55px -80px -55px -80px;
     padding: 43px 80px 43px 80px;
@@ -267,15 +267,39 @@
       padding: 0.7em 1em;
     }
 
-    &-submit {
-      grid-area: submit;
-      padding-top: 2em;
-      text-align: right;
+    &-buttons {
+      grid-area: buttons;
 
-      button {
-        padding: 0 50px;
+      span {
+        float: right;
+      }
+
+      &-submit {
+        display: inline-block;
+        padding-top: 2em;
+
+        text-align: right;
+
+        button {
+          padding: 0 50px;
+        }
+      }
+
+      &-back {
+        background: white;
+        border: 1px solid #4D00B4;
+        border-radius: 3px;
+        color: #4D00B4;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 20px;
+        font-size: 14px;
+        padding-top: 2em;
+        text-align: right;
+        padding: 12px 30px;
       }
     }
+
 
     &-title {
       font-size: 18px;

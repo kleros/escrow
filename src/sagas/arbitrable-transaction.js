@@ -2,7 +2,6 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
-import Web3 from 'web3'
 
 import {
   web3,
@@ -13,6 +12,7 @@ import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import ERC20 from '../assets/abi/erc20.json'
 import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
+import ETH from '../constants/eth'
 import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
 import readFile from '../utils/read-file'
@@ -33,12 +33,11 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   let metaEvidence = null
-  const _web3Mainnet = new Web3(process.env.REACT_APP_PROD_ETHEREUM_PROVIDER_URL)
 
   if (arbitrabletxForm.token.address && !arbitrabletxForm.token.decimals) {
     try {
       // Tokens are from MainNet
-      const erc20 = new _web3Mainnet.eth.Contract(
+      const erc20 = new web3.eth.Contract(
         ERC20.abi,
         arbitrabletxForm.token.address
       )
@@ -55,8 +54,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       arbitrabletxForm.file.name,
       data
     )
-
-    console.log(arbitrabletxForm)
 
     // Pass IPFS path for URI. No need for fileHash
     metaEvidence = createMetaEvidence({
@@ -135,13 +132,13 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         receiver: parties['receiver'],
         otherPartyAddress: parties['receiver'],
         amount: metaEvidenceDecoded.amount,
-        token: metaEvidenceDecoded.token,
+        token: metaEvidenceDecoded.token || ETH,
         timeout: metaEvidenceDecoded.timeout,
         file: metaEvidenceDecoded.fileURI
           ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
           : null,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`,
-        extraData: metaEvidenceDecoded.extraData
+        extraData: metaEvidenceDecoded.extraData || {}
       }
     })
   )
@@ -355,6 +352,13 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     ruling = yield call(
       arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
     )
+
+  // Add in missing pieces of metaEvidence for legacy disputes
+  if (!metaEvidenceArchon.metaEvidenceJSON.token)
+    metaEvidenceArchon.metaEvidenceJSON.token = ETH
+
+  if (!metaEvidenceArchon.metaEvidenceJSON.extraData)
+    metaEvidenceArchon.metaEvidenceJSON.extraData = {}
 
   return {
     arbitrableAddress: arbitrable,

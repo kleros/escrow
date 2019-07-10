@@ -6,6 +6,7 @@ import Modal from 'react-responsive-modal'
 import Countdown from 'react-countdown-now'
 import { ClipLoader } from 'react-spinners'
 
+import MAX_TIMEOUT from '../../constants/timeout'
 import CountdownRenderer from '../countdown-renderer'
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
 
@@ -193,15 +194,19 @@ const AgreementFully = ({
             a dispute.
             <br />
             <br />
-            Payment times out in{' '}
-            <Countdown
-              date={
-                arbitrabletx.data.lastInteraction * 1000 +
-                arbitrabletx.data.timeoutPayment * 1000
-              }
-              renderer={CountdownRenderer}
-            />
-            .
+            {arbitrabletx.data.timeout === MAX_TIMEOUT ? '' : (
+              <>
+                Payment times out in{' '}
+                <Countdown
+                  date={
+                    arbitrabletx.data.lastInteraction * 1000 +
+                    arbitrabletx.data.timeoutPayment * 1000
+                  }
+                  renderer={CountdownRenderer}
+                />
+                .
+              </>
+            )}
           </>
         )}
         {arbitrabletx.data.receiver === accounts[0] && (

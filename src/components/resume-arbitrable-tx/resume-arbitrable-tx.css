@@ -51,7 +51,8 @@
       margin-top: 40px;
       padding: 20px 32px 16px;
       color: #4D00B4;
-      font-size: 18px; }
+      font-size: 18px;
+      font-weight: 500; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-description {
       grid-area: contentDescription;
       padding: 32px 16px;
@@ -64,7 +65,8 @@
       font-size: 14px;
       margin-bottom: 1em;
       position: relative;
-      white-space: pre-line; }
+      white-space: pre-line;
+      min-height: 186px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-name {
       grid-area: nameEvidence; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-evidence-container {

@@ -1,8 +1,12 @@
 import { call, takeLatest } from 'redux-saga/effects'
-import Web3 from 'web3'
 import ArbitrableTokenList from '@kleros/kleros-interaction/build/contracts/ArbitrableTokenList.json'
 import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
 
+import {
+  web3,
+  ERC20_ADDRESS,
+  T2CR_ADDRESS
+} from '../bootstrap/dapp-api'
 import * as tokensSelectors from '../reducers/tokens'
 import * as tokensActions from '../actions/tokens'
 import { lessduxSaga } from '../utils/saga'
@@ -15,16 +19,13 @@ import * as errorConstants from '../constants/error'
 export function* fetchTokens() {
   if (window.ethereum) yield call(window.ethereum.enable)
 
-  // Always use MainNet contracts
-  const web3 = new Web3(process.env.REACT_APP_PROD_ETHEREUM_PROVIDER_URL)
-
   const arbitrableTokenListInstance = new web3.eth.Contract(
     ArbitrableTokenList.abi,
-    '0xebcf3bca271b26ae4b162ba560e243055af0e679'
+    T2CR_ADDRESS
   )
   const ERC20BadgeInstance = new web3.eth.Contract(
     ArbitrableAddressList.abi,
-    '0xcb4aae35333193232421e86cd2e9b6c91f3b125f'
+    ERC20_ADDRESS
   )
   const tokens = []
 
@@ -49,6 +50,7 @@ export function* fetchTokens() {
         true,
         address
       ).call)
+
       const tokenID = tokenQuery.values[0]
       const _token = yield call(arbitrableTokenListInstance.methods.tokens(tokenID).call)
 

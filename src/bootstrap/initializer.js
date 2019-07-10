@@ -34,7 +34,7 @@ class Initializer extends PureComponent {
   render() {
     const { accounts, children } = this.props
     if (!ARBITRABLE_ADDRESSES[0]) return null // only render page once contract addresses have loaded
-
+    
     return (
       <RenderIf
         resource={accounts}

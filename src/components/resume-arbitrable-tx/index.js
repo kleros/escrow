@@ -12,7 +12,7 @@ import './resume-arbitrable-tx.css'
 
 const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
   const [showAllDescription, setShowAllDescription] = useState(true)
-  console.log(arbitrabletx)
+
   return (
     <>
       <div className="ResumeArbitrableTx">
@@ -34,7 +34,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-category">
               Escrow Type
             </div>
-            {arbitrabletx.timeout  === MAX_TIMEOUT ? '' : (
+            {arbitrabletx.timeout === MAX_TIMEOUT ? '' : (
               <>
                 <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout">
                   Automatic Payment (Local Time)
