@@ -6,7 +6,7 @@
     margin-left: 3em;
     width: 220px; }
   .PayOrReimburseArbitrableTx-pay:before {
-    content: 'ETH';
+    content: attr(data-before-asset);
     color: #444;
     font-size: 14px;
     position: relative;

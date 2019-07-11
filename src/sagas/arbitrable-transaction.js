@@ -1,16 +1,17 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
-import multipleArbitrableTokenTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTokenTransaction.json'
 import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 
 import {
   web3,
   archon,
-  ARBITRABLE_ADDRESSES
+  ARBITRABLE_ADDRESSES,
+  ARBITRABLE_TOKEN_ADDRESSES
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import ERC20 from '../assets/abi/erc20.json'
+import multipleArbitrableTokenTransaction from '../assets/abi/multipleArbitrableTokenTransaction.json'
 import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
 import ETH from '../constants/eth'
@@ -182,14 +183,39 @@ function* createArbitrabletx({
     )
   }
   else {
-    const multipleArbitrableTokenTransactionInstance = new web3.eth.Contract(
+    const arbitrableTransactionContractInstance = new web3.eth.Contract(
       multipleArbitrableTokenTransaction.abi,
       arbitrabletxReceived.arbitrableAddress
     )
 
+    let decimals = 18
+    if (arbitrabletxReceived.token && arbitrabletxReceived.token.decimals)
+      decimals = arbitrabletxReceived.token.decimals
+    // Convert to int based on decimals
+    const amount = web3.utils.toBN(arbitrabletxReceived.amount * (
+      10 ** decimals
+    ))
+
+    const erc20 = new web3.eth.Contract(
+      ERC20.abi,
+      arbitrabletxReceived.token.address
+    )
+
+    // Approve amount to be spent
+    yield call(
+      erc20.methods.approve(
+        arbitrabletxReceived.arbitrableAddress,
+        amount
+      ).send,
+      {
+        from: accounts[0]
+      }
+    )
+
+    // Create Transaction
     txHash = yield call(
-      multipleArbitrableTokenTransactionInstance.methods.createTransaction(
-        web3.utils.toWei(arbitrabletxReceived.amount, 'ether'),
+      arbitrableTransactionContractInstance.methods.createTransaction(
+        amount,
         arbitrabletxReceived.token.address,
         arbitrabletxReceived.timeout.toString(),
         arbitrabletxReceived.receiver,
@@ -222,7 +248,12 @@ function* fetchArbitrabletxs() {
   let multipleArbitrableTransactionEth = {}
   const arbitrableTransactions = []
 
-  for (let arbitrableContract of ARBITRABLE_ADDRESSES) {
+  // Combine all arbitrable contracts
+  const ALL_ARBITRABLE_ADDRESSES = ARBITRABLE_ADDRESSES.concat(
+    ARBITRABLE_TOKEN_ADDRESSES
+  )
+
+  for (let arbitrableContract of ALL_ARBITRABLE_ADDRESSES) {
     multipleArbitrableTransactionEth = new web3.eth.Contract(
       multipleArbitrableTransaction.abi,
       arbitrableContract
@@ -308,55 +339,94 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   // force convert to string
   const transactionId = id.toString()
 
-  const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
-    arbitrable
-  )
+  const metaEvidenceArchon = yield call(archon.arbitrable.getMetaEvidence, arbitrable, id)
 
-  const arbitratorAddress = yield call(
-    multipleArbitrableTransactionEth.methods.arbitrator().call
-  )
+  // Build this object up to return
+  let arbitrableTransaction = {}
+  let arbitrableTransactionContractInstance
 
-  const arbitratorEth = new web3.eth.Contract(
-    Arbitrator.abi,
-    arbitratorAddress
-  )
+  if (
+    metaEvidenceArchon.metaEvidenceJSON.token &&
+    metaEvidenceArchon.metaEvidenceJSON.token.address
+  ) {
+    // Token transaction
+    arbitrableTransactionContractInstance = new web3.eth.Contract(
+      multipleArbitrableTokenTransaction.abi,
+      arbitrable
+    )
+  } else {
+    // ETH transaction
+    arbitrableTransactionContractInstance = new web3.eth.Contract(
+      multipleArbitrableTransaction.abi,
+      arbitrable
+    )
+  }
 
-  const arbitratorExtraData = yield call(
-    multipleArbitrableTransactionEth.methods.arbitratorExtraData().call
-  )
-
+  // Share same methods for now
+  // NOTE if contracts diverge this will have to be moved into blocks above
   const [
-    arbitrableTransaction,
-    feeTimeout,
-    metaEvidenceArchon,
-    arbitrationCost
+    arbitratorAddress,
+    arbitratorExtraData,
+    _arbitrableTransaction,
+    feeTimeout
   ] = yield all([
     call(
-      multipleArbitrableTransactionEth.methods.transactions(transactionId).call
+      arbitrableTransactionContractInstance.methods.arbitrator().call
     ),
-    call(multipleArbitrableTransactionEth.methods.feeTimeout().call),
-    call(archon.arbitrable.getMetaEvidence, arbitrable, id),
-    call(arbitratorEth.methods.arbitrationCost(arbitratorExtraData).call)
+    call(
+      arbitrableTransactionContractInstance.methods.arbitratorExtraData().call
+    ),
+    call(
+      arbitrableTransactionContractInstance.methods.transactions(transactionId).call
+    ),
+    call(arbitrableTransactionContractInstance.methods.feeTimeout().call)
   ])
 
-  const disputeStatus = yield call(
-    arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
-  )
+  arbitrableTransaction = _arbitrableTransaction
 
+  arbitrableTransaction.arbitratorExtraData = arbitratorExtraData
+  arbitrableTransaction.feeTimeout = feeTimeout
   arbitrableTransaction.arbitratorAddress = arbitratorAddress
   arbitrableTransaction.id = id
   arbitrableTransaction.evidences = null
-  arbitrableTransaction.amount = web3.utils.fromWei(
-    arbitrableTransaction.amount.toString(),
-    'ether'
-  )
+
+  const _amount = arbitrableTransaction.amount
+  if (
+    metaEvidenceArchon.metaEvidenceJSON.token &&
+    metaEvidenceArchon.metaEvidenceJSON.token.decimals &&
+    metaEvidenceArchon.metaEvidenceJSON.token.decimals !== '18'
+  ) {
+    const amountLength = _amount.length
+    const decimalIndex = amountLength - metaEvidenceArchon.metaEvidenceJSON.token.decimals
+    arbitrableTransaction.amount = _amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)
+  } else {
+    arbitrableTransaction.amount = web3.utils.fromWei(
+      _amount,
+      'ether'
+    )
+  }
+
   arbitrableTransaction.otherParty =
     accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
   arbitrableTransaction.otherPartyAddress =
     accounts[0] === arbitrableTransaction.sender
       ? arbitrableTransaction.receiver
       : arbitrableTransaction.sender
+
+
+  // Fetch data from arbitrator
+  const arbitratorEth = new web3.eth.Contract(
+    Arbitrator.abi,
+    arbitrableTransaction.arbitratorAddress
+  )
+
+  const arbitrationCost = yield call(arbitratorEth.methods.arbitrationCost(
+    arbitrableTransaction.arbitratorExtraData
+  ).call)
+
+  const disputeStatus = yield call(
+    arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
+  )
 
   if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
     arbitrableTransaction.file = `https://ipfs.kleros.io${
@@ -368,7 +438,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     const metaEvidenceArchonEvidences = yield call(
       archon.arbitrable.getEvidence,
       arbitrable,
-      arbitratorAddress,
+      arbitrableTransaction.arbitratorAddress,
       id
     )
 
@@ -391,11 +461,17 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   if (!metaEvidenceArchon.metaEvidenceJSON.extraData)
     metaEvidenceArchon.metaEvidenceJSON.extraData = {}
 
+  // Set token to be from MetaEvidence if exists so that we retain extra information
+  if (arbitrableTransaction.token && metaEvidenceArchon.metaEvidenceJSON.token) {
+    if (arbitrableTransaction.token !== metaEvidenceArchon.metaEvidenceJSON.token.address)
+      throw new Error("Token in contract does not match MetaEvidence")
+    arbitrableTransaction.token = metaEvidenceArchon.metaEvidenceJSON.token
+  }
+
   return {
     arbitrableAddress: arbitrable,
     ...metaEvidenceArchon.metaEvidenceJSON,
     ...arbitrableTransaction, // Overwrite transaction.amount
-    feeTimeout,
     arbitrationCost: web3.utils.fromWei(arbitrationCost.toString(), 'ether'),
     originalAmount: metaEvidenceArchon.metaEvidenceJSON.amount,
     disputeStatus,

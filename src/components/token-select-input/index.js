@@ -27,9 +27,10 @@ const TokenSelectInput = ({ tokens, onSubmit }) => {
     if (newToken) {
       tokens.push(newToken)
       setIndex(tokens.length - 1)
+      onSubmit(tokens[tokens.length - 1])
+    } else {
+      onSubmit(tokens[tokenIndex])
     }
-
-    onSubmit(tokens[tokenIndex])
 
     setModal(!open)
   }

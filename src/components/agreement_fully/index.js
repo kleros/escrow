@@ -31,6 +31,8 @@ const AgreementFully = ({
     }
   }
 
+  const asset = (arbitrabletx.data.token ? arbitrabletx.data.token.ticker : 'ETH')
+
   return (
     <div className="AgreementFully">
       <Modal
@@ -49,7 +51,7 @@ const AgreementFully = ({
           <br />A dispute can still be raised over the remaining balance.
         </p>
         <p className="AgreementFully-modal-description">
-          Current Payment Balance: {arbitrabletx.data.amount} ETH
+          Current Payment Balance: {arbitrabletx.data.amount} {asset}
         </p>
         <div className="AgreementFully-modal-buttons">
           <div className="AgreementFully-modal-buttons-pay-reimburse">
@@ -61,11 +63,12 @@ const AgreementFully = ({
               amountMax={arbitrabletx.data.amount}
               id={arbitrabletx.data.id}
               onChangeAmount={setAmountFromInput}
+              asset={asset}
             />
           </div>
           <p className="AgreementFully-modal-offer">
             Remaining balance will be {' '}
-            <span style={{ color: '#009aff' }}>{(arbitrabletx.data.amount - amount).toFixed(2)} ETH</span>
+            <span style={{ color: '#009aff' }}>{(arbitrabletx.data.amount - amount).toFixed(2)} {asset}</span>
           </p>
         </div>
         <div className="divider" />
