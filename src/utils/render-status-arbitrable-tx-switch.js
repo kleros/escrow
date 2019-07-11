@@ -50,7 +50,7 @@ export default (
                 arbitrabletx.data.timeoutPayment * 1000 ? (
                 <ResumeArbitrableTx
                   arbitrabletx={arbitrabletx.data}
-                  title={<>Payment Details</>}
+                  title={arbitrabletx.data.invoice ? <>Invoice Details</> : <>Payment Details</>}
                 >
                   <Formik
                     onSubmit={() =>
@@ -87,7 +87,7 @@ export default (
               ) : (
                 <ResumeArbitrableTx
                   arbitrabletx={arbitrabletx.data}
-                  title={<>Payment Details</>}
+                  title={arbitrabletx.data.invoice ? <>Invoice Details</> : <>Payment Details</>}
                   footer={
                     <AgreementFully
                       payOrReimburse={payOrReimburse}
