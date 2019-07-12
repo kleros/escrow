@@ -30,7 +30,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               Fund Reciever
             </div>
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty">
-              {arbitrabletx.otherPartyAddress}
+              {arbitrabletx.receiver || arbitrabletx.otherPartyAddress}
             </div>
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-category">
               Escrow Type

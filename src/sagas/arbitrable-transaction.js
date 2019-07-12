@@ -21,6 +21,7 @@ import readFile from '../utils/read-file'
 import createMetaEvidence from '../utils/generate-meta-evidence'
 import getStatusArbitrable from '../utils/get-status-arbitrable'
 import validateMetaEvidence from '../utils/validate-meta-evidence'
+import { getAbiForArbitrableAddress } from '../utils/get-abi-for-arbitrable-address'
 
 import getMetaEvidence from './api/get-meta-evidence'
 import ipfsPublish from './api/ipfs-publish'
@@ -255,7 +256,7 @@ function* fetchArbitrabletxs() {
 
   for (let arbitrableContract of ALL_ARBITRABLE_ADDRESSES) {
     multipleArbitrableTransactionEth = new web3.eth.Contract(
-      multipleArbitrableTransaction.abi,
+      getAbiForArbitrableAddress(arbitrableContract),
       arbitrableContract
     )
     const [arbitrableTransactionIds, arbitratorExtraData] = yield all([
@@ -343,24 +344,11 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
 
   // Build this object up to return
   let arbitrableTransaction = {}
-  let arbitrableTransactionContractInstance
 
-  if (
-    metaEvidenceArchon.metaEvidenceJSON.token &&
-    metaEvidenceArchon.metaEvidenceJSON.token.address
-  ) {
-    // Token transaction
-    arbitrableTransactionContractInstance = new web3.eth.Contract(
-      multipleArbitrableTokenTransaction.abi,
-      arbitrable
-    )
-  } else {
-    // ETH transaction
-    arbitrableTransactionContractInstance = new web3.eth.Contract(
-      multipleArbitrableTransaction.abi,
-      arbitrable
-    )
-  }
+  const arbitrableTransactionContractInstance = new web3.eth.Contract(
+    getAbiForArbitrableAddress(arbitrable),
+    arbitrable
+  )
 
   // Share same methods for now
   // NOTE if contracts diverge this will have to be moved into blocks above
@@ -494,7 +482,7 @@ function* createPayOrReimburse({ payload: { arbitrable, id, amount } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
+    getAbiForArbitrableAddress(arbitrable),
     arbitrable
   )
 
@@ -538,7 +526,7 @@ function* executeTransaction({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
+    getAbiForArbitrableAddress(arbitrable),
     arbitrable
   )
 
@@ -563,7 +551,7 @@ function* createDispute({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
+    getAbiForArbitrableAddress(arbitrable),
     arbitrable
   )
 
@@ -588,7 +576,7 @@ function* createDispute({ payload: { arbitrable, id } }) {
     arbitratorEth.methods.arbitrationCost(extraData).call
   )
 
-  if (accounts[0] === arbitrableTransaction.receiver)
+  if (accounts[0] === arbitrableTransaction.receiver) {
     yield call(
       multipleArbitrableTransactionEth.methods.payArbitrationFeeByReceiver(id)
         .send,
@@ -597,6 +585,8 @@ function* createDispute({ payload: { arbitrable, id } }) {
         value: arbitrationCost - arbitrableTransaction.receiverFee
       }
     )
+  }
+
   if (accounts[0] === arbitrableTransaction.sender)
     yield call(
       multipleArbitrableTransactionEth.methods.payArbitrationFeeBySender(id)
@@ -620,7 +610,7 @@ function* createAppeal({ payload: { arbitrable, id } }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
+    getAbiForArbitrableAddress(arbitrable),
     arbitrable
   )
 
@@ -667,7 +657,7 @@ function* createTimeout({ payload: { arbitrable, id } }) {
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
+    getAbiForArbitrableAddress(arbitrable),
     arbitrable
   )
 
@@ -742,7 +732,7 @@ function* createEvidence({
     ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
-    multipleArbitrableTransaction.abi,
+    getAbiForArbitrableAddress(arbitrable),
     arbitrable
   )
 
