@@ -1,8 +1,10 @@
 body {
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-bottom: 0; }
 
 .App main {
   margin: 0 auto;
+  padding-bottom: 50px;
   padding-top: 100px; }
 
 /* TODO: switch the code to sass */
@@ -118,7 +120,7 @@ body {
 /* 48em = 768px */
 @media (min-width: 48em) {
   .App main {
-    padding: 100px 2em 0 2em; }
+    padding: 100px 2em 60px 2em; }
   .header ul {
     padding-right: 30px; }
   .header li {

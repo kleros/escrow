@@ -27,7 +27,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               {arbitrabletx.title}
             </div>
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-otherParty">
-              Fund Reciever
+              Fund Receiver
             </div>
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty">
               {arbitrabletx.receiver || arbitrabletx.otherPartyAddress}

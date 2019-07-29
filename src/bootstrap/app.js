@@ -9,6 +9,7 @@ import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
 import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
+import Footer from '../components/footer'
 import Notifications from '../containers/settings'
 import { ReactComponent as Kleros } from '../assets/kleros.svg'
 import { ReactComponent as Transaction } from '../assets/transaction.svg'
@@ -81,6 +82,7 @@ const Main = ({ children }) => (
       </ul>
     </header>
     <main>{children}</main>
+    <Footer />
   </div>
 )
 

@@ -281,7 +281,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             htmlFor={inputKey}
                             className="FormNewArbitrableTx-label"
                           >{inputKey + '*'}</label>
-                          { template.optionalInputs[inputKey] === 'date' ? (
+                        { template.optionalInputs[inputKey].type === 'date' ? (
                             <DateInput
                               disabledKeyboardNavigation
                               autoComplete="off"
@@ -304,7 +304,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             />
                         ) : (
                           <input
-                            type={template.optionalInputs[inputKey]}
+                            type={template.optionalInputs[inputKey].type}
                             id={inputKey}
                             className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
                             onChange={(e) => {
@@ -315,6 +315,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             }}
                           />
                         )}
+                        <div className="FormNewArbitrableTx-help">{template.optionalInputs[inputKey].tip}</div>
                         <ErrorMessage
                           name={inputKey}
                           component="div"
@@ -364,7 +365,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                 <div className="FormNewArbitrableTx-Bottom-buttons">
                   <span>
                     <div className="FormNewArbitrableTx-Bottom-buttons-back" onClick={back}>
-                      Return
+                      Back
                     </div>
                     <div className="FormNewArbitrableTx-Bottom-buttons-submit">
                         {(touched.description = true)}

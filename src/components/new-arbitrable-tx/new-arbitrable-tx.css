@@ -1,6 +1,6 @@
 .NewArbitrableTx {
   background: #fff;
-  border-radius: 3px;
+  border-radius: 9px;
   padding: 40px 80px; }
   .NewArbitrableTx-h1 {
     color: #4004a3;
@@ -121,8 +121,7 @@
         font-weight: 400; }
     .NewArbitrableTx .FormNewArbitrableTx-ExtraDetails-input {
       width: 100%;
-      margin-top: 12px;
-      margin-bottom: 20px; }
+      margin-top: 12px; }
     .NewArbitrableTx .FormNewArbitrableTx-error {
       color: #ff0303;
       font-size: 0.9em; }

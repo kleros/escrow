@@ -1,0 +1,24 @@
+.footer {
+  background: #4D00B4;
+  color: white;
+  height: 60px;
+  font-size: 14px;
+  padding: 22px 25px;
+  width: 100%;
+
+  &-left {
+    display: inline-block;
+    text-align: left;
+    width: 33%;
+  }
+  &-center {
+    display: inline-block;
+    text-align: center;
+    width: 33%;
+  }
+  &-right {
+    display: inline-block;
+    text-align: right;
+    width: 33%;
+  }
+}

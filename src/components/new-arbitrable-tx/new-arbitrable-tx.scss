@@ -1,6 +1,6 @@
 .NewArbitrableTx {
   background: #fff;
-  border-radius: 3px;
+  border-radius: 9px;
   padding: 40px 80px;
 
   &-h1 {
@@ -225,7 +225,6 @@
     &-ExtraDetails-input {
       width: 100%;
       margin-top: 12px;
-      margin-bottom: 20px;
     }
 
     &-error {

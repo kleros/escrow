@@ -22,19 +22,28 @@ const templates = [
     logo: CryptoTransactionLogo,
     logoWhite: CryptoTransactionLogoWhite,
     optionalInputs: {
-      'Blockchain': 'text',
-      'Address': 'text',
-      'Cryptoasset Description': 'text',
-      'Due Date': 'date'
+      'Blockchain': {
+        type: 'text',
+        tip: 'Enter the blockchain that the asset to exchange originates from. E.g. Bitcoin'
+      },
+      'Address': {
+        type: 'text',
+        tip: 'The address where this asset should be sent. E.g. 1CK6KHY6MHgYvmRQ4PAafKYDrg1ejbH1cE'
+      },
+      'Cryptoasset Description': {
+        type: 'text',
+        tip: 'The amount or value of the asset being exchanged. E.g. 2.3 BTC'
+      },
+      'Due Date': {
+        type: 'date',
+        tip: 'The date by which the specified asset must be transfered to the given address.'
+      }
     },
     label: 'Cryptocurrency Transaction',
     description: 'Escrow funds to facilitate a crypto transaction. This can be used to for a safe cross chain swap. One person escrows one side of the trade in an asset based on ETH, and the funds are released after the funds on another blockchain have been moved.',
     content:
       '[Blockchain] address [Address] should receive [Cryptoasset Description] from the sender before [Due Date].',
-    tips: [
-      (<div><span style={{fontWeight: 600}}>**</span> Replace [bracketed] information as seen in the example below:</div>),
-      (<div>Bitcoin address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa should receive 0.1 BTC from the sender before Sun Apr 28 2019 23:31 UTC.</div>)
-    ],
+    tips: [<span>Disputes will be resolved in the <b>Blockchain Non Technical Court</b> in Kleros</span>],
     address: {
       eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
       token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
@@ -46,14 +55,15 @@ const templates = [
     logoWhite: GeneralServiceLogoWhite,
     label: 'General Service',
     optionalInputs: {
-      'Contract Information': 'text'
+      'Contract Information': {
+        type: 'text',
+        tip: 'Enter your own terms here. For long contracts, you can use the Agreement Document field above or copy and paste it here.'
+      }
     },
-    description: 'Define your own terms for any service.',
+    description: 'Hiring an outside contractor? Use the general escrow to safeguard these transactions. Use this option to define your own terms for any agreement.',
     content:
       '[Contract Information]',
-    tips: [
-      (<div><span style={{fontWeight: 600}}>**</span> Replace [bracketed] information with your contract details. If a dispute is raised this will be resolved in the Kleros General Court</div>)
-    ],
+    tips: [<span>Disputes will be resolved in the <b>General Court</b> in Kleros</span>],
     address: {
       eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
       token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
