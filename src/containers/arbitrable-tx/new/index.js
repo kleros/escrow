@@ -75,6 +75,7 @@ class NewArbitrableTxContainer extends PureComponent {
             templates={this.templates}
             selectedTemplate={this.state.template}
             submit={this.submitTemplateType.bind(this)}
+            invoice={type === 'invoice'}
           />
         </>
       )

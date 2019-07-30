@@ -4,7 +4,7 @@ import './select-arbitrable-tx.css'
 import SelectArbitrableTxTypeCard from './cards'
 import Logo from '../../assets/BBB.png'
 
-const SelectArbitrableTxType = ({ templates, selectedTemplate, submit }) => {
+const SelectArbitrableTxType = ({ templates, selectedTemplate, submit, invoice }) => {
   if (!templates || !selectedTemplate) return null
   const [template, setTemplate] = useState(selectedTemplate)
 

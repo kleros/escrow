@@ -192,10 +192,17 @@ function* createArbitrabletx({
     let decimals = 18
     if (arbitrabletxReceived.token && arbitrabletxReceived.token.decimals)
       decimals = arbitrabletxReceived.token.decimals
+
     // Convert to int based on decimals
-    const amount = web3.utils.toBN(arbitrabletxReceived.amount * (
-      10 ** decimals
-    ))
+    const amount = web3.utils.toBN(
+      arbitrabletxReceived.amount
+    ).mul(
+      web3.utils.toBN(
+        10
+      ).pow(
+        web3.utils.toBN(decimals)
+      )
+    )
 
     const erc20 = new web3.eth.Contract(
       ERC20.abi,
@@ -382,11 +389,15 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   if (
     metaEvidenceArchon.metaEvidenceJSON.token &&
     metaEvidenceArchon.metaEvidenceJSON.token.decimals &&
-    metaEvidenceArchon.metaEvidenceJSON.token.decimals !== '18'
+    String(metaEvidenceArchon.metaEvidenceJSON.token.decimals) !== '18'
   ) {
     const amountLength = _amount.length
     const decimalIndex = amountLength - metaEvidenceArchon.metaEvidenceJSON.token.decimals
-    arbitrableTransaction.amount = _amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)
+    if (decimalIndex < 0) {
+      arbitrableTransaction.amount = parseFloat('0.' + ('0'.repeat(Math.abs(decimalIndex))) + _amount).toString()
+    } else {
+      arbitrableTransaction.amount = parseFloat(_amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)).toString()
+    }
   } else {
     arbitrableTransaction.amount = web3.utils.fromWei(
       _amount,
