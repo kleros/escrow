@@ -43,7 +43,7 @@ const templates = [
     description: 'Escrow funds to facilitate a crypto transaction. This can be used to for a safe cross chain swap. One person escrows one side of the trade in an asset based on ETH, and the funds are released after the funds on another blockchain have been moved.',
     content:
       '[Blockchain] address [Address] should receive [Cryptoasset Description] from the sender before [Due Date].',
-    tips: [<span>Disputes will be resolved in the <b>Blockchain Non Technical Court</b> in Kleros</span>],
+    tips: [<span>Disputes will be resolved in the <a href="https://court.kleros.io/courts">Blockchain Non Technical Court</a> in Kleros</span>],
     address: {
       eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
       token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
@@ -63,7 +63,7 @@ const templates = [
     description: 'Hiring an outside contractor? Use the general escrow to safeguard these transactions. Use this option to define your own terms for any agreement.',
     content:
       '[Contract Information]',
-    tips: [<span>Disputes will be resolved in the <b>General Court</b> in Kleros</span>],
+    tips: [<span>Disputes will be resolved in the <a href="https://court.kleros.io/courts">General Court</a> in Kleros</span>],
     address: {
       eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
       token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]

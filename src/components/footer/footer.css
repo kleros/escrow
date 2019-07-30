@@ -6,6 +6,9 @@
   padding: 18px 25px;
   width: 100%;
   margin-top: -60px; }
+  @media (max-width: 768px) {
+    .footer {
+      display: none; } }
   .footer a {
     color: white;
     text-decoration: none; }
@@ -31,6 +34,9 @@
         width: 18px;
         position: relative;
         top: 4px; }
+      @media (max-width: 1130px) {
+        .footer-right-help {
+          width: 100%; } }
     .footer-right-icons {
       display: inline-block;
       width: 60%;
@@ -38,3 +44,6 @@
       top: 3px; }
       .footer-right-icons a {
         padding-right: 10px; }
+      @media (max-width: 1130px) {
+        .footer-right-icons {
+          display: none; } }
