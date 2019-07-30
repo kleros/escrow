@@ -100,7 +100,7 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit }) => {
                 <img src={warningSymbol} />
               </div>
               <div className="text">
-                The Custom Token must follow the ERC20 standard. If it does not follow this standard you risk tokens being locked in the Escrow Smart Contract. Verified ERC20 tokens are from the Kleros T2CR. You can follow instructions to verify this token.
+                <span>The Custom Token must follow the <a href="https://eips.ethereum.org/EIPS/eip-20" target="_">ERC20 standard</a>. Tokens that do not follow this standard may be permanently locked in the Smart Contract. Only proceed if you know what you are doing. Verified ERC20 tokens are from the Kleros T2CR. <a href="https://blog.kleros.io/erc20-becomes-part-of-the-token/" target="_">How to verify a Token</a>.</span>
               </div>
             </div>
           </div>

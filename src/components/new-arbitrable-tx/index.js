@@ -216,8 +216,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             className="FormNewArbitrableTx-error FormNewArbitrableTx-error-timeout"
                           />
                           <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-timeout">
-                            If no disputes are raised before this deadline, the payment will
-                            be automatically processed.
+                            If a dispute isn't raised, escrowed funds will be automatically sent on this date.
                           </div>
                         </>
                       ) : ''}
