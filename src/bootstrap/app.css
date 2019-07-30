@@ -3,8 +3,8 @@ body {
   padding-bottom: 0; }
 
 .App main {
+  min-height: 100vh;
   margin: 0 auto;
-  padding-bottom: 50px;
   padding-top: 100px; }
 
 /* TODO: switch the code to sass */
@@ -120,7 +120,7 @@ body {
 /* 48em = 768px */
 @media (min-width: 48em) {
   .App main {
-    padding: 100px 2em 60px 2em; }
+    padding: 100px 2em 120px 2em; }
   .header ul {
     padding-right: 30px; }
   .header li {

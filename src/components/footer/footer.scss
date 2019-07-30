@@ -3,8 +3,14 @@
   color: white;
   height: 60px;
   font-size: 14px;
-  padding: 22px 25px;
+  padding: 18px 25px;
   width: 100%;
+  margin-top: -60px;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 
   &-left {
     display: inline-block;
@@ -18,7 +24,33 @@
   }
   &-right {
     display: inline-block;
-    text-align: right;
     width: 33%;
+    padding-left: 10%;
+
+    &-help {
+      width: 40%;
+      display: inline-block;
+
+      &-text {
+        display: inline-block;
+        padding-right: 10px;
+      }
+
+      &-icon {
+        width: 18px;
+        position: relative;
+        top: 4px;
+      }
+    }
+
+    &-icons {
+      display: inline-block;
+      width: 60%;
+      position: relative;
+      top: 3px;
+      a {
+        padding-right: 10px;
+      }
+    }
   }
 }
