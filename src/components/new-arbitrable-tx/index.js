@@ -330,7 +330,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                   htmlFor="description"
                   className="FormNewArbitrableTx-label FormNewArbitrableTx-label-description FormNewArbitrableTx-Bottom-title"
                 >
-                  Contract Description*
+                  Contract Information*
                 </label>
                 <Field
                   name="description"

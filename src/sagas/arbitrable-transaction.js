@@ -2,10 +2,12 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
+import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
 
 import {
   web3,
   archon,
+  ERC20_ADDRESS,
   ARBITRABLE_ADDRESSES,
   ARBITRABLE_TOKEN_ADDRESSES
 } from '../bootstrap/dapp-api'
@@ -132,6 +134,28 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
   if (!validateMetaEvidence(metaEvidenceDecoded))
     throw new Error('SECURITY ERROR: MetaEvidence generated outside of Kleros')
 
+  let verified = true
+  // Add in missing pieces of metaEvidence for legacy disputes
+  if (!metaEvidenceDecoded.token) {
+    metaEvidenceDecoded.token = ETH
+  } else {
+    if (metaEvidenceDecoded.token.address !== ETH.address) {
+      const ERC20BadgeInstance = new web3.eth.Contract(
+        ArbitrableAddressList.abi,
+        ERC20_ADDRESS
+      )
+
+      const item = yield call(
+        ERC20BadgeInstance.methods.getAddressInfo(
+          metaEvidenceDecoded.token.address
+        ).call
+      )
+
+      if (!item || Number(item.status) !== 1)
+        verified = false
+    }
+  }
+
   return yield put(
     action(arbitrabletxActions.arbitrabletx.RESUMEFORM, {
       arbitrabletxResumeForm: {
@@ -149,7 +173,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
           ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
           : null,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`,
-        extraData: metaEvidenceDecoded.extraData || {}
+        extraData: metaEvidenceDecoded.extraData || {},
+        verified
       }
     })
   )
@@ -453,6 +478,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
       arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
     )
 
+  let verified = true
   // Add in missing pieces of metaEvidence for legacy disputes
   if (!metaEvidenceArchon.metaEvidenceJSON.token)
     metaEvidenceArchon.metaEvidenceJSON.token = ETH
@@ -465,6 +491,23 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     if (arbitrableTransaction.token !== metaEvidenceArchon.metaEvidenceJSON.token.address)
       throw new Error("Token in contract does not match MetaEvidence")
     arbitrableTransaction.token = metaEvidenceArchon.metaEvidenceJSON.token
+
+    if (metaEvidenceArchon.metaEvidenceJSON.token.address !== ETH.address) {
+      const ERC20BadgeInstance = new web3.eth.Contract(
+        ArbitrableAddressList.abi,
+        ERC20_ADDRESS
+      )
+
+      const item = yield call(
+        ERC20BadgeInstance.methods.getAddressInfo(
+          metaEvidenceArchon.metaEvidenceJSON.token.address
+        ).call
+      )
+
+      if (!item || Number(item.status) !== 1)
+        verified = false
+    }
+
   }
 
   return {
@@ -481,7 +524,8 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
         ? 'receiver'
         : 'none',
     ruling,
-    appealable: disputeStatus === disputeConstants.APPEALABLE.toString()
+    appealable: disputeStatus === disputeConstants.APPEALABLE.toString(),
+    verified
   }
 }
 

@@ -38,6 +38,10 @@
       grid-area: nameAmount; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-amount {
       grid-area: amount; }
+      .ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame {
       grid-area: amount;
       width: 100%;

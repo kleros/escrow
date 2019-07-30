@@ -90,21 +90,35 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               Amount
             </div>
             { arbitrabletx.id ? (
-              <iframe
-                className="ResumeArbitrableTx-ContentNewArbitrableTx-amount ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame"
-                frameBorder="0"
-                src={`https://ipfs.kleros.io/ipfs/QmbV9BQsjSxfPNDhhLvn9FJe6uYWgB717mp4fcGdmGLeKs/index.html?${encodeURIComponent(
-                  JSON.stringify({
-                    arbitrableContractAddress: arbitrabletx.arbitrableAddress,
-                    arbitratorContractAddress: arbitrabletx.arbitratorAddress,
-                    transactionID: arbitrabletx.id
-                  })
-                )}`}
-                title="Amount Display"
-              />) : (
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
+                <iframe
+                  className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame"
+                  frameBorder="0"
+                  src={`https://ipfs.kleros.io/ipfs/QmbV9BQsjSxfPNDhhLvn9FJe6uYWgB717mp4fcGdmGLeKs/index.html?${encodeURIComponent(
+                    JSON.stringify({
+                      arbitrableContractAddress: arbitrabletx.arbitrableAddress,
+                      arbitratorContractAddress: arbitrabletx.arbitratorAddress,
+                      transactionID: arbitrabletx.id
+                    })
+                  )}`}
+                  title="Amount Display"
+                />
+                { !arbitrabletx.verified ? (
+                  <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                    <span>WARNING: This token has not been verified. Please check the <a target="_" href={`https://etherscan.io/token/${arbitrabletx.token.address}`}>token address</a> to ensure this is payment you expect.</span>
+                  </div>
+                ) : ''}
+              </div>
+              ) : (
                 <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
                   {`${arbitrabletx.amount} ${arbitrabletx.token ? arbitrabletx.token.ticker : ''}`}
+                  { !arbitrabletx.verified ? (
+                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                      <span>WARNING: This token has not been verified. Please check the <a target="_" href={`https://etherscan.io/token/${arbitrabletx.token.address}`}>token address</a> to ensure this is payment you expect.</span>
+                    </div>
+                  ) : ''}
                 </div>
+
               )
             }
           </div>
@@ -131,7 +145,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
           {arbitrabletx.description && (
             <>
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name-description">
-                Contract Description
+                Contract Information
               </div>
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content-description">
                 {arbitrabletx.description}
