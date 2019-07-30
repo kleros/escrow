@@ -14,7 +14,7 @@ const SelectArbitrableTxType = ({ templates, selectedTemplate, submit, invoice }
         <img src={Logo} />
       </div>
       <div className="SelectArbitrableTxType-header">
-        <h2>Select the Escrow Type</h2>
+        <h2>Select the Escrow Type for the {invoice ? 'Invoice' : 'Payment'}</h2>
       </div>
       <div className="SelectArbitrableTxType-cards">
         {templates.map(_template => (
