@@ -129,6 +129,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                       </label>
                       <Field
                         name="title"
+                        id="title"
                         className="FormNewArbitrableTx-input FormNewArbitrableTx-input-title"
                       />
                       <ErrorMessage
@@ -147,6 +148,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                       </label>
                       <Field
                         name="receiver"
+                        id="receiver"
                         className="FormNewArbitrableTx-input FormNewArbitrableTx-input-receiver"
                       />
                       <ErrorMessage
@@ -166,6 +168,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                       <div className="FormNewArbitrableTx-input-amount">
                         <Field
                           name="amount"
+                          id="amount"
                           className="FormNewArbitrableTx-input"
                         />
                         <div className="FormNewArbitrableTx-amount-select">

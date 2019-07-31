@@ -68,7 +68,8 @@
     .NewArbitrableTx .FormNewArbitrableTx-label-file {
       grid-area: labelFile; }
     .NewArbitrableTx .FormNewArbitrableTx-input-file {
-      grid-area: inputFile; }
+      grid-area: inputFile;
+      color: black; }
     .NewArbitrableTx .FormNewArbitrableTx-error-file {
       grid-area: errorFile; }
     .NewArbitrableTx .FormNewArbitrableTx-help-file {

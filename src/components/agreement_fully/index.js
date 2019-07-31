@@ -10,6 +10,8 @@ import MAX_TIMEOUT from '../../constants/timeout'
 import CountdownRenderer from '../countdown-renderer'
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
 
+import truncateAmount from '../../utils/eth-amount'
+
 import './agreement-fully.css'
 
 const AgreementFully = ({
@@ -68,7 +70,7 @@ const AgreementFully = ({
           </div>
           <p className="AgreementFully-modal-offer">
             Remaining balance will be {' '}
-            <span style={{ color: '#009aff' }}>{(arbitrabletx.data.amount - amount).toFixed(2)} {asset}</span>
+            <span style={{ color: '#009aff' }}>{truncateAmount(arbitrabletx.data.amount - amount, 2)} {asset}</span>
           </p>
         </div>
         <div className="divider" />
