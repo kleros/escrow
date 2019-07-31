@@ -80,20 +80,20 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit }) => {
         <TabPanel>
           <div className="custom-token">
             <div className="custom-token-input">
-              Address
-              <input type="text" onChange={(e) => {setTokenAddress(e.target.value)}}></input>
+              <label htmlFor="address">Address</label>
+              <input id="address" type="text" onChange={(e) => {setTokenAddress(e.target.value)}}></input>
             </div>
             <div className="custom-token-input">
-              Name
-              <input type="text" onChange={(e) => {setTokenName(e.target.value)}}></input>
+              <label htmlFor="name">Name</label>
+              <input id="name" type="text" onChange={(e) => {setTokenName(e.target.value)}}></input>
             </div>
             <div className="custom-token-input">
-              Ticker
-              <input type="text" onChange={(e) => {setTokenTicker(e.target.value)}}></input>
+              <label htmlFor="ticker">Ticker</label>
+              <input id="ticker" type="text" onChange={(e) => {setTokenTicker(e.target.value)}}></input>
             </div>
             <div className="custom-token-input">
-              Decimals of Precision
-              <input type="text" onChange={(e) => {setTokenDecimals(e.target.value)}}></input>
+              <label htmlFor="decimals">Decimals of Precision</label>
+              <input id="decimals" type="text" onChange={(e) => {setTokenDecimals(e.target.value)}}></input>
             </div>
             <div className="custom-token-warning">
               <div className="symbol">

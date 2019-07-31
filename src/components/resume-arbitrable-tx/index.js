@@ -135,9 +135,16 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name">
               {dataTitle}
             </div>
-            <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
-              {arbitrabletx.extraData[dataTitle]}
-            </div>
+            { arbitrabletx.extraData[dataTitle].slice(-8) === ":00.000Z" ? (
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
+                { (new Date(arbitrabletx.extraData[dataTitle])).toString() }
+              </div>
+            ) : (
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
+                { arbitrabletx.extraData[dataTitle] }
+              </div>
+            )}
+
           </>
         ))
 

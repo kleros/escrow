@@ -40,7 +40,7 @@ const templates = [
       }
     },
     label: 'Cryptocurrency Transaction',
-    description: 'Escrow funds to facilitate a crypto transaction. This can be used to for a safe cross chain swap. One person escrows one side of the trade in an asset based on ETH, and the funds are released after the funds on another blockchain have been moved.',
+    description: 'Escrow funds to facilitate a crypto transaction. This can be used to for a safe cross chain swap. One person escrows one side of the trade in an asset based on ETH, and the funds are released after the funds on another blockchain have been moved. If you are sending the ETH based asset, use "Payment". Otherwise use "Invoice".',
     content:
       '[Blockchain] address [Address] should receive [Cryptoasset Description] from the sender before [Due Date].',
     tips: [<span>Disputes will be resolved in the <a href="https://court.kleros.io/courts">Blockchain Non Technical Court</a> in Kleros</span>],

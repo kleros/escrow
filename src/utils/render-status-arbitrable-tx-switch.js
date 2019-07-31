@@ -164,7 +164,7 @@ export default (
         disputeConstants.WAITING.toString() ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Dispute Ongoing</>}
+          title={<>Dispute in Progress</>}
           footer={
             <NewEvidenceArbitrableTx
               arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -176,7 +176,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Dispute Ongoing</>}
+          title={<>Dispute in Progress</>}
           footer={
             <DisputeArbitrableTx
               message={
