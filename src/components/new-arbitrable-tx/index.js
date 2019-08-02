@@ -304,6 +304,18 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                                 setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
                               }}
                             />
+                        ) : (template.optionalInputs[inputKey].type === 'textarea' ? (
+                          <textarea
+                            rows={8}
+                            id={inputKey}
+                            className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
+                            onChange={(e) => {
+                              const _extraData = values.extraData
+                              _extraData[inputKey] = e.target.value
+                              setFieldValue('extraData', _extraData)
+                              setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
+                            }}
+                          />
                         ) : (
                           <input
                             type={template.optionalInputs[inputKey].type}
@@ -316,7 +328,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                               setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
                             }}
                           />
-                        )}
+                        ))}
                         <div className="FormNewArbitrableTx-help">{template.optionalInputs[inputKey].tip}</div>
                         <ErrorMessage
                           name={inputKey}

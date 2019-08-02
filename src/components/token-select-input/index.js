@@ -25,9 +25,18 @@ const TokenSelectInput = ({ tokens, onSubmit }) => {
     }
 
     if (newToken) {
-      tokens.push(newToken)
-      setIndex(tokens.length - 1)
-      onSubmit(tokens[tokens.length - 1])
+      // Check to see if address already exists. We do not allow duplicates
+      const existingIndex = tokens.findIndex((_token) => {
+        return _token.address === newToken.address
+      })
+      if (existingIndex !== -1) {
+        setIndex(existingIndex)
+        onSubmit(tokens[existingIndex])
+      } else {
+        tokens.push(newToken)
+        setIndex(tokens.length - 1)
+        onSubmit(tokens[tokens.length - 1])
+      }
     } else {
       onSubmit(tokens[tokenIndex])
     }

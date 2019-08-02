@@ -223,15 +223,19 @@ const AgreementFully = ({
             a dispute.
             <br />
             <br />
-            Payment times out in{' '}
-            <Countdown
-              date={
-                arbitrabletx.data.lastInteraction * 1000 +
-                arbitrabletx.data.timeoutPayment * 1000
-              }
-              renderer={CountdownRenderer}
-            />
-            .
+              {arbitrabletx.data.timeout === MAX_TIMEOUT ? '' : (
+                <>
+                  Payment times out in{' '}
+                  <Countdown
+                    date={
+                      arbitrabletx.data.lastInteraction * 1000 +
+                      arbitrabletx.data.timeoutPayment * 1000
+                    }
+                    renderer={CountdownRenderer}
+                  />
+                  .
+                </>
+              )}
           </>
         )}
       </div>

@@ -56,7 +56,7 @@ const templates = [
     label: 'General Service',
     optionalInputs: {
       'Contract Information': {
-        type: 'text',
+        type: 'textarea',
         tip: 'Enter your own terms here. For long contracts, you can use the Agreement Document field above or copy and paste it here.'
       }
     },
