@@ -9,7 +9,7 @@ export const REUSED_TOKEN_WARNING = (item) => (
 )
 
 export const DECIMAL_WARNING = (decimals) => (
-  <span>- The decimals for this token cannot be verified. This token is using {decimals} decimals. Verify that this is the expected decimal places for this asset. Note: Incorrect decimal places effect the amount in escrow. Note: Most tokens use 18 decimal places.</span>
+  <span>- The decimals for this token cannot be verified. This token is using {decimals} decimal places. Verify that this is the expected decimal places for this asset. Note: Incorrect decimal places effect the amount in escrow. Most tokens use 18 decimal places.</span>
 )
 
 export const DECIMALS_NOTICE = (decimals) => (

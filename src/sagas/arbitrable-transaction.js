@@ -476,26 +476,6 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   arbitrableTransaction.id = id
   arbitrableTransaction.evidences = null
 
-  const _amount = arbitrableTransaction.amount
-  if (
-    metaEvidenceArchon.metaEvidenceJSON.token &&
-    metaEvidenceArchon.metaEvidenceJSON.token.decimals &&
-    String(metaEvidenceArchon.metaEvidenceJSON.token.decimals) !== '18'
-  ) {
-    const amountLength = _amount.length
-    const decimalIndex = amountLength - metaEvidenceArchon.metaEvidenceJSON.token.decimals
-    if (decimalIndex < 0) {
-      arbitrableTransaction.amount = parseFloat('0.' + ('0'.repeat(Math.abs(decimalIndex))) + _amount).toString()
-    } else {
-      arbitrableTransaction.amount = parseFloat(_amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)).toString()
-    }
-  } else {
-    arbitrableTransaction.amount = web3.utils.fromWei(
-      _amount,
-      'ether'
-    )
-  }
-
   arbitrableTransaction.otherParty =
     accounts[0] === arbitrableTransaction.sender ? 'receiver' : 'sender'
   arbitrableTransaction.otherPartyAddress =
@@ -523,6 +503,12 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
       metaEvidenceArchon.metaEvidenceJSON.fileURI
     }`
 
+  // token addresses must match
+  if (arbitrableTransaction.token && metaEvidenceArchon.metaEvidenceJSON.token.address !== arbitrableTransaction.token)
+    throw new Error('MetaEvidence Token information does not match token in the contract')
+
+  arbitrableTransaction.token = metaEvidenceArchon.metaEvidenceJSON.token
+
   // NOTE: assuming disputeID is not equal to 0
   if (arbitrableTransaction.disputeId) {
     const metaEvidenceArchonEvidences = yield call(
@@ -544,37 +530,113 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
       arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
     )
 
+    if (!metaEvidenceArchon.metaEvidenceJSON.extraData)
+      metaEvidenceArchon.metaEvidenceJSON.extraData = {}
+
   let verified = true
+  const warnings = []
   // Add in missing pieces of metaEvidence for legacy disputes
-  if (!metaEvidenceArchon.metaEvidenceJSON.token)
+  if (!metaEvidenceArchon.metaEvidenceJSON.token) {
     metaEvidenceArchon.metaEvidenceJSON.token = ETH
-
-  if (!metaEvidenceArchon.metaEvidenceJSON.extraData)
-    metaEvidenceArchon.metaEvidenceJSON.extraData = {}
-
-  // Set token to be from MetaEvidence if exists so that we retain extra information
-  if (arbitrableTransaction.token && metaEvidenceArchon.metaEvidenceJSON.token) {
-    if (arbitrableTransaction.token !== metaEvidenceArchon.metaEvidenceJSON.token.address)
-      throw new Error("Token in contract does not match MetaEvidence")
-    arbitrableTransaction.token = metaEvidenceArchon.metaEvidenceJSON.token
-
-    if (metaEvidenceArchon.metaEvidenceJSON.token.address !== ETH.address) {
+  } else {
+    // If ETH, use the constants over user supplied data
+    if (metaEvidenceArchon.metaEvidenceJSON.token.address === ETH.address) {
+      metaEvidenceArchon.metaEvidenceJSON.token = ETH
+    } else {
+      const _token = metaEvidenceArchon.metaEvidenceJSON.token
+      // Tokens
       const ERC20BadgeInstance = new web3.eth.Contract(
         ArbitrableAddressList.abi,
         ERC20_ADDRESS
       )
 
+      const T2CRInstance = new web3.eth.Contract(
+        ArbitrableTokenList.abi,
+        T2CR_ADDRESS
+      )
+
+      const ERC20Instance = new web3.eth.Contract(
+        ERC20.abi,
+        _token.address
+      )
+
+      // Verify token attributes
+      let decimals
+      try {
+        decimals = yield call(
+          ERC20Instance.methods.decimals().call
+        )
+      } catch {}
+
+      // Overwrite user input if decimals is available in the contract
+      if (decimals) {
+        metaEvidenceArchon.metaEvidenceJSON.token.decimals = decimals
+      } else {
+        // Assume 18 if none supplied
+        if (!metaEvidenceArchon.metaEvidenceJSON.token.decimals) metaEvidenceArchon.metaEvidenceJSON.token.decimals = 18
+        verified = false
+        warnings.push(warningConstants.DECIMAL_WARNING(metaEvidenceArchon.metaEvidenceJSON.token.decimals))
+      }
+
+      // Verify token attributes
+      const tokenQuery = yield call(T2CRInstance.methods.queryTokens(
+        '0x0000000000000000000000000000000000000000000000000000000000000000',
+        1,
+        [false,true,false,false,false,false,false,false],
+        true,
+        _token.address
+      ).call)
+
+      const tokenID = tokenQuery.values[0]
+      // If token does not exist we have nothing to check against
+      if (tokenID) {
+        const verifiedToken = yield call(T2CRInstance.methods.tokens(tokenID).call)
+        for (let attr of Object.keys(_token)) {
+          // If the attribute is not in the list we don't need to worry about it
+          const _verifiedAttr = verifiedToken[attr]
+          if (_verifiedAttr && _token[attr] !== _verifiedAttr) {
+            verified = false
+            warnings.push(warningConstants.REUSED_TOKEN_WARNING(attr))
+          }
+        }
+      }
+
+      // Verify token address
       const item = yield call(
         ERC20BadgeInstance.methods.getAddressInfo(
-          metaEvidenceArchon.metaEvidenceJSON.token.address
+          _token.address
         ).call
       )
 
-      if (!item || Number(item.status) !== 1)
+      if (!item || Number(item.status) !== 1 || !verified) {
         verified = false
+        warnings.push(warningConstants.ADDRESS_WARNING(_token.address))
+      }
     }
-
   }
+
+  // Parse amount to human readable format
+  const _amount = arbitrableTransaction.amount
+  if (
+    metaEvidenceArchon.metaEvidenceJSON.token &&
+    metaEvidenceArchon.metaEvidenceJSON.token.decimals &&
+    String(metaEvidenceArchon.metaEvidenceJSON.token.decimals) !== '18'
+  ) {
+    const amountLength = _amount.length
+    const decimalIndex = amountLength - metaEvidenceArchon.metaEvidenceJSON.token.decimals
+    if (decimalIndex < 0) {
+      arbitrableTransaction.amount = parseFloat('0.' + ('0'.repeat(Math.abs(decimalIndex))) + _amount).toString()
+    } else {
+      arbitrableTransaction.amount = parseFloat(_amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)).toString()
+    }
+  } else {
+    arbitrableTransaction.amount = web3.utils.fromWei(
+      _amount,
+      'ether'
+    )
+  }
+
+  warnings.reverse()
 
   return {
     arbitrableAddress: arbitrable,
@@ -591,7 +653,8 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
         : 'none',
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString(),
-    verified
+    verified,
+    warnings
   }
 }
 

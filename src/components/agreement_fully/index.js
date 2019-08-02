@@ -25,11 +25,17 @@ const AgreementFully = ({
   const [open, setModal] = useState(false)
   const [amount, setAmount] = useState(0) // set Percent
   const setAmountFromInput = amount => {
-    if (amount <= arbitrabletx.data.amount) {
-      if (amount < 0) setAmount(0)
+    const _amount = Number(amount)
+    const _amountInEscrow = Number(arbitrabletx.data.amount)
+    if (!_amount) setAmount(amount)
+
+    if (_amount <= _amountInEscrow) {
+      if (_amount < 0) setAmount(0)
       else setAmount(amount)
+    } else if (_amount > _amountInEscrow) {
+      setAmount(_amountInEscrow)
     } else {
-      setAmount(arbitrabletx.data.amount)
+      setAmount(_amount)
     }
   }
 

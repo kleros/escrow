@@ -27,7 +27,8 @@
       grid-area: nameCategory;
       text-transform: capitalize; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-otherParty {
-      grid-area: contentOtherParty; }
+      grid-area: contentOtherParty;
+      font-size: 16px !important; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-category {
       grid-area: contentCategory; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout {

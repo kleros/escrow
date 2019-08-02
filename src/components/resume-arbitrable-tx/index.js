@@ -103,15 +103,15 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                   )}`}
                   title="Amount Display"
                 />
-                {arbitrabletx.warnings.length ? (
+                {arbitrabletx.warnings && arbitrabletx.warnings.length ? (
                     <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
                       TOKEN WARNINGS: Please asses these warnings carefully before continuing.
                     </div>
                   ) : ''
                 }
                 {
-                  arbitrabletx.warnings.map(_warning => (
-                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                  arbitrabletx.warnings && arbitrabletx.warnings.map((_warning, i) => (
+                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning" key={`warning-${i}`}>
                       {_warning}
                     </div>
                   ))
@@ -127,8 +127,8 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                   ) : ''
                 }
                 {
-                  arbitrabletx.warnings.map(_warning => (
-                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                  arbitrabletx.warnings.map((_warning, i) => (
+                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning" key={`warning-${i}`}>
                       {_warning}
                     </div>
                   ))
@@ -146,8 +146,8 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
         </>
         )}
         />
-      <DetailsArea title={"Extra Details"} inputs={Object.keys(arbitrabletx.extraData).map(dataTitle => (
-          <>
+      <DetailsArea title={"Extra Details"} inputs={Object.keys(arbitrabletx.extraData).map((dataTitle, i) => (
+          <div key={`extra-details-${i}`}>
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name">
               {dataTitle}
             </div>
@@ -161,7 +161,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               </div>
             )}
 
-          </>
+          </div>
         ))
 
         }/>
