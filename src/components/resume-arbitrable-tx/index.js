@@ -103,24 +103,40 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                   )}`}
                   title="Amount Display"
                 />
-                { !arbitrabletx.verified ? (
-                  <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
-                    <span>WARNING: This token has not been verified. Please check the <a target="_" href={`https://etherscan.io/token/${arbitrabletx.token.address}`}>token address</a> to ensure this is payment you expect.</span>
-                  </div>
-                ) : ''}
-              </div>
-              ) : (
-                <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
-                  {`${arbitrabletx.amount} ${arbitrabletx.token ? arbitrabletx.token.ticker : ''}`}
-                  { !arbitrabletx.verified ? (
+                {arbitrabletx.warnings.length ? (
                     <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
-                      <span>WARNING: This token has not been verified. Please check the <a target="_" href={`https://etherscan.io/token/${arbitrabletx.token.address}`}>token address</a> to ensure this is payment you expect.</span>
+                      TOKEN WARNINGS: Please asses these warnings carefully before continuing.
                     </div>
-                  ) : ''}
-                </div>
+                  ) : ''
+                }
+                {
+                  arbitrabletx.warnings.map(_warning => (
+                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                      {_warning}
+                    </div>
+                  ))
+                }
+              </div>
+            ) : (
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
+                {`${arbitrabletx.amount} ${arbitrabletx.token ? arbitrabletx.token.ticker : ''} (${arbitrabletx.token.name})`}
+                {arbitrabletx.warnings.length ? (
+                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                      WARNINGS: Please asses these warnings carefully before continuing.
+                    </div>
+                  ) : ''
+                }
+                {
+                  arbitrabletx.warnings.map(_warning => (
+                    <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
+                      {_warning}
+                    </div>
+                  ))
+                }
+              </div>
+            )
+          }
 
-              )
-            }
           </div>
           {
             !arbitrabletx.token.decimals ? (

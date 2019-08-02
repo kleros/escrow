@@ -106,18 +106,7 @@ export default (
         </>
       )
     case arbitrableTxConstants.WAITING_RECEIVER:
-      return !isFeePaid(arbitrabletx) ? (
-        <ResumeArbitrableTx
-          arbitrabletx={arbitrabletx.data}
-          title={<>A Dispute Is Being Raised</>}
-          footer={
-            <MessageArbitrationFee
-              arbitrabletx={arbitrabletx}
-              createDispute={createDispute}
-            />
-          }
-        />
-      ) : (
+      return (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
           title={<>Waiting for Receiver to Pay Arbitration Fees</>}
@@ -128,6 +117,7 @@ export default (
             timeout={createTimeout}
             time={time(arbitrabletx)}
             name={'Withdraw Funds'}
+            paid={isFeePaid(arbitrabletx)}
           />
         </ResumeArbitrableTx>
       )

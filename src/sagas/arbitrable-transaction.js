@@ -3,11 +3,13 @@ import { navigate } from '@reach/router'
 import multipleArbitrableTransaction from '@kleros/kleros-interaction/build/contracts/MultipleArbitrableTransaction.json'
 import Arbitrator from '@kleros/kleros-interaction/build/contracts/Arbitrator.json'
 import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
+import ArbitrableTokenList from '@kleros/kleros-interaction/build/contracts/ArbitrableTokenList.json'
 
 import {
   web3,
   archon,
   ERC20_ADDRESS,
+  T2CR_ADDRESS,
   ARBITRABLE_ADDRESSES,
   ARBITRABLE_TOKEN_ADDRESSES
 } from '../bootstrap/dapp-api'
@@ -16,6 +18,7 @@ import ERC20 from '../assets/abi/erc20.json'
 import multipleArbitrableTokenTransaction from '../assets/abi/multipleArbitrableTokenTransaction.json'
 import * as errorConstants from '../constants/error'
 import * as disputeConstants from '../constants/dispute'
+import * as warningConstants from '../constants/warnings'
 import ETH from '../constants/eth'
 import { action } from '../utils/action'
 import { lessduxSaga } from '../utils/saga'
@@ -135,26 +138,88 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
     throw new Error('SECURITY ERROR: MetaEvidence generated outside of Kleros')
 
   let verified = true
+  const warnings = []
   // Add in missing pieces of metaEvidence for legacy disputes
   if (!metaEvidenceDecoded.token) {
     metaEvidenceDecoded.token = ETH
   } else {
-    if (metaEvidenceDecoded.token.address !== ETH.address) {
+    // If ETH, use the constants over user supplied data
+    if (metaEvidenceDecoded.token.address === ETH.address) {
+      metaEvidenceDecoded.token = ETH
+    } else {
+      const _token = metaEvidenceDecoded.token
+      // Tokens
       const ERC20BadgeInstance = new web3.eth.Contract(
         ArbitrableAddressList.abi,
         ERC20_ADDRESS
       )
 
+      const T2CRInstance = new web3.eth.Contract(
+        ArbitrableTokenList.abi,
+        T2CR_ADDRESS
+      )
+
+      const ERC20Instance = new web3.eth.Contract(
+        ERC20.abi,
+        _token.address
+      )
+
+      // Verify token attributes
+      let decimals
+      try {
+        decimals = yield call(
+          ERC20Instance.methods.decimals().call
+        )
+      } catch {}
+
+      // Overwrite user input if decimals is available in the contract
+      if (decimals) {
+        metaEvidenceDecoded.token.decimals = decimals
+      } else {
+        // Assume 18 if none supplied
+        if (!metaEvidenceDecoded.token.decimals) metaEvidenceDecoded.token.decimals = 18
+        verified = false
+        warnings.push(warningConstants.DECIMAL_WARNING(metaEvidenceDecoded.token.decimals))
+      }
+
+      // Verify token attributes
+      const tokenQuery = yield call(T2CRInstance.methods.queryTokens(
+        '0x0000000000000000000000000000000000000000000000000000000000000000',
+        1,
+        [false,true,false,false,false,false,false,false],
+        true,
+        _token.address
+      ).call)
+
+      const tokenID = tokenQuery.values[0]
+      // If token does not exist we have nothing to check against
+      if (tokenID) {
+        const verifiedToken = yield call(T2CRInstance.methods.tokens(tokenID).call)
+        for (let attr of Object.keys(_token)) {
+          // If the attribute is not in the list we don't need to worry about it
+          const _verifiedAttr = verifiedToken[attr]
+          if (_verifiedAttr && _token[attr] !== _verifiedAttr) {
+            verified = false
+            warnings.push(warningConstants.REUSED_TOKEN_WARNING(attr))
+          }
+        }
+      }
+
+      // Verify token address
       const item = yield call(
         ERC20BadgeInstance.methods.getAddressInfo(
-          metaEvidenceDecoded.token.address
+          _token.address
         ).call
       )
 
-      if (!item || Number(item.status) !== 1)
+      if (!item || Number(item.status) !== 1 || !verified) {
         verified = false
+        warnings.push(warningConstants.ADDRESS_WARNING(_token.address))
+      }
     }
   }
+
+  warnings.reverse()
 
   return yield put(
     action(arbitrabletxActions.arbitrabletx.RESUMEFORM, {
@@ -174,7 +239,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
           : null,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`,
         extraData: metaEvidenceDecoded.extraData || {},
-        verified
+        verified,
+        warnings
       }
     })
   )
