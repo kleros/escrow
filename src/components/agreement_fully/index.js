@@ -25,6 +25,7 @@ const AgreementFully = ({
   const [open, setModal] = useState(false)
   const [amount, setAmount] = useState(0) // set Percent
   const setAmountFromInput = amount => {
+    if (amount === '.') amount = '0.'
     const _amount = Number(amount)
     const _amountInEscrow = Number(arbitrabletx.data.amount)
     if (!_amount) setAmount(amount)

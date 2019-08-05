@@ -13,6 +13,7 @@ import InputArea from '../details-area'
 import TokenSelectInput from '../token-select-input'
 import ETH from '../../constants/eth'
 import MAX_TIMEOUT from '../../constants/timeout'
+import { displayDateUTC } from '../../utils/date'
 
 import './new-arbitrable-tx.css'
 
@@ -48,6 +49,7 @@ const customStyles = {
 const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, invoice, back }) => {
   const [showAutomaticPayment, setShowAutomaticPayment] = useState(false)
   const [showFileUpload, setShowFileUpload] = useState(false)
+  const initialAddress = invoice ? accounts.data[0] : ''
   return (
     <div className="NewArbitrableTx">
       <h1 className="NewArbitrableTx-h1">New {invoice ? 'Invoice' : 'Payment'}</h1>
@@ -56,7 +58,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
             arbitrableContractAddress: template.address,
             subCategory: template.label,
             title: '',
-            receiver: '',
+            receiver: initialAddress,
             timeout: 0,
             amount: '',
             invoice,
@@ -64,6 +66,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
             description: template.content,
             tips: template.tips,
             extraData: {},
+            substitutions: {},
             token: ETH
           }}
           // eslint-disable-next-line react/jsx-no-bind
@@ -157,7 +160,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                         className="FormNewArbitrableTx-error FormNewArbitrableTx-error-receiver"
                       />
                       <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-receiver">
-                        Enter the ETH address of the counterparty to this agreement. Make sure to use an address this party controls <span style={{fontWeight: 800}}>(Do not use an exchange address)</span>.
+                        ETH address that will receive the funds <span style={{fontWeight: 800}}>(Do not use an exchange address)</span>.
                       </div>
                       <label
                         htmlFor="amount"
@@ -209,7 +212,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             showTimeSelect
                             timeFormat="HH:mm"
                             timeIntervals={30}
-                            dateFormat="dd.MM.yyyy hh:mm aa"
+                            dateFormat="dd.MM.yyyy HH:mm"
                             timeCaption="time"
                             minDate={new Date()}
                           />
@@ -295,13 +298,16 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                               showTimeSelect
                               timeFormat="HH:mm"
                               timeIntervals={30}
-                              dateFormat="dd.MM.yyyy hh:mm aa"
+                              dateFormat="dd.MM.yyyy HH:mm"
                               minDate={new Date()}
                               onChange={(e) => {
                                 const _extraData = values.extraData
+                                const _substitutions = values.substitutions
                                 _extraData[inputKey] = e
+                                _substitutions[inputKey] = displayDateUTC(e)
                                 setFieldValue('extraData', _extraData)
-                                setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
+                                setFieldValue('substitutions', _substitutions)
+                                setFieldValue('description', substituteTextOptionalInputs(_substitutions, template.content))
                               }}
                             />
                         ) : (template.optionalInputs[inputKey].type === 'textarea' ? (
@@ -311,9 +317,12 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
                             onChange={(e) => {
                               const _extraData = values.extraData
+                              const _substitutions = values.substitutions
                               _extraData[inputKey] = e.target.value
+                              _substitutions[inputKey] = e.target.value
                               setFieldValue('extraData', _extraData)
-                              setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
+                              setFieldValue('substitutions', _substitutions)
+                              setFieldValue('description', substituteTextOptionalInputs(_substitutions, template.content))
                             }}
                           />
                         ) : (
@@ -323,9 +332,12 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                             className="FormNewArbitrableTx-input FormNewArbitrableTx-ExtraDetails-input"
                             onChange={(e) => {
                               const _extraData = values.extraData
+                              const _substitutions = values.substitutions
                               _extraData[inputKey] = e.target.value
+                              _substitutions[inputKey] = e.target.value
                               setFieldValue('extraData', _extraData)
-                              setFieldValue('description', substituteTextOptionalInputs(_extraData, template.content))
+                              setFieldValue('substitutions', _substitutions)
+                              setFieldValue('description', substituteTextOptionalInputs(_substitutions, template.content))
                             }}
                           />
                         ))}
@@ -388,7 +400,6 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                         <Button
                           type="submit"
                           disabled={
-                            touched.receiver === undefined ||
                             touched.amount === undefined ||
                             Object.entries(errors).length > 0 ||
                             isSubmitting

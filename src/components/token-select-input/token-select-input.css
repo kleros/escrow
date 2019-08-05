@@ -13,11 +13,9 @@
     display: inline-block;
     height: 18px;
     float: left; }
-  .TokenSelectInput .arrow {
+  .TokenSelectInput .down-arrow {
     display: inline-block;
     float: right;
-    border: solid white;
-    border-width: 0 1px 1px 0;
-    padding: 3px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg); }
+    height: 12px;
+    position: relative;
+    top: 2px; }

@@ -300,30 +300,31 @@ function* createArbitrabletx({
       arbitrabletxReceived.token.address
     )
 
-    // Approve amount to be spent
-    yield call(
-      erc20.methods.approve(
-        arbitrabletxReceived.arbitrableAddress,
-        amount
-      ).send,
-      {
-        from: accounts[0]
-      }
-    )
+    const _submit = async () => {
+      return new Promise(async (resolve, reject) => {
+        erc20.methods.approve(
+          arbitrabletxReceived.arbitrableAddress,
+          amount
+        ).send({
+          from: accounts[0]
+        }).on('transactionHash', async () => {
+          const _txHash = await arbitrableTransactionContractInstance.methods.createTransaction(
+            amount,
+            arbitrabletxReceived.token.address,
+            arbitrabletxReceived.timeout.toString(),
+            arbitrabletxReceived.receiver,
+            `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
+          ).send({
+            from: accounts[0]
+          })
 
-    // Create Transaction
-    txHash = yield call(
-      arbitrableTransactionContractInstance.methods.createTransaction(
-        amount,
-        arbitrabletxReceived.token.address,
-        arbitrabletxReceived.timeout.toString(),
-        arbitrabletxReceived.receiver,
-        `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
-      ).send,
-      {
-        from: accounts[0]
-      }
-    )
+          resolve(_txHash)
+        })
+      })
+  }
+
+    // Approve amount to be spent
+    txHash = yield call(_submit)
   }
 
   if (txHash)

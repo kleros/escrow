@@ -4,6 +4,7 @@ import * as arbitrabletxSelectors from '../../reducers/arbitrable-transaction'
 import { ReactComponent as PrimaryDocument } from '../../assets/primary-document.svg'
 import { ReactComponent as Arrow } from '../../assets/arrow.svg'
 import MAX_TIMEOUT from '../../constants/timeout'
+import { displayDateUTC } from '../../utils/date'
 
 import Attachment from '../attachment'
 import DetailsArea from '../details-area'
@@ -38,15 +39,15 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             {arbitrabletx.timeout === MAX_TIMEOUT ? '' : (
               <>
                 <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-timeout">
-                  Automatic Payment (Local Time)
+                  Automatic Payment
                 </div>
                 <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content  ResumeArbitrableTx-ContentNewArbitrableTx-content-timeout">
                   {title === 'Invoice Details' || title === 'Payment Details' ? (
                     <>
-                      {new Date(Date.now() + arbitrabletx.timeout * 1000)
+                      {displayDateUTC(new Date(Date.now() + arbitrabletx.timeout * 1000)
                         .toString()
                         .replace(/GMT.+/g, '')
-                        .slice(0, -4)}
+                        .slice(0, -4))}
                     </>
                   ) : (
                     <>
@@ -92,6 +93,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             { arbitrabletx.id ? (
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
                 <iframe
+                  id="amount-iframe"
                   className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame"
                   frameBorder="0"
                   src={`https://ipfs.kleros.io/ipfs/QmUzYw68A7EnpRkSQAk8N3Cm72ba9qY4xnAjQSuGLgMWS3/index.html?${encodeURIComponent(
@@ -153,7 +155,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             </div>
             { arbitrabletx.extraData[dataTitle].slice(-8) === ":00.000Z" ? (
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
-                { (new Date(arbitrabletx.extraData[dataTitle])).toString() }
+                { displayDateUTC(new Date(arbitrabletx.extraData[dataTitle])) }
               </div>
             ) : (
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">

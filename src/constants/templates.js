@@ -34,7 +34,7 @@ const templates = [
         type: 'text',
         tip: 'The amount or value of the asset being exchanged. E.g. 2.3 BTC'
       },
-      'Due Date': {
+      'Due Date (Local Time)': {
         type: 'date',
         tip: 'The date by which the specified asset must be transfered to the given address.'
       }
@@ -42,7 +42,7 @@ const templates = [
     label: 'Cryptocurrency Transaction',
     description: 'Escrow funds to facilitate a crypto transaction. This can be used to for a safe cross chain swap. One person escrows one side of the trade in an asset based on ETH, and the funds are released after the funds on another blockchain have been moved. If you are sending the ETH based asset, use "Payment". Otherwise use "Invoice".',
     content:
-      '[Blockchain] address [Address] should receive [Cryptoasset Description] from the sender before [Due Date].',
+      '[Blockchain] address [Address] should receive [Cryptoasset Description] from the sender before [Due Date (Local Time)].',
     tips: [<span>Disputes will be resolved in the <a href="https://court.kleros.io/courts">Blockchain Non Technical Court</a> in Kleros</span>],
     address: {
       eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],

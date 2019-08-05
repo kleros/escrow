@@ -6,6 +6,7 @@ import Modal from 'react-responsive-modal'
 
 import TokenSelectorBox from '../token-selector-box'
 import warningSymbol from '../../assets/warning.png'
+import downArrow from '../../assets/down-arrow.png'
 import ETH from '../../constants/eth'
 
 import './token-select-input.css'
@@ -60,7 +61,7 @@ const TokenSelectInput = ({ tokens, onSubmit }) => {
             >
               <img src={tokens[tokenIndex].symbolURI ? tokens[tokenIndex].symbolURI : warningSymbol} />
               {tokens[tokenIndex].ticker}
-              <div className='arrow' />
+              <img src={downArrow} className="down-arrow"/>
             </div>
           </div>
         )

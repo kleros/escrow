@@ -8,6 +8,7 @@ import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
 import * as arbitrabletxSelectors from '../../../reducers/arbitrable-transaction'
 import ResumeArbitrableTx from '../../../components/resume-arbitrable-tx'
 import Button from '../../../components/button'
+import CopyImg from '../../../assets/copy.png'
 
 import './resume.css'
 
@@ -57,23 +58,19 @@ class Resume extends PureComponent {
                         button if the copy command exists
                       */
                   document.queryCommandSupported('copy') &&
-                    (!copied ? (
-                      <Button
-                        style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
-                        onClick={() => {
-                          navigator.clipboard.writeText(shareLink) &&
-                            this.setState({ copied: true })
-                        }}
-                      >
-                        Copy Invoice Link
-                      </Button>
-                    ) : (
-                      <Button
-                        style={{ marginLeft: '-3px', border: '1px solid #009aff' }}
-                      >
-                        Invoice Link Copied
-                      </Button>
-                    ))}
+                    <Button id="copy-button" onClick={
+                        () => {
+                          navigator.clipboard.writeText(shareLink)
+                          document.getElementById("copy-button").style.background = "#007acc"
+                          setTimeout(() => {
+                            document.getElementById("copy-button").style.background = "#009aff"
+                          }, 100)
+                        }
+                      }>
+                      <img src={CopyImg} />
+                      Copy link to share
+                    </Button>
+                  }
                 </div>
                 <Formik
                   onSubmit={() =>
@@ -85,7 +82,6 @@ class Resume extends PureComponent {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        style={{ position: 'relative', top: '2px' }}
                       >
                         {isSubmitting && (
                           <span
