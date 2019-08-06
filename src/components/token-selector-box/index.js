@@ -46,7 +46,7 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit }) => {
                     <img src={token.symbolURI ? token.symbolURI : warningSymbol} />
                   </div>
                   <div className="name">
-                    {token.name}
+                    { token.name }
                   </div>
                   <div className="ticker">
                     {token.ticker}

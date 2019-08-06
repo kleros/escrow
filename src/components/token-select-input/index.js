@@ -60,7 +60,7 @@ const TokenSelectInput = ({ tokens, onSubmit }) => {
               onClick={() => setModal(!open)}
             >
               <img src={tokens[tokenIndex].symbolURI ? tokens[tokenIndex].symbolURI : warningSymbol} />
-              {tokens[tokenIndex].ticker}
+              { tokens[tokenIndex].ticker }
               <img src={downArrow} className="down-arrow"/>
             </div>
           </div>

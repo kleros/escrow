@@ -57,22 +57,24 @@
     overflow-y: scroll;
     overflow-x: visible; }
   .TokenSelectorBox .token-select .token-option {
-    text-align: center;
+    text-align: left;
     cursor: pointer;
     border-top: 1px solid #D09CFF;
     height: 50px; }
     .TokenSelectorBox .token-select .token-option .tokenImg {
       display: inline-block;
       padding-left: 25px;
+      padding-right: 25px;
       width: 10%;
       float: left; }
       .TokenSelectorBox .token-select .token-option .tokenImg img {
         height: 30px;
         margin-top: 10px; }
     .TokenSelectorBox .token-select .token-option .name {
-      text-align: left;
+      text-align: center;
       display: inline-block;
-      padding: 15px 10px; }
+      padding: 15px 10px;
+      margin-left: 50px; }
     .TokenSelectorBox .token-select .token-option .ticker {
       float: right;
       display: inline-block;

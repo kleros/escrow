@@ -54,6 +54,9 @@ export function* fetchTokens() {
       const tokenID = tokenQuery.values[0]
       const _token = yield call(arbitrableTokenListInstance.methods.tokens(tokenID).call)
 
+      if (_token.addr === '0x0000000000000000000000000000000000000000') continue // Tokens with badges that have been removed from the list return null address
+      if (_token.ticker === 'ZRX') _token.name = '0x' // We need a hack to get the 0x symbol which is interpreted as hex null by web3.
+
       token.name = _token.name
       token.ticker = _token.ticker
       token.address = _token.addr

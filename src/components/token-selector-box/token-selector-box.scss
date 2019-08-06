@@ -86,7 +86,7 @@
     }
 
     .token-option {
-      text-align: center;
+      text-align: left;
       cursor: pointer;
       border-top: 1px solid #D09CFF;
 
@@ -95,6 +95,7 @@
       .tokenImg {
         display: inline-block;
         padding-left: 25px;
+        padding-right: 25px;
         width: 10%;
         float: left;
         img {
@@ -105,9 +106,10 @@
       }
 
       .name {
-        text-align: left;
+        text-align: center;
         display: inline-block;
         padding: 15px 10px;
+        margin-left: 50px;
       }
 
       .ticker {
