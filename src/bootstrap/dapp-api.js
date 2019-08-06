@@ -18,6 +18,9 @@ else if (window.web3 && window.web3.currentProvider)
 else web3 = new Web3(new Web3.providers.HttpProvider(ETHEREUM_PROVIDER_URL))
 
 let ARBITRABLE_ADDRESSES = []
+let T2CR_ADDRESS
+let ERC20_ADDRESS
+let ARBITRABLE_TOKEN_ADDRESSES = []
 web3.eth.net.getId().then(networkID => {
   let networkName
   switch (networkID) {
@@ -33,6 +36,9 @@ web3.eth.net.getId().then(networkID => {
 
 
   ARBITRABLE_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES`]
+  ARBITRABLE_TOKEN_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TOKEN_TRANSACTION_ADDRESSES`]
+  T2CR_ADDRESS = _addresses[`${networkName}_T2CR_ADDRESS`]
+  ERC20_ADDRESS = _addresses[`${networkName}_ERC20_BADGE_ADDRESS`]
 })
 
 const archon = new Archon(web3.currentProvider, 'https://ipfs.kleros.io')
@@ -43,6 +49,9 @@ const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
 
 export {
   ARBITRABLE_ADDRESSES,
+  ARBITRABLE_TOKEN_ADDRESSES,
+  T2CR_ADDRESS,
+  ERC20_ADDRESS,
   PATCH_USER_SETTINGS_URL,
   web3,
   archon,

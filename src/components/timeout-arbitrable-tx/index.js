@@ -7,10 +7,13 @@ import { ClipLoader } from 'react-spinners'
 import CountdownRenderer from '../countdown-renderer'
 import Button from '../button'
 
-const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name }) => (
+const TimeoutArbitrableTx = ({ arbitrable, id, timeout, time, name, paid }) => (
   <>
     <div style={{ color: 'red', fontWeight: 'bold', fontSize: '0.9em' }}>
-      Time left to pay before the side that paid wins:
+      {paid ?
+        'Time for counterparty to pay before you win the dispute.'
+        : 'Time you have to pay or you will forfeit the dispute.'
+      }
     </div>
     <div
       style={{

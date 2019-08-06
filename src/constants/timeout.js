@@ -1,0 +1,3 @@
+const MAX_TIMEOUT = 8640000000000000
+
+export default MAX_TIMEOUT

@@ -6,8 +6,11 @@ import Modal from 'react-responsive-modal'
 import Countdown from 'react-countdown-now'
 import { ClipLoader } from 'react-spinners'
 
+import MAX_TIMEOUT from '../../constants/timeout'
 import CountdownRenderer from '../countdown-renderer'
 import PayOrReimburseArbitrableTx from '../pay-or-reimburse-arbitrable-tx'
+
+import truncateAmount from '../../utils/eth-amount'
 
 import './agreement-fully.css'
 
@@ -22,13 +25,22 @@ const AgreementFully = ({
   const [open, setModal] = useState(false)
   const [amount, setAmount] = useState(0) // set Percent
   const setAmountFromInput = amount => {
-    if (amount <= arbitrabletx.data.amount) {
-      if (amount < 0) setAmount(0)
+    if (amount === '.') amount = '0.'
+    const _amount = Number(amount)
+    const _amountInEscrow = Number(arbitrabletx.data.amount)
+    if (!_amount) setAmount(amount)
+
+    if (_amount <= _amountInEscrow) {
+      if (_amount < 0) setAmount(0)
       else setAmount(amount)
+    } else if (_amount > _amountInEscrow) {
+      setAmount(_amountInEscrow)
     } else {
-      setAmount(arbitrabletx.data.amount)
+      setAmount(_amount)
     }
   }
+
+  const asset = (arbitrabletx.data.token ? arbitrabletx.data.token.ticker : 'ETH')
 
   return (
     <div className="AgreementFully">
@@ -48,7 +60,7 @@ const AgreementFully = ({
           <br />A dispute can still be raised over the remaining balance.
         </p>
         <p className="AgreementFully-modal-description">
-          Current Payment Balance: {arbitrabletx.data.amount} ETH
+          Current Payment Balance: {arbitrabletx.data.amount} {asset}
         </p>
         <div className="AgreementFully-modal-buttons">
           <div className="AgreementFully-modal-buttons-pay-reimburse">
@@ -60,11 +72,12 @@ const AgreementFully = ({
               amountMax={arbitrabletx.data.amount}
               id={arbitrabletx.data.id}
               onChangeAmount={setAmountFromInput}
+              asset={asset}
             />
           </div>
           <p className="AgreementFully-modal-offer">
             Remaining balance will be {' '}
-            <span style={{ color: '#009aff' }}>{(arbitrabletx.data.amount - amount).toFixed(2)} ETH</span>
+            <span style={{ color: '#009aff' }}>{truncateAmount(arbitrabletx.data.amount - amount, 2)} {asset}</span>
           </p>
         </div>
         <div className="divider" />
@@ -193,15 +206,19 @@ const AgreementFully = ({
             a dispute.
             <br />
             <br />
-            Payment times out in{' '}
-            <Countdown
-              date={
-                arbitrabletx.data.lastInteraction * 1000 +
-                arbitrabletx.data.timeoutPayment * 1000
-              }
-              renderer={CountdownRenderer}
-            />
-            .
+            {arbitrabletx.data.timeout === MAX_TIMEOUT ? '' : (
+              <>
+                Payment times out in{' '}
+                <Countdown
+                  date={
+                    arbitrabletx.data.lastInteraction * 1000 +
+                    arbitrabletx.data.timeoutPayment * 1000
+                  }
+                  renderer={CountdownRenderer}
+                />
+                .
+              </>
+            )}
           </>
         )}
         {arbitrabletx.data.receiver === accounts[0] && (
@@ -213,15 +230,19 @@ const AgreementFully = ({
             a dispute.
             <br />
             <br />
-            Payment times out in{' '}
-            <Countdown
-              date={
-                arbitrabletx.data.lastInteraction * 1000 +
-                arbitrabletx.data.timeoutPayment * 1000
-              }
-              renderer={CountdownRenderer}
-            />
-            .
+              {arbitrabletx.data.timeout === MAX_TIMEOUT ? '' : (
+                <>
+                  Payment times out in{' '}
+                  <Countdown
+                    date={
+                      arbitrabletx.data.lastInteraction * 1000 +
+                      arbitrabletx.data.timeoutPayment * 1000
+                    }
+                    renderer={CountdownRenderer}
+                  />
+                  .
+                </>
+              )}
           </>
         )}
       </div>

@@ -1,0 +1,135 @@
+.TokenSelectorBox {
+  width: 38vw;
+  height: 500px;
+  color: #4D00B4;
+  padding: 10px; }
+  .TokenSelectorBox h3 {
+    margin-bottom: 15px; }
+  .TokenSelectorBox ul {
+    margin: 0px -29px;
+    padding: 0px 29px;
+    border-bottom: 1px solid #4D00B4; }
+    .TokenSelectorBox ul li {
+      padding: 0px 10px;
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+      padding: 10px 0px;
+      cursor: pointer; }
+    .TokenSelectorBox ul .react-tabs__tab--selected {
+      border-bottom: 5px solid #4D00B4; }
+  .TokenSelectorBox .token-select .search-input {
+    padding: 5px 10px;
+    height: 40px;
+    position: relative;
+    border: 1px solid #4D00B4;
+    border-radius: 3px;
+    margin: 20px 0px; }
+    .TokenSelectorBox .token-select .search-input input {
+      width: 100%;
+      font-size: 18px;
+      border: none;
+      line-height: 20px;
+      padding: 0px 10px 5px 30px;
+      height: 32px;
+      position: relative; }
+    .TokenSelectorBox .token-select .search-input input:focus {
+      outline: none; }
+  .TokenSelectorBox .token-select .search-input::before {
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAQJJREFUKBWVkr2uQUEUhf3ET6GRaC5aFRoJKrf1BKpb8SwqovYGXkCj00k0QnRKEYkILYobvpUYmeMMyVnJl7P3mjN7Zu9zwiGv2qRFyMMSRrAFp6JPN8XzBj+wgDkUYAg7WINTYdwpDECxrRLJHeq2accdkgm8bzTvNAg2EDOGeUYI1KNO1gkuzTA1g8T7ojbn4ONQWPuHPWgeHmnzCqoe15tkSNPgPEAn68oVcOmA2XMtGK9FoE/VhOTTVNExqLCGZnxCv2pYauEC6lF0oQxX6IOvb7yX9NPEQafan+aPXDdQC18LsO6Tip5BBY6gIQaSbnMCFRCBZRcIvFkbsvCr4AFGOCxQy+JdGQAAAABJRU5ErkJggg==");
+    display: block;
+    position: absolute;
+    width: 15px;
+    z-index: 3;
+    height: 15px;
+    font-size: 20px;
+    top: 3px;
+    left: 16px;
+    line-height: 32px;
+    opacity: 0.6;
+    color: blue; }
+  .TokenSelectorBox .token-select .loading-icon {
+    margin: 20px auto 0px auto;
+    width: 60px; }
+  .TokenSelectorBox .token-select .tokens-container {
+    margin: 0px -29px;
+    height: 260px;
+    overflow-y: scroll;
+    overflow-x: visible; }
+  .TokenSelectorBox .token-select .token-option {
+    text-align: left;
+    cursor: pointer;
+    border-top: 1px solid #D09CFF;
+    height: 50px; }
+    .TokenSelectorBox .token-select .token-option .tokenImg {
+      display: inline-block;
+      padding-left: 25px;
+      padding-right: 25px;
+      width: 10%;
+      float: left; }
+      .TokenSelectorBox .token-select .token-option .tokenImg img {
+        height: 30px;
+        margin-top: 10px; }
+    .TokenSelectorBox .token-select .token-option .name {
+      text-align: center;
+      display: inline-block;
+      padding: 15px 10px;
+      margin-left: 50px; }
+    .TokenSelectorBox .token-select .token-option .ticker {
+      float: right;
+      display: inline-block;
+      padding: 15px 20px 15px 0px; }
+  .TokenSelectorBox .token-select .token-option:last-child {
+    border-bottom: 1px solid #D09CFF; }
+  .TokenSelectorBox .token-select .selected {
+    background-color: #4D00B4;
+    color: white; }
+  .TokenSelectorBox .token-select .selected:hover {
+    background-color: #4D00B4 !important;
+    color: white; }
+  .TokenSelectorBox .token-select .token-option:hover {
+    background-color: #F2E3FF; }
+  .TokenSelectorBox .custom-token {
+    margin-top: 20px; }
+    .TokenSelectorBox .custom-token-input input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #4D00B4;
+      border-radius: 3px;
+      margin: 10px 0px 20px 0px;
+      font-size: 16px;
+      padding-left: 15px; }
+    .TokenSelectorBox .custom-token-warning {
+      background: #F2E3FF;
+      padding: 30px;
+      position: relative; }
+      .TokenSelectorBox .custom-token-warning .symbol {
+        display: block;
+        position: absolute;
+        top: 55px; }
+        .TokenSelectorBox .custom-token-warning .symbol img {
+          height: 25px; }
+      .TokenSelectorBox .custom-token-warning .text {
+        display: inline-block;
+        width: 80%;
+        margin-left: 60px; }
+  .TokenSelectorBox .buttons {
+    margin-top: 40px; }
+    .TokenSelectorBox .buttons div {
+      text-align: center;
+      width: 30%;
+      display: inline-block;
+      border: 1px solid #4D00B4;
+      border-radius: 3px;
+      padding: 10px 0px;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 16px; }
+    .TokenSelectorBox .buttons .submit-button {
+      float: right;
+      background: #009AFF;
+      color: white;
+      border: 1px solid #009AFF; }
+    .TokenSelectorBox .buttons .disabled {
+      background: grey;
+      cursor: not-allowed; }

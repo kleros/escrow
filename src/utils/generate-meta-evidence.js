@@ -1,5 +1,6 @@
+const CURRENT_TEMPLATE_INDEX = 1
 
-export const metaEvidenceTemplate = {
+export const metaEvidenceTemplates = [{
   category: 'Escrow',
   question: 'Which party abided by terms of the contract?',
   rulingOptions: {
@@ -11,7 +12,20 @@ export const metaEvidenceTemplate = {
     ]
   },
   evidenceDisplayInterfaceURI: '/ipfs/QmefpKL4fmD84ZeAXaSJ7bHdkJiHVmydGTpAV6hk4ak57z/index.html'
-}
+},
+{
+  category: 'Escrow',
+  question: 'Which party abided by terms of the contract?',
+  rulingOptions: {
+    type: 'single-select',
+    titles: ['Refund Sender', 'Pay Receiver'],
+    descriptions: [
+      'Select to return funds to the Sender',
+      'Select to release funds to the Receiver'
+    ]
+  },
+  evidenceDisplayInterfaceURI: '/ipfs/QmfPnVdcCjApHdiCC8wAmyg5iR246JvVuQGQjQYgtF8gZU/index.html'
+}]
 
 export default ({
   arbitrableAddress,
@@ -23,7 +37,10 @@ export default ({
   fileHash,
   amount,
   timeout,
-  subCategory
+  subCategory,
+  token,
+  extraData,
+  invoice
 }) => ({
   ...{
     subCategory,
@@ -35,11 +52,14 @@ export default ({
     sender,
     receiver,
     amount,
-    timeout
+    timeout,
+    token,
+    extraData,
+    invoice
   },
-  ...metaEvidenceTemplate,
+  ...metaEvidenceTemplates[CURRENT_TEMPLATE_INDEX],
   aliases: {
     [sender]: 'sender',
     [receiver]: 'receiver'
-  },
+  }
 })

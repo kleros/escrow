@@ -1,7 +1,9 @@
 body {
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; }
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding-bottom: 0; }
 
 .App main {
+  min-height: 100vh;
   margin: 0 auto;
   padding-top: 100px; }
 
@@ -118,7 +120,7 @@ body {
 /* 48em = 768px */
 @media (min-width: 48em) {
   .App main {
-    padding: 100px 2em 0 2em; }
+    padding: 100px 2em 120px 2em; }
   .header ul {
     padding-right: 30px; }
   .header li {
@@ -180,7 +182,6 @@ input[type='file']:active {
   .FileInput input {
     background: white; }
   .FileInput-filename {
-    color: #4a4a4a;
     font-size: 18px;
     left: 17px;
     position: absolute;

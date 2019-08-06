@@ -1,6 +1,7 @@
 import React from 'react'
 import { BeatLoader, ClipLoader } from 'react-spinners'
 import { Formik, Form } from 'formik'
+import Countdown from 'react-countdown-now'
 
 import * as arbitrableTxConstants from '../constants/arbitrable-tx'
 import * as disputeConstants from '../constants/dispute'
@@ -11,6 +12,7 @@ import DisputeArbitrableTx from '../components/dispute-arbitrable-tx'
 import SuccessArbitrableTx from '../components/success-arbitrable-tx'
 import AgreementFully from '../components/agreement_fully'
 import Button from '../components/button'
+import CountdownRenderer from '../components/countdown-renderer'
 
 export default (
   accounts,
@@ -50,7 +52,7 @@ export default (
                 arbitrabletx.data.timeoutPayment * 1000 ? (
                 <ResumeArbitrableTx
                   arbitrabletx={arbitrabletx.data}
-                  title={<>Payment Details</>}
+                  title={arbitrabletx.data.invoice ? <>Invoice Details</> : <>Payment Details</>}
                 >
                   <Formik
                     onSubmit={() =>
@@ -87,7 +89,7 @@ export default (
               ) : (
                 <ResumeArbitrableTx
                   arbitrabletx={arbitrabletx.data}
-                  title={<>Payment Details</>}
+                  title={arbitrabletx.data.invoice ? <>Invoice Details</> : <>Payment Details</>}
                   footer={
                     <AgreementFully
                       payOrReimburse={payOrReimburse}
@@ -114,6 +116,7 @@ export default (
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
               createDispute={createDispute}
+              time={time(arbitrabletx)}
             />
           }
         />
@@ -128,6 +131,7 @@ export default (
             timeout={createTimeout}
             time={time(arbitrabletx)}
             name={'Withdraw Funds'}
+            paid={isFeePaid(arbitrabletx)}
           />
         </ResumeArbitrableTx>
       )
@@ -140,6 +144,7 @@ export default (
             <MessageArbitrationFee
               arbitrabletx={arbitrabletx}
               createDispute={createDispute}
+              time={time(arbitrabletx)}
             />
           }
         />
@@ -155,6 +160,7 @@ export default (
               timeout={createTimeout}
               time={time(arbitrabletx)}
               name={'Execute Payment'}
+              paid={isFeePaid(arbitrabletx)}
             />
           </ResumeArbitrableTx>
         </>
@@ -164,7 +170,7 @@ export default (
         disputeConstants.WAITING.toString() ? (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Dispute Ongoing</>}
+          title={<>Dispute in Progress</>}
           footer={
             <NewEvidenceArbitrableTx
               arbitrable={arbitrabletx.data.arbitrableAddress}
@@ -176,7 +182,7 @@ export default (
       ) : (
         <ResumeArbitrableTx
           arbitrabletx={arbitrabletx.data}
-          title={<>Dispute Ongoing</>}
+          title={<>Dispute in Progress</>}
           footer={
             <DisputeArbitrableTx
               message={
@@ -419,7 +425,7 @@ const time = arbitrabletx =>
 const isFeePaid = arbitrabletx =>
   arbitrabletx.data[`${arbitrabletx.data.party}Fee`] > 0
 
-const MessageArbitrationFee = ({ arbitrabletx, createDispute }) => (
+const MessageArbitrationFee = ({ arbitrabletx, createDispute, time }) => (
   <DisputeArbitrableTx
     message={
       <>
@@ -427,7 +433,10 @@ const MessageArbitrationFee = ({ arbitrabletx, createDispute }) => (
           In order to not forfeit the dispute,{' '}
           <b style={{ fontWeight: 'bold' }}>pay the arbitration fee</b>.
           <br />
-          It will be refunded if you win the dispute.
+          It will be refunded if you win the dispute. You have {<Countdown
+            date={time}
+            renderer={CountdownRenderer}
+          />} to pay the fee.
         </p>
         <Formik
           onSubmit={() =>

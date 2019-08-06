@@ -42,6 +42,7 @@
         color: #fff;
       }
     }
+
     &-textarea {
       background: rgba(255, 255, 255, 0.3);
       border-radius: 3px;
@@ -80,5 +81,11 @@
         width: 70%;
       }
     }
+  }
+}
+
+.FileInput {
+  input {
+    background: rgba(255, 255, 255, 0.3) !important;
   }
 }

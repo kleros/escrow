@@ -1,0 +1,21 @@
+.TokenSelectInput {
+  background: #009aff;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0.5em 0.8em;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  width: 90%;
+  margin-left: 15px;
+  cursor: pointer; }
+  .TokenSelectInput img {
+    display: inline-block;
+    height: 18px;
+    float: left; }
+  .TokenSelectInput .down-arrow {
+    display: inline-block;
+    float: right;
+    height: 12px;
+    position: relative;
+    top: 2px; }

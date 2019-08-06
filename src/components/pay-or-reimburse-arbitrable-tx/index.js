@@ -14,7 +14,8 @@ const PayOrReimburseArbitrableTx = ({
   amount,
   amountMax,
   payOrReimburseFn,
-  onChangeAmount
+  onChangeAmount,
+  asset = 'ETH'
 }) => (
   <Formik
     initialValues={{ id, amount, amountMax }}
@@ -24,7 +25,7 @@ const PayOrReimburseArbitrableTx = ({
       if (!amount) errors.amount = 'Amount Required.'
       if (amount <= 0) errors.amount = 'Amount must be more than 0.'
       if (amount > amountMax)
-        errors.amount = `Amount must be less than or equal to ${amountMax} ETH.`
+        errors.amount = `Amount must be less than or equal to ${amountMax} ${asset}.`
       if (isNaN(amount)) errors.amount = 'Number Required.'
       return errors
     }}
@@ -37,6 +38,7 @@ const PayOrReimburseArbitrableTx = ({
           className={
             'PayOrReimburseArbitrableTx PayOrReimburseArbitrableTx-pay'
           }
+          data-before-asset={asset}
         >
           <Field
             name="amount"

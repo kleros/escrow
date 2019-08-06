@@ -7,7 +7,6 @@ import Textarea from 'react-textarea-autosize'
 import { ClipLoader } from 'react-spinners'
 
 import Button from '../button'
-// import templates from '../../constants/templates'
 
 import './new-invoice-arbitrable-tx.css'
 

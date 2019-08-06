@@ -1,0 +1,21 @@
+.SelectArbitrableTxTypeCard {
+  border: 1px solid #D09CFF;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer; }
+  .SelectArbitrableTxTypeCard img {
+    display: block;
+    margin: auto;
+    margin-top: 17px;
+    width: 50%; }
+  .SelectArbitrableTxTypeCard h4 {
+    text-align: center;
+    font-size: 18px;
+    line-height: 21px;
+    color: #4D00B4;
+    margin-top: 5px;
+    margin-bottom: 17px; }
+  .SelectArbitrableTxTypeCard-selected {
+    background: linear-gradient(105.36deg, #4D00B4 16.77%, #6500B4 81.96%); }
+    .SelectArbitrableTxTypeCard-selected h4 {
+      color: white; }

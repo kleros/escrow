@@ -9,10 +9,12 @@ import Home from '../containers/home'
 import ArbitrableTx from '../containers/arbitrable-tx'
 import New from '../containers/arbitrable-tx/new'
 import Resume from '../containers/arbitrable-tx/resume'
+import Footer from '../components/footer'
 import Notifications from '../containers/settings'
 import { ReactComponent as Kleros } from '../assets/kleros.svg'
 import { ReactComponent as Transaction } from '../assets/transaction.svg'
 import { ReactComponent as Envelope } from '../assets/envelope.svg'
+import { ReactComponent as Invoice } from '../assets/invoice.svg'
 
 import './app.css'
 
@@ -39,8 +41,27 @@ const Main = ({ children }) => (
       <ul className="menu">
         <li onClick={() => navigate('/notifications')}>
           <Envelope
-            style={{ position: 'relative', top: '12px', height: '15px' }}
+            style={{ position: 'relative', top: '12px', height: '15px', marginRight: '35px' }}
           />
+        </li>
+        <li
+          className="menu-transaction"
+          onClick={() => navigate('/new/invoice')}
+        >
+          <span className="btn-new" style={{
+              background: "#1E075F",
+              border: "1px solid white"
+            }}>
+            <Invoice
+              style={{
+                position: 'relative',
+                top: '7px',
+                height: '24px',
+                marginRight: '10px'
+              }}
+            />
+            New Invoice
+          </span>
         </li>
         <li
           className="menu-transaction"
@@ -61,6 +82,7 @@ const Main = ({ children }) => (
       </ul>
     </header>
     <main>{children}</main>
+    <Footer />
   </div>
 )
 
