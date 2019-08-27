@@ -65,8 +65,8 @@ const templates = [
       '[Contract Information]',
     tips: [<span>Disputes will be resolved in the <a href="https://court.kleros.io/courts">General Court</a> in Kleros</span>],
     address: {
-      eth: ARBITRABLE_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX],
-      token: ARBITRABLE_TOKEN_ADDRESSES[BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX]
+      eth: ARBITRABLE_ADDRESSES[GENERAL_MULTIPLE_ARBITRABLE_INDEX],
+      token: ARBITRABLE_TOKEN_ADDRESSES[GENERAL_MULTIPLE_ARBITRABLE_INDEX]
     }
   },
 ]
