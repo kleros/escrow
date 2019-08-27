@@ -141,7 +141,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
 
           </div>
           {
-            !arbitrabletx.token.decimals ? (
+            arbitrabletx.token && !arbitrabletx.token.decimals ? (
               <div style={{fontSize: '14px', color: 'red'}}>WARNING: The decimal precision is being assumed at 18 places. We were unable to verify this from the smart contract. If this is incorrect, please re-create this transaction using a Custom Token with the correct decimal value.</div>
             ) : ''
           }
