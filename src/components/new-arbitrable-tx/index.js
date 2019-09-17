@@ -46,7 +46,7 @@ const customStyles = {
   }
 }
 
-const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, invoice, back }) => {
+const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, invoice, back, stablecoins }) => {
   const [showAutomaticPayment, setShowAutomaticPayment] = useState(false)
   const [showFileUpload, setShowFileUpload] = useState(false)
   const initialAddress = invoice ? accounts.data[0] : ''
@@ -177,7 +177,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                         <div className="FormNewArbitrableTx-amount-select">
                           <TokenSelectInput tokens={tokens} onSubmit={(token) => {
                               setFieldValue('token', token)
-                            }} />
+                            }} stablecoins={stablecoins} />
                         </div>
                       </div>
                       <ErrorMessage
