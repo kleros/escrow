@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Formik, Field, ErrorMessage } from 'formik'
 import { Form, Datepicker } from 'react-formik-ui'
 import DateInput from 'react-datepicker'
-import Select from 'react-select'
 import Textarea from 'react-textarea-autosize'
 import { ClipLoader } from 'react-spinners'
 
@@ -27,26 +26,7 @@ const substituteTextOptionalInputs = (inputs, text) => {
   return text
 }
 
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    borderBottom: '1px solid #ccc',
-    color: state.isSelected ? '#fff' : '#4a4a4a',
-    background: state.isSelected
-      ? '#4d00b4'
-      : state.isFocused
-      ? '#f5f5f5'
-      : null
-  }),
-  singleValue: (provided, state) => {
-    const opacity = state.isDisabled ? 0.5 : 1
-    const transition = 'opacity 300ms'
-
-    return { ...provided, opacity, transition }
-  }
-}
-
-const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, invoice, back }) => {
+const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template, invoice, back, stablecoins }) => {
   const [showAutomaticPayment, setShowAutomaticPayment] = useState(false)
   const [showFileUpload, setShowFileUpload] = useState(false)
   const initialAddress = invoice ? accounts.data[0] : ''
@@ -279,9 +259,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                   </div>
               )} />
             <InputArea className="FormNewArbitrableTx-ExtraDetails" headerSpacing={true} title={`Extra Details | ${template.label}`} inputs={
-                  Object.keys(template.optionalInputs).map(inputKey => {
-                      return (
-                        <>
+                  Object.keys(template.optionalInputs).map((inputKey, i) => (
+                        <div key={i}>
                           <label
                             htmlFor={inputKey}
                             className="FormNewArbitrableTx-label"
@@ -347,9 +326,9 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                           component="div"
                           className="FormNewArbitrableTx-error"
                         />
-                      </>
+                      </div>
                       )
-                    })
+                    )
                   }
               />
               <div className="FormNewArbitrableTx-Bottom">
@@ -374,8 +353,8 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                 {
                   values.tips && (
                     <div className="FormNewArbitrableTx-help FormNewArbitrableTx-help-tips">
-                      {values.tips.map(tip => (
-                          <div className="FormNewArbitrableTx-help-tips-tip">
+                      {values.tips.map((tip, i) => (
+                          <div className="FormNewArbitrableTx-help-tips-tip" key={i}>
                             {tip}
                           </div>
                         )

@@ -13,9 +13,6 @@ import CopyImg from '../../../assets/copy.png'
 import './resume.css'
 
 class Resume extends PureComponent {
-  state = {
-    copied: false
-  }
   static propTypes = {
     arbitrabletxForm: arbitrabletxSelectors.arbitrabletxFormShape.isRequired,
     createArbitrabletx: PropTypes.func.isRequired
@@ -34,12 +31,8 @@ class Resume extends PureComponent {
     const {
       createArbitrabletx,
       arbitrabletxForm,
-      type,
-      metaEvidenceIPFSHash,
-      metaEvidence
+      metaEvidenceIPFSHash
     } = this.props
-    const { copied } = this.state
-
     const shareLink = `https://escrow.kleros.io/payment/${metaEvidenceIPFSHash}`
 
     return (
@@ -67,7 +60,7 @@ class Resume extends PureComponent {
                           }, 100)
                         }
                       }>
-                      <img src={CopyImg} />
+                      <img src={CopyImg} alt="copy-link-icon" />
                       Copy link to share
                     </Button>
                   }

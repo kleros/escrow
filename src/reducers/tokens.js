@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import createReducer, { createResource } from 'lessdux'
 
-import * as tokensActions from '../actions/tokens'
-
 // Common Shapes
 const _tokensShape = PropTypes.arrayOf(
   PropTypes.shape({

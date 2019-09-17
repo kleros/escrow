@@ -11,17 +11,18 @@ const SelectArbitrableTxType = ({ templates, selectedTemplate, submit, invoice }
   return (
     <div className="SelectArbitrableTxType">
       <div className="SelectArbitrableTxType-logo">
-        <img src={Logo} />
+        <img src={Logo} alt="logo" />
       </div>
       <div className="SelectArbitrableTxType-header">
         <h2>Select the Escrow Type for the {invoice ? 'Invoice' : 'Payment'}</h2>
       </div>
       <div className="SelectArbitrableTxType-cards">
-        {templates.map(_template => (
+        {templates.map((_template, i) => (
             <SelectArbitrableTxTypeCard
               template={_template}
               selected={_template.label === template.label}
               select={() => setTemplate(_template)}
+              key={i}
             />
           )
         )}
