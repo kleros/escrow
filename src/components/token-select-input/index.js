@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Formik, Field, ErrorMessage } from 'formik'
-import Select from 'react-select'
+import { Field } from 'formik'
 import Modal from 'react-responsive-modal'
 
 import TokenSelectorBox from '../token-selector-box'
@@ -60,9 +58,9 @@ const TokenSelectInput = ({ tokens, onSubmit, stablecoins }) => {
               className='TokenSelectInput'
               onClick={() => setModal(!open)}
             >
-              <img src={tokens[tokenIndex].symbolURI ? tokens[tokenIndex].symbolURI : warningSymbol} />
+              <img src={tokens[tokenIndex].symbolURI ? tokens[tokenIndex].symbolURI : warningSymbol} alt="token-symbol" />
               { tokens[tokenIndex].ticker }
-              <img src={downArrow} className="down-arrow"/>
+              <img src={downArrow} className="down-arrow" alt="down-arrow" />
             </div>
           </div>
         )

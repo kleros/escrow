@@ -3,7 +3,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { BeatLoader } from 'react-spinners'
 import SearchInput, {createFilter} from 'react-search-input'
 
-import ethSymbol from '../../assets/eth.png'
 import warningSymbol from '../../assets/warning.png'
 
 import './token-selector-box.css'
@@ -48,9 +47,9 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit, stablecoins }) => {
             <h3>Tokens</h3>
             <div className="tokens-container">
               { filteredTokens.map((token, i) => (
-                <div className={`token-option ${tokens[selectedIndex].ticker === token.ticker ? 'selected' : ''}`} onClick={() => changeSelection(token.ticker)}>
+                <div className={`token-option ${tokens[selectedIndex].ticker === token.ticker ? 'selected' : ''}`} onClick={() => changeSelection(token.ticker)} key={i}>
                   <div className="tokenImg">
-                    <img src={token.symbolURI ? token.symbolURI : warningSymbol} />
+                    <img src={token.symbolURI ? token.symbolURI : warningSymbol} alt="token-symbol" />
                   </div>
                   <div className="name">
                     { token.name }
@@ -104,7 +103,7 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit, stablecoins }) => {
             </div>
             <div className="custom-token-warning">
               <div className="symbol">
-                <img src={warningSymbol} />
+                <img src={warningSymbol} alt="warning-symbol" />
               </div>
               <div className="text">
                 <span>The Custom Token must follow the <a href="https://eips.ethereum.org/EIPS/eip-20" target="_">ERC20 standard</a>. Tokens that do not follow this standard may be permanently locked in the Smart Contract. Only proceed if you know what you are doing. Verified ERC20 tokens are from the Kleros T2CR. <a href="https://blog.kleros.io/erc20-becomes-part-of-the-token/" target="_">How to verify a Token</a>.</span>

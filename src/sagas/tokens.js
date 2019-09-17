@@ -7,10 +7,8 @@ import {
   ERC20_ADDRESS,
   T2CR_ADDRESS
 } from '../bootstrap/dapp-api'
-import * as tokensSelectors from '../reducers/tokens'
 import * as tokensActions from '../actions/tokens'
 import { lessduxSaga } from '../utils/saga'
-import * as errorConstants from '../constants/error'
 
 /**
  * Fetches the tokens in the T2CR.

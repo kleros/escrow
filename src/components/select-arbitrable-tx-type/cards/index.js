@@ -8,7 +8,7 @@ const SelectArbitrableTxTypeCard = ({ template, selected, select }) => {
       className={`SelectArbitrableTxTypeCard ${selected ? 'SelectArbitrableTxTypeCard-selected' : ''}`}
       onClick={() => {select(template)}}
     >
-      <img src={selected ? template.logoWhite : template.logo} />
+      <img src={selected ? template.logoWhite : template.logo} alt="template-logo" />
       <h4>{template.label}</h4>
     </div>
   )
