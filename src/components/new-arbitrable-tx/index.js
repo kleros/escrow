@@ -157,7 +157,7 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
                         <div className="FormNewArbitrableTx-amount-select">
                           <TokenSelectInput tokens={tokens} onSubmit={(token) => {
                               setFieldValue('token', token)
-                            }} />
+                            }} stablecoins={stablecoins} />
                         </div>
                       </div>
                       <ErrorMessage

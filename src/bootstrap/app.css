@@ -182,6 +182,7 @@ input[type='file']:active {
   .FileInput input {
     background: white; }
   .FileInput-filename {
+    color: #4a4a4a;
     font-size: 18px;
     left: 17px;
     position: absolute;

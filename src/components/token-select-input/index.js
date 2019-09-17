@@ -9,7 +9,7 @@ import ETH from '../../constants/eth'
 
 import './token-select-input.css'
 
-const TokenSelectInput = ({ tokens, onSubmit }) => {
+const TokenSelectInput = ({ tokens, onSubmit, stablecoins }) => {
   // Add ETH as the first option
   if (!tokens) tokens = []
   if (!tokens[0] || tokens[0].name !== ETH.name)
@@ -51,6 +51,7 @@ const TokenSelectInput = ({ tokens, onSubmit }) => {
                 tokens={tokens}
                 tokenIndex={tokenIndex}
                 submit={updateSelectedToken}
+                stablecoins={stablecoins}
               />
             </Modal>
             <div

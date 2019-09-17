@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 
 import * as walletActions from '../../../actions/wallet'
 import * as tokensActions from '../../../actions/tokens'
+import * as stablecoinsActions from '../../../actions/stablecoins'
 import * as walletSelectors from '../../../reducers/wallet'
 import * as tokensSelectors from '../../../reducers/tokens'
+import * as stablecoinsSelectors from '../../../reducers/stablecoins'
 import * as arbitrabletxActions from '../../../actions/arbitrable-transaction'
 import SelectArbitrableTxType from '../../../components/select-arbitrable-tx-type'
 import NewArbitrableTx from '../../../components/new-arbitrable-tx'
@@ -37,9 +39,10 @@ class NewArbitrableTxContainer extends PureComponent {
     this.templates = require('../../../constants/templates').default
     this.setState({template: this.templates[0]})
 
-    const { fetchBalance, fetchTokens } = this.props
+    const { fetchBalance, fetchTokens, fetchStablecoins } = this.props
     fetchBalance()
     fetchTokens()
+    fetchStablecoins()
   }
 
   submitTemplateType(template) {
@@ -54,7 +57,7 @@ class NewArbitrableTxContainer extends PureComponent {
   }
 
   render() {
-    const { formArbitrabletx, balance, accounts, type, tokens } = this.props
+    const { formArbitrabletx, balance, accounts, type, tokens, stablecoins } = this.props
 
     if (this.state.showInputs)
       return (
@@ -66,6 +69,7 @@ class NewArbitrableTxContainer extends PureComponent {
           tokens={tokens.data}
           template={this.state.template}
           back={this.previousScreen.bind(this)}
+          stablecoins={stablecoins.data}
         />
       )
     else
@@ -86,12 +90,14 @@ export default connect(
   state => ({
     balance: state.wallet.balance,
     accounts: state.wallet.accounts,
-    tokens: state.tokens.tokens
+    tokens: state.tokens.tokens,
+    stablecoins: state.stablecoins.stablecoins
   }),
   {
     formArbitrabletx: arbitrabletxActions.formArbitrabletx,
     fetchBalance: walletActions.fetchBalance,
     fetchAccounts: walletActions.fetchAccounts,
-    fetchTokens: tokensActions.fetchTokens
+    fetchTokens: tokensActions.fetchTokens,
+    fetchStablecoins: stablecoinsActions.fetchStablecoins
   }
 )(NewArbitrableTxContainer)
