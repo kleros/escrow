@@ -10,7 +10,7 @@ import './token-selector-box.css'
 
 const KEYS_TO_FILTERS = ['name', 'ticker']
 
-const TokenSelectorBox = ({ tokens, tokenIndex, submit }) => {
+const TokenSelectorBox = ({ tokens, tokenIndex, submit, stablecoins }) => {
   const [selectedIndex, setIndex] = useState(tokenIndex)
   const [searchTerm, setSearchTerm] = useState('')
   const [newTokenName, setTokenName] = useState(null)
@@ -25,7 +25,14 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit }) => {
     setIndex(index)
   }
 
-  const filteredTokens = tokens.filter(createFilter(searchTerm, KEYS_TO_FILTERS))
+  const filteredTokens = tokens
+    .filter(createFilter(searchTerm, KEYS_TO_FILTERS))
+    .sort((a,b) => {
+      if (stablecoins.includes(a.address) && !stablecoins.includes(b.address)) return -1
+      if (!stablecoins.includes(a.address) && stablecoins.includes(b.address)) return 1
+
+      return 0
+    })
 
   return (
     <div className="TokenSelectorBox">
