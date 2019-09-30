@@ -22,6 +22,7 @@ let T2CR_ADDRESS
 let ERC20_ADDRESS
 let STABLECOIN_ADDRESS
 let ARBITRABLE_TOKEN_ADDRESSES = []
+let TOKENS_VIEW_ADDRESS
 web3.eth.net.getId().then(networkID => {
   let networkName
   switch (networkID) {
@@ -35,12 +36,12 @@ web3.eth.net.getId().then(networkID => {
       break
   }
 
-
   ARBITRABLE_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES`]
   ARBITRABLE_TOKEN_ADDRESSES = _addresses[`${networkName}_MULTIPLE_ARBITRABLE_TOKEN_TRANSACTION_ADDRESSES`]
   T2CR_ADDRESS = _addresses[`${networkName}_T2CR_ADDRESS`]
   ERC20_ADDRESS = _addresses[`${networkName}_ERC20_BADGE_ADDRESS`]
   STABLECOIN_ADDRESS = _addresses[`${networkName}_STABLECOIN_BADGE_ADDRESS`]
+  TOKENS_VIEW_ADDRESS = _addresses[`${networkName}_TOKENS_VIEW_ADDRESS`]
 })
 
 const archon = new Archon(web3.currentProvider, 'https://ipfs.kleros.io')
@@ -48,7 +49,6 @@ const archon = new Archon(web3.currentProvider, 'https://ipfs.kleros.io')
 const ETHAddressRegExpCaptureGroup = '(0x[a-fA-F0-9]{40})'
 const ETHAddressRegExp = /0x[a-fA-F0-9]{40}/
 const strictETHAddressRegExp = /^0x[a-fA-F0-9]{40}$/
-
 export {
   ARBITRABLE_ADDRESSES,
   ARBITRABLE_TOKEN_ADDRESSES,
@@ -60,5 +60,6 @@ export {
   archon,
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
-  strictETHAddressRegExp
+  strictETHAddressRegExp,
+  TOKENS_VIEW_ADDRESS
 }
