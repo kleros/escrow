@@ -1,14 +1,19 @@
 import { call, takeLatest } from 'redux-saga/effects'
 import ArbitrableTokenList from '@kleros/kleros-interaction/build/contracts/ArbitrableTokenList.json'
 import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
+import TokensView from '../assets/abi/tokensView.json'
 
 import {
   web3,
   ERC20_ADDRESS,
-  T2CR_ADDRESS
+  T2CR_ADDRESS,
+  TOKENS_VIEW_ADDRESS
 } from '../bootstrap/dapp-api'
 import * as tokensActions from '../actions/tokens'
 import { lessduxSaga } from '../utils/saga'
+
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+const ZERO_BYTES32 = '0x0000000000000000000000000000000000000000000000000000000000000000'
 
 /**
  * Fetches the tokens in the T2CR.
@@ -25,34 +30,33 @@ export function* fetchTokens() {
     ArbitrableAddressList.abi,
     ERC20_ADDRESS
   )
+  const TokensViewInstance = new web3.eth.Contract(
+    TokensView.abi,
+    TOKENS_VIEW_ADDRESS
+  )
   const tokens = []
 
   let moreTokens = true
-  let lastAddress = '0x0000000000000000000000000000000000000000'
-  while(moreTokens) {
+  let lastAddress = ZERO_ADDRESS
+  while (moreTokens) {
     const query = yield call(ERC20BadgeInstance.methods.queryAddresses(
       lastAddress,
       1000,
-      [false,true,false,false,false,false,false,false],
+      [false, true, false, false, false, false, false, false],
       true
     ).call)
     moreTokens = query.hasMore
 
-    for (let address of query.values) {
-      if (address === '0x0000000000000000000000000000000000000000') break // Went through whole list
-      const token = {}
-      const tokenQuery = yield call(arbitrableTokenListInstance.methods.queryTokens(
-        '0x0000000000000000000000000000000000000000000000000000000000000000',
-        1,
-        [false,true,false,false,false,false,false,false],
-        true,
-        address
-      ).call)
+    const tokenIDs = (yield call(
+      TokensViewInstance.methods.getTokensIDsForAddresses(T2CR_ADDRESS, query.values.filter(addr => addr !== ZERO_ADDRESS)).call)
+    ).filter(tokenID => tokenID !== ZERO_BYTES32)
 
-      const tokenID = tokenQuery.values[0]
+    for (let tokenID of tokenIDs) {
+      if (tokenID === ZERO_BYTES32) break // Went through whole list
+      const token = {}
       const _token = yield call(arbitrableTokenListInstance.methods.tokens(tokenID).call)
 
-      if (_token.addr === '0x0000000000000000000000000000000000000000') continue // Tokens with badges that have been removed from the list return null address
+      if (_token.addr === ZERO_ADDRESS) continue // Tokens with badges that have been removed from the list return null address
       if (_token.ticker === 'ZRX') _token.name = '0x' // We need a hack to get the 0x symbol which is interpreted as hex null by web3.
 
       token.name = _token.name
