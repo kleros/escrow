@@ -1,4 +1,4 @@
-import { call, takeLatest } from 'redux-saga/effects'
+import { call, takeLatest, all } from 'redux-saga/effects'
 import ArbitrableTokenList from '@kleros/kleros-interaction/build/contracts/ArbitrableTokenList.json'
 import ArbitrableAddressList from '@kleros/kleros-interaction/build/contracts/ArbitrableAddressList.json'
 import TokensView from '../assets/abi/tokensView.json'
@@ -51,12 +51,10 @@ export function* fetchTokens() {
       TokensViewInstance.methods.getTokensIDsForAddresses(T2CR_ADDRESS, query.values.filter(addr => addr !== ZERO_ADDRESS)).call)
     ).filter(tokenID => tokenID !== ZERO_BYTES32)
 
-    for (let tokenID of tokenIDs) {
-      if (tokenID === ZERO_BYTES32) break // Went through whole list
+    yield all(tokenIDs.filter(tokenID => tokenID !== ZERO_BYTES32).map(tokenID => call(async () => {
       const token = {}
-      const _token = yield call(arbitrableTokenListInstance.methods.tokens(tokenID).call)
+      const _token = await arbitrableTokenListInstance.methods.tokens(tokenID).call()
 
-      if (_token.addr === ZERO_ADDRESS) continue // Tokens with badges that have been removed from the list return null address
       if (_token.ticker === 'ZRX') _token.name = '0x' // We need a hack to get the 0x symbol which is interpreted as hex null by web3.
 
       token.name = _token.name
@@ -69,7 +67,7 @@ export function* fetchTokens() {
       )
 
       tokens.push(token)
-    }
+    })))
   }
 
   return tokens
