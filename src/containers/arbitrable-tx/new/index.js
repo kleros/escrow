@@ -19,11 +19,13 @@ class NewArbitrableTxContainer extends PureComponent {
     // Redux State
     balance: walletSelectors.balanceShape.isRequired,
     tokens: tokensSelectors.tokensShape.isRequired,
+    stablecoins: stablecoinsSelectors.stablecoinsShape.isRequired,
 
     // Action Dispatchers
     fetchBalance: PropTypes.func.isRequired,
     fetchTokens: PropTypes.func.isRequired,
-    formArbitrabletx: PropTypes.func.isRequired
+    formArbitrabletx: PropTypes.func.isRequired,
+    fetchStablecoins: PropTypes.func.isRequired,
   }
 
   state = {

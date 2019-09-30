@@ -36,6 +36,7 @@ export function* fetchStablecoins() {
       if (address === '0x0000000000000000000000000000000000000000') break // Went through whole list
       stablecoins.push(address)
     }
+    lastAddress = stablecoins.length > 0 ? stablecoins[stablecoins.length - 1] : lastAddress
   }
 
   return stablecoins

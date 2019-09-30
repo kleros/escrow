@@ -2,11 +2,7 @@ import PropTypes from 'prop-types'
 import createReducer, { createResource } from 'lessdux'
 
 // Common Shapes
-const _stablecoinsShape = PropTypes.arrayOf(
-  PropTypes.shape({
-    address: PropTypes.string
-  })
-)
+const _stablecoinsShape = PropTypes.arrayOf(PropTypes.string)
 
 // Shapes
 const {
