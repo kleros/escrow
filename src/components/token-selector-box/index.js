@@ -27,6 +27,7 @@ const TokenSelectorBox = ({ tokens, tokenIndex, submit, stablecoins }) => {
   const filteredTokens = tokens
     .filter(createFilter(searchTerm, KEYS_TO_FILTERS))
     .sort((a,b) => {
+      if (!stablecoins) return 0
       if (stablecoins.includes(a.address) && !stablecoins.includes(b.address)) return -1
       if (!stablecoins.includes(a.address) && stablecoins.includes(b.address)) return 1
 
