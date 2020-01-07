@@ -284,16 +284,27 @@ function* createArbitrabletx({
     if (arbitrabletxReceived.token && arbitrabletxReceived.token.decimals)
       decimals = arbitrabletxReceived.token.decimals
 
+    // Handle decimals
+    const receivedAmountParts = String(arbitrabletxReceived.amount).split('.')
+    let whole = receivedAmountParts[0] || '0'
+    let fraction = receivedAmountParts[1] || '0'
+
+    while (fraction.length < decimals) {
+      fraction += '0'
+    }
+
     // Convert to int based on decimals
     const amount = web3.utils.toBN(
-      arbitrabletxReceived.amount
+      whole
     ).mul(
       web3.utils.toBN(
         10
       ).pow(
         web3.utils.toBN(decimals)
       )
-    )
+    ).add(web3.utils.toBN(
+      fraction
+    ))
 
     const erc20 = new web3.eth.Contract(
       ERC20.abi,
