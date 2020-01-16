@@ -17,9 +17,7 @@ const DetailsArea = ({ title, inputs, headerSpacing=false }) => {
            }
            onClick={() => setShowInputs(!showInputs)} />
       </div>
-      {showInputs ? (
-        <div className='inputArea-body' style={headerSpacing ? {marginTop: '25px'} : {}}>{inputs}</div>
-      ) : ''}
+      <div className={`inputArea-body ${showInputs ? '' : 'inputArea-body-collapsed'}`} style={headerSpacing ? {marginTop: '25px'} : {}}>{inputs}</div>
     </div>
   )
 }

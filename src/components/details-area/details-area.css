@@ -27,3 +27,5 @@
       margin-top: 12px; }
   .inputArea-body {
     padding: 0px 55px 25px 55px; }
+    .inputArea-body-collapsed {
+      display: none; }
