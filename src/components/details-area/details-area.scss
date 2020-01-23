@@ -38,5 +38,9 @@
 
   &-body {
     padding: 0px 55px 25px 55px;
+
+    &-collapsed {
+      display: none;
+    }
   }
 }
