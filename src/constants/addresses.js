@@ -2,24 +2,24 @@
 export const BLOCKCHAIN_NON_TECHNICAL_MULTIPLE_ARBITRABLE_INDEX = 0
 export const GENERAL_MULTIPLE_ARBITRABLE_INDEX = 1
 
-// export const KOVAN_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES = [
-//   '0x01171b3fb9627dd127a6ceb356b4470c492e7a8d', // Blockchain Non-Technical
-//   '0x23c8118ae9fb45a0cb7fcfe3af65d081233d82a5' // General Court
-// ]
-//
-// export const KOVAN_MULTIPLE_ARBITRABLE_TOKEN_TRANSACTION_ADDRESSES = [
-//   '0xdc73a27c2a81de8646937eac26fa34a870322874', // Blockchain Non-Technical
-//   '0xfe4fd3f2d4470fd032ee3e961a981b08e254a0d7' // General Court
-// ]
 export const KOVAN_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES = [
   '0x01171b3fb9627dd127a6ceb356b4470c492e7a8d', // Blockchain Non-Technical
-  '0x01171b3fb9627dd127a6ceb356b4470c492e7a8d' // General Court
+  '0x23c8118ae9fb45a0cb7fcfe3af65d081233d82a5' // General Court
 ]
 
 export const KOVAN_MULTIPLE_ARBITRABLE_TOKEN_TRANSACTION_ADDRESSES = [
   '0xdc73a27c2a81de8646937eac26fa34a870322874', // Blockchain Non-Technical
-  '0xdc73a27c2a81de8646937eac26fa34a870322874' // General Court
+  '0xfe4fd3f2d4470fd032ee3e961a981b08e254a0d7' // General Court
 ]
+// export const KOVAN_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES = [
+//   '0x01171b3fb9627dd127a6ceb356b4470c492e7a8d', // Blockchain Non-Technical
+//   '0x01171b3fb9627dd127a6ceb356b4470c492e7a8d' // General Court
+// ]
+//
+// export const KOVAN_MULTIPLE_ARBITRABLE_TOKEN_TRANSACTION_ADDRESSES = [
+//   '0xdc73a27c2a81de8646937eac26fa34a870322874', // Blockchain Non-Technical
+//   '0xdc73a27c2a81de8646937eac26fa34a870322874' // General Court
+// ]
 
 export const MAINNET_MULTIPLE_ARBITRABLE_TRANSACTION_ADDRESSES = [
   '0xE2Dd8CCe2c33a04215074ADb4B5820B765d8Ed9D', // Blockchain Non-Technical

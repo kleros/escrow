@@ -516,7 +516,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     }`
 
   // token addresses must match
-  if (arbitrableTransaction.token && metaEvidenceArchon.metaEvidenceJSON.token.address !== arbitrableTransaction.token)
+  if (arbitrableTransaction.token && metaEvidenceArchon.metaEvidenceJSON.token.address.toLowerCase() !== arbitrableTransaction.token.toLowerCase())
     throw new Error('MetaEvidence Token information does not match token in the contract')
 
   arbitrableTransaction.token = metaEvidenceArchon.metaEvidenceJSON.token
