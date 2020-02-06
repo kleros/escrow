@@ -166,9 +166,13 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
 
       // Verify token attributes
       let decimals
+      let allowance
       try {
         decimals = yield call(
           ERC20Instance.methods.decimals().call
+        )
+        allowance = yield call(
+          ERC20Instance.methods.allowance(accounts[0], metaEvidenceDecoded.arbitrableAddress).call
         )
       } catch {}
 
@@ -181,6 +185,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         verified = false
         warnings.push(warningConstants.DECIMAL_WARNING(metaEvidenceDecoded.token.decimals))
       }
+      if (allowance)
+        metaEvidenceDecoded.token.allowance = allowance
 
       // Verify token attributes
       const tokenQuery = yield call(T2CRInstance.methods.queryTokens(
@@ -306,6 +312,11 @@ function* createArbitrabletx({
       fraction
     ))
 
+    const allowanceAmount = web3.utils.toBN(arbitrabletxReceived.token.allowance ?
+      arbitrabletxReceived.token.allowance :
+      "0"
+    )
+    
     const erc20 = new web3.eth.Contract(
       ERC20.abi,
       arbitrabletxReceived.token.address
@@ -313,12 +324,7 @@ function* createArbitrabletx({
 
     const _submit = async () => {
       return new Promise(async (resolve, reject) => {
-        erc20.methods.approve(
-          arbitrabletxReceived.arbitrableAddress,
-          amount
-        ).send({
-          from: accounts[0]
-        }).on('transactionHash', async () => {
+        const createTx = async () => {
           const _txHash = await arbitrableTransactionContractInstance.methods.createTransaction(
             amount,
             arbitrabletxReceived.token.address,
@@ -330,7 +336,20 @@ function* createArbitrabletx({
           })
 
           resolve(_txHash)
-        })
+        }
+
+        // Use allowance if balance exists
+        if (allowanceAmount.lt(amount))
+          erc20.methods.approve(
+            arbitrabletxReceived.arbitrableAddress,
+            amount
+          ).send({
+            from: accounts[0]
+          }).on('transactionHash', async () => {
+            createTx()
+          })
+        else
+          createTx()
       })
   }
 
