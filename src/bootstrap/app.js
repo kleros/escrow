@@ -39,11 +39,6 @@ const Main = ({ children }) => (
         <span className="navicon" />
       </label>
       <ul className="menu">
-        <li onClick={() => navigate('/notifications')}>
-          <Envelope
-            style={{ position: 'relative', top: '12px', height: '15px', marginRight: '35px' }}
-          />
-        </li>
         <li
           className="menu-transaction"
           onClick={() => navigate('/new/invoice')}
