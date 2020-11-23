@@ -429,9 +429,11 @@ function* fetchArbitrabletxs() {
                 : accounts[0] === arbitrableTransaction.sender
                 ? 'receiver'
                 : '...'
-            arbitrableTransaction.originalAmount = web3.utils
-              .toWei(metaEvidence.metaEvidenceJSON.amount, 'ether')
-              .toString()
+            arbitrableTransaction.originalAmount =
+              metaEvidence.metaEvidenceJSON.amount &&
+              web3.utils
+                .toWei(metaEvidence.metaEvidenceJSON.amount, 'ether')
+                .toString()
             arbitrableTransaction.detailsStatus = getStatusArbitrable({
               accounts,
               arbitrabletx: arbitrableTransaction,

@@ -165,25 +165,27 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
           </>
         }
       />
-      <DetailsArea
-        title={'Extra Details'}
-        inputs={Object.keys(arbitrabletx.extraData).map((dataTitle, i) => (
-          <div key={`extra-details-${i}`}>
-            <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name">
-              {dataTitle}
+      {Object.keys(arbitrabletx.extraData).length > 0 && (
+        <DetailsArea
+          title={'Extra Details'}
+          inputs={Object.keys(arbitrabletx.extraData).map((dataTitle, i) => (
+            <div key={`extra-details-${i}`}>
+              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name">
+                {dataTitle}
+              </div>
+              {arbitrabletx.extraData[dataTitle].slice(-8) === ':00.000Z' ? (
+                <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
+                  {displayDateUTC(new Date(arbitrabletx.extraData[dataTitle]))}
+                </div>
+              ) : (
+                <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
+                  {arbitrabletx.extraData[dataTitle]}
+                </div>
+              )}
             </div>
-            {arbitrabletx.extraData[dataTitle].slice(-8) === ':00.000Z' ? (
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
-                {displayDateUTC(new Date(arbitrabletx.extraData[dataTitle]))}
-              </div>
-            ) : (
-              <div className="ResumeArbitrableTx-ContentNewArbitrableTx-content">
-                {arbitrabletx.extraData[dataTitle]}
-              </div>
-            )}
-          </div>
-        ))}
-      />
+          ))}
+        />
+      )}
       {arbitrabletx.description && (
         <>
           <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name-description">
