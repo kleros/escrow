@@ -11,7 +11,7 @@ import {
   ERC20_ADDRESS,
   T2CR_ADDRESS,
   ARBITRABLE_ADDRESSES,
-  ARBITRABLE_TOKEN_ADDRESSES
+  ARBITRABLE_TOKEN_ADDRESSES,
 } from '../bootstrap/dapp-api'
 import * as arbitrabletxActions from '../actions/arbitrable-transaction'
 import ERC20 from '../assets/abi/erc20.json'
@@ -54,7 +54,9 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
           arbitrabletxForm.token.address
         )
         // Fetch Decimals from Contract
-        arbitrabletxForm.token.decimals = yield call(erc20.methods.decimals().call)
+        arbitrabletxForm.token.decimals = yield call(
+          erc20.methods.decimals().call
+        )
       } catch (err) {}
     }
   }
@@ -81,7 +83,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       subCategory: arbitrabletxForm.subCategory,
       token: arbitrabletxForm.token,
       extraData: arbitrabletxForm.extraData,
-      invoice: arbitrabletxForm.invoice
+      invoice: arbitrabletxForm.invoice,
     })
   } else {
     metaEvidence = createMetaEvidence({
@@ -95,7 +97,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       timeout: arbitrabletxForm.timeout,
       token: arbitrabletxForm.token,
       extraData: arbitrabletxForm.extraData,
-      invoice: arbitrabletxForm.invoice
+      invoice: arbitrabletxForm.invoice,
     })
   }
 
@@ -159,20 +161,18 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         T2CR_ADDRESS
       )
 
-      const ERC20Instance = new web3.eth.Contract(
-        ERC20.abi,
-        _token.address
-      )
+      const ERC20Instance = new web3.eth.Contract(ERC20.abi, _token.address)
 
       // Verify token attributes
       let decimals
       let allowance
       try {
-        decimals = yield call(
-          ERC20Instance.methods.decimals().call
-        )
+        decimals = yield call(ERC20Instance.methods.decimals().call)
         allowance = yield call(
-          ERC20Instance.methods.allowance(accounts[0], metaEvidenceDecoded.arbitrableAddress).call
+          ERC20Instance.methods.allowance(
+            accounts[0],
+            metaEvidenceDecoded.arbitrableAddress
+          ).call
         )
       } catch {}
 
@@ -181,26 +181,32 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         metaEvidenceDecoded.token.decimals = decimals
       } else {
         // Assume 18 if none supplied
-        if (!metaEvidenceDecoded.token.decimals) metaEvidenceDecoded.token.decimals = 18
+        if (!metaEvidenceDecoded.token.decimals)
+          metaEvidenceDecoded.token.decimals = 18
         verified = false
-        warnings.push(warningConstants.DECIMAL_WARNING(metaEvidenceDecoded.token.decimals))
+        warnings.push(
+          warningConstants.DECIMAL_WARNING(metaEvidenceDecoded.token.decimals)
+        )
       }
-      if (allowance)
-        metaEvidenceDecoded.token.allowance = allowance
+      if (allowance) metaEvidenceDecoded.token.allowance = allowance
 
       // Verify token attributes
-      const tokenQuery = yield call(T2CRInstance.methods.queryTokens(
-        '0x0000000000000000000000000000000000000000000000000000000000000000',
-        1,
-        [false,true,false,false,false,false,false,false],
-        true,
-        _token.address
-      ).call)
+      const tokenQuery = yield call(
+        T2CRInstance.methods.queryTokens(
+          '0x0000000000000000000000000000000000000000000000000000000000000000',
+          1,
+          [false, true, false, false, false, false, false, false],
+          true,
+          _token.address
+        ).call
+      )
 
       const tokenID = tokenQuery.values[0]
       // If token does not exist we have nothing to check against
       if (tokenID) {
-        const verifiedToken = yield call(T2CRInstance.methods.tokens(tokenID).call)
+        const verifiedToken = yield call(
+          T2CRInstance.methods.tokens(tokenID).call
+        )
         for (let attr of Object.keys(_token)) {
           // If the attribute is not in the list we don't need to worry about it
           const _verifiedAttr = verifiedToken[attr]
@@ -213,9 +219,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
 
       // Verify token address
       const item = yield call(
-        ERC20BadgeInstance.methods.getAddressInfo(
-          _token.address
-        ).call
+        ERC20BadgeInstance.methods.getAddressInfo(_token.address).call
       )
 
       if (!item || Number(item.status) !== 1 || !verified) {
@@ -246,8 +250,8 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`,
         extraData: metaEvidenceDecoded.extraData || {},
         verified,
-        warnings
-      }
+        warnings,
+      },
     })
   )
 }
@@ -257,12 +261,15 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
  * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
  */
 function* createArbitrabletx({
-  payload: { arbitrabletxReceived, metaEvidenceIPFSHash }
+  payload: { arbitrabletxReceived, metaEvidenceIPFSHash },
 }) {
   const accounts = yield call(web3.eth.getAccounts)
 
   let txHash
-  if (!arbitrabletxReceived.token || arbitrabletxReceived.token.ticker === 'ETH') {
+  if (
+    !arbitrabletxReceived.token ||
+    arbitrabletxReceived.token.ticker === 'ETH'
+  ) {
     const multipleArbitrableTransactionEth = new web3.eth.Contract(
       multipleArbitrableTransaction.abi,
       arbitrabletxReceived.arbitrableAddress
@@ -276,11 +283,10 @@ function* createArbitrabletx({
       ).send,
       {
         from: accounts[0],
-        value: web3.utils.toWei(arbitrabletxReceived.amount, 'ether')
+        value: web3.utils.toWei(arbitrabletxReceived.amount, 'ether'),
       }
     )
-  }
-  else {
+  } else {
     const arbitrableTransactionContractInstance = new web3.eth.Contract(
       multipleArbitrableTokenTransaction.abi,
       arbitrabletxReceived.arbitrableAddress
@@ -300,23 +306,17 @@ function* createArbitrabletx({
     }
 
     // Convert to int based on decimals
-    const amount = web3.utils.toBN(
-      whole
-    ).mul(
-      web3.utils.toBN(
-        10
-      ).pow(
-        web3.utils.toBN(decimals)
-      )
-    ).add(web3.utils.toBN(
-      fraction
-    ))
+    const amount = web3.utils
+      .toBN(whole)
+      .mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)))
+      .add(web3.utils.toBN(fraction))
 
-    const allowanceAmount = web3.utils.toBN(arbitrabletxReceived.token.allowance ?
-      arbitrabletxReceived.token.allowance :
-      "0"
+    const allowanceAmount = web3.utils.toBN(
+      arbitrabletxReceived.token.allowance
+        ? arbitrabletxReceived.token.allowance
+        : '0'
     )
-    
+
     const erc20 = new web3.eth.Contract(
       ERC20.abi,
       arbitrabletxReceived.token.address
@@ -325,33 +325,34 @@ function* createArbitrabletx({
     const _submit = async () => {
       return new Promise(async (resolve, reject) => {
         const createTx = async () => {
-          const _txHash = await arbitrableTransactionContractInstance.methods.createTransaction(
-            amount,
-            arbitrabletxReceived.token.address,
-            arbitrabletxReceived.timeout.toString(),
-            arbitrabletxReceived.receiver,
-            `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
-          ).send({
-            from: accounts[0]
-          })
+          const _txHash = await arbitrableTransactionContractInstance.methods
+            .createTransaction(
+              amount,
+              arbitrabletxReceived.token.address,
+              arbitrabletxReceived.timeout.toString(),
+              arbitrabletxReceived.receiver,
+              `/ipfs/${metaEvidenceIPFSHash}/metaEvidence.json`
+            )
+            .send({
+              from: accounts[0],
+            })
 
           resolve(_txHash)
         }
 
         // Use allowance if balance exists
         if (allowanceAmount.lt(amount))
-          erc20.methods.approve(
-            arbitrabletxReceived.arbitrableAddress,
-            amount
-          ).send({
-            from: accounts[0]
-          }).on('transactionHash', async () => {
-            createTx()
-          })
-        else
-          createTx()
+          erc20.methods
+            .approve(arbitrabletxReceived.arbitrableAddress, amount)
+            .send({
+              from: accounts[0],
+            })
+            .on('transactionHash', async () => {
+              createTx()
+            })
+        else createTx()
       })
-  }
+    }
 
     // Approve amount to be spent
     txHash = yield call(_submit)
@@ -394,11 +395,11 @@ function* fetchArbitrabletxs() {
           accounts[0]
         ).call
       ),
-      call(multipleArbitrableTransactionEth.methods.arbitratorExtraData().call)
+      call(multipleArbitrableTransactionEth.methods.arbitratorExtraData().call),
     ])
     const _arbitrableTransactions = yield all(
       // eslint-disable-next-line no-loop-func
-      arbitrableTransactionIds.map(arbitrableTransactionId =>
+      arbitrableTransactionIds.map((arbitrableTransactionId) =>
         call(async () => {
           try {
             const [arbitrableTransaction, metaEvidence] = await Promise.all([
@@ -408,12 +409,11 @@ function* fetchArbitrabletxs() {
               archon.arbitrable.getMetaEvidence(
                 arbitrableContract,
                 arbitrableTransactionId // Use arbitrableTransactionId as metaEvidenceID
-              )
+              ),
             ])
 
             arbitrableTransaction.arbitrableAddress =
-              arbitrableContract ||
-              '0x0000000000000000000000000000000000000000'
+              arbitrableContract || '0x0000000000000000000000000000000000000000'
             arbitrableTransaction.metaEvidence =
               metaEvidence.metaEvidenceJSON || {}
             arbitrableTransaction.id = arbitrableTransactionId || 0
@@ -434,7 +434,7 @@ function* fetchArbitrabletxs() {
               .toString()
             arbitrableTransaction.detailsStatus = getStatusArbitrable({
               accounts,
-              arbitrabletx: arbitrableTransaction
+              arbitrabletx: arbitrableTransaction,
             })
             arbitrableTransaction.arbitratorExtraData = arbitratorExtraData
 
@@ -446,7 +446,7 @@ function* fetchArbitrabletxs() {
       )
     )
 
-    arbitrableTransactions.push(..._arbitrableTransactions.filter(t => t))
+    arbitrableTransactions.push(..._arbitrableTransactions.filter((t) => t))
   }
 
   // Sort by lastInteraction. Most recently updated txs appear first
@@ -469,7 +469,11 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   // force convert to string
   const transactionId = id.toString()
 
-  const metaEvidenceArchon = yield call(archon.arbitrable.getMetaEvidence, arbitrable, id)
+  const metaEvidenceArchon = yield call(
+    archon.arbitrable.getMetaEvidence,
+    arbitrable,
+    id
+  )
 
   // Build this object up to return
   let arbitrableTransaction = {}
@@ -485,18 +489,17 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     arbitratorAddress,
     arbitratorExtraData,
     _arbitrableTransaction,
-    feeTimeout
+    feeTimeout,
   ] = yield all([
-    call(
-      arbitrableTransactionContractInstance.methods.arbitrator().call
-    ),
+    call(arbitrableTransactionContractInstance.methods.arbitrator().call),
     call(
       arbitrableTransactionContractInstance.methods.arbitratorExtraData().call
     ),
     call(
-      arbitrableTransactionContractInstance.methods.transactions(transactionId).call
+      arbitrableTransactionContractInstance.methods.transactions(transactionId)
+        .call
     ),
-    call(arbitrableTransactionContractInstance.methods.feeTimeout().call)
+    call(arbitrableTransactionContractInstance.methods.feeTimeout().call),
   ])
 
   arbitrableTransaction = _arbitrableTransaction
@@ -514,16 +517,17 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
       ? arbitrableTransaction.receiver
       : arbitrableTransaction.sender
 
-
   // Fetch data from arbitrator
   const arbitratorEth = new web3.eth.Contract(
     Arbitrator.abi,
     arbitrableTransaction.arbitratorAddress
   )
 
-  const arbitrationCost = yield call(arbitratorEth.methods.arbitrationCost(
-    arbitrableTransaction.arbitratorExtraData
-  ).call)
+  const arbitrationCost = yield call(
+    arbitratorEth.methods.arbitrationCost(
+      arbitrableTransaction.arbitratorExtraData
+    ).call
+  )
 
   const disputeStatus = yield call(
     arbitratorEth.methods.disputeStatus(arbitrableTransaction.disputeId).call
@@ -535,8 +539,14 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     }`
 
   // token addresses must match
-  if (arbitrableTransaction.token && metaEvidenceArchon.metaEvidenceJSON.token.address.toLowerCase() !== arbitrableTransaction.token.toLowerCase())
-    throw new Error('MetaEvidence Token information does not match token in the contract')
+  if (
+    arbitrableTransaction.token &&
+    metaEvidenceArchon.metaEvidenceJSON.token.address.toLowerCase() !==
+      arbitrableTransaction.token.toLowerCase()
+  )
+    throw new Error(
+      'MetaEvidence Token information does not match token in the contract'
+    )
 
   arbitrableTransaction.token = metaEvidenceArchon.metaEvidenceJSON.token
 
@@ -561,8 +571,8 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
       arbitratorEth.methods.currentRuling(arbitrableTransaction.disputeId).call
     )
 
-    if (!metaEvidenceArchon.metaEvidenceJSON.extraData)
-      metaEvidenceArchon.metaEvidenceJSON.extraData = {}
+  if (!metaEvidenceArchon.metaEvidenceJSON.extraData)
+    metaEvidenceArchon.metaEvidenceJSON.extraData = {}
 
   let verified = true
   const warnings = []
@@ -586,17 +596,12 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
         T2CR_ADDRESS
       )
 
-      const ERC20Instance = new web3.eth.Contract(
-        ERC20.abi,
-        _token.address
-      )
+      const ERC20Instance = new web3.eth.Contract(ERC20.abi, _token.address)
 
       // Verify token attributes
       let decimals
       try {
-        decimals = yield call(
-          ERC20Instance.methods.decimals().call
-        )
+        decimals = yield call(ERC20Instance.methods.decimals().call)
       } catch {}
 
       // Overwrite user input if decimals is available in the contract
@@ -604,24 +609,33 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
         metaEvidenceArchon.metaEvidenceJSON.token.decimals = decimals
       } else {
         // Assume 18 if none supplied
-        if (!metaEvidenceArchon.metaEvidenceJSON.token.decimals) metaEvidenceArchon.metaEvidenceJSON.token.decimals = 18
+        if (!metaEvidenceArchon.metaEvidenceJSON.token.decimals)
+          metaEvidenceArchon.metaEvidenceJSON.token.decimals = 18
         verified = false
-        warnings.push(warningConstants.DECIMAL_WARNING(metaEvidenceArchon.metaEvidenceJSON.token.decimals))
+        warnings.push(
+          warningConstants.DECIMAL_WARNING(
+            metaEvidenceArchon.metaEvidenceJSON.token.decimals
+          )
+        )
       }
 
       // Verify token attributes
-      const tokenQuery = yield call(T2CRInstance.methods.queryTokens(
-        '0x0000000000000000000000000000000000000000000000000000000000000000',
-        1,
-        [false,true,false,false,false,false,false,false],
-        true,
-        _token.address
-      ).call)
+      const tokenQuery = yield call(
+        T2CRInstance.methods.queryTokens(
+          '0x0000000000000000000000000000000000000000000000000000000000000000',
+          1,
+          [false, true, false, false, false, false, false, false],
+          true,
+          _token.address
+        ).call
+      )
 
       const tokenID = tokenQuery.values[0]
       // If token does not exist we have nothing to check against
       if (tokenID) {
-        const verifiedToken = yield call(T2CRInstance.methods.tokens(tokenID).call)
+        const verifiedToken = yield call(
+          T2CRInstance.methods.tokens(tokenID).call
+        )
         for (let attr of Object.keys(_token)) {
           // If the attribute is not in the list we don't need to worry about it
           const _verifiedAttr = verifiedToken[attr]
@@ -634,9 +648,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
 
       // Verify token address
       const item = yield call(
-        ERC20BadgeInstance.methods.getAddressInfo(
-          _token.address
-        ).call
+        ERC20BadgeInstance.methods.getAddressInfo(_token.address).call
       )
 
       if (!item || Number(item.status) !== 1 || !verified) {
@@ -654,17 +666,19 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     String(metaEvidenceArchon.metaEvidenceJSON.token.decimals) !== '18'
   ) {
     const amountLength = _amount.length
-    const decimalIndex = amountLength - metaEvidenceArchon.metaEvidenceJSON.token.decimals
+    const decimalIndex =
+      amountLength - metaEvidenceArchon.metaEvidenceJSON.token.decimals
     if (decimalIndex < 0) {
-      arbitrableTransaction.amount = parseFloat('0.' + ('0'.repeat(Math.abs(decimalIndex))) + _amount).toString()
+      arbitrableTransaction.amount = parseFloat(
+        '0.' + '0'.repeat(Math.abs(decimalIndex)) + _amount
+      ).toString()
     } else {
-      arbitrableTransaction.amount = parseFloat(_amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)).toString()
+      arbitrableTransaction.amount = parseFloat(
+        _amount.slice(0, decimalIndex) + '.' + _amount.slice(decimalIndex)
+      ).toString()
     }
   } else {
-    arbitrableTransaction.amount = web3.utils.fromWei(
-      _amount,
-      'ether'
-    )
+    arbitrableTransaction.amount = web3.utils.fromWei(_amount, 'ether')
   }
 
   warnings.reverse()
@@ -685,7 +699,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
     ruling,
     appealable: disputeStatus === disputeConstants.APPEALABLE.toString(),
     verified,
-    warnings
+    warnings,
   }
 }
 
@@ -713,7 +727,7 @@ function* createPayOrReimburse({ payload: { arbitrable, id, amount } }) {
       ).send,
       {
         from: accounts[0],
-        value: 0
+        value: 0,
       }
     )
   if (accounts[0] === arbitrableTransaction.receiver)
@@ -724,7 +738,7 @@ function* createPayOrReimburse({ payload: { arbitrable, id, amount } }) {
       ).send,
       {
         from: accounts[0],
-        value: 0
+        value: 0,
       }
     )
 
@@ -749,7 +763,7 @@ function* executeTransaction({ payload: { arbitrable, id } }) {
     multipleArbitrableTransactionEth.methods.executeTransaction(id).send,
     {
       from: accounts[0],
-      value: 0
+      value: 0,
     }
   )
 
@@ -774,10 +788,7 @@ function* createDispute({ payload: { arbitrable, id } }) {
     multipleArbitrableTransactionEth.methods.arbitrator().call
   )
 
-  const arbitratorEth = new web3.eth.Contract(
-    Arbitrator.abi,
-    arbitratorAddress
-  )
+  const arbitratorEth = new web3.eth.Contract(Arbitrator.abi, arbitratorAddress)
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -797,7 +808,7 @@ function* createDispute({ payload: { arbitrable, id } }) {
         .send,
       {
         from: accounts[0],
-        value: arbitrationCost - arbitrableTransaction.receiverFee
+        value: arbitrationCost - arbitrableTransaction.receiverFee,
       }
     )
   }
@@ -808,7 +819,7 @@ function* createDispute({ payload: { arbitrable, id } }) {
         .send,
       {
         from: accounts[0],
-        value: arbitrationCost - arbitrableTransaction.senderFee
+        value: arbitrationCost - arbitrableTransaction.senderFee,
       }
     )
 
@@ -833,10 +844,7 @@ function* createAppeal({ payload: { arbitrable, id } }) {
     multipleArbitrableTransactionEth.methods.arbitrator().call
   )
 
-  const arbitratorEth = new web3.eth.Contract(
-    Arbitrator.abi,
-    arbitratorAddress
-  )
+  const arbitratorEth = new web3.eth.Contract(Arbitrator.abi, arbitratorAddress)
 
   const arbitrableTransaction = yield call(
     multipleArbitrableTransactionEth.methods.transactions(id).call
@@ -855,7 +863,7 @@ function* createAppeal({ payload: { arbitrable, id } }) {
 
   yield call(multipleArbitrableTransactionEth.methods.appeal(id).send, {
     from: accounts[0],
-    value: appealCost
+    value: appealCost,
   })
 
   return yield put(
@@ -885,7 +893,7 @@ function* createTimeout({ payload: { arbitrable, id } }) {
       multipleArbitrableTransactionEth.methods.timeOutByReceiver(id).send,
       {
         from: accounts[0],
-        value: 0
+        value: 0,
       }
     )
   else
@@ -893,7 +901,7 @@ function* createTimeout({ payload: { arbitrable, id } }) {
       multipleArbitrableTransactionEth.methods.timeOutBySender(id).send,
       {
         from: accounts[0],
-        value: 0
+        value: 0,
       }
     )
 
@@ -907,7 +915,7 @@ function* createTimeout({ payload: { arbitrable, id } }) {
  * @param {object} { payload: evidenceReceived, arbitrable, arbitrableTransactionId } - Evidence.
  */
 function* createEvidence({
-  payload: { evidenceReceived, arbitrable, arbitrableTransactionId }
+  payload: { evidenceReceived, arbitrable, arbitrableTransactionId },
 }) {
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
@@ -932,7 +940,7 @@ function* createEvidence({
   const evidence = {
     fileURI,
     name: evidenceReceived.name,
-    description: evidenceReceived.description
+    description: evidenceReceived.description,
   }
 
   const enc = new TextEncoder()
@@ -958,7 +966,7 @@ function* createEvidence({
     ).send,
     {
       from: accounts[0],
-      value: 0
+      value: 0,
     }
   )
 
@@ -967,7 +975,7 @@ function* createEvidence({
   return yield put(
     action(arbitrabletxActions.arbitrabletx.FETCH, {
       arbitrable,
-      id: arbitrableTransactionId
+      id: arbitrableTransactionId,
     })
   )
 }
