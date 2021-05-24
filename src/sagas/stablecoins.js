@@ -13,8 +13,6 @@ import { lessduxSaga } from '../utils/saga'
  * @returns {Array} - The token addresses.
  */
 export function* fetchStablecoins() {
-  if (window.ethereum) yield call(window.ethereum.enable)
-
   const StablecoinBadgeInstance = new web3.eth.Contract(
     ArbitrableAddressList.abi,
     STABLECOIN_ADDRESS

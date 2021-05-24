@@ -8,7 +8,7 @@ import * as walletActions from '../../actions/wallet'
 import * as arbitrabletxActions from '../../actions/arbitrable-transaction'
 import * as walletSelectors from '../../reducers/wallet'
 import ArbitrableTxCards from '../../components/arbitrable-tx-cards'
-import RequiresMetaMaskPage from '../requires-meta-mask-page'
+import RequiresWalletPage from '../requires-wallet-page'
 
 import './home.css'
 
@@ -38,6 +38,12 @@ class Home extends PureComponent {
     fetchArbitrabletxs()
   }
 
+  onEnable = () => {
+    const { fetchBalance, fetchArbitrabletxs } = this.props
+    fetchBalance()
+    fetchArbitrabletxs()
+  }
+
   render() {
     const { arbitrabletx, accounts, arbitrabletxs } = this.props
 
@@ -55,7 +61,7 @@ class Home extends PureComponent {
               />
             )
           }
-          failedLoading={<RequiresMetaMaskPage needsUnlock={false} />}
+          failedLoading={<RequiresWalletPage needsUnlock={false} onEnable={this.onEnable} />}
         />
       </div>
     )

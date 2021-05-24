@@ -1,5 +1,5 @@
 body {
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-bottom: 0; }
 
 .App main {
@@ -19,29 +19,48 @@ body {
   height: 40px;
   line-height: 14px;
   margin-right: 0;
-  padding-left: 15px;
+  padding: 0 16px;
   text-align: left;
-  width: 209px; }
+  text-decoration: none;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  transition: all 0.2s ease-out; }
+  .btn-new:hover, .btn-new:focus {
+    background-color: #1aa4ff;
+    border-color: #1aa4ff; }
   .btn-new-invoice {
     background: transparent;
     border: 1px solid #fff; }
+    .btn-new-invoice:hover, .btn-new-invoice:focus {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: #fff; }
 
 .header {
   position: fixed;
   background: #1e075f;
   width: 100%;
-  z-index: 1000; }
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 24px; }
+
+.header-logo-link {
+  margin-top: 8px;
+  position: relative;
+  z-index: 2; }
 
 .header ul {
   list-style: none;
   overflow: hidden; }
 
-.header li {
-  padding: 20px;
+.menu li {
+  padding: 16px 0;
   text-align: center; }
 
-.header li:hover,
-.header .menu-btn:hover {
+.menu li:hover,
+.menu .menu-btn:hover {
   background-color: #1e075f;
   cursor: pointer; }
 
@@ -51,25 +70,24 @@ body {
   cursor: pointer; }
 
 /* menu */
+.header .menu-wrapper {
+  flex-grow: 1; }
+
 .header .menu {
   clear: both;
   max-height: 0;
-  transition: max-height 0.2s ease-out; }
-  .header .menu-invoice {
-    margin-right: 0px;
-    margin-left: 0px; }
-  .header .menu li {
-    line-height: 40px; }
-    .header .menu li:last-child {
-      margin-bottom: 10px;
-      margin-left: 28px; }
+  transition: max-height 0.2s ease-out;
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end; }
 
 /* menu icon */
 .header .menu-icon {
   cursor: pointer;
   display: inline-block;
   float: right;
-  padding: 28px 20px;
+  padding: 12px 12px;
+  margin: 16px -12px;
   position: relative;
   user-select: none; }
 
@@ -84,7 +102,7 @@ body {
 .header .menu-icon .navicon:before,
 .header .menu-icon .navicon:after {
   background: #fff;
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   position: absolute;
@@ -117,16 +135,70 @@ body {
 .header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
   top: 0; }
 
+input[type="file"] {
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 3px;
+  color: transparent !important;
+  margin-bottom: 7px;
+  padding: 0 !important;
+  width: 100%; }
+  input[type="file"].FileInput-input--noBorder {
+    border: none !important; }
+
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden; }
+
+input[type="file"]::before {
+  background: #009aff;
+  border-radius: 0 3px 3px 0;
+  color: white;
+  content: "Select a File";
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  padding: 10px 18px;
+  -webkit-user-select: none;
+  white-space: nowrap; }
+
+input[type="file"]:active {
+  outline: 0; }
+
+.FileInput {
+  position: relative; }
+  .FileInput input {
+    background: white; }
+  .FileInput-filename {
+    color: #4a4a4a;
+    font-size: 18px;
+    left: 17px;
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%); }
+
+@media (max-width: 486px) {
+  .menu-wrapper {
+    margin-top: -54px; } }
+
 /* 48em = 768px */
 @media (min-width: 48em) {
   .App main {
     padding: 100px 2em 120px 2em; }
-  .header ul {
-    padding-right: 30px; }
-  .header li {
+  .header {
+    justify-content: space-between; }
+  .menu li {
     float: left;
     text-align: left;
     padding: 0; }
+  .header .menu-wrapper {
+    flex-grow: 0;
+    margin-top: 0; }
+  .header .account-wrapper {
+    margin: 0 16px 0 auto;
+    flex-basis: auto;
+    order: initial; }
   .header .menu {
     clear: none;
     float: right;
@@ -145,46 +217,3 @@ body {
 @media (min-width: 1200px) {
   .App main {
     width: 1200px; } }
-
-input[type='file'] {
-  border: 1px solid #d9d9d9 !important;
-  border-radius: 3px;
-  color: transparent !important;
-  margin-bottom: 7px;
-  padding: 0 !important;
-  width: 100%; }
-  input[type='file'].FileInput-input--noBorder {
-    border: none !important; }
-
-input[type='file']::-webkit-file-upload-button {
-  visibility: hidden; }
-
-input[type='file']::before {
-  background: #009aff;
-  border-radius: 0 3px 3px 0;
-  color: white;
-  content: 'Select a File';
-  cursor: pointer;
-  display: inline-block;
-  float: right;
-  font-size: 14px;
-  font-weight: 500;
-  outline: none;
-  padding: 10px 18px;
-  -webkit-user-select: none;
-  white-space: nowrap; }
-
-input[type='file']:active {
-  outline: 0; }
-
-.FileInput {
-  position: relative; }
-  .FileInput input {
-    background: white; }
-  .FileInput-filename {
-    color: #4a4a4a;
-    font-size: 18px;
-    left: 17px;
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%); }

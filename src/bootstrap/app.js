@@ -1,107 +1,50 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Helmet } from 'react-helmet'
-import { Provider } from 'react-redux'
-import { Router, navigate } from '@reach/router'
+import React from "react";
+import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
+import { Provider } from "react-redux";
+import { Router, Link } from "@reach/router";
+import { Web3ReactProvider } from "@web3-react/core";
+import Web3 from "web3";
 
-import Initializer from './initializer'
-import Home from '../containers/home'
-import ArbitrableTx from '../containers/arbitrable-tx'
-import New from '../containers/arbitrable-tx/new'
-import Resume from '../containers/arbitrable-tx/resume'
-import Footer from '../components/footer'
-import Notifications from '../containers/settings'
-import { ReactComponent as Kleros } from '../assets/kleros.svg'
-import { ReactComponent as Transaction } from '../assets/transaction.svg'
-import { ReactComponent as Envelope } from '../assets/envelope.svg'
-import { ReactComponent as Invoice } from '../assets/invoice.svg'
+import Initializer from "./initializer";
+import Home from "../containers/home";
+import ArbitrableTx from "../containers/arbitrable-tx";
+import New from "../containers/arbitrable-tx/new";
+import Resume from "../containers/arbitrable-tx/resume";
+import Footer from "../components/footer";
+import Notifications from "../containers/settings";
+import AccountInfo from "../containers/account-info";
+import { ReactComponent as Kleros } from "../assets/kleros.svg";
+import { ReactComponent as Transaction } from "../assets/transaction.svg";
+import { ReactComponent as Invoice } from "../assets/invoice.svg";
 
-import './app.css'
+import "./app.css";
 
-const NotFound = () => <div>Sorry, nothing here.</div>
-
-const Main = ({ children }) => (
-  <div className="App">
-    <header className="header">
-      <Kleros
-        className="logo"
-        onClick={() => navigate('/')}
-        style={{
-          position: 'relative',
-          top: '8px',
-          left: '20px',
-          width: 'auto',
-          height: '46px'
-        }}
-      />
-      <input className="menu-btn" type="checkbox" id="menu-btn" />
-      <label className="menu-icon" htmlFor="menu-btn">
-        <span className="navicon" />
-      </label>
-      <ul className="menu">
-        <li
-          className="menu-transaction"
-          onClick={() => navigate('/new/invoice')}
-        >
-          <span className="btn-new" style={{
-              background: "#1E075F",
-              border: "1px solid white"
-            }}>
-            <Invoice
-              style={{
-                position: 'relative',
-                top: '7px',
-                height: '24px',
-                marginRight: '10px'
-              }}
-            />
-            New Invoice
-          </span>
-        </li>
-        <li
-          className="menu-transaction"
-          onClick={() => navigate('/new/payment')}
-        >
-          <span className="btn-new">
-            <Transaction
-              style={{
-                position: 'relative',
-                top: '7px',
-                height: '24px',
-                marginRight: '10px'
-              }}
-            />
-            New Payment
-          </span>
-        </li>
-      </ul>
-    </header>
-    <main>{children}</main>
-    <Footer />
-  </div>
-)
-
-const App = ({ store }) => (
-  <Provider store={store}>
-    <Initializer>
-      <>
-        <Helmet>
-          <title>Kleros · Escrow</title>
-        </Helmet>
-        <Router>
-          <Main path="/">
-            <Home path="/" />
-            <New path="/new/:type" />
-            <ArbitrableTx path="/contract/:contract/payment/:arbitrableTxId" />
-            <Notifications path="/notifications" />
-            <Resume path="/:type/:metaEvidenceIPFSHash" />
-            <NotFound default />
-          </Main>
-        </Router>
-      </>
-    </Initializer>
-  </Provider>
-)
+export default function App({ store }) {
+  return (
+    <Provider store={store}>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Initializer>
+          <>
+            <Helmet>
+              <title>Kleros · Escrow</title>
+            </Helmet>
+            <Router>
+              <Main path="/">
+                <Home path="/" />
+                <New path="/new/:type" />
+                <ArbitrableTx path="/contract/:contract/payment/:arbitrableTxId" />
+                <Notifications path="/notifications" />
+                <Resume path="/:type/:metaEvidenceIPFSHash" />
+                <NotFound default />
+              </Main>
+            </Router>
+          </>
+        </Initializer>
+      </Web3ReactProvider>
+    </Provider>
+  );
+}
 
 App.propTypes = {
   // State
@@ -109,10 +52,57 @@ App.propTypes = {
 
   // Testing
   testElement: PropTypes.element
-}
+};
 
 App.defaultProps = {
   testElement: null
+};
+
+function getLibrary(provider) {
+  return new Web3(provider);
 }
 
-export default App
+function Main({ children }) {
+  return (
+    <div className="App">
+      <header className="header">
+        <Link to="/" className="header-logo-link">
+          <Kleros
+            className="logo"
+            style={{
+              height: "46px",
+              width: "auto"
+            }}
+          />
+        </Link>
+        <AccountInfo />
+        <div className="menu-wrapper">
+          <input className="menu-btn" type="checkbox" id="menu-btn" />
+          <label className="menu-icon" htmlFor="menu-btn">
+            <span className="navicon" />
+          </label>
+          <ul className="menu">
+            <li className="menu-transaction">
+              <Link to="/new/invoice" className="btn-new btn-new-invoice">
+                <Invoice className="btn-icon" />
+                New Invoice
+              </Link>
+            </li>
+            <li className="menu-transaction">
+              <Link to="/new/payment" className="btn-new">
+                <Transaction className="btn-icon" />
+                New Payment
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+}
+
+function NotFound() {
+  return <div>Sorry, nothing here.</div>;
+}

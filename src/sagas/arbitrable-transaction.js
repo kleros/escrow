@@ -36,7 +36,6 @@ import ipfsPublish from './api/ipfs-publish'
  * @param {object} { payload: arbitrabletxReceived } - The arbitrable transaction to create.
  */
 function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -120,7 +119,6 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
  * @param {object} { payload: metaEvidence } - The MetaEvidence.
  */
 function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -316,7 +314,7 @@ function* createArbitrabletx({
       arbitrabletxReceived.token.allowance :
       "0"
     )
-    
+
     const erc20 = new web3.eth.Contract(
       ERC20.abi,
       arbitrabletxReceived.token.address
@@ -371,7 +369,6 @@ function* createArbitrabletx({
  * Fetches arbitrableTxs for the current user and puts them in the store.
  */
 function* fetchArbitrabletxs() {
-  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
@@ -460,7 +457,6 @@ function* fetchArbitrabletxs() {
  * @param {object} { payload: arbitrable, id } - The id of the arbitrable transaction to fetch details for.
  */
 function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
-  if (window.ethereum) yield call(window.ethereum.enable)
   const accounts = yield call(web3.eth.getAccounts)
   if (!accounts[0]) throw new Error(errorConstants.ETH_NO_ACCOUNTS)
 
