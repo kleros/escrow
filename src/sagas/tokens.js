@@ -20,8 +20,6 @@ const ZERO_BYTES32 = '0x00000000000000000000000000000000000000000000000000000000
  * @returns {number} - The balance.
  */
 export function* fetchTokens() {
-  if (window.ethereum) yield call(window.ethereum.enable)
-
   const arbitrableTokenListInstance = new web3.eth.Contract(
     ArbitrableTokenList.abi,
     T2CR_ADDRESS

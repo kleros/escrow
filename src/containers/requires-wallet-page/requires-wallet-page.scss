@@ -1,0 +1,123 @@
+/* @define RequiresWalletPage */
+.RequiresWalletPage {
+  background: #eee;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 42px 60px 52px 73px;
+
+  &-content {
+    margin-bottom: 32px;
+  }
+
+  &-title {
+    color: #808080;
+    padding: 0.1em 0 0.5em 0;
+    margin-bottom: 32px;
+    text-align: center;
+    font-size: 2em;
+    line-height: 1.125;
+  }
+
+  &-list {
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+
+    &-item {
+      flex: calc(50% - 16px) 1 1;
+    }
+
+    &-content {
+      text-align: center;
+    }
+
+    &-title {
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    &-description {
+      font-weight: 400;
+      line-height: 1.33;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 992px) {
+      flex-wrap: wrap;
+
+      &-item {
+        flex: 100% 0 0;
+      }
+    }
+
+    @media (min-width: 576px) and (max-width: 992px) {
+      &-item {
+        display: flex;
+        gap: 32px;
+      }
+
+      &-content {
+        text-align: left;
+      }
+    }
+  }
+
+  &-list &-support-a {
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+    padding: 0;
+    padding-top: 40px;
+  }
+
+  &-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+
+    @media (min-width:576px) and (max-width: 992px) {
+      display: block;
+      margin-bottom: 0;
+    }
+  }
+
+  &-logo {
+    height: 105px;
+    width: 100px;
+  }
+
+  &-content {
+    flex: 1 1;
+  }
+
+  &-support-a {
+    text-decoration: none;
+    color: #009aff;
+  }
+
+  &-FAQ {
+    text-align: center;
+    padding: 32px;
+    color: #fff;
+
+    &-description {
+      margin-bottom: 8px;
+    }
+  }
+
+  &-FAQ > &-support {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  &-connection-error {
+    color: #fc2133;
+    margin-top: 16px;
+  }
+}
