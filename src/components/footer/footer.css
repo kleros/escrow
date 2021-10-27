@@ -6,7 +6,7 @@
   padding: 18px 25px;
   width: 100%;
   margin-top: -60px; }
-  @media (max-width: 768px) {
+  @media (max-width: 896px) {
     .footer {
       display: none; } }
   .footer a {
@@ -34,7 +34,7 @@
         width: 18px;
         position: relative;
         top: 4px; }
-      @media (max-width: 1130px) {
+      @media (max-width: 1600px) {
         .footer-right-help {
           width: 100%; } }
     .footer-right-icons {
@@ -44,6 +44,6 @@
       top: 3px; }
       .footer-right-icons a {
         padding-right: 10px; }
-      @media (max-width: 1130px) {
+      @media (max-width: 1600px) {
         .footer-right-icons {
           display: none; } }

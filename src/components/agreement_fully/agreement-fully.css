@@ -54,7 +54,7 @@
     font-size: 14px;
     line-height: 18px; }
 
-@media (max-width: 48em) {
+@media (max-width: 56em) {
   .AgreementFully {
     margin: 0 4px; }
     .AgreementFully-modal-buttons {
