@@ -17,6 +17,7 @@ import AccountInfo from "../containers/account-info";
 import { ReactComponent as Kleros } from "../assets/kleros.svg";
 import { ReactComponent as Transaction } from "../assets/transaction.svg";
 import { ReactComponent as Invoice } from "../assets/invoice.svg";
+import { ReactComponent as QuestionIcon } from "../assets/question-circle.svg";
 
 import "./app.css";
 
@@ -93,6 +94,21 @@ function Main({ children }) {
                 <Transaction className="btn-icon" />
                 New Payment
               </Link>
+            </li>
+            <li className="menu-transaction">
+              <a
+                href={
+                  "https://kleros.gitbook.io/docs/products/escrow/" +
+                  "new-in-progress-kleros-escrow-tutorial"
+                }
+                rel="noopener noreferrer"
+                target="blank"
+                className='btn-new btn-new-invoice'
+                style={{border: "none"}}
+              >
+                <QuestionIcon className="btn-icon" />
+                Tutorial
+              </a>
             </li>
           </ul>
         </div>

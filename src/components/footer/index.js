@@ -21,7 +21,7 @@ const Footer = () => (
         <div className='footer-right-help'>
           <a href="https://t.me/kleros">
             <div className="footer-right-help-text">
-              I need help
+              I need human help
             </div>
             <Question className="footer-right-help-icon"/>
           </a>
