@@ -39,8 +39,8 @@
 .Checkbox {
   margin: 1em 1em 2em 0; }
 
-/* 48em = 768px */
-@media (max-width: 48em) {
+/* 56em = 896px */
+@media (max-width: 56em) {
   .EmailForm {
     padding: 0 15px 10px 15px;
     margin: 0 4px; }

@@ -50,7 +50,7 @@
     padding-top: 2em;
     padding-right: 15%; }
 
-@media (max-width: 48em) {
+@media (max-width: 56em) {
   .NewEvidenceArbitrableTx {
     margin: 0 4px; }
     .NewEvidenceArbitrableTx-footer {

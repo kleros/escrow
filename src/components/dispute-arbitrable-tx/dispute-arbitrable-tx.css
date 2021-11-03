@@ -16,7 +16,7 @@
     background: #1e075f;
     min-height: 70px; }
 
-@media (max-width: 48em) {
+@media (max-width: 56em) {
   .DisputeArbitrableTx {
     margin: 0 4px; }
     .DisputeArbitrableTx-message {

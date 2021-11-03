@@ -234,9 +234,8 @@ input[type="file"]:active {
   }
 }
 
-/* 48em = 768px */
-
-@media (min-width: 48em) {
+/* 56em = 896px */
+@media (min-width: 56em) {
   .App {
     main {
       padding: 100px 2em 120px 2em;

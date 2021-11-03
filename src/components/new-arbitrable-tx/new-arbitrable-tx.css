@@ -212,7 +212,7 @@
 span.error {
   display: none; }
 
-@media (max-width: 48em) {
+@media (max-width: 56em) {
   .NewArbitrableTx {
     border: none;
     box-shadow: none;

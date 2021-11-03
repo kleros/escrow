@@ -32,7 +32,7 @@
   .rangeslider-horizontal .rangeslider__fill {
     background-color: #009AFF !important; }
 
-@media (max-width: 48em) {
+@media (max-width: 56em) {
   .PayOrReimburseArbitrableTx {
     width: 100%; }
     .PayOrReimburseArbitrableTx-yes {
