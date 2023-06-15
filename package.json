@@ -71,6 +71,9 @@
     "build": "yarn run build:scss && yarn run build:js",
     "build:analyze": "source-map-explorer build/static/js/main.*"
   },
+  "overrides": {
+    "websocket": "https://github.com/frozeman/WebSocket-Node.git#browserifyCompatible"
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
