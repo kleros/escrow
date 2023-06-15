@@ -31,7 +31,7 @@ const Footer = () => (
           <a href="https://github.com/kleros"><Github /></a>
           <a href="https://blog.kleros.io/"><Ghost /></a>
           <a href="https://www.linkedin.com/company/kleros/"><LinkedIn /></a>
-          <a href="https://t.me/kleros"><Telegram/></a>
+          <a href="https://t.me/klerosescrow"><Telegram/></a>
         </div>
       </div>
   </div>
