@@ -60,7 +60,7 @@ export function* fetchTokens() {
       token.address = _token.addr
       token.symbolURI = (
         _token.symbolMultihash[0] === '/'
-          ? `https://ipfs.kleros.io${_token.symbolMultihash}`
+          ? `https://cdn.kleros.link${_token.symbolMultihash}`
           : `https://production-doges-on-trial-doge-images.s3.us-east-2.amazonaws.com/${_token.symbolMultihash}`
       )
 

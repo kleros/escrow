@@ -23,7 +23,7 @@ let STABLECOIN_ADDRESS;
 let ARBITRABLE_TOKEN_ADDRESSES = [];
 let TOKENS_VIEW_ADDRESS;
 
-export const updateAddresses = networkID => {
+export const updateAddresses = (networkID) => {
   let networkName;
   switch (networkID) {
     case 1:
@@ -50,7 +50,7 @@ export const updateAddresses = networkID => {
 
 web3.eth.net.getId().then(updateAddresses);
 
-const archon = new Archon(web3.currentProvider, "https://ipfs.kleros.io");
+const archon = new Archon(web3.currentProvider, "https://cdn.kleros.link");
 
 const ETHAddressRegExpCaptureGroup = "(0x[a-fA-F0-9]{40})";
 const ETHAddressRegExp = /0x[a-fA-F0-9]{40}/;
@@ -67,5 +67,5 @@ export {
   ETHAddressRegExpCaptureGroup,
   ETHAddressRegExp,
   strictETHAddressRegExp,
-  TOKENS_VIEW_ADDRESS
+  TOKENS_VIEW_ADDRESS,
 };
