@@ -8,7 +8,7 @@ const ipfsPublish = async (fileName, data) => {
   const formData = new FormData()
 
   formData.append('data', data, fileName)
-  const url = `https://deploy-preview-14--kleros-api.netlify.app/.netlify/functions/upload-to-ipfs?operation=evidence&pinToGraph=false`
+  const url = `https://kleros-api.netlify.app/.netlify/functions/upload-to-ipfs?operation=evidence&pinToGraph=false`
 
   return new Promise((resolve, reject) => {
     fetch(url, {
