@@ -34,7 +34,7 @@ const Attachment = ({ URI, title, description }) => {
       />
       {URI.split('.').pop() !== '' ? (
         <a
-          href={URI.replace(/^\/ipfs\//, 'https://ipfs.kleros.io/ipfs/')}
+          href={URI.replace(/^\/ipfs\//, 'https://cdn.kleros.link/ipfs/')}
           rel="noopener noreferrer"
           target="_blank"
           className="Attachment"

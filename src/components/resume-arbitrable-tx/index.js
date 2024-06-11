@@ -92,7 +92,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => (
                 id="amount-iframe"
                 className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame"
                 frameBorder="0"
-                src={`https://ipfs.kleros.io/ipfs/QmUzYw68A7EnpRkSQAk8N3Cm72ba9qY4xnAjQSuGLgMWS3/index.html?${encodeURIComponent(
+                src={`https://cdn.kleros.link/ipfs/QmUzYw68A7EnpRkSQAk8N3Cm72ba9qY4xnAjQSuGLgMWS3/index.html?${encodeURIComponent(
                   JSON.stringify({
                     arbitrableContractAddress: arbitrabletx.arbitrableAddress,
                     arbitratorContractAddress: arbitrabletx.arbitratorAddress,

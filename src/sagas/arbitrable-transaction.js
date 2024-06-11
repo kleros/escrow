@@ -74,7 +74,7 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
       receiver: arbitrabletxForm.receiver,
       title: arbitrabletxForm.title,
       description: arbitrabletxForm.description,
-      fileURI: `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`,
+      fileURI: fileIpfsHash,
       amount: arbitrabletxForm.amount,
       timeout: arbitrabletxForm.timeout,
       subCategory: arbitrabletxForm.subCategory,
@@ -101,15 +101,16 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
   const enc = new TextEncoder()
 
   // Upload the meta-evidence to IPFS
-  const ipfsHashMetaEvidenceObj = yield call(
+  const ipfsHashMetaEvidence = yield call(
     ipfsPublish,
     'metaEvidence.json',
     enc.encode(JSON.stringify(metaEvidence))
   )
 
+  const hash = ipfsHashMetaEvidence.split("/")[2]
   if (arbitrabletxForm.type === 'invoice')
-    navigate(`/invoice/${ipfsHashMetaEvidenceObj[1].hash}`)
-  else navigate(`/payment/${ipfsHashMetaEvidenceObj[1].hash}`)
+    navigate(`/invoice/${hash}`)
+  else navigate(`/payment/${hash}`)
 
   return arbitrabletxForm
 }
@@ -239,7 +240,7 @@ function* fetchMetaEvidence({ type, payload: { metaEvidenceIPFSHash } }) {
         invoice: metaEvidenceDecoded.invoice,
         timeout: metaEvidenceDecoded.timeout,
         file: metaEvidenceDecoded.fileURI
-          ? `https://ipfs.kleros.io${metaEvidenceDecoded.fileURI}`
+          ? `https://cdn.kleros.link${metaEvidenceDecoded.fileURI}`
           : null,
         shareLink: `https://escrow.kleros.io/resume/${metaEvidenceIPFSHash}`,
         extraData: metaEvidenceDecoded.extraData || {},
@@ -526,7 +527,7 @@ function* fetchArbitrabletx({ payload: { arbitrable, id } }) {
   )
 
   if (metaEvidenceArchon.metaEvidenceJSON.fileURI)
-    arbitrableTransaction.file = `https://ipfs.kleros.io${
+    arbitrableTransaction.file = `https://cdn.kleros.link${
       metaEvidenceArchon.metaEvidenceJSON.fileURI
     }`
 
@@ -915,13 +916,13 @@ function* createEvidence({
     const data = yield call(readFile, evidenceReceived.file.dataURL)
 
     // Upload the meta-evidence then return an ipfs hash
-    const fileIpfsHash = yield call(
+    fileURI = yield call(
       ipfsPublish,
       evidenceReceived.file.name,
       data
     )
 
-    fileURI = `/ipfs/${fileIpfsHash[1].hash}${fileIpfsHash[0].path}`
+  
   }
 
   // Pass IPFS path for URI. No need for fileHash
@@ -934,13 +935,12 @@ function* createEvidence({
   const enc = new TextEncoder()
 
   // Upload the meta-evidence to IPFS
-  const ipfsHashMetaEvidenceObj = yield call(
+   ipfsHashMetaEvidence = yield call(
     ipfsPublish,
     'evidence.json',
     enc.encode(JSON.stringify(evidence)) // encode to bytes
   )
-  ipfsHashMetaEvidence =
-    ipfsHashMetaEvidenceObj[1].hash + ipfsHashMetaEvidenceObj[0].path
+
 
   const multipleArbitrableTransactionEth = new web3.eth.Contract(
     getAbiForArbitrableAddress(arbitrable),
@@ -950,7 +950,7 @@ function* createEvidence({
   const txHash = yield call(
     multipleArbitrableTransactionEth.methods.submitEvidence(
       arbitrableTransactionId, // force id to be a string
-      `/ipfs/${ipfsHashMetaEvidence}`
+      ipfsHashMetaEvidence
     ).send,
     {
       from: accounts[0],
