@@ -71,8 +71,10 @@ const NewArbitrableTx = ({ formArbitrabletx, accounts, balance, tokens, template
             if (values.description.length < 1)
               errors.description =
                 'Description is required.'
-            if (showFileUpload && values.file.size > 1024 * 1024 * 4)
+            if (showFileUpload && values.file.size > 1024 * 1024 * 4) {
               errors.file = 'The file is too big. The maximum size is 4MB.'
+              alert('The file is too big. The maximum size is 4MB.')
+            }
             for (let extraDetailsKeys of Object.keys(template.optionalInputs)) {
               if (!values.extraData[extraDetailsKeys])
                 errors[extraDetailsKeys] = 'Field required'
