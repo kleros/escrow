@@ -66,10 +66,8 @@ const NewInvoiceArbitrableTx = ({ formArbitrabletx, accounts }) => {
           if (values.description.length > 1000000)
             errors.description =
               'The description is too long. The maximum length is 1,000,000 characters.'
-          if (values.file.size > 1024 * 1024 * 4) {
+          if (values.file.size > 1024 * 1024 * 4)
             errors.file = 'The file is too big. The maximum size is 4MB.'
-            alert('The file is too big. The maximum size is 4MB.')  
-          }
           return errors
         }}
         // eslint-disable-next-line react/jsx-no-bind
