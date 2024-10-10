@@ -59,6 +59,12 @@ function* formArbitrabletx({ type, payload: { arbitrabletxForm } }) {
   }
 
   if (arbitrabletxForm.file) {
+    // The backend cannot handle files larger than 4MB
+    const maxSizeInBytes = 4 * 1024 * 1024;
+    if (arbitrabletxForm.file.size > maxSizeInBytes) {
+      alert('File is too large. Maximum size is 4MB.');
+      return;
+    }
     const data = yield call(readFile, arbitrabletxForm.file.dataURL)
     // Upload the meta-evidence then return an ipfs hash
     const fileIpfsHash = yield call(
