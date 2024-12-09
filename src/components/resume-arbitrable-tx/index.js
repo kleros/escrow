@@ -11,7 +11,7 @@ import DetailsArea from '../details-area'
 import './resume-arbitrable-tx.css'
 
 const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
-  const asset = (arbitrabletx.data.token ? arbitrabletx.data.token.ticker : 'ETH')
+  const asset = (arbitrabletx.token ? arbitrabletx.token.ticker : 'ETH')
 
   return (
     <>
@@ -91,7 +91,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             </div>
             { arbitrabletx.id ? (
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
-                Current Payment Balance: {arbitrabletx.data.amount} {asset}
+                Current Payment Balance: {arbitrabletx.amount} {asset}
                 {arbitrabletx.warnings && arbitrabletx.warnings.length ? (
                     <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
                       TOKEN WARNINGS: Please asses these warnings carefully before continuing.
