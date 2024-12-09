@@ -91,7 +91,9 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
             </div>
             { arbitrabletx.id ? (
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
-                Current Payment Balance: {arbitrabletx.amount} {asset}
+                <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-content">
+                  {arbitrabletx.amount} {asset}
+                </div>
                 {arbitrabletx.warnings && arbitrabletx.warnings.length ? (
                     <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
                       TOKEN WARNINGS: Please asses these warnings carefully before continuing.

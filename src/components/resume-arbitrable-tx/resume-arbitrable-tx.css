@@ -43,10 +43,8 @@
         color: red;
         font-size: 12px;
         margin-top: 5px; }
-    .ResumeArbitrableTx-ContentNewArbitrableTx-amount-frame {
+    .ResumeArbitrableTx-ContentNewArbitrableTx-amount-content {
       grid-area: amount;
-      width: 100%;
-      height: 280px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-file {
       grid-area: nameFile; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-file {
