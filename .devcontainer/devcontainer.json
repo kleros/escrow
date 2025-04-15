@@ -5,5 +5,7 @@
     "ghcr.io/enricosecondulfo/devcontainer-features/volta:1": {}
   },
   "postCreateCommand": "yarn install",
-  "forwardPorts": [3000]
+  "forwardPorts": [3000],
+  "runArgs": ["--platform=linux/amd64"],
+  "remoteUser": "node"
 }
