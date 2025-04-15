@@ -6,6 +6,7 @@
   },
   "postCreateCommand": "yarn install",
   "forwardPorts": [3000],
-  "runArgs": ["--platform=linux/amd64"],
   "remoteUser": "node"
+  // Uncomment if running into ARM64 issues
+  //"runArgs": ["--platform=linux/amd64"]
 }
