@@ -8,12 +8,9 @@
 
 ### Notes on development container configuration
 
-- `remoteUser: "node"`
+- The container runs as the `node` user by default for improved security. If you encounter permission errors, you can either:
 
-  - The container runs as the `node` user by default for better security. If you encounter permission errors, you can either:
-    - Configure the necessary permissions on your system, or
-    - Remove `remoteUser: "node"` to run as `root`.
+  - Configure the necessary permissions on your system, or
+  - Remove `remoteUser: "node"` to run as `root`.
 
-- `runArgs:["--platform=linux/amd64"]`
-  - This attempts to run Node 10 on ARM64 machines through AMD64 emulation. If you don't need it, you can remove it.
-  - Note that ARM64 compatibility issues may still happen. The project currently works best on AMD64 systems.
+- If running into ARM64 related issues, you can try to uncomment the `runArgs:["--platform=linux/amd64"]` line.
