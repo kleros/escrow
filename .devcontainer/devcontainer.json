@@ -1,10 +1,12 @@
 {
   "name": "Kleros Escrow V1",
-  "image": "node:10",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node",
   "features": {
-    "ghcr.io/enricosecondulfo/devcontainer-features/volta:1": {}
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.8"
+    }
   },
-  "postCreateCommand": "yarn install",
+  "postCreateCommand": "curl https://get.volta.sh | bash && export VOLTA_HOME=\"$HOME/.volta\" && export PATH=\"$VOLTA_HOME/bin:$PATH\" && yarn install",
   "forwardPorts": [3000],
   "remoteUser": "node"
   // Uncomment if running into ARM64 issues
