@@ -11,7 +11,7 @@ export default function AccountInfo() {
   useReloadOnChainChanged({ chainId });
 
   const [showMenu, setShowMenu] = React.useState(false);
-  const toggleMenu = React.useCallback(() => setShowMenu(show => !show), []);
+  const toggleMenu = React.useCallback(() => setShowMenu((show) => !show), []);
   const hideMenu = React.useCallback(() => setShowMenu(false), []);
 
   const dropdownRef = React.useRef(null);
@@ -50,7 +50,7 @@ export default function AccountInfo() {
 
 const chainIdToNetworkName = {
   1: "Mainnet",
-  42: "Kovan"
+  11155111: "Sepolia",
 };
 
 function useReloadOnChainChanged({ chainId }) {
