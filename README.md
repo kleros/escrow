@@ -14,3 +14,5 @@
   - Remove `remoteUser: "node"` to run as `root`.
 
 - If running into ARM64 related issues, you can try to uncomment the `runArgs:["--platform=linux/amd64"]` line.
+
+- If running into node version errors when running `yarn start`, try rebuilding the container without cache.
