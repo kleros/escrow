@@ -96,7 +96,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                 </div>
                 {arbitrabletx.warnings && arbitrabletx.warnings.length ? (
                     <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
-                      TOKEN WARNINGS: Please asses these warnings carefully before continuing.
+                      TOKEN WARNINGS: Please assess these warnings carefully before continuing.
                     </div>
                   ) : ''
                 }
@@ -113,7 +113,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
                 {`${arbitrabletx.amount} ${arbitrabletx.token ? arbitrabletx.token.ticker : ''} (${arbitrabletx.token.name})`}
                 {arbitrabletx.warnings.length ? (
                     <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount-warning">
-                      WARNINGS: Please asses these warnings carefully before continuing.
+                      WARNINGS: Please assess these warnings carefully before continuing.
                     </div>
                   ) : ''
                 }
