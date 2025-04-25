@@ -87,7 +87,7 @@ const ResumeArbitrableTx = ({ arbitrabletx, title, children, footer }) => {
               </>
             )}
             <div className="ResumeArbitrableTx-ContentNewArbitrableTx-name ResumeArbitrableTx-ContentNewArbitrableTx-name-amount">
-              Amount
+              Amount in Escrow
             </div>
             { arbitrabletx.id ? (
               <div className="ResumeArbitrableTx-ContentNewArbitrableTx-amount">
