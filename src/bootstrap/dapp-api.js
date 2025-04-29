@@ -29,8 +29,8 @@ export const updateAddresses = (networkID) => {
     case 1:
       networkName = "MAINNET";
       break;
-    case 42:
-      networkName = "KOVAN";
+    case 11155111:
+      networkName = "SEPOLIA";
       break;
     default:
       break;
