@@ -44,7 +44,7 @@
         font-size: 12px;
         margin-top: 5px; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-amount-content {
-      grid-area: amount;}
+      grid-area: amount; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-name-file {
       grid-area: nameFile; }
     .ResumeArbitrableTx-ContentNewArbitrableTx-content-file {
