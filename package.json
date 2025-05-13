@@ -32,7 +32,6 @@
     "react-dom": "16.7.0-alpha.2",
     "react-formik-ui": "^2.3.16",
     "react-helmet": "^5.2.0",
-    "react-rangeslider": "^2.2.0",
     "react-redux": "^5.1.1",
     "react-responsive-modal": "^3.5.1",
     "react-scripts": "^2.1.1",
